@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="703-4V-yAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="703-4V-yAM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--Root View Controller-->
@@ -20,7 +20,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-101" y="-243"/>
+            <point key="canvasLocation" x="-177" y="-243"/>
         </scene>
         <!--Data View Controller-->
         <scene sceneID="snT-py-3hH">
@@ -42,7 +42,27 @@
                             </label>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s1b-V9-EN7">
                                 <rect key="frame" x="20" y="44" width="560" height="536"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5c-60-CfS">
+                                        <rect key="frame" x="223" y="127" width="115" height="30"/>
+                                        <state key="normal" title="Maddocks Score"/>
+                                        <connections>
+                                            <segue destination="bmr-eU-q3Z" kind="show" id="9PH-Uk-5Tw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8TB-RR-Yqh">
+                                        <rect key="frame" x="185" y="78" width="190" height="30"/>
+                                        <state key="normal" title="Glasgow Coma Scale (GCS)"/>
+                                        <connections>
+                                            <segue destination="OPa-ag-433" kind="show" id="oe5-3z-JX8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="8TB-RR-Yqh" firstAttribute="centerX" secondItem="s1b-V9-EN7" secondAttribute="centerX" id="tKD-2q-Kel"/>
+                                    <constraint firstItem="d5c-60-CfS" firstAttribute="centerX" secondItem="s1b-V9-EN7" secondAttribute="centerX" id="y92-g6-kwf"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -63,6 +83,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GmD-Rr-ZGN" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="597" y="-243"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="w33-bA-WFh">
+            <objects>
+                <viewController id="OPa-ag-433" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NA4-p2-0nl"/>
+                        <viewControllerLayoutGuide type="bottom" id="xce-Jd-85D"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JMe-2H-lRb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="POL-VU-QlH">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Glasgow Coma Score (GCS)" id="iBO-hu-Qrx">
+                                        <barButtonItem key="backBarButtonItem" title="Back" id="un5-Sk-i1g"/>
+                                        <connections>
+                                            <outlet property="titleView" destination="POL-VU-QlH" id="HMU-Zq-f2j"/>
+                                        </connections>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="POL-VU-QlH" firstAttribute="centerX" secondItem="JMe-2H-lRb" secondAttribute="centerX" id="666-hk-aCa"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JKm-Fk-I0q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1314" y="-243"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="eKo-uI-FkY">
+            <objects>
+                <viewController id="bmr-eU-q3Z" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Rqm-vN-Rml"/>
+                        <viewControllerLayoutGuide type="bottom" id="BvM-Zf-id8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="W99-v6-znC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" text="Maddocks Score" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LBs-RG-6qm">
+                                <rect key="frame" x="236" y="28" width="129" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LBs-RG-6qm" firstAttribute="centerX" secondItem="W99-v6-znC" secondAttribute="centerX" id="iY3-hV-gx7"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eBx-5B-2w0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1314" y="542"/>
         </scene>
     </scenes>
 </document>
