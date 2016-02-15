@@ -36,8 +36,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ">
-                                <rect key="frame" x="20" y="20" width="560" height="17"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ">
+                                <rect key="frame" x="20" y="19" width="560" height="17"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -315,6 +315,29 @@
                                     <segment title="6"/>
                                 </segments>
                             </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="MS8-z2-FnC">
+                                <rect key="frame" x="241" y="370" width="326" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="MS8-z2-FnC" secondAttribute="height" multiplier="163:14" id="81H-U6-cSg"/>
+                                    <constraint firstAttribute="width" secondItem="MS8-z2-FnC" secondAttribute="height" multiplier="163:14" id="9f1-zQ-rIa"/>
+                                    <constraint firstAttribute="height" constant="28" id="Un5-8o-6Nh"/>
+                                    <constraint firstAttribute="width" constant="326" id="d8P-dH-TVV"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="326" id="feE-eQ-vQ9"/>
+                                    <constraint firstAttribute="width" secondItem="MS8-z2-FnC" secondAttribute="height" multiplier="163:14" id="jdw-q6-0KJ"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="kdJ-Wr-Ly0"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="28" id="nxh-wg-F2h"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="326" id="ojX-6a-Hci"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="0"/>
+                                    <segment title="1"/>
+                                    <segment title="2"/>
+                                    <segment title="3"/>
+                                    <segment title="4"/>
+                                    <segment title="5"/>
+                                    <segment title="6"/>
+                                </segments>
+                            </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1JU-pe-kJ9">
                                 <rect key="frame" x="241" y="410" width="326" height="29"/>
                                 <constraints>
@@ -399,6 +422,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="LrM-e7-Yfs"/>
+                                        <exclude reference="ba6-jf-gQr"/>
+                                    </mask>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance Problems" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frI-UC-XNS">
                                 <rect key="frame" x="24" y="373" width="138" height="21"/>
@@ -517,38 +546,32 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="WIG-ZO-6nF">
+                                <rect key="frame" x="257" y="555" width="39" height="37"/>
+                            </pageControl>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOg-EV-vzN">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="MOg-EV-vzN" secondAttribute="height" multiplier="150:11" id="0GT-qu-GhS"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Symptom Evaluation" id="QZy-IH-Eks"/>
+                                    <navigationItem title="Symptom Evaluation" id="Ov4-0F-QqJ">
+                                        <barButtonItem key="leftBarButtonItem" style="plain" id="nEm-Ov-kXG">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WQf-Po-KPv">
+                                                <rect key="frame" x="20" y="7" width="133" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Back"/>
+                                                <connections>
+                                                    <segue destination="S4R-Ja-viH" kind="show" id="Y89-Pg-n6y"/>
+                                                </connections>
+                                            </button>
+                                            <connections>
+                                                <segue destination="S4R-Ja-viH" kind="show" id="Y5N-Wz-Kds"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="MS8-z2-FnC">
-                                <rect key="frame" x="241" y="370" width="326" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="MS8-z2-FnC" secondAttribute="height" multiplier="163:14" id="81H-U6-cSg"/>
-                                    <constraint firstAttribute="width" secondItem="MS8-z2-FnC" secondAttribute="height" multiplier="163:14" id="9f1-zQ-rIa"/>
-                                    <constraint firstAttribute="height" constant="28" id="Un5-8o-6Nh"/>
-                                    <constraint firstAttribute="width" constant="326" id="d8P-dH-TVV"/>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="326" id="feE-eQ-vQ9"/>
-                                    <constraint firstAttribute="width" secondItem="MS8-z2-FnC" secondAttribute="height" multiplier="163:14" id="jdw-q6-0KJ"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="28" id="kdJ-Wr-Ly0"/>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="28" id="nxh-wg-F2h"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="326" id="ojX-6a-Hci"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="0"/>
-                                    <segment title="1"/>
-                                    <segment title="2"/>
-                                    <segment title="3"/>
-                                    <segment title="4"/>
-                                    <segment title="5"/>
-                                    <segment title="6"/>
-                                </segments>
-                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -557,13 +580,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="1qi-Ko-Iqt" secondAttribute="trailing" constant="476" id="1db-LO-4bz"/>
                             <constraint firstItem="5Ct-1n-dOe" firstAttribute="top" secondItem="hhR-Mg-xG6" secondAttribute="bottom" constant="393" id="25q-0A-Nst"/>
                             <constraint firstAttribute="trailingMargin" secondItem="frI-UC-XNS" secondAttribute="trailing" constant="418" id="2ek-oU-nFw"/>
-                            <constraint firstItem="Hew-C5-iI9" firstAttribute="top" secondItem="hhR-Mg-xG6" secondAttribute="bottom" constant="76" id="3Gx-Bk-iZz"/>
                             <constraint firstItem="Dqj-nA-jg8" firstAttribute="leading" secondItem="cyi-8b-Jxt" secondAttribute="leadingMargin" constant="221" id="3aS-uy-lWT"/>
                             <constraint firstItem="Hew-C5-iI9" firstAttribute="leading" secondItem="cyi-8b-Jxt" secondAttribute="leadingMargin" constant="221" id="3t0-ZI-J2a"/>
                             <constraint firstItem="fzk-Hm-pNi" firstAttribute="leading" secondItem="cyi-8b-Jxt" secondAttribute="leadingMargin" constant="1" id="4rN-jY-9Zm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pE6-VX-gJj" secondAttribute="trailing" constant="416" id="53x-9v-iLd"/>
-                            <constraint firstItem="Hew-C5-iI9" firstAttribute="centerY" secondItem="cyi-8b-Jxt" secondAttribute="centerY" constant="-193.5" id="6ag-jW-jZl"/>
-                            <constraint firstItem="Hew-C5-iI9" firstAttribute="centerX" secondItem="cyi-8b-Jxt" secondAttribute="centerX" constant="-39.5" id="73v-RH-Qq3"/>
                             <constraint firstItem="yhT-60-enZ" firstAttribute="leading" secondItem="cyi-8b-Jxt" secondAttribute="leadingMargin" constant="221" id="7D4-M1-hfa"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5Ct-1n-dOe" secondAttribute="trailing" constant="408" id="7KQ-kk-s5G"/>
                             <constraint firstItem="WEY-qD-tou" firstAttribute="top" secondItem="hhR-Mg-xG6" secondAttribute="bottom" constant="310" id="7ST-H5-npO"/>
@@ -577,6 +597,7 @@
                             <constraint firstItem="5xe-yO-T8i" firstAttribute="top" secondItem="hhR-Mg-xG6" secondAttribute="bottom" constant="228" id="DuP-xq-Wz2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UOj-9Z-o5Z" secondAttribute="trailing" constant="226" id="EDg-CB-jV8"/>
                             <constraint firstItem="frI-UC-XNS" firstAttribute="leading" secondItem="cyi-8b-Jxt" secondAttribute="leadingMargin" constant="4" id="F0y-MW-HcI"/>
+                            <constraint firstItem="Hew-C5-iI9" firstAttribute="top" secondItem="hhR-Mg-xG6" secondAttribute="bottom" constant="76" id="GES-CB-frx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Nj6-nT-FLe" secondAttribute="trailing" constant="114" id="IYL-iZ-a8m"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MOg-EV-vzN" secondAttribute="trailing" constant="-20" id="JAx-Ci-upJ"/>
                             <constraint firstItem="Dqj-nA-jg8" firstAttribute="top" secondItem="hhR-Mg-xG6" secondAttribute="bottom" constant="484" id="KQZ-Fq-oFL"/>
@@ -686,4 +707,7 @@
             </objects>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Y89-Pg-n6y"/>
+    </inferredMetricsTieBreakers>
 </document>
