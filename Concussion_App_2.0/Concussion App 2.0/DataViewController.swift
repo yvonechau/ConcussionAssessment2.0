@@ -13,7 +13,22 @@ class DataViewController: UIViewController {
     @IBOutlet weak var dataLabel: UILabel!
     var dataObject: String = ""
 
+    @IBOutlet weak var glasgowButton: UIButton!
+    
+    @IBAction func symptomPressed(sender: AnyObject)
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("symptomViewController")
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 
+    @IBAction func glasgowPressed(sender: AnyObject)
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("glasgowViewController")
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -26,7 +41,7 @@ class DataViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.dataLabel!.text = dataObject
+        self.dataLabel?.text = dataObject
     }
 
 
