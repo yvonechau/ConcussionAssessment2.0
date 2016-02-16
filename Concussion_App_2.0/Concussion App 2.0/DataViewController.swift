@@ -15,6 +15,14 @@ class DataViewController: UIViewController {
 
     @IBOutlet weak var glasgowButton: UIButton!
     
+    @IBAction func cognitivePressed(sender: AnyObject)
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("cognitiveViewController")
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func symptomPressed(sender: AnyObject)
     {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

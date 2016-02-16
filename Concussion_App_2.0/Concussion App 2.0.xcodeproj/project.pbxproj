@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		442CEA3E1C72E3F7007518F9 /* GlasgowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CEA3D1C72E3F7007518F9 /* GlasgowViewController.swift */; };
 		442CEA401C72FEF7007518F9 /* SymptomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CEA3F1C72FEF7007518F9 /* SymptomViewController.swift */; };
+		442CEA421C730854007518F9 /* CognitiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CEA411C730853007518F9 /* CognitiveViewController.swift */; };
 		9BD5FE001C7121D500ACC1BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD5FDFF1C7121D500ACC1BD /* AppDelegate.swift */; };
 		9BD5FE021C7121D500ACC1BD /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD5FE011C7121D500ACC1BD /* RootViewController.swift */; };
 		9BD5FE041C7121D500ACC1BD /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD5FE031C7121D500ACC1BD /* DataViewController.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		442CEA3D1C72E3F7007518F9 /* GlasgowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlasgowViewController.swift; sourceTree = "<group>"; };
 		442CEA3F1C72FEF7007518F9 /* SymptomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymptomViewController.swift; sourceTree = "<group>"; };
+		442CEA411C730853007518F9 /* CognitiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CognitiveViewController.swift; sourceTree = "<group>"; };
 		9BD5FDFC1C7121D500ACC1BD /* Concussion App 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Concussion App 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BD5FDFF1C7121D500ACC1BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BD5FE011C7121D500ACC1BD /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				9BD5FDFF1C7121D500ACC1BD /* AppDelegate.swift */,
 				9BD5FE011C7121D500ACC1BD /* RootViewController.swift */,
 				9BD5FE031C7121D500ACC1BD /* DataViewController.swift */,
+				442CEA411C730853007518F9 /* CognitiveViewController.swift */,
 				442CEA3D1C72E3F7007518F9 /* GlasgowViewController.swift */,
 				442CEA3F1C72FEF7007518F9 /* SymptomViewController.swift */,
 				9BD5FE051C7121D500ACC1BD /* ModelController.swift */,
@@ -271,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				442CEA401C72FEF7007518F9 /* SymptomViewController.swift in Sources */,
+				442CEA421C730854007518F9 /* CognitiveViewController.swift in Sources */,
 				9BD5FE021C7121D500ACC1BD /* RootViewController.swift in Sources */,
 				442CEA3E1C72E3F7007518F9 /* GlasgowViewController.swift in Sources */,
 				9BD5FE061C7121D500ACC1BD /* ModelController.swift in Sources */,
