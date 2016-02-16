@@ -40,28 +40,32 @@
                                 <rect key="frame" x="20" y="44" width="560" height="536"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="DR5-h1-Mm0">
-                                        <rect key="frame" x="185" y="75" width="190" height="120"/>
+                                        <rect key="frame" x="185" y="75" width="224" height="136"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8TB-RR-Yqh">
-                                                <rect key="frame" x="0.0" y="0.0" width="190" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="224" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Glasgow Coma Scale (GCS)"/>
                                                 <connections>
                                                     <action selector="glasgowPressed:" destination="S4R-Ja-viH" eventType="touchUpInside" id="yP4-CJ-TtT"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5c-60-CfS">
-                                                <rect key="frame" x="38" y="30" width="115" height="30"/>
+                                                <rect key="frame" x="44" y="34" width="136" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Maddocks Score"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MOx-PN-fu9">
-                                                <rect key="frame" x="25" y="60" width="140" height="30"/>
+                                                <rect key="frame" x="29" y="68" width="166" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Symptom Evaluation"/>
                                                 <connections>
                                                     <action selector="symptomPressed:" destination="S4R-Ja-viH" eventType="touchUpInside" id="hBK-MH-0ht"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MHt-bF-LQc">
-                                                <rect key="frame" x="23" y="90" width="145" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MHt-bF-LQc">
+                                                <rect key="frame" x="27" y="102" width="171" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Cognitive Assesment"/>
                                                 <connections>
                                                     <action selector="cognitivePressed:" destination="S4R-Ja-viH" eventType="touchUpInside" id="mSe-WS-E2b"/>
@@ -76,7 +80,6 @@
                                 </accessibility>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="s1b-V9-EN7" firstAttribute="centerX" secondItem="ZwX-cT-FIQ" secondAttribute="centerX" id="iyc-Ja-Mjr"/>
                         </constraints>
