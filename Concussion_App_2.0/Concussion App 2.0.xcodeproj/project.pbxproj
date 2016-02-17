@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		331C5D141C73DFC50057E999 /* OrientationTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C5D131C73DFC50057E999 /* OrientationTestViewController.swift */; };
+		331C5D161C73FC520057E999 /* CognitiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C5D151C73FC520057E999 /* CognitiveTableViewController.swift */; };
+		331C5D181C7402DE0057E999 /* NumberTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C5D171C7402DE0057E999 /* NumberTestViewController.swift */; };
 		442CEA3E1C72E3F7007518F9 /* GlasgowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CEA3D1C72E3F7007518F9 /* GlasgowViewController.swift */; };
 		442CEA401C72FEF7007518F9 /* SymptomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CEA3F1C72FEF7007518F9 /* SymptomViewController.swift */; };
 		442CEA421C730854007518F9 /* CognitiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CEA411C730853007518F9 /* CognitiveViewController.swift */; };
@@ -39,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		331C5D131C73DFC50057E999 /* OrientationTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationTestViewController.swift; sourceTree = "<group>"; };
+		331C5D151C73FC520057E999 /* CognitiveTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CognitiveTableViewController.swift; sourceTree = "<group>"; };
+		331C5D171C7402DE0057E999 /* NumberTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberTestViewController.swift; sourceTree = "<group>"; };
 		442CEA3D1C72E3F7007518F9 /* GlasgowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlasgowViewController.swift; sourceTree = "<group>"; };
 		442CEA3F1C72FEF7007518F9 /* SymptomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymptomViewController.swift; sourceTree = "<group>"; };
 		442CEA411C730853007518F9 /* CognitiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CognitiveViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +121,9 @@
 				442CEA3F1C72FEF7007518F9 /* SymptomViewController.swift */,
 				9BD5FE051C7121D500ACC1BD /* ModelController.swift */,
 				9BD5FE071C7121D500ACC1BD /* Main.storyboard */,
+				331C5D171C7402DE0057E999 /* NumberTestViewController.swift */,
+				331C5D151C73FC520057E999 /* CognitiveTableViewController.swift */,
+				331C5D131C73DFC50057E999 /* OrientationTestViewController.swift */,
 				9BD5FE0A1C7121D500ACC1BD /* Assets.xcassets */,
 				9BD5FE0C1C7121D500ACC1BD /* LaunchScreen.storyboard */,
 				9BD5FE0F1C7121D500ACC1BD /* Info.plist */,
@@ -274,12 +283,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				442CEA401C72FEF7007518F9 /* SymptomViewController.swift in Sources */,
+				331C5D141C73DFC50057E999 /* OrientationTestViewController.swift in Sources */,
 				442CEA421C730854007518F9 /* CognitiveViewController.swift in Sources */,
 				9BD5FE021C7121D500ACC1BD /* RootViewController.swift in Sources */,
 				442CEA3E1C72E3F7007518F9 /* GlasgowViewController.swift in Sources */,
 				9BD5FE061C7121D500ACC1BD /* ModelController.swift in Sources */,
 				9BD5FE041C7121D500ACC1BD /* DataViewController.swift in Sources */,
 				9BD5FE001C7121D500ACC1BD /* AppDelegate.swift in Sources */,
+				331C5D161C73FC520057E999 /* CognitiveTableViewController.swift in Sources */,
+				331C5D181C7402DE0057E999 /* NumberTestViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

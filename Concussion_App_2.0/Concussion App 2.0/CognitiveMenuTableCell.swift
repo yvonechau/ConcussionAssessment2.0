@@ -8,7 +8,10 @@
 
 import UIKit
 
-class CognitiveMenu: UITableViewCell {
+class CognitiveMenuTableCell: UITableViewCell {
+    // MARK: Properties
+    @IBOutlet weak var itemLabel: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
