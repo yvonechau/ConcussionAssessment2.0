@@ -8,11 +8,14 @@
 
 import UIKit
 
-class CognitiveViewController: UIViewController {
+class CognitiveViewController: UIViewController, UITableViewDelegate {
+    // MARK: Properties
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "Cognitive"
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
 }

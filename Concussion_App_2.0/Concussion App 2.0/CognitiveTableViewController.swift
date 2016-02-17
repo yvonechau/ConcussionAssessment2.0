@@ -6,8 +6,27 @@
 //  Copyright © 2016 Kevin Fu. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 
 class CognitiveTableViewController: UITableViewController {
-
+    // MARK: Properties
+    @IBOutlet weak var OrientationTestPressed: UITableViewCell!
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch indexPath.item {
+            case 0:
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewControllerWithIdentifier("OrientationTestViewController")
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+            case 1:
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewControllerWithIdentifier("NumberTestViewController")
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+            default:
+                print("Error")
+        }
+    }
+    
 }

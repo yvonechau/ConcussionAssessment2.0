@@ -6,8 +6,13 @@
 //  Copyright © 2016 Kevin Fu. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 
 class OrientationTestViewController: UIViewController {
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.title = "Orientation Test"
+        // Do any additional setup after loading the view, typically from a nib.
+    }
 }
