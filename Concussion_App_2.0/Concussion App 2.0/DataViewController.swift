@@ -34,7 +34,7 @@ class DataViewController: UIViewController {
     @IBAction func glasgowPressed(sender: AnyObject)
     {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("glasgowViewController")
+        let vc = storyboard.instantiateViewControllerWithIdentifier("glasgowTableViewController")
         self.navigationController?.pushViewController(vc, animated: true)
     }
     override func viewDidLoad() {
