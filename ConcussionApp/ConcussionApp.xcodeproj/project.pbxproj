@@ -93,9 +93,9 @@
 		9BD5FDF31C7121D500ACC1BD = {
 			isa = PBXGroup;
 			children = (
-				9BD5FDFE1C7121D500ACC1BD /* Concussion App 2.0 */,
-				9BD5FE171C7121D600ACC1BD /* Concussion App 2.0Tests */,
-				9BD5FE221C7121D600ACC1BD /* Concussion App 2.0UITests */,
+				9BD5FDFE1C7121D500ACC1BD /* ConcussionApp */,
+				9BD5FE171C7121D600ACC1BD /* ConcussionAppTests */,
+				9BD5FE221C7121D600ACC1BD /* ConcussionAppUITests */,
 				9BD5FDFD1C7121D500ACC1BD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,7 +110,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9BD5FDFE1C7121D500ACC1BD /* Concussion App 2.0 */ = {
+		9BD5FDFE1C7121D500ACC1BD /* ConcussionApp */ = {
 			isa = PBXGroup;
 			children = (
 				9BD5FDFF1C7121D500ACC1BD /* AppDelegate.swift */,
@@ -128,25 +128,25 @@
 				9BD5FE0C1C7121D500ACC1BD /* LaunchScreen.storyboard */,
 				9BD5FE0F1C7121D500ACC1BD /* Info.plist */,
 			);
-			path = "Concussion App 2.0";
+			path = ConcussionApp;
 			sourceTree = "<group>";
 		};
-		9BD5FE171C7121D600ACC1BD /* Concussion App 2.0Tests */ = {
+		9BD5FE171C7121D600ACC1BD /* ConcussionAppTests */ = {
 			isa = PBXGroup;
 			children = (
 				9BD5FE181C7121D600ACC1BD /* Concussion_App_2_0Tests.swift */,
 				9BD5FE1A1C7121D600ACC1BD /* Info.plist */,
 			);
-			path = "Concussion App 2.0Tests";
+			path = ConcussionAppTests;
 			sourceTree = "<group>";
 		};
-		9BD5FE221C7121D600ACC1BD /* Concussion App 2.0UITests */ = {
+		9BD5FE221C7121D600ACC1BD /* ConcussionAppUITests */ = {
 			isa = PBXGroup;
 			children = (
 				9BD5FE231C7121D600ACC1BD /* Concussion_App_2_0UITests.swift */,
 				9BD5FE251C7121D600ACC1BD /* Info.plist */,
 			);
-			path = "Concussion App 2.0UITests";
+			path = ConcussionAppUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,7 +230,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9BD5FDF71C7121D500ACC1BD /* Build configuration list for PBXProject "Concussion App 2.0" */;
+			buildConfigurationList = 9BD5FDF71C7121D500ACC1BD /* Build configuration list for PBXProject "ConcussionApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -435,7 +435,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "Concussion App 2.0/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/ConcussionApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kvnf10.Concussion-App-2-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -449,7 +449,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "Concussion App 2.0/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/ConcussionApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kvnf10.Concussion-App-2-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -508,7 +508,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9BD5FDF71C7121D500ACC1BD /* Build configuration list for PBXProject "Concussion App 2.0" */ = {
+		9BD5FDF71C7121D500ACC1BD /* Build configuration list for PBXProject "ConcussionApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9BD5FE261C7121D600ACC1BD /* Debug */,
