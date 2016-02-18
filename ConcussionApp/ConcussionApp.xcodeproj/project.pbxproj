@@ -1,0 +1,550 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		331C5D141C73DFC50057E999 /* OrientationTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C5D131C73DFC50057E999 /* OrientationTestViewController.swift */; };
+		331C5D161C73FC520057E999 /* CognitiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C5D151C73FC520057E999 /* CognitiveTableViewController.swift */; };
+		331C5D181C7402DE0057E999 /* NumberTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C5D171C7402DE0057E999 /* NumberTestViewController.swift */; };
+		442CEA3E1C72E3F7007518F9 /* GlasgowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CEA3D1C72E3F7007518F9 /* GlasgowViewController.swift */; };
+		442CEA401C72FEF7007518F9 /* SymptomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CEA3F1C72FEF7007518F9 /* SymptomViewController.swift */; };
+		442CEA421C730854007518F9 /* CognitiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442CEA411C730853007518F9 /* CognitiveViewController.swift */; };
+		9BD5FE001C7121D500ACC1BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD5FDFF1C7121D500ACC1BD /* AppDelegate.swift */; };
+		9BD5FE021C7121D500ACC1BD /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD5FE011C7121D500ACC1BD /* RootViewController.swift */; };
+		9BD5FE041C7121D500ACC1BD /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD5FE031C7121D500ACC1BD /* DataViewController.swift */; };
+		9BD5FE061C7121D500ACC1BD /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD5FE051C7121D500ACC1BD /* ModelController.swift */; };
+		9BD5FE091C7121D500ACC1BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BD5FE071C7121D500ACC1BD /* Main.storyboard */; };
+		9BD5FE0B1C7121D500ACC1BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BD5FE0A1C7121D500ACC1BD /* Assets.xcassets */; };
+		9BD5FE0E1C7121D500ACC1BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BD5FE0C1C7121D500ACC1BD /* LaunchScreen.storyboard */; };
+		9BD5FE191C7121D600ACC1BD /* Concussion_App_2_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD5FE181C7121D600ACC1BD /* Concussion_App_2_0Tests.swift */; };
+		9BD5FE241C7121D600ACC1BD /* Concussion_App_2_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD5FE231C7121D600ACC1BD /* Concussion_App_2_0UITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9BD5FE151C7121D600ACC1BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9BD5FDF41C7121D500ACC1BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9BD5FDFB1C7121D500ACC1BD;
+			remoteInfo = "Concussion App 2.0";
+		};
+		9BD5FE201C7121D600ACC1BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9BD5FDF41C7121D500ACC1BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9BD5FDFB1C7121D500ACC1BD;
+			remoteInfo = "Concussion App 2.0";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		331C5D131C73DFC50057E999 /* OrientationTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationTestViewController.swift; sourceTree = "<group>"; };
+		331C5D151C73FC520057E999 /* CognitiveTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CognitiveTableViewController.swift; sourceTree = "<group>"; };
+		331C5D171C7402DE0057E999 /* NumberTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberTestViewController.swift; sourceTree = "<group>"; };
+		442CEA3D1C72E3F7007518F9 /* GlasgowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlasgowViewController.swift; sourceTree = "<group>"; };
+		442CEA3F1C72FEF7007518F9 /* SymptomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymptomViewController.swift; sourceTree = "<group>"; };
+		442CEA411C730853007518F9 /* CognitiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CognitiveViewController.swift; sourceTree = "<group>"; };
+		9BD5FDFC1C7121D500ACC1BD /* Concussion App 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Concussion App 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BD5FDFF1C7121D500ACC1BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9BD5FE011C7121D500ACC1BD /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		9BD5FE031C7121D500ACC1BD /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		9BD5FE051C7121D500ACC1BD /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
+		9BD5FE081C7121D500ACC1BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9BD5FE0A1C7121D500ACC1BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9BD5FE0D1C7121D500ACC1BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9BD5FE0F1C7121D500ACC1BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BD5FE141C7121D600ACC1BD /* Concussion App 2.0Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Concussion App 2.0Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BD5FE181C7121D600ACC1BD /* Concussion_App_2_0Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concussion_App_2_0Tests.swift; sourceTree = "<group>"; };
+		9BD5FE1A1C7121D600ACC1BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BD5FE1F1C7121D600ACC1BD /* Concussion App 2.0UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Concussion App 2.0UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BD5FE231C7121D600ACC1BD /* Concussion_App_2_0UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Concussion_App_2_0UITests.swift; sourceTree = "<group>"; };
+		9BD5FE251C7121D600ACC1BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9BD5FDF91C7121D500ACC1BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BD5FE111C7121D600ACC1BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BD5FE1C1C7121D600ACC1BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9BD5FDF31C7121D500ACC1BD = {
+			isa = PBXGroup;
+			children = (
+				9BD5FDFE1C7121D500ACC1BD /* Concussion App 2.0 */,
+				9BD5FE171C7121D600ACC1BD /* Concussion App 2.0Tests */,
+				9BD5FE221C7121D600ACC1BD /* Concussion App 2.0UITests */,
+				9BD5FDFD1C7121D500ACC1BD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9BD5FDFD1C7121D500ACC1BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9BD5FDFC1C7121D500ACC1BD /* Concussion App 2.0.app */,
+				9BD5FE141C7121D600ACC1BD /* Concussion App 2.0Tests.xctest */,
+				9BD5FE1F1C7121D600ACC1BD /* Concussion App 2.0UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9BD5FDFE1C7121D500ACC1BD /* Concussion App 2.0 */ = {
+			isa = PBXGroup;
+			children = (
+				9BD5FDFF1C7121D500ACC1BD /* AppDelegate.swift */,
+				9BD5FE011C7121D500ACC1BD /* RootViewController.swift */,
+				9BD5FE031C7121D500ACC1BD /* DataViewController.swift */,
+				442CEA411C730853007518F9 /* CognitiveViewController.swift */,
+				442CEA3D1C72E3F7007518F9 /* GlasgowViewController.swift */,
+				442CEA3F1C72FEF7007518F9 /* SymptomViewController.swift */,
+				9BD5FE051C7121D500ACC1BD /* ModelController.swift */,
+				9BD5FE071C7121D500ACC1BD /* Main.storyboard */,
+				331C5D171C7402DE0057E999 /* NumberTestViewController.swift */,
+				331C5D151C73FC520057E999 /* CognitiveTableViewController.swift */,
+				331C5D131C73DFC50057E999 /* OrientationTestViewController.swift */,
+				9BD5FE0A1C7121D500ACC1BD /* Assets.xcassets */,
+				9BD5FE0C1C7121D500ACC1BD /* LaunchScreen.storyboard */,
+				9BD5FE0F1C7121D500ACC1BD /* Info.plist */,
+			);
+			path = "Concussion App 2.0";
+			sourceTree = "<group>";
+		};
+		9BD5FE171C7121D600ACC1BD /* Concussion App 2.0Tests */ = {
+			isa = PBXGroup;
+			children = (
+				9BD5FE181C7121D600ACC1BD /* Concussion_App_2_0Tests.swift */,
+				9BD5FE1A1C7121D600ACC1BD /* Info.plist */,
+			);
+			path = "Concussion App 2.0Tests";
+			sourceTree = "<group>";
+		};
+		9BD5FE221C7121D600ACC1BD /* Concussion App 2.0UITests */ = {
+			isa = PBXGroup;
+			children = (
+				9BD5FE231C7121D600ACC1BD /* Concussion_App_2_0UITests.swift */,
+				9BD5FE251C7121D600ACC1BD /* Info.plist */,
+			);
+			path = "Concussion App 2.0UITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9BD5FDFB1C7121D500ACC1BD /* Concussion App 2.0 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BD5FE281C7121D600ACC1BD /* Build configuration list for PBXNativeTarget "Concussion App 2.0" */;
+			buildPhases = (
+				9BD5FDF81C7121D500ACC1BD /* Sources */,
+				9BD5FDF91C7121D500ACC1BD /* Frameworks */,
+				9BD5FDFA1C7121D500ACC1BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Concussion App 2.0";
+			productName = "Concussion App 2.0";
+			productReference = 9BD5FDFC1C7121D500ACC1BD /* Concussion App 2.0.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9BD5FE131C7121D600ACC1BD /* Concussion App 2.0Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BD5FE2B1C7121D600ACC1BD /* Build configuration list for PBXNativeTarget "Concussion App 2.0Tests" */;
+			buildPhases = (
+				9BD5FE101C7121D600ACC1BD /* Sources */,
+				9BD5FE111C7121D600ACC1BD /* Frameworks */,
+				9BD5FE121C7121D600ACC1BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9BD5FE161C7121D600ACC1BD /* PBXTargetDependency */,
+			);
+			name = "Concussion App 2.0Tests";
+			productName = "Concussion App 2.0Tests";
+			productReference = 9BD5FE141C7121D600ACC1BD /* Concussion App 2.0Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9BD5FE1E1C7121D600ACC1BD /* Concussion App 2.0UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BD5FE2E1C7121D600ACC1BD /* Build configuration list for PBXNativeTarget "Concussion App 2.0UITests" */;
+			buildPhases = (
+				9BD5FE1B1C7121D600ACC1BD /* Sources */,
+				9BD5FE1C1C7121D600ACC1BD /* Frameworks */,
+				9BD5FE1D1C7121D600ACC1BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9BD5FE211C7121D600ACC1BD /* PBXTargetDependency */,
+			);
+			name = "Concussion App 2.0UITests";
+			productName = "Concussion App 2.0UITests";
+			productReference = 9BD5FE1F1C7121D600ACC1BD /* Concussion App 2.0UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9BD5FDF41C7121D500ACC1BD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Kevin Fu";
+				TargetAttributes = {
+					9BD5FDFB1C7121D500ACC1BD = {
+						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = 5W7RUME6X8;
+					};
+					9BD5FE131C7121D600ACC1BD = {
+						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = R2ZAWRDC4X;
+						TestTargetID = 9BD5FDFB1C7121D500ACC1BD;
+					};
+					9BD5FE1E1C7121D600ACC1BD = {
+						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = R2ZAWRDC4X;
+						TestTargetID = 9BD5FDFB1C7121D500ACC1BD;
+					};
+				};
+			};
+			buildConfigurationList = 9BD5FDF71C7121D500ACC1BD /* Build configuration list for PBXProject "Concussion App 2.0" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9BD5FDF31C7121D500ACC1BD;
+			productRefGroup = 9BD5FDFD1C7121D500ACC1BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9BD5FDFB1C7121D500ACC1BD /* Concussion App 2.0 */,
+				9BD5FE131C7121D600ACC1BD /* Concussion App 2.0Tests */,
+				9BD5FE1E1C7121D600ACC1BD /* Concussion App 2.0UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9BD5FDFA1C7121D500ACC1BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BD5FE0E1C7121D500ACC1BD /* LaunchScreen.storyboard in Resources */,
+				9BD5FE0B1C7121D500ACC1BD /* Assets.xcassets in Resources */,
+				9BD5FE091C7121D500ACC1BD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BD5FE121C7121D600ACC1BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BD5FE1D1C7121D600ACC1BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9BD5FDF81C7121D500ACC1BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				442CEA401C72FEF7007518F9 /* SymptomViewController.swift in Sources */,
+				331C5D141C73DFC50057E999 /* OrientationTestViewController.swift in Sources */,
+				442CEA421C730854007518F9 /* CognitiveViewController.swift in Sources */,
+				9BD5FE021C7121D500ACC1BD /* RootViewController.swift in Sources */,
+				442CEA3E1C72E3F7007518F9 /* GlasgowViewController.swift in Sources */,
+				9BD5FE061C7121D500ACC1BD /* ModelController.swift in Sources */,
+				9BD5FE041C7121D500ACC1BD /* DataViewController.swift in Sources */,
+				9BD5FE001C7121D500ACC1BD /* AppDelegate.swift in Sources */,
+				331C5D161C73FC520057E999 /* CognitiveTableViewController.swift in Sources */,
+				331C5D181C7402DE0057E999 /* NumberTestViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BD5FE101C7121D600ACC1BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BD5FE191C7121D600ACC1BD /* Concussion_App_2_0Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BD5FE1B1C7121D600ACC1BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BD5FE241C7121D600ACC1BD /* Concussion_App_2_0UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9BD5FE161C7121D600ACC1BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9BD5FDFB1C7121D500ACC1BD /* Concussion App 2.0 */;
+			targetProxy = 9BD5FE151C7121D600ACC1BD /* PBXContainerItemProxy */;
+		};
+		9BD5FE211C7121D600ACC1BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9BD5FDFB1C7121D500ACC1BD /* Concussion App 2.0 */;
+			targetProxy = 9BD5FE201C7121D600ACC1BD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9BD5FE071C7121D500ACC1BD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BD5FE081C7121D500ACC1BD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9BD5FE0C1C7121D500ACC1BD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BD5FE0D1C7121D500ACC1BD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9BD5FE261C7121D600ACC1BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9BD5FE271C7121D600ACC1BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9BD5FE291C7121D600ACC1BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Concussion App 2.0/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kvnf10.Concussion-App-2-0";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		9BD5FE2A1C7121D600ACC1BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Concussion App 2.0/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kvnf10.Concussion-App-2-0";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		9BD5FE2C1C7121D600ACC1BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Concussion App 2.0Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kvnf10.Concussion-App-2-0Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Concussion App 2.0.app/Concussion App 2.0";
+			};
+			name = Debug;
+		};
+		9BD5FE2D1C7121D600ACC1BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Concussion App 2.0Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kvnf10.Concussion-App-2-0Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Concussion App 2.0.app/Concussion App 2.0";
+			};
+			name = Release;
+		};
+		9BD5FE2F1C7121D600ACC1BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Concussion App 2.0UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kvnf10.Concussion-App-2-0UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Concussion App 2.0";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		9BD5FE301C7121D600ACC1BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Concussion App 2.0UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kvnf10.Concussion-App-2-0UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Concussion App 2.0";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9BD5FDF71C7121D500ACC1BD /* Build configuration list for PBXProject "Concussion App 2.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BD5FE261C7121D600ACC1BD /* Debug */,
+				9BD5FE271C7121D600ACC1BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BD5FE281C7121D600ACC1BD /* Build configuration list for PBXNativeTarget "Concussion App 2.0" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BD5FE291C7121D600ACC1BD /* Debug */,
+				9BD5FE2A1C7121D600ACC1BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BD5FE2B1C7121D600ACC1BD /* Build configuration list for PBXNativeTarget "Concussion App 2.0Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BD5FE2C1C7121D600ACC1BD /* Debug */,
+				9BD5FE2D1C7121D600ACC1BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BD5FE2E1C7121D600ACC1BD /* Build configuration list for PBXNativeTarget "Concussion App 2.0UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BD5FE2F1C7121D600ACC1BD /* Debug */,
+				9BD5FE301C7121D600ACC1BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9BD5FDF41C7121D500ACC1BD /* Project object */;
+}
