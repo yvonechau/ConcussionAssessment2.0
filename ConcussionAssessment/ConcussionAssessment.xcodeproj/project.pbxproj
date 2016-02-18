@@ -1,0 +1,395 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3309A5FC1C76750C00EC3795 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309A5FB1C76750C00EC3795 /* AppDelegate.swift */; };
+		3309A5FE1C76750C00EC3795 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309A5FD1C76750C00EC3795 /* ViewController.swift */; };
+		3309A6041C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3309A6021C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld */; };
+		3309A6061C76750C00EC3795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3309A6051C76750C00EC3795 /* Assets.xcassets */; };
+		3309A6141C76750C00EC3795 /* ConcussionAssessmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309A6131C76750C00EC3795 /* ConcussionAssessmentUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3309A6101C76750C00EC3795 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3309A5F01C76750C00EC3795 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3309A5F71C76750C00EC3795;
+			remoteInfo = ConcussionAssessment;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3309A5F81C76750C00EC3795 /* ConcussionAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcussionAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3309A5FB1C76750C00EC3795 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3309A5FD1C76750C00EC3795 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3309A6031C76750C00EC3795 /* ConcussionAssessment.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ConcussionAssessment.xcdatamodel; sourceTree = "<group>"; };
+		3309A6051C76750C00EC3795 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3309A60A1C76750C00EC3795 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3309A60F1C76750C00EC3795 /* ConcussionAssessmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConcussionAssessmentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3309A6131C76750C00EC3795 /* ConcussionAssessmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcussionAssessmentUITests.swift; sourceTree = "<group>"; };
+		3309A6151C76750C00EC3795 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3309A5F51C76750C00EC3795 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3309A60C1C76750C00EC3795 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3309A5EF1C76750C00EC3795 = {
+			isa = PBXGroup;
+			children = (
+				3309A5FA1C76750C00EC3795 /* ConcussionAssessment */,
+				3309A6121C76750C00EC3795 /* ConcussionAssessmentUITests */,
+				3309A5F91C76750C00EC3795 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3309A5F91C76750C00EC3795 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3309A5F81C76750C00EC3795 /* ConcussionAssessment.app */,
+				3309A60F1C76750C00EC3795 /* ConcussionAssessmentUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3309A5FA1C76750C00EC3795 /* ConcussionAssessment */ = {
+			isa = PBXGroup;
+			children = (
+				3309A5FB1C76750C00EC3795 /* AppDelegate.swift */,
+				3309A5FD1C76750C00EC3795 /* ViewController.swift */,
+				3309A6051C76750C00EC3795 /* Assets.xcassets */,
+				3309A60A1C76750C00EC3795 /* Info.plist */,
+				3309A6021C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld */,
+			);
+			path = ConcussionAssessment;
+			sourceTree = "<group>";
+		};
+		3309A6121C76750C00EC3795 /* ConcussionAssessmentUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3309A6131C76750C00EC3795 /* ConcussionAssessmentUITests.swift */,
+				3309A6151C76750C00EC3795 /* Info.plist */,
+			);
+			path = ConcussionAssessmentUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3309A5F71C76750C00EC3795 /* ConcussionAssessment */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3309A6181C76750C00EC3795 /* Build configuration list for PBXNativeTarget "ConcussionAssessment" */;
+			buildPhases = (
+				3309A5F41C76750C00EC3795 /* Sources */,
+				3309A5F51C76750C00EC3795 /* Frameworks */,
+				3309A5F61C76750C00EC3795 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ConcussionAssessment;
+			productName = ConcussionAssessment;
+			productReference = 3309A5F81C76750C00EC3795 /* ConcussionAssessment.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3309A60E1C76750C00EC3795 /* ConcussionAssessmentUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3309A61B1C76750C00EC3795 /* Build configuration list for PBXNativeTarget "ConcussionAssessmentUITests" */;
+			buildPhases = (
+				3309A60B1C76750C00EC3795 /* Sources */,
+				3309A60C1C76750C00EC3795 /* Frameworks */,
+				3309A60D1C76750C00EC3795 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3309A6111C76750C00EC3795 /* PBXTargetDependency */,
+			);
+			name = ConcussionAssessmentUITests;
+			productName = ConcussionAssessmentUITests;
+			productReference = 3309A60F1C76750C00EC3795 /* ConcussionAssessmentUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3309A5F01C76750C00EC3795 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = PYKS;
+				TargetAttributes = {
+					3309A5F71C76750C00EC3795 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					3309A60E1C76750C00EC3795 = {
+						CreatedOnToolsVersion = 7.2.1;
+						TestTargetID = 3309A5F71C76750C00EC3795;
+					};
+				};
+			};
+			buildConfigurationList = 3309A5F31C76750C00EC3795 /* Build configuration list for PBXProject "ConcussionAssessment" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3309A5EF1C76750C00EC3795;
+			productRefGroup = 3309A5F91C76750C00EC3795 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3309A5F71C76750C00EC3795 /* ConcussionAssessment */,
+				3309A60E1C76750C00EC3795 /* ConcussionAssessmentUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3309A5F61C76750C00EC3795 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3309A6061C76750C00EC3795 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3309A60D1C76750C00EC3795 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3309A5F41C76750C00EC3795 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3309A5FE1C76750C00EC3795 /* ViewController.swift in Sources */,
+				3309A5FC1C76750C00EC3795 /* AppDelegate.swift in Sources */,
+				3309A6041C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3309A60B1C76750C00EC3795 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3309A6141C76750C00EC3795 /* ConcussionAssessmentUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3309A6111C76750C00EC3795 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3309A5F71C76750C00EC3795 /* ConcussionAssessment */;
+			targetProxy = 3309A6101C76750C00EC3795 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3309A6161C76750C00EC3795 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3309A6171C76750C00EC3795 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3309A6191C76750C00EC3795 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ConcussionAssessment/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyks.ConcussionAssessment;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3309A61A1C76750C00EC3795 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ConcussionAssessment/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyks.ConcussionAssessment;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3309A61C1C76750C00EC3795 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ConcussionAssessmentUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyks.ConcussionAssessmentUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ConcussionAssessment;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		3309A61D1C76750C00EC3795 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ConcussionAssessmentUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyks.ConcussionAssessmentUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ConcussionAssessment;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3309A5F31C76750C00EC3795 /* Build configuration list for PBXProject "ConcussionAssessment" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3309A6161C76750C00EC3795 /* Debug */,
+				3309A6171C76750C00EC3795 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3309A6181C76750C00EC3795 /* Build configuration list for PBXNativeTarget "ConcussionAssessment" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3309A6191C76750C00EC3795 /* Debug */,
+				3309A61A1C76750C00EC3795 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		3309A61B1C76750C00EC3795 /* Build configuration list for PBXNativeTarget "ConcussionAssessmentUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3309A61C1C76750C00EC3795 /* Debug */,
+				3309A61D1C76750C00EC3795 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3309A6021C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3309A6031C76750C00EC3795 /* ConcussionAssessment.xcdatamodel */,
+			);
+			currentVersion = 3309A6031C76750C00EC3795 /* ConcussionAssessment.xcdatamodel */;
+			path = ConcussionAssessment.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 3309A5F01C76750C00EC3795 /* Project object */;
+}
