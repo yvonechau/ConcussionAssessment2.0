@@ -12,6 +12,7 @@
 		3309A6041C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3309A6021C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld */; };
 		3309A6061C76750C00EC3795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3309A6051C76750C00EC3795 /* Assets.xcassets */; };
 		3309A6141C76750C00EC3795 /* ConcussionAssessmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309A6131C76750C00EC3795 /* ConcussionAssessmentUITests.swift */; };
+		4489129F1C7BEA2E001D1E7D /* SplashScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4489129E1C7BEA2E001D1E7D /* SplashScreenController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		3309A60F1C76750C00EC3795 /* ConcussionAssessmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConcussionAssessmentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3309A6131C76750C00EC3795 /* ConcussionAssessmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcussionAssessmentUITests.swift; sourceTree = "<group>"; };
 		3309A6151C76750C00EC3795 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4489129E1C7BEA2E001D1E7D /* SplashScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				3309A5FB1C76750C00EC3795 /* AppDelegate.swift */,
 				3309A5FD1C76750C00EC3795 /* ViewController.swift */,
+				4489129E1C7BEA2E001D1E7D /* SplashScreenController.swift */,
 				3309A6051C76750C00EC3795 /* Assets.xcassets */,
 				3309A60A1C76750C00EC3795 /* Info.plist */,
 				3309A6021C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld */,
@@ -195,6 +198,7 @@
 				3309A5FE1C76750C00EC3795 /* ViewController.swift in Sources */,
 				3309A5FC1C76750C00EC3795 /* AppDelegate.swift in Sources */,
 				3309A6041C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld in Sources */,
+				4489129F1C7BEA2E001D1E7D /* SplashScreenController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +371,7 @@
 				3309A61A1C76750C00EC3795 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3309A61B1C76750C00EC3795 /* Build configuration list for PBXNativeTarget "ConcussionAssessmentUITests" */ = {
 			isa = XCConfigurationList;
@@ -375,6 +380,7 @@
 				3309A61D1C76750C00EC3795 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
