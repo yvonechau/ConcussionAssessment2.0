@@ -15,15 +15,13 @@ class TestMenuTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let TestMenuTableView = UITableView()
-        TestMenuTableView.dataSource = self
-        TestMenuTableView.delegate = self
-        TestMenuTableView.backgroundColor = UIColor.whiteColor()
+        self.title = "Test Table View"
+        
+        // let TestMenuTableView = UITableView()
+        // TestMenuTableView.dataSource = self
+        // TestMenuTableView.delegate = self
+        // TestMenuTableView.backgroundColor = UIColor.whiteColor()
         // Above same as UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        
-        TestMenuTableView.frame = CGRectMake(20, 50, 200, 400)
-        
-        self.view.addSubview(TestMenuTableView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,7 +30,7 @@ class TestMenuTableViewController: UITableViewController {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInsection section: Int) -> Int {
-        return 4
+        return LabelArray.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
