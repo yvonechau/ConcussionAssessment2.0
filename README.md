@@ -1,1 +1,4 @@
-# ConcussionAssessment2.0
+Concussion Assessment App
+===
+
+Please use the ConcussionAssessment Xcode project instead of ConcussionApp.
