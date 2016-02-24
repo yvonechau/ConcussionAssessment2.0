@@ -17,6 +17,7 @@ class IndividualTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.title = "Individual Tests"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
         // let TestMenuTableView = UITableView()
         // TestMenuTableView.dataSource = self
