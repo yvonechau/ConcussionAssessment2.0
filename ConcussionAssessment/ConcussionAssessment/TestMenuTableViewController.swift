@@ -10,12 +10,13 @@ import UIKit
 
 class TestMenuTableViewController: UITableViewController {
     
-    let LabelArray = ["Glasgow Coma Scale", "Maddocks Test", "Symptom Evaluation", "Cognitive Assessment"]
+    let LabelArray = ["Maddocks Score", "Symptom Evaluation", "Cognitive Assessment", "Balance Examination"]
+    let DetailLabelArray: [String] = ["Questionnaire for patient.", "Checking to see how the patient is feeling.", "Checking details.", ""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Test Table View"
+        self.title = "Individual Tests"
         
         // let TestMenuTableView = UITableView()
         // TestMenuTableView.dataSource = self
@@ -34,12 +35,32 @@ class TestMenuTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let Cell = UITableViewCell()
+        let Cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MenuCell")
         
         Cell.textLabel?.text = LabelArray[indexPath.row]
-        Cell.detailTextLabel?.text = "This goes to the Glasgow Coma Scale test."
+        Cell.detailTextLabel?.text = DetailLabelArray[indexPath.item]
         Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
         return Cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch(indexPath.item) {
+        case 0:
+            let MaddocksView = MaddocksViewController() as MaddocksViewController
+            self.navigationController?.pushViewController(MaddocksView, animated: true)
+        case 1:
+            let SymptomView = SymptomViewController() as SymptomViewController
+            self.navigationController?.pushViewController(SymptomView, animated: true)
+        case 2:
+            let CognitiveView = CognitiveTableViewController() as CognitiveTableViewController
+            self.navigationController?.pushViewController(CognitiveView, animated: true)
+        case 3:
+            let BalanceView = BalanceViewController() as BalanceViewController
+            self.navigationController?.pushViewController(BalanceView, animated: true)
+        default:
+            fatalError("Unknown test choice.")
+            
+        }
     }
 }

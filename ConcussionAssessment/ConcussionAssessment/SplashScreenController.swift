@@ -22,7 +22,7 @@ class SplashScreenController: UITableViewController {
         super.loadView()
         
         // set the title
-        self.title = "Main Screen"
+        self.title = "Splash Screen"
         
         /*
         // construct first name cell, section 0, row 0
