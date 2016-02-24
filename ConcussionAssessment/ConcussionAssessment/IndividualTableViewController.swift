@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TestMenuTableViewController: UITableViewController {
+class IndividualTableViewController: UITableViewController {
     
     let LabelArray = ["Maddocks Score", "Symptom Evaluation", "Cognitive Assessment", "Balance Examination"]
     let DetailLabelArray: [String] = ["Questionnaire for patient.", "Checking to see how the patient is feeling.", "Checking details.", ""]

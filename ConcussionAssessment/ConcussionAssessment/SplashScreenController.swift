@@ -125,8 +125,8 @@ class SplashScreenController: UITableViewController {
                 // link Player Profiles Page
                 break;
             case 2:
-                //let tcv = TestCableViewController(style: UITableViewStyle.Grouped)
-                //self.navigationController?.pushViewController(tvc, animated:true)
+                let IndividualTestsView = IndividualTableViewController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(IndividualTestsView, animated:true)
                 break;
             default:
                 fatalError("Unknow Row");
