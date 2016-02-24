@@ -6,7 +6,7 @@
 //  Copyright © 2016 PYKS. All rights reserved.
 //
 
-import Foundation
+import Foundation 
 import UIKit
 
 class ListPlayerProfileController: UITableViewController {
