@@ -74,14 +74,14 @@ class SplashScreenController: UITableViewController {
     // Return the row for the corresponding section and row
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch(indexPath.section) {
-        case 0:
-            switch(indexPath.row) {
-            case 0: return self.fullDiagnostic   // section 0, row 0 is the first name
-            case 1: return self.playerProfile    // section 0, row 1 is the last name
-            case 2: return self.individualTests
-            default: fatalError("Unknown row in section 0")
-            }
-        default: fatalError("Unknown section")
+            case 0:
+                switch(indexPath.row) {
+                    case 0: return self.fullDiagnostic   // section 0, row 0 is the first name
+                    case 1: return self.playerProfile    // section 0, row 1 is the last name
+                    case 2: return self.individualTests
+                    default: fatalError("Unknown row in section 0")
+                }
+            default: fatalError("Unknown section")
         }
     }
     
@@ -125,8 +125,8 @@ class SplashScreenController: UITableViewController {
                 // link Player Profiles Page
                 break;
             case 2:
-                //let tcv = TestCableViewController(style: UITableViewStyle.Grouped)
-                //self.navigationController?.pushViewController(tvc, animated:true)
+                let IndividualTestsView = IndividualTableViewController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(IndividualTestsView, animated:true)
                 break;
             default:
                 fatalError("Unknow Row");
