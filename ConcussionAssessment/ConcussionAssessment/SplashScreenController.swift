@@ -115,4 +115,21 @@ class SplashScreenController: UITableViewController {
         */
     }
     
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        switch(indexPath.section){
+        case 0:
+            switch(indexPath.row) {
+            case 0:
+                self.presentViewController(navController, animated: true, completion: nil)
+                break;
+            case 1:
+                self.presentViewController(navController, animated: true, completion: nil)
+                break;
+            case 2:
+                self.presentViewController(navController, animated: true, completion: nil)
+                break;
+            }
+        }
+    }
+    
 }
