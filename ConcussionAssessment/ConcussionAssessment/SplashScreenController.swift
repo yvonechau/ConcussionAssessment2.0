@@ -113,6 +113,48 @@ class SplashScreenController: UITableViewController {
             }
         }
         */
+
+        switch(indexPath.section) {
+        case 0:
+            switch(indexPath.row) {
+            case 0:
+                let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(lpp, animated:true)
+                break;
+            case 1:
+                // link Player Profiles Page
+                break;
+            case 2:
+                //let tcv = TestCableViewController(style: UITableViewStyle.Grouped)
+                //self.navigationController?.pushViewController(tvc, animated:true)
+                break;
+            default:
+                fatalError("Unknow Row");
+            }
+            break;
+        default:
+            fatalError("Unknown Section")
+            break;
+        }
     }
+    
+    /*
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch indexPath.item {
+        case 0:
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("OrientationTestViewController")
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 1:
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("NumberTestViewController")
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        default:
+            print("Error")
+        }
+    }
+*/
     
 }
