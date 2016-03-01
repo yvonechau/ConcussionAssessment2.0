@@ -97,7 +97,9 @@ class SymptomView: UIViewController
 {
   var pageIndex : Int = 0
   var titleText : String = ""
+  var selectedIndex: NSInteger = 0
   
+  var seScore: NSInteger = 0
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -137,12 +139,15 @@ class SymptomView: UIViewController
       segButton.backgroundColor = UIColor.whiteColor()
       segButton.layer.cornerRadius = 5.0
       segButton.clipsToBounds = true
-      segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.AllEvents)
+      segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.TouchUpInside)
 
       
       return segButton
     }()
     self.view.addSubview(segCtrl)
+    
+    selectedIndex = segCtrl.selectedSegmentIndex
+    seScore += selectedIndex
     
     self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[v0]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":segCtrl]))
     self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-200-[v0]-400-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":segCtrl]))
