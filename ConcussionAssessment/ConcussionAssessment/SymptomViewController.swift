@@ -97,9 +97,8 @@ class SymptomView: UIViewController
 {
   var pageIndex : Int = 0
   var titleText : String = ""
-  var selectedIndex: NSInteger = 0
-  
-  var seScore: NSInteger = 0
+  //var selectedIndex: NSInteger = 0
+  //var seScore: NSInteger = 0
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -146,8 +145,8 @@ class SymptomView: UIViewController
     }()
     self.view.addSubview(segCtrl)
     
-    selectedIndex = segCtrl.selectedSegmentIndex
-    seScore += selectedIndex
+    //selectedIndex = segCtrl.selectedSegmentIndex
+    //seScore += selectedIndex //TODO: make sure to save LAST value selected only
     
     self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[v0]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":segCtrl]))
     self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-200-[v0]-400-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":segCtrl]))
