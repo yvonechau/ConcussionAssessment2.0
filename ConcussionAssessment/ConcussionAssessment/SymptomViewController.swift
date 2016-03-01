@@ -64,6 +64,8 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
       return nil
     }
     
+    // ADD the score update here
+    
     return viewControllerAtIndex(index)
   }
   
@@ -121,13 +123,6 @@ class SymptomView: UIViewController
     view.addSubview(label)
     
     
-    
-//    let button = UIButton(type: UIButtonType.System)
-//    button.frame = CGRectMake(20, view.frame.height - 110, view.frame.width - 40, 50)
-//    button.setTitle(titleText, forState: UIControlState.Normal)
-//    button.addTarget(self, action: "Action", forControlEvents: UIControlEvents.TouchUpInside)
-//    self.view.addSubview(button)
-    
     let segCtrl: UISegmentedControl  =
     {
       let numbers = ["0", "1", "2", "3", "4", "5", "6"]
@@ -143,6 +138,40 @@ class SymptomView: UIViewController
       
       return segButton
     }()
+    
+    let none = UILabel(frame: CGRectMake(20,165,44,44))
+    none.textColor = UIColor.whiteColor()
+    none.backgroundColor = UIColor.grayColor()
+    none.text = "none"
+    none.textAlignment = .Center
+    view.addSubview(none)
+    
+    
+    let mild = UILabel(frame: CGRectMake(105,165,44,44))
+    mild.textColor = UIColor.whiteColor()
+    mild.backgroundColor = UIColor.grayColor()
+    mild.text = "mild"
+    mild.textAlignment = .Center
+    view.addSubview(mild)
+    
+    
+    let moderate = UILabel(frame: CGRectMake(190,165,80,44))
+    moderate.backgroundColor = UIColor.grayColor()
+    moderate.textColor = UIColor.whiteColor()
+    moderate.text = "moderate"
+    moderate.textAlignment = .Center
+    view.addSubview(moderate)
+    
+    
+    
+    let severe = UILabel(frame: CGRectMake(310,165,80,44))
+    severe.backgroundColor = UIColor.grayColor()
+
+    severe.textColor = UIColor.whiteColor()
+    severe.text = "severe"
+    severe.textAlignment = .Center
+    view.addSubview(severe)
+    
     self.view.addSubview(segCtrl)
     
     selectedIndex = segCtrl.selectedSegmentIndex
