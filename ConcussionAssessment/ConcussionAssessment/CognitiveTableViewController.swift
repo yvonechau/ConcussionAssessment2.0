@@ -13,7 +13,7 @@ class CognitiveTableViewController: UITableViewController {
     let NumberOfSections = 1
     
     let LabelArray = ["Orientation", "Immediate Memory", "Concentration"]
-    let DetailLabelArray: [String] = ["Whether the patient is aware of what time it is.", "Memory/recollection test.", "Remembering numbers backwards."]
+    let DetailLabelArray: [String] = ["Whether the patient is aware of what time it is.", "Memory/recollection test.", "Remembering information backwards."]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ class CognitiveTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch(section) {
         case 0:
-            return "Individual tests"
+            return "Evaluations"
         default:
             return "Nil"
         }
