@@ -8,94 +8,114 @@
 
 import UIKit
 
-import UIKit
 
-class SymptomViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout
-{
-  let customCellIdentifier = "customCellIdentfier"
+class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
+  
+  var pageViewController: UIPageViewController?
+  
+  var pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
+  
+  var currentIndex : Int = 0
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    collectionView?.backgroundColor = UIColor.whiteColor()
+    pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+    pageViewController!.dataSource = self
     
-    collectionView?.registerClass(CustomCell.self, forCellWithReuseIdentifier: customCellIdentifier)
-  }
-  
-  override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath)-> UICollectionViewCell
-  {
-    let customCell = collectionView.dequeueReusableCellWithReuseIdentifier(customCellIdentifier, forIndexPath: indexPath) as! CustomCell
+    let startingViewController: SymptomView = viewControllerAtIndex(0)!
+    let viewControllers = [startingViewController]
+    pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
+    pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
     
-    customCell.nameLabel.text = names[indexPath.item]
-    return customCell//?
+    addChildViewController(pageViewController!)
+    view.addSubview(pageViewController!.view)
+    pageViewController!.didMoveToParentViewController(self)
+    
   }
   
-  let names = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
-  override func collectionView(collectionView: UICollectionView,numberOfItemsInSection section: Int) -> Int
-  {
-    return 22
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
   }
   
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
+  func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
   {
-    return CGSizeMake(view.frame.width, 200)
+    var index = (viewController as! SymptomView).pageIndex
+    if(index == 0) || (index == NSNotFound)
+    {
+      return nil
+    }
+    index--
+    return viewControllerAtIndex(index)
+  }
+  
+  func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
+  {
+    var index = (viewController as! SymptomView).pageIndex
+    if index == NSNotFound
+    {
+      return nil
+    }
+    index++
+    if(index == self.pageTitles.count)
+    {
+      return nil
+    }
+    
+    return viewControllerAtIndex(index)
+  }
+  
+  func viewControllerAtIndex(index: Int) ->SymptomView?
+  {
+    if self.pageTitles.count == 0 || index >= self.pageTitles.count
+    {
+      return nil
+    }
+    
+    let pageContentViewController = SymptomView()
+    pageContentViewController.titleText = pageTitles[index]
+    pageContentViewController.pageIndex = index
+    currentIndex = index
+    
+    return pageContentViewController
+  }
+  
+  func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int
+  {
+    return self.pageTitles.count
+  }
+  
+  func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int
+  {
+    return 0
   }
 }
 
-class CustomCell: UICollectionViewCell
+class SymptomView: UIViewController
 {
-  override init(frame: CGRect) //called on dequeue of cells
+  var pageIndex : Int = 0
+  var titleText : String = ""
+  
+  override func viewDidLoad()
   {
-    super.init(frame: frame)
-    setupViews()
+    super.viewDidLoad()
+    
+    view.backgroundColor = UIColor.blackColor()
+    
+    let label = UILabel(frame: CGRectMake(0,0, view.frame.width, 200))
+    label.textColor = UIColor.whiteColor()
+    label.text = titleText
+    label.textAlignment = .Center
+    view.addSubview(label)
+    
+    let button = UIButton(type: UIButtonType.System)
+    button.frame = CGRectMake(20, view.frame.height - 110, view.frame.width - 40, 50)
+    button.setTitle(titleText, forState: UIControlState.Normal)
+    button.addTarget(self, action: "Action", forControlEvents: UIControlEvents.TouchUpInside)
+    self.view.addSubview(button)
   }
   
-  let nameLabel: UILabel =
-  {
-    let label = UILabel()
-    label.text = "Custom Text"
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
-  let segCtrl: UISegmentedControl  =
-  {
-    let numbers = ["0", "1", "2", "3", "4", "5", "6"]
-    let segButton = UISegmentedControl(items: numbers)
-    segButton.frame = CGRectMake(100, 200, 200, 30)
-    segButton.selectedSegmentIndex = 0
-    segButton.translatesAutoresizingMaskIntoConstraints = false
-    segButton.backgroundColor = UIColor.whiteColor()
-    segButton.layer.cornerRadius = 4.0
-    segButton.clipsToBounds = true
-    
-    return segButton
-  }()
-  
-  func setupViews()
-  {
-    backgroundColor = UIColor.grayColor()
-    addSubview(nameLabel)
-    addSubview(segCtrl)
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":nameLabel]))
-    
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[v0]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":segCtrl]))
-    //views is the dictionary, H width span the pipe of v0 set by the dictionary H for horizontal
-    
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v0]-5-[v1]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":nameLabel, "v1": segCtrl]))
-    
-    //    segButton.insertSegmentWithTitle("none", atIndex: 0, animated = true)
-    //    segButton.insertSegmentWithTitle("mild", atIndices: 1, numberOfSegments: 2, animated:true)
-    //    segButton.insertSegmentWithTitle("moderate", atIndices: 3, numberOfSegments: 2, animated: true)
-    //    segButton.insertSegmentWithTitle("mild", atIndices: 5, numberOfSegments: 2, animated: true)
-    
-    
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
   }
-  
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  
-}
+ }
