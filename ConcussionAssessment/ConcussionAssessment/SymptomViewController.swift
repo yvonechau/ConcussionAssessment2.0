@@ -16,7 +16,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
   var pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
   
   var currentIndex : Int = 0
-  
+  var limitIndex: Int = 0
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -57,6 +57,8 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
       return nil
     }
     index++
+    limitIndex = index - 1
+
     if(index == self.pageTitles.count)
     {
       return nil
@@ -67,7 +69,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
   
   func viewControllerAtIndex(index: Int) ->SymptomView?
   {
-    if self.pageTitles.count == 0 || index >= self.pageTitles.count
+    if self.pageTitles.count == 0 || index >= self.pageTitles.count || index < limitIndex
     {
       return nil
     }
