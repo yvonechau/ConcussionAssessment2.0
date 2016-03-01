@@ -67,4 +67,5 @@ class IndividualTableViewController: UITableViewController {
             
         }
     }
+  
 }
