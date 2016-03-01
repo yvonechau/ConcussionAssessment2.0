@@ -137,6 +137,8 @@ class SymptomView: UIViewController
       segButton.backgroundColor = UIColor.whiteColor()
       segButton.layer.cornerRadius = 5.0
       segButton.clipsToBounds = true
+      segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.AllEvents)
+
       
       return segButton
     }()
