@@ -102,9 +102,18 @@ class SymptomView: UIViewController
   {
     super.viewDidLoad()
     
-    view.backgroundColor = UIColor.blackColor()
     
-    let label = UILabel(frame: CGRectMake(0,0, view.frame.width, 200))
+    view.backgroundColor = UIColor.lightGrayColor()
+    let title = UILabel(frame: CGRectMake(0,60, view.frame.width, 50))
+    title.textColor = UIColor.lightGrayColor()
+    title.text = "        Symptom Evaluation"
+    title.font = title.font.fontWithSize(15)
+    title.textAlignment = .Left
+    title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
+    //    title.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(title)
+    
+    let label = UILabel(frame: CGRectMake(0,55, view.frame.width, 200))
     label.textColor = UIColor.whiteColor()
     label.text = titleText
     label.textAlignment = .Center
