@@ -16,8 +16,8 @@ class IndividualTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Individual Tests"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        self.title = "Tests"
+        //self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
         // let TestMenuTableView = UITableView()
         // TestMenuTableView.dataSource = self
@@ -35,10 +35,20 @@ class IndividualTableViewController: UITableViewController {
         return LabelArray.count
     }
     
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        switch(section) {
+        case 0:
+            return "Individual Tests"
+        default:
+            return "Nil"
+        }
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let Cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MenuCell")
         
-        Cell.textLabel?.text = LabelArray[indexPath.row]
+        Cell.textLabel?.text = LabelArray[indexPath.item]
         Cell.detailTextLabel?.text = DetailLabelArray[indexPath.item]
         Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
@@ -54,7 +64,7 @@ class IndividualTableViewController: UITableViewController {
             let SymptomView = SymptomViewController() as SymptomViewController
             self.navigationController?.pushViewController(SymptomView, animated: true)
         case 2:
-            let CognitiveView = CognitiveTableViewController() as CognitiveTableViewController
+            let CognitiveView = CognitiveTableViewController(style: UITableViewStyle.Grouped) as CognitiveTableViewController
             self.navigationController?.pushViewController(CognitiveView, animated: true)
         case 3:
             let BalanceView = BalanceViewController() as BalanceViewController
