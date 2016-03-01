@@ -108,6 +108,8 @@ class SymptomView: UIViewController
     label.textAlignment = .Center
     view.addSubview(label)
     
+    
+    
 //    let button = UIButton(type: UIButtonType.System)
 //    button.frame = CGRectMake(20, view.frame.height - 110, view.frame.width - 40, 50)
 //    button.setTitle(titleText, forState: UIControlState.Normal)
@@ -118,16 +120,21 @@ class SymptomView: UIViewController
     {
       let numbers = ["0", "1", "2", "3", "4", "5", "6"]
       let segButton = UISegmentedControl(items: numbers)
-      segButton.frame = CGRectMake(100, 200, 200, 30)
+      segButton.frame = CGRectMake(100, 200, 195, 30)
       segButton.selectedSegmentIndex = 0
       segButton.translatesAutoresizingMaskIntoConstraints = false
       segButton.backgroundColor = UIColor.whiteColor()
-      segButton.layer.cornerRadius = 4.0
+      segButton.layer.cornerRadius = 5.0
       segButton.clipsToBounds = true
       
       return segButton
     }()
     self.view.addSubview(segCtrl)
+    
+    self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[v0]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":segCtrl]))
+    self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-200-[v0]-400-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":segCtrl]))
+
+
   }
   
   override func didReceiveMemoryWarning() {
