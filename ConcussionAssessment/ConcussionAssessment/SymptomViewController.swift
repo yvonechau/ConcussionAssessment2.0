@@ -46,6 +46,8 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
       return nil
     }
     index--
+    
+    // UNDO VALUE HERE
     return viewControllerAtIndex(index)
   }
   
@@ -64,7 +66,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
       return nil
     }
     
-    // ADD the score update here
+    // SAVE VALUE HERE
     
     return viewControllerAtIndex(index)
   }
@@ -110,7 +112,7 @@ class SymptomView: UIViewController
     let title = UILabel(frame: CGRectMake(0,60, view.frame.width, 50))
     title.textColor = UIColor.lightGrayColor()
     title.text = "        Symptom Evaluation"
-    title.font = title.font.fontWithSize(15)
+    title.font = title.font.fontWithSize(17)
     title.textAlignment = .Left
     title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
     //    title.translatesAutoresizingMaskIntoConstraints = false
@@ -118,6 +120,7 @@ class SymptomView: UIViewController
     
     let label = UILabel(frame: CGRectMake(0,55, view.frame.width, 200))
     label.textColor = UIColor.whiteColor()
+    label.font = UIFont.boldSystemFontOfSize(20.0)
     label.text = titleText
     label.textAlignment = .Center
     view.addSubview(label)
@@ -127,46 +130,41 @@ class SymptomView: UIViewController
     {
       let numbers = ["0", "1", "2", "3", "4", "5", "6"]
       let segButton = UISegmentedControl(items: numbers)
-      segButton.frame = CGRectMake(100, 200, 195, 30)
+      segButton.frame = CGRectMake(10, 230, view.frame.width - 20, 44)
       segButton.selectedSegmentIndex = 0
-      segButton.translatesAutoresizingMaskIntoConstraints = false
       segButton.backgroundColor = UIColor.whiteColor()
       segButton.layer.cornerRadius = 5.0
       segButton.clipsToBounds = true
-      segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.TouchUpInside)
-
+      //segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.TouchUpInside)
       
       return segButton
     }()
     
-    let none = UILabel(frame: CGRectMake(20,165,44,44))
+    let none = UILabel(frame: CGRectMake(20,195,44,44))
     none.textColor = UIColor.whiteColor()
-    none.backgroundColor = UIColor.grayColor()
+    none.backgroundColor = UIColor.clearColor()
     none.text = "none"
     none.textAlignment = .Center
     view.addSubview(none)
     
     
-    let mild = UILabel(frame: CGRectMake(105,165,44,44))
+    let mild = UILabel(frame: CGRectMake(105,195,44,44))
     mild.textColor = UIColor.whiteColor()
-    mild.backgroundColor = UIColor.grayColor()
+    mild.backgroundColor = UIColor.clearColor()
     mild.text = "mild"
     mild.textAlignment = .Center
     view.addSubview(mild)
     
     
-    let moderate = UILabel(frame: CGRectMake(190,165,80,44))
-    moderate.backgroundColor = UIColor.grayColor()
+    let moderate = UILabel(frame: CGRectMake(190,195,80,44))
+    moderate.backgroundColor = UIColor.clearColor()
     moderate.textColor = UIColor.whiteColor()
     moderate.text = "moderate"
     moderate.textAlignment = .Center
     view.addSubview(moderate)
     
-    
-    
-    let severe = UILabel(frame: CGRectMake(310,165,80,44))
-    severe.backgroundColor = UIColor.grayColor()
-
+    let severe = UILabel(frame: CGRectMake(310,195,80,44))
+    severe.backgroundColor = UIColor.clearColor()
     severe.textColor = UIColor.whiteColor()
     severe.text = "severe"
     severe.textAlignment = .Center
@@ -176,10 +174,6 @@ class SymptomView: UIViewController
     
     selectedIndex = segCtrl.selectedSegmentIndex
     seScore += selectedIndex //TODO: make sure to save LAST value selected only
-    
-    self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[v0]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":segCtrl]))
-    self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-200-[v0]-400-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0":segCtrl]))
-
 
   }
   
