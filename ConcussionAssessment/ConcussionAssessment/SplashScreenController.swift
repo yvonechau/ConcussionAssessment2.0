@@ -9,13 +9,21 @@
 import Foundation
 import UIKit
 
+var currentScore: Score? = nil
+var currentPlayer: Player? = nil
+
 class SplashScreenController: UITableViewController {
     
     
     var fullDiagnostic: UITableViewCell = UITableViewCell()
     var playerProfile: UITableViewCell = UITableViewCell()
     var individualTests: UITableViewCell = UITableViewCell()
-    var currentScore: UITableViewCell = UITableViewCell()
+    var currentScoreView: UITableViewCell = UITableViewCell()
+    
+    override func viewWillAppear(animated: Bool) {
+        currentScore = nil
+        currentPlayer = nil
+    }
     
     
     
@@ -56,9 +64,9 @@ class SplashScreenController: UITableViewController {
         self.individualTests.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         self.individualTests.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
-        self.currentScore.textLabel?.text = "Current Score"
-        self.currentScore.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        self.currentScore.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        self.currentScoreView.textLabel?.text = "Current Score"
+        self.currentScoreView.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        self.currentScoreView.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
     }
     
     
@@ -84,7 +92,7 @@ class SplashScreenController: UITableViewController {
                 case 0: return self.fullDiagnostic   // section 0, row 0 is the first name
                 case 1: return self.playerProfile    // section 0, row 1 is the last name
                 case 2: return self.individualTests
-                case 3: return self.currentScore
+                case 3: return self.currentScoreView
                     default: fatalError("Unknown row in section 0")
                 }
             default: fatalError("Unknown section")
@@ -125,6 +133,7 @@ class SplashScreenController: UITableViewController {
             switch(indexPath.row) {
             case 0:
                 let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped)
+                currentScore = Score()
                 self.navigationController?.pushViewController(lpp, animated:true)
                 break;
             case 1:
@@ -132,6 +141,7 @@ class SplashScreenController: UITableViewController {
                 break;
             case 2:
                 let IndividualTestsView = IndividualTableViewController(style: UITableViewStyle.Grouped)
+                currentScore = Score()
                 self.navigationController?.pushViewController(IndividualTestsView, animated:true)
                 break;
             case 3:
