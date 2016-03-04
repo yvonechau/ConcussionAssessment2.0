@@ -15,6 +15,7 @@ class SplashScreenController: UITableViewController {
     var fullDiagnostic: UITableViewCell = UITableViewCell()
     var playerProfile: UITableViewCell = UITableViewCell()
     var individualTests: UITableViewCell = UITableViewCell()
+    var currentScore: UITableViewCell = UITableViewCell()
     
     
     
@@ -54,6 +55,10 @@ class SplashScreenController: UITableViewController {
         self.individualTests.textLabel?.text = "Take Individual Tests"
         self.individualTests.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         self.individualTests.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        self.currentScore.textLabel?.text = "Current Score"
+        self.currentScore.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        self.currentScore.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
     }
     
     
@@ -65,7 +70,7 @@ class SplashScreenController: UITableViewController {
     // Return the number of rows for each section in your static table
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
-        case 0: return 3    // section 0 has 2 rows
+        case 0: return 4    // section 0 has 2 rows
         //case 1: return 1    // section 1 has 1 row
         default: fatalError("Unknown number of sections")
         }
@@ -74,14 +79,15 @@ class SplashScreenController: UITableViewController {
     // Return the row for the corresponding section and row
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch(indexPath.section) {
-        case 0:
-            switch(indexPath.row) {
-            case 0: return self.fullDiagnostic   // section 0, row 0 is the first name
-            case 1: return self.playerProfile    // section 0, row 1 is the last name
-            case 2: return self.individualTests
-            default: fatalError("Unknown row in section 0")
-            }
-        default: fatalError("Unknown section")
+            case 0:
+                switch(indexPath.row) {
+                case 0: return self.fullDiagnostic   // section 0, row 0 is the first name
+                case 1: return self.playerProfile    // section 0, row 1 is the last name
+                case 2: return self.individualTests
+                case 3: return self.currentScore
+                    default: fatalError("Unknown row in section 0")
+                }
+            default: fatalError("Unknown section")
         }
     }
     
@@ -113,6 +119,52 @@ class SplashScreenController: UITableViewController {
             }
         }
         */
+
+        switch(indexPath.section) {
+        case 0:
+            switch(indexPath.row) {
+            case 0:
+                let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(lpp, animated:true)
+                break;
+            case 1:
+                // link Player Profiles Page
+                break;
+            case 2:
+                let IndividualTestsView = IndividualTableViewController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(IndividualTestsView, animated:true)
+                break;
+            case 3:
+                let ScoreBoardView = ScoreBoardController()
+                self.navigationController?.pushViewController(ScoreBoardView, animated: true)
+                break;
+            default:
+                fatalError("Unknow Row");
+            }
+            break;
+        default:
+            fatalError("Unknown Section")
+            break;
+        }
     }
+    
+    /*
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch indexPath.item {
+        case 0:
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("OrientationTestViewController")
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 1:
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("NumberTestViewController")
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        default:
+            print("Error")
+        }
+    }
+*/
     
 }
