@@ -67,6 +67,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
     }
     
     // SAVE VALUE HERE
+    //currentScore!.numSymptoms = //SAVE AS AN NSNUMBER 
     
     return viewControllerAtIndex(index)
   }
