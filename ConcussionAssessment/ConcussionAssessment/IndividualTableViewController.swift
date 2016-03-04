@@ -50,6 +50,10 @@ class IndividualTableViewController: UITableViewController {
             let MaddocksView = MaddocksViewController() as MaddocksViewController
             self.navigationController?.pushViewController(MaddocksView, animated: true)
         case 1:
+            let pageControl = UIPageControl.appearance()
+            pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
+            pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
+            pageControl.backgroundColor = UIColor.whiteColor()
             let SymptomView = SymptomViewController() as SymptomViewController
             self.navigationController?.pushViewController(SymptomView, animated: true)
         case 2:
@@ -63,4 +67,5 @@ class IndividualTableViewController: UITableViewController {
             
         }
     }
+  
 }
