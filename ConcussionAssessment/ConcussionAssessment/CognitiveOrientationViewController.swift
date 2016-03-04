@@ -66,7 +66,7 @@ class CognitiveOrientationViewController: UIViewController, UICollectionViewDele
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let Cell = collectionView.dequeueReusableCellWithReuseIdentifier("TestCell", forIndexPath: indexPath) as! TestCell
-        Cell.backgroundColor = UIColor.grayColor()
+        Cell.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
         Cell.QuestionLabel.text = Questions[indexPath.item]
         print(Questions[indexPath.item])
         

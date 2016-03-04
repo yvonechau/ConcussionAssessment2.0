@@ -10,8 +10,6 @@ import UIKit
 
 class CognitiveTableViewController: UITableViewController {
     
-    let NumberOfSections = 1
-    
     let LabelArray = ["Orientation", "Immediate Memory", "Concentration"]
     let DetailLabelArray: [String] = ["Whether the patient is aware of what time it is.", "Memory/recollection test.", "Remembering information backwards."]
     
@@ -34,11 +32,11 @@ class CognitiveTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return LabelArray.count
+        return 1
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return NumberOfSections
+        return LabelArray.count
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -46,18 +44,45 @@ class CognitiveTableViewController: UITableViewController {
         case 0:
             return "Evaluations"
         default:
-            return "Nil"
+            return ""
         }
         
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let Cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MenuCell")
-        
-        Cell.textLabel?.text = LabelArray[indexPath.row]
-        Cell.detailTextLabel?.text = DetailLabelArray[indexPath.item]
-        Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        
+        switch(indexPath.section) {
+        case 0:
+            switch(indexPath.section) {
+            case 0:
+                Cell.textLabel?.text = LabelArray[indexPath.section]
+                Cell.detailTextLabel?.text = DetailLabelArray[indexPath.section]
+                Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            default:
+                fatalError("Bad choice")
+            }
+        case 1:
+            switch(indexPath.section) {
+            case 1:
+                Cell.textLabel?.text = LabelArray[indexPath.section]
+                Cell.detailTextLabel?.text = DetailLabelArray[indexPath.section]
+                Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            default:
+                fatalError("Bad choice")
+            }
+        case 2:
+            switch(indexPath.section) {
+            case 2:
+                Cell.textLabel?.text = LabelArray[indexPath.section]
+                Cell.detailTextLabel?.text = DetailLabelArray[indexPath.section]
+                Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            default:
+                fatalError("Bad choice")
+            }
+        default:
+            fatalError("Bad choice")
+        }
+
         return Cell
     }
     
@@ -68,15 +93,24 @@ class CognitiveTableViewController: UITableViewController {
             case 0:
                 let CognitiveOrientation = CognitiveOrientationViewController() as CognitiveOrientationViewController
                 self.navigationController?.pushViewController(CognitiveOrientation, animated: true)
-            case 1:
+            default:
+                fatalError("Unknown test choice.")
+            }
+        case 1:
+            switch(indexPath.item) {
+            case 0:
                 let CognitiveImmediate = CognitiveImmediateViewController() as CognitiveImmediateViewController
                 self.navigationController?.pushViewController(CognitiveImmediate, animated: true)
-            case 2:
+            default:
+                fatalError("Unknown test choice.")
+            }
+        case 2:
+            switch(indexPath.item) {
+            case 0:
                 let CognitiveConcentration = CognitiveConcentrationViewController() as CognitiveConcentrationViewController
                 self.navigationController?.pushViewController(CognitiveConcentration, animated: true)
             default:
                 fatalError("Unknown test choice.")
-            
             }
         default:
             fatalError("Unknown section.")

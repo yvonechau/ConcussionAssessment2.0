@@ -16,7 +16,7 @@ class TestCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         QuestionLabel = UILabel(frame: CGRect(x: 10, y: 0, width: frame.size.width, height: 30))
-        Ratings = ["0", "1"]
+        Ratings = ["Correct", "Incorrect"]
         RatingsSC = UISegmentedControl(items: Ratings)
         RatingsSC.backgroundColor = UIColor.whiteColor()
         RatingsSC.layer.cornerRadius = 5.0
