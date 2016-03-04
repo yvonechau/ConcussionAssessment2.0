@@ -17,6 +17,9 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
   
   var currentIndex : Int = 0
   var limitIndex: Int = 0
+  var segCtrl: UISegmentedControl?
+  
+  var currScore: NSNumber?
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -24,6 +27,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
     pageViewController!.dataSource = self
     
     let startingViewController: SymptomView = viewControllerAtIndex(0)!
+    segCtrl = startingViewController.segCtrl
     let viewControllers = [startingViewController]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
@@ -46,13 +50,15 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
       return nil
     }
     index--
-    
+    currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
+
     // UNDO VALUE HERE
     return viewControllerAtIndex(index)
   }
   
   func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
   {
+    
     var index = (viewController as! SymptomView).pageIndex
     if index == NSNotFound
     {
@@ -60,7 +66,8 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
     }
     index++
     limitIndex = index - 1
-
+    currScore = segCtrl?.selectedSegmentIndex
+    currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue + currScore!.integerValue //SAVE AS AN NSNUMBER
     if(index == self.pageTitles.count)
     {
       return nil
@@ -102,8 +109,7 @@ class SymptomView: UIViewController
 {
   var pageIndex : Int = 0
   var titleText : String = ""
-  var selectedIndex: NSInteger = 0
-  var seScore: NSInteger = 0
+  var segCtrl: UISegmentedControl?
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -116,7 +122,6 @@ class SymptomView: UIViewController
     title.font = title.font.fontWithSize(17)
     title.textAlignment = .Left
     title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
-    //    title.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(title)
     
     let label = UILabel(frame: CGRectMake(0,55, view.frame.width, 200))
@@ -127,7 +132,7 @@ class SymptomView: UIViewController
     view.addSubview(label)
     
     
-    let segCtrl: UISegmentedControl  =
+    segCtrl =
     {
       let numbers = ["0", "1", "2", "3", "4", "5", "6"]
       let segButton = UISegmentedControl(items: numbers)
@@ -136,7 +141,7 @@ class SymptomView: UIViewController
       segButton.backgroundColor = UIColor.whiteColor()
       segButton.layer.cornerRadius = 5.0
       segButton.clipsToBounds = true
-      //segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.TouchUpInside)
+      segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.TouchUpInside)
       
       return segButton
     }()
@@ -171,11 +176,8 @@ class SymptomView: UIViewController
     severe.textAlignment = .Center
     view.addSubview(severe)
     
-    self.view.addSubview(segCtrl)
+    self.view.addSubview(segCtrl!)
     
-    selectedIndex = segCtrl.selectedSegmentIndex
-    seScore += selectedIndex //TODO: make sure to save LAST value selected only
-
   }
   
   override func didReceiveMemoryWarning() {
