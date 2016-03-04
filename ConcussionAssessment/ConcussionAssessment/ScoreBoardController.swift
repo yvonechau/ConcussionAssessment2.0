@@ -12,7 +12,7 @@ import UIKit
 class ScoreBoardController : UIViewController
 {
     let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score"]
-    var scoreResults: [String?] = []
+    var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
     var y_pos: CGFloat = 0;
     
     override func viewDidLoad() {
@@ -32,12 +32,14 @@ class ScoreBoardController : UIViewController
         
     
         var total: Int = 0
-        for i in 0...6
+        for i in 0...5
         {
             if let str = scoreResults[i]{
                 total += Int(str)!
             }
         }
+        
+        scoreResults[6] = String(total)
         
         for index in 0...8
         {
