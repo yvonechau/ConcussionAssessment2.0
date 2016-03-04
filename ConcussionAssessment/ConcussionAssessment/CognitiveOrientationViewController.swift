@@ -40,14 +40,14 @@ class CognitiveOrientationViewController: UIViewController, UICollectionViewDele
         layout.sectionInset = UIEdgeInsets(top: 150, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: Frame.width, height: Frame.height/5)
         
-        DisplayTestInstructions("Select 0 or 1 for incorrect or correct responses. This test needs to be administered by someone other than the patient.")
-        
         CollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         CollectionView.dataSource = self
         CollectionView.delegate = self
         CollectionView.registerClass(TestCell.self, forCellWithReuseIdentifier: "TestCell")
         CollectionView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(CollectionView)
+        
+        DisplayTestInstructions("Select 0 or 1 for incorrect or correct responses. This test needs to be administered by someone other than the patient.")
         
         self.title = "Orientation"
         self.navigationItem.prompt = "Assessment for <Player.name>"
@@ -81,6 +81,7 @@ class CognitiveOrientationViewController: UIViewController, UICollectionViewDele
         let topOffset = self.navigationController!.navigationBar.bounds.height + UIApplication.sharedApplication().statusBarFrame.size.height
         let TopLabel = UILabel(frame: CGRect(x: 10, y:topOffset, width: Frame.size.width, height: 30))
         TopLabel.text = Text
+        TopLabel.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(TopLabel)
     }
 }
