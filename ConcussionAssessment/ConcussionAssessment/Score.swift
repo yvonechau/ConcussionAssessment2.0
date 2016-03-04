@@ -21,6 +21,8 @@ class Score : NSManagedObject {
     @NSManaged var concentration: NSNumber?   // 5
     @NSManaged var delayedRecall: NSNumber?   // 5
     @NSManaged var SACTotal: NSNumber?        // 184
+    @NSManaged var maddocks: NSNumber?        // 5
+    @NSManaged var glasgow: NSNumber?         // 15
     @NSManaged var date: NSDate?
 }
 
