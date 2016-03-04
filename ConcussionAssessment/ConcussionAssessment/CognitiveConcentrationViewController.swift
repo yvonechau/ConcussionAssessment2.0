@@ -10,11 +10,11 @@ import UIKit
 
 class CognitiveConcentrationViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     let Questions: [String] = [
-        "What month is it?",
-        "What is the date today?",
-        "What is the day of the week?",
-        "What year is it?",
-        "What time is it right now? (within 1 hour)"]
+        "4-9-3",
+        "3-8-1-4",
+        "6-2-9-7-1",
+        "7-1-8-4-6-2"
+    ]
     let Frame = UIScreen.mainScreen().bounds
     var OrientationScore: Int? = nil
     var CollectionView: UICollectionView!
@@ -40,14 +40,14 @@ class CognitiveConcentrationViewController: UIViewController, UICollectionViewDe
         layout.sectionInset = UIEdgeInsets(top: 150, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: Frame.width, height: Frame.height/5)
         
-        DisplayTestInstructions("Select 0 or 1 for incorrect or correct responses. This test needs to be administered by someone other than the patient.")
-        
         CollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         CollectionView.dataSource = self
         CollectionView.delegate = self
         CollectionView.registerClass(TestCell.self, forCellWithReuseIdentifier: "TestCell")
         CollectionView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(CollectionView)
+        
+        DisplayTestInstructions("Select 0 or 1 for incorrect or correct responses. This test needs to be administered by someone other than the patient.")
         
         self.title = "Concentration"
         self.navigationItem.prompt = "Assessment for <Player.name>"
@@ -79,8 +79,9 @@ class CognitiveConcentrationViewController: UIViewController, UICollectionViewDe
     
     func DisplayTestInstructions(Text: String) {
         let topOffset = self.navigationController!.navigationBar.bounds.height + UIApplication.sharedApplication().statusBarFrame.size.height
-        let TopLabel = UILabel(frame: CGRect(x: 10, y:topOffset, width: Frame.size.width, height: 30))
+        let TopLabel = UILabel(frame: CGRect(x: 10, y: topOffset, width: Frame.size.width, height: 30))
         TopLabel.text = Text
+        TopLabel.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(TopLabel)
     }
 }
