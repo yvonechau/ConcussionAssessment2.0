@@ -21,8 +21,8 @@ class SplashScreenController: UITableViewController {
     var currentScoreView: UITableViewCell = UITableViewCell()
     
     override func viewWillAppear(animated: Bool) {
-        currentScore = nil
-        currentPlayer = nil
+//        currentScore = nil
+//        currentPlayer = nil
     }
     
     
@@ -133,7 +133,7 @@ class SplashScreenController: UITableViewController {
             switch(indexPath.row) {
             case 0:
                 let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped)
-                currentScore = Score()
+//                currentScore = Score()
                 self.navigationController?.pushViewController(lpp, animated:true)
                 break;
             case 1:
@@ -141,7 +141,7 @@ class SplashScreenController: UITableViewController {
                 break;
             case 2:
                 let IndividualTestsView = IndividualTableViewController(style: UITableViewStyle.Grouped)
-                currentScore = Score()
+//                currentScore = Score()
                 self.navigationController?.pushViewController(IndividualTestsView, animated:true)
                 break;
             case 3:

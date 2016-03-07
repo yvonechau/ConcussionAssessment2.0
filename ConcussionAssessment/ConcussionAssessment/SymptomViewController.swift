@@ -6,10 +6,16 @@
 //  Copyright © 2016 PYKS. All rights reserved.
 //
 
+// TODO: https://github.com/lanqy/swift-programmatically, add the progressbar instead?
+// change selections to text
+// OR gradient
+// tab go to next screen
+
 import UIKit
 
 
-class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
+class SymptomViewController: UIViewController, UIPageViewControllerDataSource
+{
   
   var pageViewController: UIPageViewController?
   
@@ -17,6 +23,9 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
   
   var currentIndex : Int = 0
   var limitIndex: Int = 0
+  var segCtrller: UISegmentedControl?
+  
+  var currScore: NSNumber?
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -24,6 +33,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
     pageViewController!.dataSource = self
     
     let startingViewController: SymptomView = viewControllerAtIndex(0)!
+    segCtrller = startingViewController.segCtrl
     let viewControllers = [startingViewController]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
@@ -34,7 +44,8 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
     
   }
   
-  override func didReceiveMemoryWarning() {
+  override func didReceiveMemoryWarning()
+  {
     super.didReceiveMemoryWarning()
   }
   
@@ -46,13 +57,15 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
       return nil
     }
     index--
-    
+    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
+    segCtrller = (viewController as! SymptomView).segCtrl
     // UNDO VALUE HERE
     return viewControllerAtIndex(index)
   }
   
   func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
   {
+    
     var index = (viewController as! SymptomView).pageIndex
     if index == NSNotFound
     {
@@ -60,7 +73,10 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
     }
     index++
     limitIndex = index - 1
-
+    //currScore = segCtrller!.selectedSegmentIndex
+    //print(segCtrl!.titleForSegmentAtIndex(segCtrl!.selectedSegmentIndex))
+    //print(currScore)
+    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue + currScore!.integerValue //SAVE AS AN NSNUMBER
     if(index == self.pageTitles.count)
     {
       return nil
@@ -68,7 +84,8 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource{
     
     // SAVE VALUE HERE
     //currentScore!.numSymptoms = //SAVE AS AN NSNUMBER 
-    
+    segCtrller = (viewController as! SymptomView).segCtrl
+    print(segCtrller!.selectedSegmentIndex)
     return viewControllerAtIndex(index)
   }
   
@@ -102,8 +119,9 @@ class SymptomView: UIViewController
 {
   var pageIndex : Int = 0
   var titleText : String = ""
-  var selectedIndex: NSInteger = 0
-  var seScore: NSInteger = 0
+  var segCtrl: UISegmentedControl?
+
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -116,7 +134,6 @@ class SymptomView: UIViewController
     title.font = title.font.fontWithSize(17)
     title.textAlignment = .Left
     title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
-    //    title.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(title)
     
     let label = UILabel(frame: CGRectMake(0,55, view.frame.width, 200))
@@ -127,7 +144,7 @@ class SymptomView: UIViewController
     view.addSubview(label)
     
     
-    let segCtrl: UISegmentedControl  =
+    segCtrl =
     {
       let numbers = ["0", "1", "2", "3", "4", "5", "6"]
       let segButton = UISegmentedControl(items: numbers)
@@ -136,10 +153,18 @@ class SymptomView: UIViewController
       segButton.backgroundColor = UIColor.whiteColor()
       segButton.layer.cornerRadius = 5.0
       segButton.clipsToBounds = true
-      //segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.TouchUpInside)
+      segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.TouchUpInside)
+      print("button created")
+      func segmentedControlValueChanged(sender: UISegmentedControl!)
+      {
+        print("pressed")
+        print(sender.selectedSegmentIndex)
+      }
       
       return segButton
     }()
+    
+    
     
     let none = UILabel(frame: CGRectMake(20,195,44,44))
     none.textColor = UIColor.whiteColor()
@@ -171,11 +196,8 @@ class SymptomView: UIViewController
     severe.textAlignment = .Center
     view.addSubview(severe)
     
-    self.view.addSubview(segCtrl)
-    
-    selectedIndex = segCtrl.selectedSegmentIndex
-    seScore += selectedIndex //TODO: make sure to save LAST value selected only
-
+    self.view.addSubview(segCtrl!)
+ 
   }
   
   override func didReceiveMemoryWarning() {
