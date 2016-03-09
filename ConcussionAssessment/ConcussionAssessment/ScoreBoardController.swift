@@ -19,7 +19,7 @@ class ScoreBoardController : UIViewController
         
         self.view.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
-        
+        /*
         scoreResults[0] = (currentScore?.numSymptoms)?.stringValue
         scoreResults[1] = (currentScore?.severity)?.stringValue
         scoreResults[2] = (currentScore?.orientation)?.stringValue
@@ -29,7 +29,7 @@ class ScoreBoardController : UIViewController
         
         scoreResults[7] = (currentScore?.maddocks)?.stringValue
         scoreResults[8] = (currentScore?.glasgow)?.stringValue
-        
+        */
     
         var total: Int = 0
         for i in 0...5
