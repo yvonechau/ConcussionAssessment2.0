@@ -23,7 +23,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   
   var currentIndex : Int = 0
   var limitIndex: Int = 0
-  var segCtrller: UISegmentedControl?
+  var rowSelected: NSNumber?
   
   var currScore: NSNumber?
   override func viewDidLoad()
@@ -58,8 +58,9 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     }
     index--
     print("back")
-//    segCtrller = (viewController as! SymptomView).segCtrl
-    currScore = segCtrller!.selectedSegmentIndex
+    rowSelected = (viewController as! SymptomView).rowSel
+    currScore = rowSelected
+    print(currScore)
     //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
     
     // UNDO VALUE HERE
@@ -84,14 +85,14 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     // SAVE VALUE HERE
     //currentScore!.numSymptoms = //SAVE AS AN NSNUMBER 
     
-//    currScore = segCtrller!.selectedSegmentIndex
-//    print("%s%d", "FOR", currScore!)
     
-    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue + currScore!.integerValue //SAVE AS AN NSNUMBER
-
-//    print(segCtrller!.selectedSegmentIndex)
+    rowSelected = (viewController as! SymptomView).rowSel
+    currScore = rowSelected
+    print(currScore)
     print("forward")
-
+    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
+    
+    
     return viewControllerAtIndex(index)
   }
   
@@ -102,7 +103,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
       return nil
     }
     
-    let pageContentViewController = SymptomView()
+    let pageContentViewController = SymptomView(style: UITableViewStyle.Grouped)
     pageContentViewController.titleText = pageTitles[index]
     pageContentViewController.pageIndex = index
     currentIndex = index
@@ -126,6 +127,7 @@ class SymptomView: UITableViewController
 {
   var pageIndex : Int = 0
   var titleText : String = ""
+  var rowSel : NSNumber = 0
   
   let LabelArray = ["None", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
 
@@ -133,15 +135,26 @@ class SymptomView: UITableViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    
-    self.title = titleText
+    self.title = "Symptom Evaluation"
+    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
   }
   
-  override func didReceiveMemoryWarning() {
+  override func didReceiveMemoryWarning()
+  {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
   
+  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
+  {
+    return titleText
+  }
+  
+//  override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+//  {
+//    return 1
+//  }
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return LabelArray.count
   }
@@ -155,27 +168,10 @@ class SymptomView: UITableViewController
     return Cell
   }
   
-//  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//    switch(indexPath.item) {
-//    case 0:
-//      let MaddocksView = MaddocksViewController() as MaddocksViewController
-//      self.navigationController?.pushViewController(MaddocksView, animated: true)
-//    case 1:
-//      let pageControl = UIPageControl.appearance()
-//      pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
-//      pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
-//      pageControl.backgroundColor = UIColor.whiteColor()
-//      let SymptomView = SymptomViewController() as SymptomViewController
-//      self.navigationController?.pushViewController(SymptomView, animated: true)
-//    case 2:
-//      let CognitiveView = CognitiveTableViewController() as CognitiveTableViewController
-//      self.navigationController?.pushViewController(CognitiveView, animated: true)
-//    case 3:
-//      let BalanceView = BalanceViewController() as BalanceViewController
-//      self.navigationController?.pushViewController(BalanceView, animated: true)
-//    default:
-//      fatalError("Unknown test choice.")
-//      
-//    }
-//  }
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+  {
+    rowSel = indexPath.item
+    print(rowSel)
+  }
+  
 }
