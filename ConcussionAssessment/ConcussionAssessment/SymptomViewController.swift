@@ -24,8 +24,8 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   var currentIndex : Int = 0
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
-  
   var currScore: NSNumber?
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -52,6 +52,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
   {
     var index = (viewController as! SymptomView).pageIndex
+
     if(index == 0) || (index == NSNotFound)
     {
       return nil
@@ -69,13 +70,14 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   
   func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
   {
-    
     var index = (viewController as! SymptomView).pageIndex
     if index == NSNotFound
     {
       return nil
     }
+    print("selected passed")
     index++
+    currentIndex = index
     limitIndex = index
     if(index == self.pageTitles.count)
     {
@@ -92,7 +94,8 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     print("forward")
     //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
     
-    
+    currentIndex = index
+
     return viewControllerAtIndex(index)
   }
   
@@ -102,12 +105,11 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     {
       return nil
     }
-    
-    let pageContentViewController = SymptomView(style: UITableViewStyle.Grouped)
+  
+    let pageContentViewController = SymptomView(pvc: self)
     pageContentViewController.titleText = pageTitles[index]
     pageContentViewController.pageIndex = index
-    currentIndex = index
-    
+
     return pageContentViewController
   }
   
@@ -121,6 +123,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   {
     return 0
   }
+  
 }
 
 class SymptomView: UITableViewController
@@ -128,14 +131,33 @@ class SymptomView: UITableViewController
   var pageIndex : Int = 0
   var titleText : String = ""
   var rowSel : NSNumber = 0
+  var selected : Int? = 0
   
-  let LabelArray = ["None", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
+  let LabelArray = ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
+  
+  weak var pvc : SymptomViewController?
+  init(pvc : SymptomViewController)
+  {
+    self.pvc = pvc
+    super.init(style: UITableViewStyle.Grouped)
+  }
 
+  required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    self.title = "Symptom Evaluation"
+//    let title = UILabel(frame: CGRectMake(0,0, view.frame.width, 50))
+//    title.textColor = UIColor.blackColor()
+//    title.text = " Symptom Evaluation"
+//    title.font = title.font.fontWithSize(17)
+//    title.textAlignment = .Left
+//    title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
+//    view.addSubview(title)
+
+    
     self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
   }
@@ -151,27 +173,33 @@ class SymptomView: UITableViewController
     return titleText
   }
   
-//  override func numberOfSectionsInTableView(tableView: UITableView) -> Int
-//  {
-//    return 1
-//  }
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+  {
     return LabelArray.count
   }
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let Cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MenuCell")
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+  {
+    let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
     
     Cell.textLabel?.text = LabelArray[indexPath.row]
     Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-    
     return Cell
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
     rowSel = indexPath.item
-    print(rowSel)
+    selected = 1
+    print(selected)
+    pageIndex++
+    print(pageIndex)
+    let startingViewController: SymptomView = self.pvc!.viewControllerAtIndex(pageIndex)!
+    //    segCtrller = startingViewController.segCtrl
+    let viewControllers = [startingViewController]
+
+    self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
   }
   
 }
