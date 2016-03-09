@@ -33,7 +33,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController!.dataSource = self
     
     let startingViewController: SymptomView = viewControllerAtIndex(0)!
-    segCtrller = startingViewController.segCtrl
+//    segCtrller = startingViewController.segCtrl
     let viewControllers = [startingViewController]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
@@ -57,8 +57,11 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
       return nil
     }
     index--
+    print("back")
+//    segCtrller = (viewController as! SymptomView).segCtrl
+    currScore = segCtrller!.selectedSegmentIndex
     //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
-    segCtrller = (viewController as! SymptomView).segCtrl
+    
     // UNDO VALUE HERE
     return viewControllerAtIndex(index)
   }
@@ -72,11 +75,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
       return nil
     }
     index++
-    limitIndex = index - 1
-    //currScore = segCtrller!.selectedSegmentIndex
-    //print(segCtrl!.titleForSegmentAtIndex(segCtrl!.selectedSegmentIndex))
-    //print(currScore)
-    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue + currScore!.integerValue //SAVE AS AN NSNUMBER
+    limitIndex = index
     if(index == self.pageTitles.count)
     {
       return nil
@@ -84,8 +83,15 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     
     // SAVE VALUE HERE
     //currentScore!.numSymptoms = //SAVE AS AN NSNUMBER 
-    segCtrller = (viewController as! SymptomView).segCtrl
-    print(segCtrller!.selectedSegmentIndex)
+    
+//    currScore = segCtrller!.selectedSegmentIndex
+//    print("%s%d", "FOR", currScore!)
+    
+    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue + currScore!.integerValue //SAVE AS AN NSNUMBER
+
+//    print(segCtrller!.selectedSegmentIndex)
+    print("forward")
+
     return viewControllerAtIndex(index)
   }
   
@@ -104,6 +110,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     return pageContentViewController
   }
   
+  
   func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int
   {
     return self.pageTitles.count
@@ -115,92 +122,60 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   }
 }
 
-class SymptomView: UIViewController
+class SymptomView: UITableViewController
 {
   var pageIndex : Int = 0
   var titleText : String = ""
-  var segCtrl: UISegmentedControl?
+  
+  let LabelArray = ["None", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
 
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
     
-    
-    view.backgroundColor = UIColor.lightGrayColor()
-    let title = UILabel(frame: CGRectMake(0,60, view.frame.width, 50))
-    title.textColor = UIColor.lightGrayColor()
-    title.text = "        Symptom Evaluation"
-    title.font = title.font.fontWithSize(17)
-    title.textAlignment = .Left
-    title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
-    view.addSubview(title)
-    
-    let label = UILabel(frame: CGRectMake(0,55, view.frame.width, 200))
-    label.textColor = UIColor.whiteColor()
-    label.font = UIFont.boldSystemFontOfSize(20.0)
-    label.text = titleText
-    label.textAlignment = .Center
-    view.addSubview(label)
-    
-    
-    segCtrl =
-    {
-      let numbers = ["0", "1", "2", "3", "4", "5", "6"]
-      let segButton = UISegmentedControl(items: numbers)
-      segButton.frame = CGRectMake(10, 230, view.frame.width - 20, 44)
-      segButton.selectedSegmentIndex = 0
-      segButton.backgroundColor = UIColor.whiteColor()
-      segButton.layer.cornerRadius = 5.0
-      segButton.clipsToBounds = true
-      segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.TouchUpInside)
-      print("button created")
-      func segmentedControlValueChanged(sender: UISegmentedControl!)
-      {
-        print("pressed")
-        print(sender.selectedSegmentIndex)
-      }
-      
-      return segButton
-    }()
-    
-    
-    
-    let none = UILabel(frame: CGRectMake(20,195,44,44))
-    none.textColor = UIColor.whiteColor()
-    none.backgroundColor = UIColor.clearColor()
-    none.text = "none"
-    none.textAlignment = .Center
-    view.addSubview(none)
-    
-    
-    let mild = UILabel(frame: CGRectMake(105,195,44,44))
-    mild.textColor = UIColor.whiteColor()
-    mild.backgroundColor = UIColor.clearColor()
-    mild.text = "mild"
-    mild.textAlignment = .Center
-    view.addSubview(mild)
-    
-    
-    let moderate = UILabel(frame: CGRectMake(190,195,80,44))
-    moderate.backgroundColor = UIColor.clearColor()
-    moderate.textColor = UIColor.whiteColor()
-    moderate.text = "moderate"
-    moderate.textAlignment = .Center
-    view.addSubview(moderate)
-    
-    let severe = UILabel(frame: CGRectMake(310,195,80,44))
-    severe.backgroundColor = UIColor.clearColor()
-    severe.textColor = UIColor.whiteColor()
-    severe.text = "severe"
-    severe.textAlignment = .Center
-    view.addSubview(severe)
-    
-    self.view.addSubview(segCtrl!)
- 
+    self.title = titleText
   }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
   }
- }
+  
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return LabelArray.count
+  }
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let Cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MenuCell")
+    
+    Cell.textLabel?.text = LabelArray[indexPath.row]
+    Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+    
+    return Cell
+  }
+  
+//  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//    switch(indexPath.item) {
+//    case 0:
+//      let MaddocksView = MaddocksViewController() as MaddocksViewController
+//      self.navigationController?.pushViewController(MaddocksView, animated: true)
+//    case 1:
+//      let pageControl = UIPageControl.appearance()
+//      pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
+//      pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
+//      pageControl.backgroundColor = UIColor.whiteColor()
+//      let SymptomView = SymptomViewController() as SymptomViewController
+//      self.navigationController?.pushViewController(SymptomView, animated: true)
+//    case 2:
+//      let CognitiveView = CognitiveTableViewController() as CognitiveTableViewController
+//      self.navigationController?.pushViewController(CognitiveView, animated: true)
+//    case 3:
+//      let BalanceView = BalanceViewController() as BalanceViewController
+//      self.navigationController?.pushViewController(BalanceView, animated: true)
+//    default:
+//      fatalError("Unknown test choice.")
+//      
+//    }
+//  }
+}

@@ -20,13 +20,12 @@ class SplashScreenController: UITableViewController {
     var individualTests: UITableViewCell = UITableViewCell()
     var currentScoreView: UITableViewCell = UITableViewCell()
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool)
+    {
 //        currentScore = nil
 //        currentPlayer = nil
     }
-    
-    
-    
+  
     override func loadView() {
         super.loadView()
         
