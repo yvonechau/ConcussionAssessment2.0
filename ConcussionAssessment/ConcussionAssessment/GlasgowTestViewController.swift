@@ -1,20 +1,24 @@
 //
-//  CognitiveImmediateViewController.swift
+//  CognitiveOrientationViewController.swift
 //  ConcussionAssessment
 //
-//  Created by Philson Wong on 2/24/16.
+//  Created by Yvone Chau on 2/24/16.
 //  Copyright © 2016 PYKS. All rights reserved.
 //
 
 import UIKit
 
-class CognitiveImmediateViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class GlasgowTestViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     let Questions: [String] = [
-        "elbow",
-        "apple",
-        "carpet",
-        "saddle",
-        "bubble"]
+        "Best eye response?",
+        "Best verbal response?",
+        "Best motor response?",
+    ]
+    let Infos: [String] = [
+        "No eye opening = 1, Eyes opening spontaneously = 5",
+        "No verbal response = 1, Oriented = 5",
+        "No motor response = 1, Obeys commands = 5",
+    ]
     let Frame = UIScreen.mainScreen().bounds
     var OrientationScore: Int? = nil
     var CollectionView: UICollectionView!
@@ -37,19 +41,19 @@ class CognitiveImmediateViewController: UIViewController, UICollectionViewDelega
         
         // Do any additional setup after loading the view, typically from a nib.
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: Frame.width, height: Frame.height/5)
         
         CollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         CollectionView.dataSource = self
         CollectionView.delegate = self
-        CollectionView.registerClass(TestCell.self, forCellWithReuseIdentifier: "TestCell")
+        CollectionView.registerClass(GlasgowTestCell.self, forCellWithReuseIdentifier: "GlasgowTestCell")
         CollectionView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(CollectionView)
         
-        DisplayTestInstructions("Select for incorrect or correct responses.")
+        DisplayTestInstructions("Select on scale, 1 = Poor, 5 = Good.")
         
-        self.title = "Immediate"
+        self.title = "Glasgow Coma Scale"
         self.navigationItem.prompt = "Assessment for <Player.name>"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: "SaveOrientationScore")
         
@@ -65,9 +69,10 @@ class CognitiveImmediateViewController: UIViewController, UICollectionViewDelega
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let Cell = collectionView.dequeueReusableCellWithReuseIdentifier("TestCell", forIndexPath: indexPath) as! TestCell
+        let Cell = collectionView.dequeueReusableCellWithReuseIdentifier("GlasgowTestCell", forIndexPath: indexPath) as! GlasgowTestCell
         Cell.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
         Cell.QuestionLabel.text = Questions[indexPath.item]
+        Cell.InfoLabel.text = Infos[indexPath.item]
         print(Questions[indexPath.item])
         
         return Cell
