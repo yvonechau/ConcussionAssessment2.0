@@ -9,8 +9,6 @@
 import Foundation
 import CoreData
 
-var current_test: Score?
-
 class DataModel : NSObject {
     var managedObjectContext : NSManagedObjectContext
     var persistentStoreCoordinator : NSPersistentStoreCoordinator
@@ -22,12 +20,12 @@ class DataModel : NSObject {
     }
     
     // create a Player Object and save it
-    func insertNewPlayer(firstName: String, lastName: String, teamName: String) {
+    func insertNewPlayer(firstName: String, lastName: String, teamName: String, playerID: String) {
         let player = NSEntityDescription.insertNewObjectForEntityForName("Player", inManagedObjectContext: managedObjectContext) as! Player
         player.firstName = firstName
         player.lastName  = lastName
         player.teamName  = teamName
-        player.playerID  = NSUUID().UUIDString
+        player.playerID  = playerID
         
         do {
             try self.managedObjectContext.save()
@@ -37,10 +35,11 @@ class DataModel : NSObject {
     }
     
     // create a Score Object and save it
-    func insertNewScore(playerID: String) {
+    func insertNewScore(playerID: String, scoreID: String) {
         let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
         score.playerID = playerID
         score.date     = NSDate()
+        score.scoreID  = NSUUID().UUIDString
         
         do {
             try self.managedObjectContext.save()
@@ -50,6 +49,20 @@ class DataModel : NSObject {
         
     }
     
+    func insertNewScoreWithoutPlayer(scoreID: String){
+        let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
+        score.playerID = "-1"
+        score.date     = NSDate()
+        score.scoreID  = scoreID
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    /*
     // assumes global Score Object
     func saveCurrentScore() {
         do {
@@ -57,7 +70,8 @@ class DataModel : NSObject {
         } catch {
             fatalError("Cannot create Score Object with Score Object")
         }
-    }
+    }*/
+    
     
     // Get the Player object with specific name
     func playerWithName(name: String) -> [Player] {
@@ -84,23 +98,32 @@ class DataModel : NSObject {
         fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
         
         do {
-            let fetchedPlayers = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
-            for e in fetchedPlayers {
+            let fetchedScores = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            for e in fetchedScores {
                 NSLog(e.playerID! + " " + e.SACTotal!.stringValue)
             }
-            return fetchedPlayers
+            return fetchedScores
         } catch {
-            fatalError("Failed to fetch players")
+            fatalError("Failed to fetch Scores")
         }
         
         return []
     }
     
-    // Check if currentScore is finished (that is user has taken all the tests
-    func completedTests() {
+    // Get the Score object with specific ScoreID
+    func scoreWithID(id: String) -> [Score] {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
         
+        do {
+            let fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            return fetchScore
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        
+        return []
     }
-    
     // unique key for player, data want to set 
     //
     
