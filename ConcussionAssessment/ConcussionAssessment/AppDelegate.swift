@@ -60,9 +60,97 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
+        /*
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
         let modelURL = NSBundle.mainBundle().URLForResource("ConcussionAssessment", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
+        */
+        
+        // Create an entity description for Score, based on the class <ProjectName>.<ClassName>
+        let scoreDescription = NSEntityDescription()
+        scoreDescription.name = "Score"
+        scoreDescription.managedObjectClassName = "ConcussionAssessment.Score"
+        
+        // Create the three attributes defined by Employee: firstName, lastName, and location
+        let attrPlayerID = NSAttributeDescription()
+        attrPlayerID.name = "playerID"
+        attrPlayerID.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrScoreID = NSAttributeDescription()
+        attrScoreID.name = "scoreID"
+        attrScoreID.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrNumSymptoms = NSAttributeDescription()
+        attrNumSymptoms.name = "numSymptoms"
+        attrNumSymptoms.attributeType = NSAttributeType.Integer64AttributeType;
+        
+        let attrSeverity = NSAttributeDescription()
+        attrSeverity.name = "severity"
+        attrSeverity.attributeType = NSAttributeType.Integer64AttributeType;
+        
+        let attrOrientation = NSAttributeDescription()
+        attrOrientation.name = "orientation"
+        attrOrientation.attributeType = NSAttributeType.Integer64AttributeType;
+        
+        let attrImmMemory = NSAttributeDescription()
+        attrImmMemory.name = "immediateMemory"
+        attrImmMemory.attributeType = NSAttributeType.Integer64AttributeType;
+        
+        let attrConcentration = NSAttributeDescription()
+        attrConcentration.name = "concentration"
+        attrConcentration.attributeType = NSAttributeType.Integer64AttributeType;
+        
+        let attrDelayedRecall = NSAttributeDescription()
+        attrDelayedRecall.name = "delayedRecall"
+        attrDelayedRecall.attributeType = NSAttributeType.Integer64AttributeType;
+        
+        let attrSACTotal = NSAttributeDescription()
+        attrSACTotal.name = "SACTotal"
+        attrSACTotal.attributeType = NSAttributeType.Integer64AttributeType;
+        
+        let attrMaddocks = NSAttributeDescription()
+        attrMaddocks.name = "maddocks"
+        attrMaddocks.attributeType = NSAttributeType.Integer64AttributeType;
+        
+        let attrGlasgow = NSAttributeDescription()
+        attrGlasgow.name = "glasgow"
+        attrGlasgow.attributeType = NSAttributeType.Integer64AttributeType;
+        
+        let attrDate = NSAttributeDescription()
+        attrDate.name = "date"
+        attrDate.attributeType = NSAttributeType.DateAttributeType;
+        
+        // This works because NSAttributeDescription is a subclass of NSPropertyDescription
+        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate]
+        
+        // Create an entity description for Player, based on the class <ProjectName>.<ClassName>
+        let playerDescription = NSEntityDescription()
+        playerDescription.name = "Player"
+        playerDescription.managedObjectClassName = "ConcussionAssessment.Player"
+        
+        let attrPlayerID1 = NSAttributeDescription()
+        attrPlayerID1.name = "playerID"
+        attrPlayerID1.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrFirstName = NSAttributeDescription()
+        attrFirstName.name = "firstName"
+        attrFirstName.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrLastName = NSAttributeDescription()
+        attrLastName.name = "lastName"
+        attrLastName.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrTeamName = NSAttributeDescription()
+        attrTeamName.name = "teamName"
+        attrTeamName.attributeType = NSAttributeType.StringAttributeType;
+        
+        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName]
+        
+        // Create the model and set the entity description(s)
+        var model = NSManagedObjectModel()
+        model.entities = [scoreDescription]
+        
+        return model
     }()
 
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
