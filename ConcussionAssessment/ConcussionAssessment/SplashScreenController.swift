@@ -22,7 +22,7 @@ class SplashScreenController: UITableViewController {
     var playerProfile: UITableViewCell = UITableViewCell()
     var individualTests: UITableViewCell = UITableViewCell()
     var currentScoreView: UITableViewCell = UITableViewCell()
-    
+
     override func loadView() {
         super.loadView()
         
@@ -129,8 +129,12 @@ class SplashScreenController: UITableViewController {
             switch(indexPath.row) {
             case 0:
                 let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped)
+<<<<<<< HEAD
                 currentScoreID =  NSUUID().UUIDString
                 database.insertNewScoreWithoutPlayer(currentScoreID!)
+=======
+//                currentScore = Score()
+>>>>>>> master
                 self.navigationController?.pushViewController(lpp, animated:true)
                 break;
             case 1:
@@ -138,8 +142,12 @@ class SplashScreenController: UITableViewController {
                 break;
             case 2:
                 let IndividualTestsView = IndividualTableViewController(style: UITableViewStyle.Grouped)
+<<<<<<< HEAD
                 currentScoreID =  NSUUID().UUIDString
                 database.insertNewScoreWithoutPlayer(currentScoreID!)
+=======
+//                currentScore = Score()
+>>>>>>> master
                 self.navigationController?.pushViewController(IndividualTestsView, animated:true)
                 break;
             case 3:
