@@ -10,8 +10,8 @@ import UIKit
 
 class IndividualTableViewController: UITableViewController {
     
-    let LabelArray = ["Maddocks Score", "Symptom Evaluation", "Cognitive Assessment", "Balance Examination"]
-    let DetailLabelArray: [String] = ["Questionnaire for patient.", "Checking to see how the patient is feeling.", "Checking details.", ""]
+    let LabelArray = ["Glasgow Coma Scale", "Maddocks Score", "Symptom Evaluation", "Cognitive Assessment", "Balance Examination"]
+    let DetailLabelArray: [String] = ["", "Questionnaire for patient.", "Checking to see how the patient is feeling.", "Checking details.", ""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,19 +58,22 @@ class IndividualTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch(indexPath.item) {
         case 0:
+            let GlasgowView = GlasgowTestViewController() as GlasgowTestViewController
+            self.navigationController?.pushViewController(GlasgowView, animated: true)
+        case 1:
             let MaddocksView = MaddocksViewController() as MaddocksViewController
             self.navigationController?.pushViewController(MaddocksView, animated: true)
-        case 1:
+        case 2:
             let pageControl = UIPageControl.appearance()
             pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
             pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
             pageControl.backgroundColor = UIColor.whiteColor()
             let SymptomView = SymptomViewController() as SymptomViewController
             self.navigationController?.pushViewController(SymptomView, animated: true)
-        case 2:
+        case 3:
             let CognitiveView = CognitiveTableViewController(style: UITableViewStyle.Grouped) as CognitiveTableViewController
             self.navigationController?.pushViewController(CognitiveView, animated: true)
-        case 3:
+        case 4:
             let BalanceView = BalanceViewController() as BalanceViewController
             self.navigationController?.pushViewController(BalanceView, animated: true)
         default:

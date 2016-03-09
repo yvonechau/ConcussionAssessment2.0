@@ -37,7 +37,7 @@ class CognitiveOrientationViewController: UIViewController, UICollectionViewDele
         
         // Do any additional setup after loading the view, typically from a nib.
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 150, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: Frame.width, height: Frame.height/5)
         
         CollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
@@ -47,7 +47,7 @@ class CognitiveOrientationViewController: UIViewController, UICollectionViewDele
         CollectionView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(CollectionView)
         
-        DisplayTestInstructions("Select 0 or 1 for incorrect or correct responses. This test needs to be administered by someone other than the patient.")
+        DisplayTestInstructions("Select for incorrect or correct responses.")
         
         self.title = "Orientation"
         self.navigationItem.prompt = "Assessment for <Player.name>"
