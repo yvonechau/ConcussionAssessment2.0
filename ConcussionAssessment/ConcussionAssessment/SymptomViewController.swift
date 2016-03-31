@@ -56,7 +56,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     {
       return nil
     }
-    index--
+    index -= 1
     //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
     segCtrller = (viewController as! SymptomView).segCtrl
     // UNDO VALUE HERE
@@ -71,7 +71,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     {
       return nil
     }
-    index++
+    index += 1
     limitIndex = index - 1
     //currScore = segCtrller!.selectedSegmentIndex
     //print(segCtrl!.titleForSegmentAtIndex(segCtrl!.selectedSegmentIndex))
@@ -153,7 +153,7 @@ class SymptomView: UIViewController
       segButton.backgroundColor = UIColor.whiteColor()
       segButton.layer.cornerRadius = 5.0
       segButton.clipsToBounds = true
-      segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.TouchUpInside)
+//      segButton.addTarget(self, action: "segmentedControlValueChanged:", forControlEvents:.TouchUpInside)
       print("button created")
       func segmentedControlValueChanged(sender: UISegmentedControl!)
       {
