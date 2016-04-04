@@ -134,8 +134,10 @@ class SplashScreenController: UITableViewController {
                 self.navigationController?.pushViewController(lpp, animated:true)
                 break;
             case 1:
-                // link Player Profiles Page
+                let ts = TestScreenController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(ts, animated:true)
                 break;
+            
             case 2:
                 let IndividualTestsView = IndividualTableViewController(style: UITableViewStyle.Grouped)
                 currentScoreID =  NSUUID().UUIDString
