@@ -23,6 +23,7 @@
 		33EADDEE1C90B035009C892A /* GlasgowTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EADDED1C90B035009C892A /* GlasgowTestViewController.swift */; };
 		33EADDF01C90B1BF009C892A /* GlasgowTestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EADDEF1C90B1BF009C892A /* GlasgowTestCell.swift */; };
 		33ECA3891C7C5F1B00D93FFE /* IndividualTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */; };
+		440403081CB328F50055366A /* TestScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440403071CB328F50055366A /* TestScreenController.swift */; };
 		4426239E1C7D79B2003F21BC /* ListPlayerProfilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4426239D1C7D79B2003F21BC /* ListPlayerProfilesController.swift */; };
 		442623A21C7E462B003F21BC /* ScoreBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442623A11C7E462B003F21BC /* ScoreBoardController.swift */; };
 		442623A41C7FE3DE003F21BC /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442623A31C7FE3DD003F21BC /* DataModel.swift */; };
@@ -62,6 +63,7 @@
 		33EADDED1C90B035009C892A /* GlasgowTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlasgowTestViewController.swift; sourceTree = "<group>"; };
 		33EADDEF1C90B1BF009C892A /* GlasgowTestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlasgowTestCell.swift; sourceTree = "<group>"; };
 		33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndividualTableViewController.swift; sourceTree = "<group>"; };
+		440403071CB328F50055366A /* TestScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestScreenController.swift; sourceTree = "<group>"; };
 		4426239D1C7D79B2003F21BC /* ListPlayerProfilesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlayerProfilesController.swift; sourceTree = "<group>"; };
 		442623A11C7E462B003F21BC /* ScoreBoardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreBoardController.swift; sourceTree = "<group>"; };
 		442623A31C7FE3DD003F21BC /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				3309A5FD1C76750C00EC3795 /* ViewController.swift */,
 				4489129E1C7BEA2E001D1E7D /* SplashScreenController.swift */,
 				33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */,
+				440403071CB328F50055366A /* TestScreenController.swift */,
 				334E26A01C7D8F28001D04FE /* BalanceViewController.swift */,
 				442623A11C7E462B003F21BC /* ScoreBoardController.swift */,
 				334E269E1C7D8EF8001D04FE /* CognitiveTableViewController.swift */,
@@ -255,6 +258,7 @@
 				334E269F1C7D8EF8001D04FE /* CognitiveTableViewController.swift in Sources */,
 				442623A21C7E462B003F21BC /* ScoreBoardController.swift in Sources */,
 				442623A41C7FE3DE003F21BC /* DataModel.swift in Sources */,
+				440403081CB328F50055366A /* TestScreenController.swift in Sources */,
 				33EADDF01C90B1BF009C892A /* GlasgowTestCell.swift in Sources */,
 				44DB2AEF1C851A63007B8D8F /* Score.swift in Sources */,
 				33EADDEE1C90B035009C892A /* GlasgowTestViewController.swift in Sources */,
