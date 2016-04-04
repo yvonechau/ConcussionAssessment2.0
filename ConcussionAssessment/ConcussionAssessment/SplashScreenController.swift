@@ -128,7 +128,7 @@ class SplashScreenController: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
-                let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped)
+                let lpp = MenuController(style: UITableViewStyle.Grouped)
                 currentScoreID =  NSUUID().UUIDString
                 database.insertNewScoreWithoutPlayer(currentScoreID!)
                 self.navigationController?.pushViewController(lpp, animated:true)
