@@ -1,42 +1,46 @@
 //
-//  SymptomViewController.swift
+//  TablePageViewController.swift
 //  ConcussionAssessment
 //
-//  Created by Philson Wong on 2/23/16.
+//  Created by Seanna Vien on 4/6/16.
 //  Copyright © 2016 PYKS. All rights reserved.
 //
 
-// TODO: https://github.com/lanqy/swift-programmatically, add the progressbar instead?
-// change selections to text
-// OR gradient
-// tab go to next screen
-
+import Foundation
 import UIKit
 
 
-class SymptomViewController: UIViewController, UIPageViewControllerDataSource
+class TablePageViewController: UIViewController, UIPageViewControllerDataSource
 {
   
   var pageViewController: UIPageViewController?
   
   
   
-  var pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
-  
+  var pageTitles : Array<String> = []
   var currentIndex : Int = 0
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
   var currScore: NSNumber?
-  
-  
+//  
+//  override init(pageTitles: Array<String>)
+//  {
+//    super.init()
+//    self.pageTitles = pageTitles
+//  }
+//  
+//  required init?(coder aDecoder: NSCoder) {
+//    fatalError("init(coder:) has not been implemented")
+//  }
+//  
   override func viewDidLoad()
   {
     super.viewDidLoad()
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     
-    let startingViewController: SymptomView = viewControllerAtIndex(0)!
-//    segCtrller = startingViewController.segCtrl
+    let startingViewController: TablePageView = viewControllerAtIndex(0)!
+    //    segCtrller = startingViewController.segCtrl
     let viewControllers = [startingViewController]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
@@ -54,19 +58,18 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   
   func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
   {
-    var index = (viewController as! SymptomView).pageIndex
-
+    var index = (viewController as! TablePageView).pageIndex
+    
     if(index == 0) || (index == NSNotFound)
     {
       return nil
     }
     index -= 1
     
-    rowSelected = (viewController as! SymptomView).rowSel
+    rowSelected = (viewController as! TablePageView).rowSel
     currScore = rowSelected
     print(currScore)
-
-    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
+    
     
     // UNDO VALUE HERE
     return viewControllerAtIndex(index)
@@ -74,7 +77,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   
   func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
   {
-    var index = (viewController as! SymptomView).pageIndex
+    var index = (viewController as! TablePageView).pageIndex
     if index == NSNotFound
     {
       return nil
@@ -83,38 +86,38 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     index += 1
     currentIndex = index
     limitIndex = index
-
+    
     if(index == self.pageTitles.count)
     {
       return nil
     }
     
     // SAVE VALUE HERE
-    //currentScore!.numSymptoms = //SAVE AS AN NSNUMBER 
+    //currentScore!.numSymptoms = //SAVE AS AN NSNUMBER
     
     
-    rowSelected = (viewController as! SymptomView).rowSel
+    rowSelected = (viewController as! TablePageView).rowSel
     currScore = rowSelected
     print(currScore)
     print("forward")
     //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
     
     currentIndex = index
-
+    
     return viewControllerAtIndex(index)
   }
   
-  func viewControllerAtIndex(index: Int) ->SymptomView?
+  func viewControllerAtIndex(index: Int) ->TablePageView?
   {
     if self.pageTitles.count == 0 || index >= self.pageTitles.count || index < limitIndex
     {
       return nil
     }
-  
-    let pageContentViewController = SymptomView(pvc: self)
+    
+    let pageContentViewController = TablePageView(pvc: self)
     pageContentViewController.titleText = pageTitles[index]
     pageContentViewController.pageIndex = index
-
+    
     return pageContentViewController
   }
   
@@ -132,7 +135,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   
 }
 
-class SymptomView: UITableViewController
+class TablePageView: UITableViewController
 {
   var pageIndex : Int = 0
   var titleText : String = ""
@@ -141,32 +144,32 @@ class SymptomView: UITableViewController
   
   let LabelArray = ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
   
-  weak var pvc : SymptomViewController?
-  init(pvc : SymptomViewController)
+  weak var pvc : TablePageViewController?
+  init(pvc : TablePageViewController)
   {
     self.pvc = pvc
     super.init(style: UITableViewStyle.Grouped)
   }
-
+  
   required init?(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+    fatalError("init(coder:) has not been implemented")
   }
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-//    let title = UILabel(frame: CGRectMake(0,0, view.frame.width, 50))
-//    title.textColor = UIColor.blackColor()
-//    title.text = " Symptom Evaluation"
-//    title.font = title.font.fontWithSize(17)
-//    title.textAlignment = .Left
-//    title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
-//    view.addSubview(title)
-
+    //    let title = UILabel(frame: CGRectMake(0,0, view.frame.width, 50))
+    //    title.textColor = UIColor.blackColor()
+    //    title.text = " Symptom Evaluation"
+    //    title.font = title.font.fontWithSize(17)
+    //    title.textAlignment = .Left
+    //    title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
+    //    view.addSubview(title)
+    
     
     self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-
+    
   }
   
   override func didReceiveMemoryWarning()
@@ -180,7 +183,7 @@ class SymptomView: UITableViewController
     return titleText
   }
   
-
+  
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
     return LabelArray.count
@@ -201,21 +204,22 @@ class SymptomView: UITableViewController
     selected = 1
     print(selected)
     pageIndex += 1
-    self.pvc!.currentIndex += 1 //updates dots 
+    self.pvc!.currentIndex += 1 //updates dots
     
-    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
-    {
-      print("next")
-    }
-
-    print(self.pvc!.pageTitles.count)
-    let startingViewController: SymptomView = self.pvc!.viewControllerAtIndex(pageIndex)!
+    
+//    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count)
+//    {
+//      
+//    }
+    
+    print(pageIndex)
+    let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
     //    segCtrller = startingViewController.segCtrl
     let viewControllers = [startingViewController]
-
+    
     self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
     //self.pvc!.pageViewController!.currentPage +=1
-
+    
   }
   
 }
