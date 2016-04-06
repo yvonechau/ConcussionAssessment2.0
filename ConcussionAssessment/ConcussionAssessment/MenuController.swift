@@ -73,15 +73,16 @@ class MenuController: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
-                let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped)
-                self.navigationController?.pushViewController(lpp, animated:true)
+                let LPPController = ListPlayerProfileController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(LPPController, animated: true)
                 break;
             case 1:
-                // profile form screent
+                let CNPController = CreateProfileTableViewController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(CNPController, animated: true)
                 break;
             case 2:
-                let tsc = TestScreenController(style: UITableViewStyle.Grouped)
-                self.navigationController?.pushViewController(tsc, animated:true)
+                let GVController = GuestViewController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(GVController, animated: true)
                 break;
             default:
                 fatalError("Unknow Row");
