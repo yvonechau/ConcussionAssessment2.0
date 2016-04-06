@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import CoreData
 
-var testFlow;
+var testFlow = 0
 // 0 individual tests
 // 1 full examination
 
