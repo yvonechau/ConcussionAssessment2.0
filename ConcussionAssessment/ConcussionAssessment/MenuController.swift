@@ -74,15 +74,14 @@ class MenuController: UITableViewController {
             switch(indexPath.row) {
             case 0:
                 let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped)
-                currentScoreID =  NSUUID().UUIDString
-                database.insertNewScoreWithoutPlayer(currentScoreID!)
                 self.navigationController?.pushViewController(lpp, animated:true)
                 break;
             case 1:
-                // profile form screen
+                // profile form screent
                 break;
             case 2:
-                // test screen
+                let tsc = TestScreenController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(tsc, animated:true)
                 break;
             default:
                 fatalError("Unknow Row");
