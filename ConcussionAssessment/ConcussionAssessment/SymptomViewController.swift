@@ -201,6 +201,11 @@ class SymptomView: UITableViewController
     print(selected)
     pageIndex += 1
     self.pvc!.currentIndex += 1 //updates dots 
+    
+    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count)
+    {
+  
+    }
 
     print(pageIndex)
     let startingViewController: SymptomView = self.pvc!.viewControllerAtIndex(pageIndex)!
