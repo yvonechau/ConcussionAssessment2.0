@@ -10,13 +10,14 @@ import UIKit
 
 class IndividualTableViewController: UITableViewController {
     
-    let LabelArray = ["Maddocks Score", "Symptom Evaluation", "Cognitive Assessment", "Balance Examination"]
-    let DetailLabelArray: [String] = ["Questionnaire for patient.", "Checking to see how the patient is feeling.", "Checking details.", ""]
+    let LabelArray = ["Glasgow Coma Scale", "Maddocks Score", "Symptom Evaluation", "Cognitive Assessment", "Balance Examination"]
+    let DetailLabelArray: [String] = ["", "Questionnaire for patient.", "Checking to see how the patient is feeling.", "Checking details.", ""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Individual Tests"
+        self.title = "Tests"
+        //self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
         // let TestMenuTableView = UITableView()
         // TestMenuTableView.dataSource = self
@@ -34,10 +35,20 @@ class IndividualTableViewController: UITableViewController {
         return LabelArray.count
     }
     
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        switch(section) {
+        case 0:
+            return "Individual Tests"
+        default:
+            return "Nil"
+        }
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let Cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "MenuCell")
         
-        Cell.textLabel?.text = LabelArray[indexPath.row]
+        Cell.textLabel?.text = LabelArray[indexPath.item]
         Cell.detailTextLabel?.text = DetailLabelArray[indexPath.item]
         Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
@@ -47,19 +58,22 @@ class IndividualTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch(indexPath.item) {
         case 0:
+            let GlasgowView = GlasgowTestViewController() as GlasgowTestViewController
+            self.navigationController?.pushViewController(GlasgowView, animated: true)
+        case 1:
             let MaddocksView = MaddocksViewController() as MaddocksViewController
             self.navigationController?.pushViewController(MaddocksView, animated: true)
-        case 1:
+        case 2:
             let pageControl = UIPageControl.appearance()
             pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
             pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
             pageControl.backgroundColor = UIColor.whiteColor()
             let SymptomView = SymptomViewController() as SymptomViewController
             self.navigationController?.pushViewController(SymptomView, animated: true)
-        case 2:
-            let CognitiveView = CognitiveTableViewController() as CognitiveTableViewController
-            self.navigationController?.pushViewController(CognitiveView, animated: true)
         case 3:
+            let CognitiveView = CognitiveTableViewController(style: UITableViewStyle.Grouped) as CognitiveTableViewController
+            self.navigationController?.pushViewController(CognitiveView, animated: true)
+        case 4:
             let BalanceView = BalanceViewController() as BalanceViewController
             self.navigationController?.pushViewController(BalanceView, animated: true)
         default:

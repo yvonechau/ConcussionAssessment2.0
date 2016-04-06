@@ -60,10 +60,11 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
       return nil
     }
     index -= 1
-    print("back")
+    
     rowSelected = (viewController as! SymptomView).rowSel
     currScore = rowSelected
     print(currScore)
+
     //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
     
     // UNDO VALUE HERE
@@ -81,6 +82,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     index += 1
     currentIndex = index
     limitIndex = index
+
     if(index == self.pageTitles.count)
     {
       return nil
@@ -163,6 +165,7 @@ class SymptomView: UITableViewController
     
     self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+
   }
   
   override func didReceiveMemoryWarning()
