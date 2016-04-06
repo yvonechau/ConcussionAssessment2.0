@@ -20,16 +20,17 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var pageViewController: UIPageViewController?
   
   
-  
+  var testName: String
   var pageTitles : Array<String>
   var currentIndex : Int = 0
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
   var currScore: NSNumber?
   
-  init(pageTitles : Array<String>)
+  init(pageTitles : Array<String>, testName : String)
   {
     self.pageTitles = pageTitles
+    self.testName = testName
 
     super.init(nibName:nil, bundle:nil)
   }
@@ -49,6 +50,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     let viewControllers = [startingViewController]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+    self.navigationItem.title = self.testName
     
     addChildViewController(pageViewController!)
     view.addSubview(pageViewController!.view)
@@ -164,18 +166,18 @@ class TablePageView: UITableViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    //    let title = UILabel(frame: CGRectMake(0,0, view.frame.width, 50))
-    //    title.textColor = UIColor.blackColor()
-    //    title.text = " Symptom Evaluation"
-    //    title.font = title.font.fontWithSize(17)
-    //    title.textAlignment = .Left
-    //    title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
-    //    view.addSubview(title)
-    
-    
+//    let title = UILabel(frame: CGRectMake(0,0, view.frame.width, 50))
+//    title.textColor = UIColor.blackColor()
+//    title.text = " Symptom Evaluation"
+//    title.font = title.font.fontWithSize(17)
+//    title.textAlignment = .Left
+//    title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
+//    view.addSubview(title)
+//    
+//    
     self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-    
+    self.tableView.rowHeight = 30.0
   }
   
   override func didReceiveMemoryWarning()
@@ -186,6 +188,7 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
   {
+    print("title: %s", titleText)
     return titleText
   }
   
@@ -219,11 +222,10 @@ class TablePageView: UITableViewController
     
     print(self.pvc!.pageTitles.count)
     let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
-    //    segCtrller = startingViewController.segCtrl
+
     let viewControllers = [startingViewController]
     
     self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
-    //self.pvc!.pageViewController!.currentPage +=1
     
   }
   
