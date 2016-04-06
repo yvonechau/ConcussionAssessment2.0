@@ -17,7 +17,6 @@ var currentPlayerID: String?
 
 class SplashScreenController: UITableViewController {
     
-    
     var performEvaluation: UITableViewCell = UITableViewCell()
     var reviewTestScores: UITableViewCell = UITableViewCell()
 
