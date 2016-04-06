@@ -11,6 +11,10 @@ import Foundation
 import UIKit
 import CoreData
 
+var testFlow;
+// 0 individual tests
+// 1 full examination
+
 class TestScreenController: UITableViewController {
     
     
@@ -68,9 +72,12 @@ class TestScreenController: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
-                // link FULL TEST PATH
+                testFlow = 1;
+                let SymptomView = SymptomViewController() as SymptomViewController
+                self.navigationController?.pushViewController(SymptomView, animated: true)
                 break;
             case 1:
+                testFlow = 0;
                 let IndividualTestsView = IndividualTableViewController(style: UITableViewStyle.Grouped)
                 currentScoreID =  NSUUID().UUIDString
                 database.insertNewScoreWithoutPlayer(currentScoreID!)
