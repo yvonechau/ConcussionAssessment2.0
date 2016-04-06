@@ -9,8 +9,6 @@
 import Foundation
 import CoreData
 
-var current_test: Score?
-
 class DataModel : NSObject {
     var managedObjectContext : NSManagedObjectContext
     var persistentStoreCoordinator : NSPersistentStoreCoordinator
@@ -22,12 +20,12 @@ class DataModel : NSObject {
     }
     
     // create a Player Object and save it
-    func insertNewPlayer(firstName: String, lastName: String, teamName: String) {
+    func insertNewPlayer(firstName: String, lastName: String, teamName: String, playerID: String) {
         let player = NSEntityDescription.insertNewObjectForEntityForName("Player", inManagedObjectContext: managedObjectContext) as! Player
         player.firstName = firstName
         player.lastName  = lastName
         player.teamName  = teamName
-        player.playerID  = NSUUID().UUIDString
+        player.playerID  = playerID
         
         do {
             try self.managedObjectContext.save()
@@ -37,10 +35,11 @@ class DataModel : NSObject {
     }
     
     // create a Score Object and save it
-    func insertNewScore(playerID: String) {
+    func insertNewScore(playerID: String, scoreID: String) {
         let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
         score.playerID = playerID
         score.date     = NSDate()
+        score.scoreID  = NSUUID().UUIDString
         
         do {
             try self.managedObjectContext.save()
@@ -50,6 +49,20 @@ class DataModel : NSObject {
         
     }
     
+    func insertNewScoreWithoutPlayer(scoreID: String){
+        let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
+        score.playerID = "-1"
+        score.date     = NSDate()
+        score.scoreID  = scoreID
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    /*
     // assumes global Score Object
     func saveCurrentScore() {
         do {
@@ -57,7 +70,8 @@ class DataModel : NSObject {
         } catch {
             fatalError("Cannot create Score Object with Score Object")
         }
-    }
+    }*/
+    
     
     // Get the Player object with specific name
     func playerWithName(name: String) -> [Player] {
@@ -77,16 +91,14 @@ class DataModel : NSObject {
         return []
     }
     
-    
-    // Get the Score object with specific Player
-    func scoresOfPlayer(id: String) -> [Score] {
-        let fetchRequest = NSFetchRequest(entityName: "Score");
-        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
-        
+    // Get all Player Objects that exist
+    func players(name: String) -> [Player] {
+        let fetchRequest = NSFetchRequest(entityName: "Player");
+
         do {
-            let fetchedPlayers = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            let fetchedPlayers = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
             for e in fetchedPlayers {
-                NSLog(e.playerID! + " " + e.SACTotal!.stringValue)
+                NSLog(e.firstName! + " " + e.lastName!)
             }
             return fetchedPlayers
         } catch {
@@ -96,14 +108,196 @@ class DataModel : NSObject {
         return []
     }
     
-    // Check if currentScore is finished (that is user has taken all the tests
-    func completedTests() {
+    
+    
+    // Get the Score object with specific Player
+    func scoresOfPlayer(id: String) -> [Score] {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        
+        do {
+            let fetchedScores = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            for e in fetchedScores {
+                NSLog(e.playerID! + " " + e.SACTotal!.stringValue)
+            }
+            return fetchedScores
+        } catch {
+            fatalError("Failed to fetch Scores")
+        }
+        
+        return []
+    }
+    
+    // Get the Score object with specific ScoreID
+    func scoreWithID(id: String) -> [Score] {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        
+        do {
+            let fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            return fetchScore
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        
+        return []
+    }
+
+    func setNumSymptoms(id: String, score: NSNumber) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].numSymptoms = score;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    func setSeverity(id: String, score: NSNumber) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].severity = score;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    func setOrientation(id: String, score: NSNumber) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].orientation = score;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    func setImmMemory(id: String, score: NSNumber) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].immediateMemory = score;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    func setConcentration(id: String, score: NSNumber) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].concentration = score;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    func setDelayedRecall(id: String, score: NSNumber) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].delayedRecall = score;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    func setSACTotal(id: String, score: NSNumber) {
         
     }
     
-    // unique key for player, data want to set 
-    //
+    func setMaddocks(id: String, score: NSNumber) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].maddocks = score;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
     
+    func setGlasgow(id: String, score: NSNumber) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].glasgow = score;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
     /*
     // create an Score Object and save it
     func insertNewScore() {
