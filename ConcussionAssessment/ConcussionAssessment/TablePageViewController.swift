@@ -2,11 +2,15 @@
 //  TablePageViewController.swift
 //  ConcussionAssessment
 //
-//  Created by Seanna Vien on 4/6/16.
+//  Created by Philson Wong on 2/23/16.
 //  Copyright © 2016 PYKS. All rights reserved.
 //
 
-import Foundation
+// TODO: https://github.com/lanqy/swift-programmatically, add the progressbar instead?
+// change selections to text
+// OR gradient
+// tab go to next screen
+
 import UIKit
 
 
@@ -17,22 +21,23 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   
   
-  var pageTitles : Array<String> = []
+  var pageTitles : Array<String>
   var currentIndex : Int = 0
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
   var currScore: NSNumber?
-//  
-//  override init(pageTitles: Array<String>)
-//  {
-//    super.init()
-//    self.pageTitles = pageTitles
-//  }
-//  
-//  required init?(coder aDecoder: NSCoder) {
-//    fatalError("init(coder:) has not been implemented")
-//  }
-//  
+  
+  init(pageTitles : Array<String>)
+  {
+    self.pageTitles = pageTitles
+
+    super.init(nibName:nil, bundle:nil)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -70,6 +75,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     currScore = rowSelected
     print(currScore)
     
+    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
     
     // UNDO VALUE HERE
     return viewControllerAtIndex(index)
@@ -206,13 +212,12 @@ class TablePageView: UITableViewController
     pageIndex += 1
     self.pvc!.currentIndex += 1 //updates dots
     
+    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
+    {
+      print("next")
+    }
     
-//    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count)
-//    {
-//      
-//    }
-    
-    print(pageIndex)
+    print(self.pvc!.pageTitles.count)
     let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
     //    segCtrller = startingViewController.segCtrl
     let viewControllers = [startingViewController]

@@ -66,7 +66,7 @@ class IndividualTableViewController: UITableViewController {
         case 2:
             let pageControl = UIPageControl.appearance()
             pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
-            pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
+            pageControl.currentPageIndicatorTintColor = UIColor.grayColor()
             pageControl.backgroundColor = UIColor.whiteColor()
             let SymptomView = SymptomViewController() as SymptomViewController
             self.navigationController?.pushViewController(SymptomView, animated: true)
