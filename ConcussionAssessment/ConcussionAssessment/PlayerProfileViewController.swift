@@ -9,11 +9,19 @@
 import UIKit
 
 class PlayerProfileViewController: UIViewController {
-
+    
+    let Frame = UIScreen.mainScreen().bounds
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.whiteColor()
+        
+        let PlayerName = UILabel(frame: CGRect(x: 100, y: 40, width: 100, height: 20))
+        PlayerName.text = "John Smith"
+        PlayerName.textColor = UIColor.blackColor()
+        self.view.addSubview(PlayerName)
     }
 
     override func didReceiveMemoryWarning() {

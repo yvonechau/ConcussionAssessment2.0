@@ -8,9 +8,10 @@
 
 import UIKit
 
-class CreateProfileTableViewController: UITableViewController {
+class CreateProfileTableViewController: UITableViewController, UITextFieldDelegate {
     
     let NumberOfSections = 3
+    let FormArray = ["Name", "Birthday", "Team"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,14 +38,13 @@ class CreateProfileTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 1
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let Cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let Cell = CustomFormCell(style: UITableViewCellStyle.Value2, reuseIdentifier: "Cell")
+        Cell.CellLabel?.text = FormArray[indexPath.row]
+        
         return Cell
     }
     
@@ -82,20 +82,18 @@ class CreateProfileTableViewController: UITableViewController {
 }
 
 class CustomFormCell: UITableViewCell {
-    var CellButton: UIButton!
+    var CellTextField: UITextField!
     var CellLabel: UILabel!
     
     init(frame: CGRect, title: String) {
         super.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
-        CellLabel = UILabel(frame: CGRectMake(self.frame.width - 100, 10, 100.0, 40))
-        CellLabel.textColor = UIColor.blackColor()
-        CellLabel.font = //set font here
+        let LabelSize = self.frame.width / 6
+        CellLabel = UILabel(frame: CGRectMake(self.frame.minX, 10, LabelSize, 40))
             
-        CellButton = UIButton(frame: CGRectMake(5, 5, 50, 30))
-        CellButton.setTitle(title, forState: UIControlState.Normal)
+        CellTextField = UITextField(frame: CGRectMake(LabelSize, 5, 50, 30))
         
         addSubview(CellLabel)
-        addSubview(CellButton)
+        addSubview(CellTextField)
     }
     
     required init?(coder aDecoder: NSCoder) {
