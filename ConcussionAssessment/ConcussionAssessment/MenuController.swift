@@ -21,7 +21,7 @@ class MenuController: UITableViewController {
         super.loadView()
         
         // set the title
-        self.title = "Menu Screen"
+        self.title = "Menu"
         
         
         self.existingProfile.textLabel?.text = "Select an Existing Profile"

@@ -19,7 +19,7 @@ class ListPlayerProfileController: UITableViewController {
         super.loadView()
         
         // set the title
-        self.title = "Splash Screen"
+        self.title = "Profiles"
         
         
         self.player1.textLabel?.text = "John Smith"
@@ -50,7 +50,27 @@ class ListPlayerProfileController: UITableViewController {
         }
     }
     
-    // Return the row for the corresponding section and row
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {    // Return the row for the corresponding section and row
+        switch(indexPath.section) {
+        case 0:
+            switch(indexPath.row) {
+            case 0:
+                let PlayerProfileSelection = PlayerProfileViewController() as PlayerProfileViewController
+                self.navigationController?.pushViewController(PlayerProfileSelection, animated: true)
+            case 1:
+                let PlayerProfileSelection = PlayerProfileViewController() as PlayerProfileViewController
+                self.navigationController?.pushViewController(PlayerProfileSelection, animated: true)
+            case 2:
+                let PlayerProfileSelection = PlayerProfileViewController() as PlayerProfileViewController
+                self.navigationController?.pushViewController(PlayerProfileSelection, animated: true)
+            default:
+                fatalError("Invalid row")
+            }
+        default:
+            fatalError("Invalid section")
+        }
+    }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch(indexPath.section) {
         case 0:
