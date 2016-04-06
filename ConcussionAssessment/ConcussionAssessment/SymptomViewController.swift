@@ -19,6 +19,8 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   
   var pageViewController: UIPageViewController?
   
+  
+  
   var pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
   
   var currentIndex : Int = 0
@@ -57,7 +59,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
     {
       return nil
     }
-    index--
+    index -= 1
     print("back")
     rowSelected = (viewController as! SymptomView).rowSel
     currScore = rowSelected
@@ -76,7 +78,7 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
       return nil
     }
     print("selected passed")
-    index++
+    index += 1
     currentIndex = index
     limitIndex = index
     if(index == self.pageTitles.count)
@@ -121,7 +123,8 @@ class SymptomViewController: UIViewController, UIPageViewControllerDataSource
   
   func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int
   {
-    return 0
+    print("current index: %d", self.currentIndex)
+    return self.currentIndex
   }
   
 }
@@ -193,13 +196,17 @@ class SymptomView: UITableViewController
     rowSel = indexPath.item
     selected = 1
     print(selected)
-    pageIndex++
+    pageIndex += 1
+    self.pvc!.currentIndex += 1
+
     print(pageIndex)
     let startingViewController: SymptomView = self.pvc!.viewControllerAtIndex(pageIndex)!
     //    segCtrller = startingViewController.segCtrl
     let viewControllers = [startingViewController]
 
     self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+    //self.pvc!.pageViewController!.currentPage +=1
+
   }
   
 }
