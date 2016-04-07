@@ -152,7 +152,7 @@ class TablePageView: UITableViewController
   var selected : Int? = 0
   
 //  let LabelArray = ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
-  
+
   weak var pvc : TablePageViewController?
   let LabelArray : Array<Array<String>>
 

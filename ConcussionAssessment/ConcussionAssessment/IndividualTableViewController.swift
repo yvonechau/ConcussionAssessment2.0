@@ -56,15 +56,16 @@ class IndividualTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch(indexPath.item) {
+      
+      let pageControl = UIPageControl.appearance()
+      pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
+      pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
+      pageControl.backgroundColor = UIColor.darkGrayColor()
+      
+      
+      switch(indexPath.item) {
         case 0:
 //            let GlasgowView = GlasgowTestViewController() as GlasgowTestViewController
-            
-            let pageControl = UIPageControl.appearance()
-            pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
-            pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
-            pageControl.backgroundColor = UIColor.darkGrayColor()
-            
             let pageTitles : Array<String> = ["Best Eye Response", "No Verbal Response", "Best Motor Response"]
             let testName : String = "Glasgow Coma Scale"
             
@@ -73,14 +74,21 @@ class IndividualTableViewController: UITableViewController {
             let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName) as TablePageViewController
             self.navigationController?.pushViewController(GlasgowView, animated: true)
         case 1:
-            let MaddocksView = MaddocksViewController() as MaddocksViewController
-            self.navigationController?.pushViewController(MaddocksView, animated: true)
-        case 2:
-            let pageControl = UIPageControl.appearance()
-            pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
-            pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
-            pageControl.backgroundColor = UIColor.darkGrayColor()
+//            let MaddocksView = MaddocksViewController() as MaddocksViewController
+//            self.navigationController?.pushViewController(MaddocksView, animated: true)
+      
+        
+            let pageTitles : Array<String> = ["At what venue are we today?", "Which half is it now?", "Who scored last in this match", "What did you play last week?", "Did your team win the last game?"]
+            let testName : String = "Maddocks Test"
             
+            let ma : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"])
+            
+            let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName) as TablePageViewController
+            self.navigationController?.pushViewController(MaddocksView, animated: true)
+
+        
+        case 2:
+          
             let pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
             let testName : String = "Symptom Evaluation"
             
@@ -89,8 +97,28 @@ class IndividualTableViewController: UITableViewController {
             let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName) as TablePageViewController
             self.navigationController?.pushViewController(SymptomView, animated: true)
         case 3:
-            let CognitiveView = CognitiveTableViewController(style: UITableViewStyle.Grouped) as CognitiveTableViewController
-            self.navigationController?.pushViewController(CognitiveView, animated: true)
+//            let CognitiveView = CognitiveTableViewController(style: UITableViewStyle.Grouped) as CognitiveTableViewController
+//            self.navigationController?.pushViewController(CognitiveView, animated: true)
+        
+            let pageTitles : Array<String> = ["What month is it?", "What is the date?", "What is the day of the week?", "What year is it?", "What time is it right now? (Within 1 hour)"]
+            let testName : String = "Cognitive Assessment: Orientation"
+            
+            let coa : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"])
+          
+            let CognitiveOrientationView = TablePageViewController(pageTitles: pageTitles, labelArray: coa, testName: testName) as TablePageViewController
+            self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
+
+//        case 4:
+//      
+//            let pageTitles : Array<String> = ["What month is it?", "What is the date?", "What is the day of the week?", "What year is it?", "What time is it right now? (Within 1 hour)"]
+//            let testName : String = "Cognitive Assessment: Orientation"
+//            
+//            let sva : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"]])
+//            
+//            let CognitiveOrientationView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName) as TablePageViewController
+//            self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
+
+        
         case 4:
             let BalanceView = BalanceViewController() as BalanceViewController
             self.navigationController?.pushViewController(BalanceView, animated: true)
