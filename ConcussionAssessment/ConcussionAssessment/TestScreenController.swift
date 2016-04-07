@@ -73,15 +73,15 @@ class TestScreenController: UITableViewController {
             switch(indexPath.row) {
             case 0:
                 testFlow = 1;
-                let pageControl = UIPageControl.appearance()
-                pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
-                pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
-                pageControl.backgroundColor = UIColor.darkGrayColor()
-                
-                let pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
-                let testName : String = "Symptom Evaluation"
-                let SymptomView = TablePageViewController(pageTitles: pageTitles, testName: testName) as TablePageViewController
-                self.navigationController?.pushViewController(SymptomView, animated: true)
+//                let pageControl = UIPageControl.appearance()
+//                pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
+//                pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
+//                pageControl.backgroundColor = UIColor.darkGrayColor()
+//                
+//                let pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
+//                let testName : String = "Symptom Evaluation"
+//                let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName) as TablePageViewController
+//                self.navigationController?.pushViewController(SymptomView, animated: true)
 
                 break;
             case 1:
