@@ -157,14 +157,13 @@ class TablePageView: UITableViewController
   var rowSel : NSNumber = 0
   var selected : Int? = 0
   
-//  let LabelArray = ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
-
   weak var pvc : TablePageViewController?
   let LabelArray : Array<Array<String>>
 
   init(pvc : TablePageViewController)
   {
     self.pvc = pvc
+    
     self.LabelArray = pvc.labelArray
     super.init(style: UITableViewStyle.Grouped)
   }

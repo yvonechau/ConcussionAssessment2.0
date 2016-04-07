@@ -99,7 +99,14 @@ class IndividualTableViewController: UITableViewController {
         case 3:
 //            let CognitiveView = CognitiveTableViewController(style: UITableViewStyle.Grouped) as CognitiveTableViewController
 //            self.navigationController?.pushViewController(CognitiveView, animated: true)
-        
+//        
+//          if(self.pvc!.startingViewController == nil)
+//          {
+//            let memSetList : [[String]] = [["elbow", "apple", "carpet", "saddle", "bubble"], ["candle", "paper", "sugar", "sandwich", "wagon"], ["baby", "monkey", "perfume", "susnet", "iron"], ["finger", "penny", "blanket", "lemon", "insect"]]
+//            
+//            self.LabelArray =
+//          }
+          
             let pageTitles : Array<String> = ["What month is it?", "What is the date?", "What is the day of the week?", "What year is it?", "What time is it right now? (Within 1 hour)"]
             let testName : String = "Cognitive Assessment: Orientation"
             

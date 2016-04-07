@@ -8,22 +8,31 @@
 
 import UIKit
 
-class CognitiveTableViewController: UITableViewController {
+class CognitiveSetsTableViewController: UITableViewController {
     
     let LabelArray = ["Orientation", "Immediate Memory", "Concentration"]
     let DetailLabelArray: [String] = ["Whether the patient is aware of what time it is.", "Memory/recollection test.", "Remembering information backwards."]
-    
+    let testPart : String
+    let setList : [[String]]
+    let numSet: Int
+  
+    init(style: UITableViewStyle, testPart :String, setList: [[String]], numSet: Int)
+    {
+      self.testPart = testPart
+      self.setList = setList
+      self.numSet = numSet.count
+      super.init(style: UITableViewStyle.Grouped)
+    }
+  
+    required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+    }
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Cognitive Assessment"
+        self.title = "Cognitive Assessment: " + self.testPart
         self.navigationItem.prompt = "Assessment for <Player.name>"
-        
-        // let TestMenuTableView = UITableView()
-        // TestMenuTableView.dataSource = self
-        // TestMenuTableView.delegate = self
-        // TestMenuTableView.backgroundColor = UIColor.whiteColor()
-        // Above same as UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     }
     
     override func didReceiveMemoryWarning() {
