@@ -19,17 +19,18 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   var pageViewController: UIPageViewController?
   
-  
   var testName: String
   var pageTitles : Array<String>
+  var labelArray : Array<Array<String>>
   var currentIndex : Int = 0
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
   var currScore: NSNumber?
   
-  init(pageTitles : Array<String>, testName : String)
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String)
   {
     self.pageTitles = pageTitles
+    self.labelArray = labelArray
     self.testName = testName
 
     super.init(nibName:nil, bundle:nil)
@@ -150,12 +151,15 @@ class TablePageView: UITableViewController
   var rowSel : NSNumber = 0
   var selected : Int? = 0
   
-  let LabelArray = ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
+//  let LabelArray = ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
   
   weak var pvc : TablePageViewController?
+  let LabelArray : Array<Array<String>>
+
   init(pvc : TablePageViewController)
   {
     self.pvc = pvc
+    self.LabelArray = pvc.labelArray
     super.init(style: UITableViewStyle.Grouped)
   }
   
@@ -195,14 +199,14 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    return LabelArray.count
+    return LabelArray[self.pvc!.currentIndex].count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
     let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
     
-    Cell.textLabel?.text = LabelArray[indexPath.row]
+    Cell.textLabel?.text = LabelArray[self.pvc!.currentIndex][indexPath.row]
     Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
     Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
     return Cell
