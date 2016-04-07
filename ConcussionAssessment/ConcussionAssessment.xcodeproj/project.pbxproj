@@ -35,7 +35,6 @@
 		64C3729C1CB4F1FC00D479BF /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C3729B1CB4F1FC00D479BF /* InfoButton.swift */; };
 		64C3729E1CB4FE7600D479BF /* TablePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C3729D1CB4FE7600D479BF /* TablePageViewController.swift */; };
 		64C3729F1CB5E1E100D479BF /* PlayerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3316E59E1CB4F4DF00F25CC6 /* PlayerProfileViewController.swift */; };
-		64C372A31CB5EAB600D479BF /* TestScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C372A21CB5EAB600D479BF /* TestScreenController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +80,6 @@
 		44DB2AF01C851A81007B8D8F /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		64C3729B1CB4F1FC00D479BF /* InfoButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
 		64C3729D1CB4FE7600D479BF /* TablePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TablePageViewController.swift; sourceTree = "<group>"; };
-		64C372A21CB5EAB600D479BF /* TestScreenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestScreenController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +121,6 @@
 		3309A5FA1C76750C00EC3795 /* ConcussionAssessment */ = {
 			isa = PBXGroup;
 			children = (
-				64C372A21CB5EAB600D479BF /* TestScreenController.swift */,
 				3309A5FB1C76750C00EC3795 /* AppDelegate.swift */,
 				4426239D1C7D79B2003F21BC /* ListPlayerProfilesController.swift */,
 				3309A5FD1C76750C00EC3795 /* ViewController.swift */,
@@ -285,7 +282,6 @@
 				33EADDEE1C90B035009C892A /* GlasgowTestViewController.swift in Sources */,
 				3309A5FC1C76750C00EC3795 /* AppDelegate.swift in Sources */,
 				3309A6041C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld in Sources */,
-				64C372A31CB5EAB600D479BF /* TestScreenController.swift in Sources */,
 				3316E5A11CB5E83E00F25CC6 /* GuestViewController.swift in Sources */,
 				64C3729E1CB4FE7600D479BF /* TablePageViewController.swift in Sources */,
 				4489129F1C7BEA2E001D1E7D /* SplashScreenController.swift in Sources */,
