@@ -21,7 +21,7 @@ class MenuController: UITableViewController {
         super.loadView()
         
         // set the title
-        self.title = "Menu Screen"
+        self.title = "Menu"
         
         
         self.existingProfile.textLabel?.text = "Select an Existing Profile"
@@ -73,16 +73,16 @@ class MenuController: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
-                let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped)
-                currentScoreID =  NSUUID().UUIDString
-                database.insertNewScoreWithoutPlayer(currentScoreID!)
-                self.navigationController?.pushViewController(lpp, animated:true)
+                let LPPController = ListPlayerProfileController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(LPPController, animated: true)
                 break;
             case 1:
-                // profile form screen
+                let CNPController = CreateProfileTableViewController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(CNPController, animated: true)
                 break;
             case 2:
-                // test screen
+                let GVController = GuestViewController(style: UITableViewStyle.Grouped)
+                self.navigationController?.pushViewController(GVController, animated: true)
                 break;
             default:
                 fatalError("Unknow Row");
