@@ -17,7 +17,6 @@
 		3309A6141C76750C00EC3795 /* ConcussionAssessmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309A6131C76750C00EC3795 /* ConcussionAssessmentUITests.swift */; };
 		3316E59D1CB4E4E700F25CC6 /* CreateProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3316E59C1CB4E4E700F25CC6 /* CreateProfileTableViewController.swift */; };
 		3316E5A11CB5E83E00F25CC6 /* GuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3316E5A01CB5E83E00F25CC6 /* GuestViewController.swift */; };
-		3316E5A21CB5E86400F25CC6 /* PlayerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3316E59E1CB4F4DF00F25CC6 /* PlayerProfileViewController.swift */; };
 		334E269B1C7D8EC1001D04FE /* MaddocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E269A1C7D8EC1001D04FE /* MaddocksViewController.swift */; };
 		334E269D1C7D8EE3001D04FE /* SymptomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E269C1C7D8EE3001D04FE /* SymptomViewController.swift */; };
 		334E269F1C7D8EF8001D04FE /* CognitiveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E269E1C7D8EF8001D04FE /* CognitiveTableViewController.swift */; };
@@ -284,7 +283,6 @@
 				3309A5FC1C76750C00EC3795 /* AppDelegate.swift in Sources */,
 				3309A6041C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld in Sources */,
 				3316E5A11CB5E83E00F25CC6 /* GuestViewController.swift in Sources */,
-				3316E5A21CB5E86400F25CC6 /* PlayerProfileViewController.swift in Sources */,
 				64C3729E1CB4FE7600D479BF /* TablePageViewController.swift in Sources */,
 				4489129F1C7BEA2E001D1E7D /* SplashScreenController.swift in Sources */,
 				4426239E1C7D79B2003F21BC /* ListPlayerProfilesController.swift in Sources */,
