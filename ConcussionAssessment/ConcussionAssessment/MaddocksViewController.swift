@@ -19,12 +19,12 @@ import UIKit
 class MaddocksViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
 {
   let questionArray = [
-    "At what venue are we today?",
-    "Which half is it now?",
-    "Who scored last in this match?",
-    "What did you play last week?",
-    "Did your team win the last game?"]
-  
+      "At what venue are we today?",
+      "Which half is it now?",
+      "Who scored last in this match?",
+      "What did you play last week?",
+      "Did your team win the last game?"]
+    
   let Frame = UIScreen.mainScreen().bounds
   var OrientationScore: Int? = nil
   var CollectionView: UICollectionView!
@@ -78,7 +78,7 @@ class MaddocksViewController: UIViewController, UICollectionViewDelegateFlowLayo
   func SaveMaddocksScore() {
     print("SaveMaddocksScore Button Pressed")
   }
-  
+
   func DisplayTestInstructions(Text: String) {
     let topOffset = self.navigationController!.navigationBar.bounds.height + UIApplication.sharedApplication().statusBarFrame.size.height
     let TopLabel = UILabel(frame: CGRect(x: 10, y:topOffset, width: Frame.size.width, height: 30))
@@ -87,3 +87,4 @@ class MaddocksViewController: UIViewController, UICollectionViewDelegateFlowLayo
     self.view.addSubview(TopLabel)
   }
 }
+
