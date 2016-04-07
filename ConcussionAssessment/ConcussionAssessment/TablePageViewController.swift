@@ -27,11 +27,14 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var rowSelected: NSNumber?
   var currScore: NSNumber?
   
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String)
+  var startingViewController : TablePageView?
+  
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?)
   {
     self.pageTitles = pageTitles
     self.labelArray = labelArray
     self.testName = testName
+    self.startingViewController = instructionPage
 
     super.init(nibName:nil, bundle:nil)
   }
@@ -46,9 +49,12 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     
-    let startingViewController: TablePageView = viewControllerAtIndex(0)!
-    //    segCtrller = startingViewController.segCtrl
-    let viewControllers = [startingViewController]
+    if(self.startingViewController == nil) // not instantiated so it has no instrution page
+    {
+        self.startingViewController = viewControllerAtIndex(0)!
+    }
+    
+    let viewControllers = [self.startingViewController!]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
     self.navigationItem.title = self.testName
