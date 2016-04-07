@@ -20,7 +20,7 @@ class CognitiveSetsTableViewController: UITableViewController {
     {
       self.testPart = testPart
       self.setList = setList
-      self.numSet = numSet.count
+      self.numSet = setList.count
       super.init(style: UITableViewStyle.Grouped)
     }
   
