@@ -58,7 +58,17 @@ class IndividualTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch(indexPath.item) {
         case 0:
-            let GlasgowView = GlasgowTestViewController() as GlasgowTestViewController
+//            let GlasgowView = GlasgowTestViewController() as GlasgowTestViewController
+          
+            
+            let pageControl = UIPageControl.appearance()
+            pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
+            pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
+            pageControl.backgroundColor = UIColor.darkGrayColor()
+            
+            let pageTitles : Array<String> = ["Best Eye Response", "No Verbal Response", "Best Motor Response"]
+            let testName : String = "Glasgow Coma Scale"
+            let GlasgowView = TablePageViewController(pageTitles: pageTitles, testName: testName) as TablePageViewController
             self.navigationController?.pushViewController(GlasgowView, animated: true)
         case 1:
             let MaddocksView = MaddocksViewController() as MaddocksViewController
