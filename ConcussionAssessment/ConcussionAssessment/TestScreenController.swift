@@ -82,6 +82,7 @@ class TestScreenController: UITableViewController {
                 let testName : String = "Symptom Evaluation"
                 let SymptomView = TablePageViewController(pageTitles: pageTitles, testName: testName) as TablePageViewController
                 self.navigationController?.pushViewController(SymptomView, animated: true)
+
                 break;
             case 1:
                 testFlow = 0;
