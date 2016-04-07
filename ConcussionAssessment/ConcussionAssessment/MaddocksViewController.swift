@@ -78,7 +78,7 @@ class MaddocksViewController: UIViewController, UICollectionViewDelegateFlowLayo
   func SaveMaddocksScore() {
     print("SaveMaddocksScore Button Pressed")
   }
-  
+
   func DisplayTestInstructions(Text: String) {
     let topOffset = self.navigationController!.navigationBar.bounds.height + UIApplication.sharedApplication().statusBarFrame.size.height
     let TopLabel = UILabel(frame: CGRect(x: 10, y:topOffset, width: Frame.size.width, height: 30))
@@ -86,9 +86,5 @@ class MaddocksViewController: UIViewController, UICollectionViewDelegateFlowLayo
     TopLabel.backgroundColor = UIColor.whiteColor()
     self.view.addSubview(TopLabel)
   }
-  
-
-  
-  
 }
 

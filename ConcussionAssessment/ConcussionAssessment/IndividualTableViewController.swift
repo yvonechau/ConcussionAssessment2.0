@@ -66,13 +66,12 @@ class IndividualTableViewController: UITableViewController {
         case 2:
             let pageControl = UIPageControl.appearance()
             pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
-            pageControl.currentPageIndicatorTintColor = UIColor.darkGrayColor()
-            pageControl.backgroundColor = UIColor.whiteColor()
+            pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
+            pageControl.backgroundColor = UIColor.darkGrayColor()
             
-            var pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
-
-            
-            let SymptomView = TablePageViewController(pageTitles: pageTitles) as TablePageViewController
+            let pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
+            let testName : String = "Symptom Evaluation"
+            let SymptomView = TablePageViewController(pageTitles: pageTitles, testName: testName) as TablePageViewController
             self.navigationController?.pushViewController(SymptomView, animated: true)
         case 3:
             let CognitiveView = CognitiveTableViewController(style: UITableViewStyle.Grouped) as CognitiveTableViewController
