@@ -16,26 +16,45 @@
 
 import UIKit
 
-class MaddocksViewController: UITableViewController
+class MaddocksViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
 {
-  var maddocks: [Maddocks] = []
-  let questionArray = ["At what venue are we today?", "Which half is it now?", "Who scored last in this match?", "What did you play last week?", "Did your team win the last game?"]
+  let questionArray = [
+    "At what venue are we today?",
+    "Which half is it now?",
+    "Who scored last in this match?",
+    "What did you play last week?",
+    "Did your team win the last game?"]
+  
+  let Frame = UIScreen.mainScreen().bounds
+  var OrientationScore: Int? = nil
+  var CollectionView: UICollectionView!
+  
+  override func loadView()
+  {
+    super.loadView()
+    self.view.backgroundColor = UIColor.whiteColor()
+  }
+  
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
     self.title = "Maddocks Test"
     
-    for question in questionArray{
-      let maddock = Maddocks(q: question)
-      maddocks.append(maddock)
-    }
+    let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+    layout.sectionInset = UIEdgeInsets(top: 30, left: 10, bottom: 10, right: 10)
+    layout.itemSize = CGSize(width: Frame.width, height: Frame.height/6)
     
-    tableView = UITableView(frame: view.bounds, style: .Grouped)
-    tableView.delegate = self
-    tableView.dataSource = self
-    tableView.separatorStyle = .None
-    tableView.registerClass(MaddocksCell.self, forCellReuseIdentifier: NSStringFromClass(MaddocksCell))
+    CollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+    CollectionView.dataSource = self
+    CollectionView.delegate = self
+    CollectionView.registerClass(TestCell.self, forCellWithReuseIdentifier: "TestCell")
+    CollectionView.backgroundColor = UIColor.whiteColor()
+    self.view.addSubview(CollectionView)
+    
+    DisplayTestInstructions("Select for incorrect or correct responses.")
+    
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MaddocksViewController.SaveMaddocksScore))
   }
   
   override func didReceiveMemoryWarning()
@@ -44,113 +63,27 @@ class MaddocksViewController: UITableViewController
     // Dispose of any resources that can be recreated.
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return questionArray.count
   }
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let Cell = collectionView.dequeueReusableCellWithReuseIdentifier("TestCell", forIndexPath: indexPath) as! TestCell
+    Cell.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
+    Cell.QuestionLabel.text = questionArray[indexPath.item]
     
-    let cell = tableView.dequeueReusableCellWithIdentifier( NSStringFromClass(MaddocksCell), forIndexPath: indexPath) as! MaddocksCell
-    cell.maddocks = maddocks[indexPath.row]
-    self.tableView.rowHeight = 120.0
-    return cell
+    return Cell
   }
   
-  //  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-  //    return 70
-  //  }
-  
-  
-}
-
-class Maddocks
-{
-  var question: String?
-  var answer: String?
-  init(q: String)
-  {
-    self.question = q
-    self.answer = " "
-  }
-}
-
-class MaddocksCell: UITableViewCell
-{
-  //let padding: CGFloat = 5
-  var questionLabel: UILabel!
-  var correctButton: UIButton!
-  var incorrectButton: UIButton!
-  var answerLabel: UILabel!
-  
-  var maddocks: Maddocks?
-    {
-    didSet
-    {
-      questionLabel.backgroundColor = UIColor.orangeColor()
-      questionLabel.text = maddocks!.question
-      
-      correctButton.backgroundColor = UIColor.cyanColor()
-      correctButton.setTitle("Correct", forState: UIControlState.Normal)
-      
-      incorrectButton.backgroundColor = UIColor.cyanColor()
-      incorrectButton.setTitle("Incorrect", forState: UIControlState.Normal)
-      
-      answerLabel.backgroundColor = UIColor.redColor()
-      setNeedsLayout()
-      
-    }
+  func SaveMaddocksScore() {
+    print("SaveMaddocksScore Button Pressed")
   }
   
-  
-  override init(style: UITableViewCellStyle, reuseIdentifier: String?)
-  {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    backgroundColor = UIColor.whiteColor()
-    selectionStyle = .None
-    
-    questionLabel = UILabel(frame: CGRectZero)
-    questionLabel.textAlignment = .Left
-    questionLabel.textColor = UIColor.blackColor()
-    contentView.addSubview(questionLabel)
-    
-    
-    correctButton = UIButton(frame: CGRectZero)
-    correctButton.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-    contentView.addSubview(correctButton)
-    
-    incorrectButton = UIButton(frame:CGRectZero)
-    incorrectButton.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-    contentView.addSubview(incorrectButton)
-    
-    answerLabel = UILabel(frame: CGRectZero)
-    answerLabel.textAlignment = .Center
-    answerLabel.textColor = UIColor.whiteColor()
-    contentView.addSubview(answerLabel)
-    
-  }
-  
-  required init(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  override func prepareForReuse() {
-    super.prepareForReuse()
-    
-  }
-  
-  func buttonAction(sender:UIButton!)
-  {
-    print("\(sender.currentTitle!) tapped")
-    answerLabel.text = "\(sender.currentTitle!)"
-
-  }
-  
-  
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    questionLabel.frame = CGRectMake(0, 0, frame.width, 40)
-    correctButton.frame = CGRectMake(10, 80, 100, 40)
-    incorrectButton.frame = CGRectMake(150, 80, 100, 40)
-    answerLabel.frame = CGRectMake(290, 80, 100, 40)
+  func DisplayTestInstructions(Text: String) {
+    let topOffset = self.navigationController!.navigationBar.bounds.height + UIApplication.sharedApplication().statusBarFrame.size.height
+    let TopLabel = UILabel(frame: CGRect(x: 10, y:topOffset, width: Frame.size.width, height: 30))
+    TopLabel.text = Text
+    TopLabel.backgroundColor = UIColor.whiteColor()
+    self.view.addSubview(TopLabel)
   }
 }
