@@ -19,17 +19,19 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   var pageViewController: UIPageViewController?
   
-  
-  
+  var testName: String
   var pageTitles : Array<String>
+  var labelArray : Array<Array<String>>
   var currentIndex : Int = 0
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
   var currScore: NSNumber?
   
-  init(pageTitles : Array<String>)
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String)
   {
     self.pageTitles = pageTitles
+    self.labelArray = labelArray
+    self.testName = testName
 
     super.init(nibName:nil, bundle:nil)
   }
@@ -49,6 +51,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     let viewControllers = [startingViewController]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+    self.navigationItem.title = self.testName
     
     addChildViewController(pageViewController!)
     view.addSubview(pageViewController!.view)
@@ -148,12 +151,15 @@ class TablePageView: UITableViewController
   var rowSel : NSNumber = 0
   var selected : Int? = 0
   
-  let LabelArray = ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
+//  let LabelArray = ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
   
   weak var pvc : TablePageViewController?
+  let LabelArray : Array<Array<String>>
+
   init(pvc : TablePageViewController)
   {
     self.pvc = pvc
+    self.LabelArray = pvc.labelArray
     super.init(style: UITableViewStyle.Grouped)
   }
   
@@ -164,18 +170,10 @@ class TablePageView: UITableViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    //    let title = UILabel(frame: CGRectMake(0,0, view.frame.width, 50))
-    //    title.textColor = UIColor.blackColor()
-    //    title.text = " Symptom Evaluation"
-    //    title.font = title.font.fontWithSize(17)
-    //    title.textAlignment = .Left
-    //    title.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.65)
-    //    view.addSubview(title)
-    
     
     self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-    
+    self.tableView.rowHeight = 50.0
   }
   
   override func didReceiveMemoryWarning()
@@ -186,20 +184,30 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
   {
+    print("title: %s", titleText)
     return titleText
+  }
+  
+  override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+  {
+    let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+    
+    header.textLabel?.font = UIFont(name: "Helvetica Neue", size: 20.0)
+
   }
   
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    return LabelArray.count
+    return LabelArray[self.pvc!.currentIndex].count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
     let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
     
-    Cell.textLabel?.text = LabelArray[indexPath.row]
+    Cell.textLabel?.text = LabelArray[self.pvc!.currentIndex][indexPath.row]
+    Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
     Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
     return Cell
   }
@@ -219,11 +227,10 @@ class TablePageView: UITableViewController
     
     print(self.pvc!.pageTitles.count)
     let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
-    //    segCtrller = startingViewController.segCtrl
+
     let viewControllers = [startingViewController]
     
     self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
-    //self.pvc!.pageViewController!.currentPage +=1
     
   }
   

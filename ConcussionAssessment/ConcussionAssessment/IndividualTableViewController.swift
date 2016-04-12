@@ -58,7 +58,19 @@ class IndividualTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch(indexPath.item) {
         case 0:
-            let GlasgowView = GlasgowTestViewController() as GlasgowTestViewController
+//            let GlasgowView = GlasgowTestViewController() as GlasgowTestViewController
+            
+            let pageControl = UIPageControl.appearance()
+            pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
+            pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
+            pageControl.backgroundColor = UIColor.darkGrayColor()
+            
+            let pageTitles : Array<String> = ["Best Eye Response", "No Verbal Response", "Best Motor Response"]
+            let testName : String = "Glasgow Coma Scale"
+            
+            let gla : Array<Array<String>> = [["No eye opening", "Eye Opening in Response To Pain", "Eye opening in Speech", "Eyes Opening Spontaneously"], ["No Verbal Response", "Incomprehensible Sounds", "Incomprehensible Words", "Confused", "Oriented"],["No Motor Response", "Extension to Pain", "Abnormal flexion to pain", "Flexion/Withdrawal to Pain", "Localizes to Pain", "Obeys Command"]]
+            
+            let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName) as TablePageViewController
             self.navigationController?.pushViewController(GlasgowView, animated: true)
         case 1:
             let MaddocksView = MaddocksViewController() as MaddocksViewController
@@ -66,13 +78,15 @@ class IndividualTableViewController: UITableViewController {
         case 2:
             let pageControl = UIPageControl.appearance()
             pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
-            pageControl.currentPageIndicatorTintColor = UIColor.darkGrayColor()
-            pageControl.backgroundColor = UIColor.whiteColor()
+            pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
+            pageControl.backgroundColor = UIColor.darkGrayColor()
             
-            var pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
-
+            let pageTitles : Array<String> = ["Headache", "Pressure in Head", "Neck Pain", "Nausea or Vomiting", "Dizziness", "Blurred Vision", "Balance Problems", "Sensitivity to Light", "Sensitivity to Noise", "Feeling Slowed Down", "Feeling like 'in a fog'", "Don't Feel Right", "Difficulty Concentrating", "Difficulty Remembering", "Fatigue or Low Energy", "Confusion", "Drowsiness", "Trouble Falling Asleep", "More Emotional", "Irrability", "Sadness", "Nervous or Anxious"]
+            let testName : String = "Symptom Evaluation"
             
-            let SymptomView = TablePageViewController(pageTitles: pageTitles) as TablePageViewController
+            let sva : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"])
+            
+            let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName) as TablePageViewController
             self.navigationController?.pushViewController(SymptomView, animated: true)
         case 3:
             let CognitiveView = CognitiveTableViewController(style: UITableViewStyle.Grouped) as CognitiveTableViewController
