@@ -46,20 +46,22 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   func buttonPressed(sender: UIButton)
   {
     print("button")
-//    let alertView = UIAlertController(title: "Instructions", message: "Instructions...",UIAlertControllerStyle)
-//    alertView.addAction(UIAlertAction(title: "Ok", style: .Default, handler: {
-//      action in
-//      switch action.style
-//      {
-//        case .Default:
-//          print("default")
-//        case .Cancel:
-//          print("cancel")
-//        case .Destructive:
-//          print("destructive")
-//      }
-//      
-//    }))
+    let alertView = UIAlertController(title: "Instructions", message: "Instructions...", preferredStyle: UIAlertControllerStyle.Alert)
+    alertView.addAction(UIAlertAction(title: "Ok", style: .Default, handler: {
+      action in
+      switch action.style
+      {
+        case .Default:
+          print("default")
+        case .Cancel:
+          print("cancel")
+        case .Destructive:
+          print("destructive")
+      }
+      
+    }))
+    
+    presentViewController(alertView, animated: true, completion: nil)
 
   }
   
