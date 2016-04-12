@@ -10,8 +10,9 @@ import UIKit
 
 class CreateProfileTableViewController: UITableViewController, UITextFieldDelegate {
     
-    let NumberOfSections = 3
-    let FormArray = ["Name", "Birthday", "Team"]
+    let NumberOfSections = 2
+    let FormArray = [["Name"], ["Birthday", "Date Created"]]
+    let SectionTitleArray = ["Basic Information", "Details"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,15 +38,18 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
+        return FormArray[section].count
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let Cell = CustomFormCell(style: UITableViewCellStyle.Value2, reuseIdentifier: "Cell")
-        Cell.CellLabel?.text = FormArray[indexPath.row]
+        let Cell = CustomFormCell(style: UITableViewCellStyle.Value2, title: FormArray[indexPath.section][indexPath.row], section: indexPath.section)
         
         return Cell
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return SectionTitleArray[section]
     }
     
     func dismiss() {
@@ -85,12 +89,21 @@ class CustomFormCell: UITableViewCell {
     var CellTextField: UITextField!
     var CellLabel: UILabel!
     
-    init(frame: CGRect, title: String) {
-        super.init(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
-        let LabelSize = self.frame.width / 6
-        CellLabel = UILabel(frame: CGRectMake(self.frame.minX, 10, LabelSize, 40))
-            
-        CellTextField = UITextField(frame: CGRectMake(LabelSize, 5, 50, 30))
+    init(style: UITableViewCellStyle, title: String, section: Int) {
+        super.init(style: style, reuseIdentifier: "Cell")
+        var LabelSize: CGFloat
+        if section != 1 {
+            LabelSize = self.frame.width / 6
+        }
+        else {
+            LabelSize = self.frame.width / 3
+        }
+        
+        CellLabel = UILabel(frame: CGRectMake(self.frame.minX + 15, 0, LabelSize, 44))
+        CellLabel?.numberOfLines = 0
+        CellLabel?.text = title
+        
+        CellTextField = UITextField(frame: CGRectMake(LabelSize + 15, 0, LabelSize * 5, 44))
         
         addSubview(CellLabel)
         addSubview(CellTextField)
@@ -100,7 +113,10 @@ class CustomFormCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        //self.textLabel?.text = "Hello"
+        //self.detailTextLabel?.text = "Welp"
     }
 }
