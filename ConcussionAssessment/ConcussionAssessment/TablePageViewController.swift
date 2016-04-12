@@ -26,16 +26,17 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
   var currScore: NSNumber?
+  var instructions: String
   
   var startingViewController : TablePageView?
   
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?)
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String)
   {
     self.pageTitles = pageTitles
     self.labelArray = labelArray
     self.testName = testName
     self.startingViewController = instructionPage
-
+    self.instructions = instructions
     super.init(nibName:nil, bundle:nil)
   }
   
@@ -46,7 +47,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   func buttonPressed(sender: UIButton)
   {
     print("button")
-    let alertView = UIAlertController(title: "Instructions", message: "Instructions...", preferredStyle: UIAlertControllerStyle.Alert)
+    let alertView = UIAlertController(title: "Instructions", message: self.instructions, preferredStyle: UIAlertControllerStyle.Alert)
     alertView.addAction(UIAlertAction(title: "Ok", style: .Default, handler: {
       action in
       switch action.style
@@ -88,7 +89,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
 
     infobutton.addTarget(self, action: #selector(TablePageViewController.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     let modalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
-    self.navigationItem.setLeftBarButtonItem(modalButton, animated: true)
+    self.navigationItem.setRightBarButtonItem(modalButton, animated: true)
 
     
   }

@@ -71,7 +71,7 @@ class IndividualTableViewController: UITableViewController {
             
             let gla : Array<Array<String>> = [["No eye opening", "Eye Opening in Response To Pain", "Eye opening in Speech", "Eyes Opening Spontaneously"], ["No Verbal Response", "Incomprehensible Sounds", "Incomprehensible Words", "Confused", "Oriented"],["No Motor Response", "Extension to Pain", "Abnormal flexion to pain", "Flexion/Withdrawal to Pain", "Localizes to Pain", "Obeys Command"]]
             
-            let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil) as TablePageViewController
+            let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil, instructions: "Rate the individual's responses for each page.") as TablePageViewController
             self.navigationController?.pushViewController(GlasgowView, animated: true)
         case 1:
 //            let MaddocksView = MaddocksViewController() as MaddocksViewController
@@ -83,7 +83,7 @@ class IndividualTableViewController: UITableViewController {
             
             let ma : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"])
             
-            let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName, instructionPage: nil) as TablePageViewController
+            let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName, instructionPage: nil, instructions: "Repeat the following: \"I am going to ask you a few questiosn, please listen carefully and give your best efforts\" and record whether responses are correct or incorrect.") as TablePageViewController
             self.navigationController?.pushViewController(MaddocksView, animated: true)
 
         
@@ -94,7 +94,7 @@ class IndividualTableViewController: UITableViewController {
             
             let sva : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"])
             
-            let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName, instructionPage: nil) as TablePageViewController
+            let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName, instructionPage: nil, instructions: "Rate each of the following symptoms by the amount of severity.") as TablePageViewController
             self.navigationController?.pushViewController(SymptomView, animated: true)
         case 3:
 //            let CognitiveView = CognitiveTableViewController(style: UITableViewStyle.Grouped) as CognitiveTableViewController
@@ -112,7 +112,7 @@ class IndividualTableViewController: UITableViewController {
             
             let coa : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"])
           
-            let CognitiveOrientationView = TablePageViewController(pageTitles: pageTitles, labelArray: coa, testName: testName, instructionPage: nil) as TablePageViewController
+            let CognitiveOrientationView = TablePageViewController(pageTitles: pageTitles, labelArray: coa, testName: testName, instructionPage: nil, instructions: "TBA") as TablePageViewController
             self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
 
 //        case 4:
