@@ -43,6 +43,26 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     fatalError("init(coder:) has not been implemented")
   }
   
+  func buttonPressed(sender: UIButton)
+  {
+    print("button")
+//    let alertView = UIAlertController(title: "Instructions", message: "Instructions...",UIAlertControllerStyle)
+//    alertView.addAction(UIAlertAction(title: "Ok", style: .Default, handler: {
+//      action in
+//      switch action.style
+//      {
+//        case .Default:
+//          print("default")
+//        case .Cancel:
+//          print("cancel")
+//        case .Destructive:
+//          print("destructive")
+//      }
+//      
+//    }))
+
+  }
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -62,6 +82,12 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     addChildViewController(pageViewController!)
     view.addSubview(pageViewController!.view)
     pageViewController!.didMoveToParentViewController(self)
+    let infobutton = UIButton(type: UIButtonType.InfoDark)
+
+    infobutton.addTarget(self, action: #selector(TablePageViewController.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+    let modalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
+    self.navigationItem.setLeftBarButtonItem(modalButton, animated: true)
+
     
   }
   
