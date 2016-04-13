@@ -11,8 +11,9 @@ import UIKit
 class CreateProfileTableViewController: UITableViewController, UITextFieldDelegate {
     
     let NumberOfSections = 2
-    let FormArray = [["Name"], ["Birthday", "Date Created"]]
-    let SectionTitleArray = ["Basic Information", "Details"]
+    let FormArray = [["First", "Last"], ["Birthday", "Gender"]]
+    let SectionTitleArray = ["Name", "Details"]
+    var recordedResults: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(CreateProfileTableViewController.dismiss))
+        self.navigationItem.rightBarButtonItem?.enabled = false;
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,7 +46,14 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let Cell = CustomFormCell(style: UITableViewCellStyle.Value2, title: FormArray[indexPath.section][indexPath.row], section: indexPath.section)
-        
+        if indexPath.section == 2 && indexPath.row == 1 {
+            self.recordedResults += Cell.recordedResults
+        }
+        else {
+            //let tempText: String? = Cell.CellTextField?.text
+            //recordedResults.append(tempText!)
+        }
+        print(recordedResults)
         return Cell
     }
     
@@ -87,26 +96,24 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
 
 class CustomFormCell: UITableViewCell {
     var CellTextField: UITextField!
-    var CellLabel: UILabel!
+    var CellDateField: UIDatePicker!
+    var recordedResults: [String] = []
     
     init(style: UITableViewCellStyle, title: String, section: Int) {
         super.init(style: style, reuseIdentifier: "Cell")
-        var LabelSize: CGFloat
-        if section != 1 {
-            LabelSize = self.frame.width / 6
+        if title == "Birthday" {
+            CellDateField = UIDatePicker()
+            CellDateField.datePickerMode = UIDatePickerMode.Date
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "MM-dd-yyyy"
+            recordedResults.append(dateFormatter.stringFromDate(CellDateField.date))
+            addSubview(CellDateField)
+        } else {
+            CellTextField = UITextField(frame: CGRectMake(self.frame.minX + 16, 0, self.frame.width - 32, self.frame.height))
+            CellTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
+            CellTextField?.placeholder = title
+            addSubview(CellTextField)
         }
-        else {
-            LabelSize = self.frame.width / 3
-        }
-        
-        CellLabel = UILabel(frame: CGRectMake(self.frame.minX + 15, 0, LabelSize, 44))
-        CellLabel?.numberOfLines = 0
-        CellLabel?.text = title
-        
-        CellTextField = UITextField(frame: CGRectMake(LabelSize + 15, 0, LabelSize * 5, 44))
-        
-        addSubview(CellLabel)
-        addSubview(CellTextField)
     }
     
     required init?(coder aDecoder: NSCoder) {
