@@ -218,7 +218,6 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
   {
-    print("title: %s", titleText)
     return titleText
   }
   
@@ -250,7 +249,7 @@ class TablePageView: UITableViewController
   {
     rowSel = indexPath.item
     selected = 1
-    print(selected)
+    print(selected) // update score here
     pageIndex += 1
     self.pvc!.currentIndex += 1 //updates dots
     
