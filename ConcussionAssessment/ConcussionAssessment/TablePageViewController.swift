@@ -128,7 +128,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
   {
-    var index = (viewController as! TablePageView).pageIndex
+    var index = self.currentIndex
     
     if(index == 0) || (index == NSNotFound)
     {
@@ -148,7 +148,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
   {
-    var index = (viewController as! TablePageView).pageIndex
+    var index = self.currentIndex
     if index == NSNotFound
     {
       return nil
@@ -187,7 +187,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     
     let pageContentViewController = TablePageView(pvc: self)
     pageContentViewController.titleText = pageTitles[index]
-    pageContentViewController.pageIndex = index
     
     return pageContentViewController
   }
@@ -207,7 +206,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
 
 class TablePageView: UITableViewController
 {
-  var pageIndex : Int = 0
   var titleText : String = ""
   var rowSel : NSNumber = 0
   var selected : Int? = 0
@@ -302,22 +300,20 @@ class TablePageView: UITableViewController
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
     rowSel = indexPath.item
-    pageIndex += 1
     self.pvc!.currentIndex += 1 //updates dots
 
     if(self.pvc!.currentIndex == self.pvc!.pageTitles.count && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] < self.pvc!.numTrials![1] - 1)
     {
       self.pvc!.currentIndex = 0
-      pageIndex = 0
       self.pvc!.numTrials![0] += 1
-      let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
+      let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
       let viewControllers = [startingViewController]
       print(self.pvc!.numTrials![0])
       self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
       
     }
     else{
-      if(self.pvc!.viewControllerAtIndex(pageIndex) == nil)
+      if(self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex) == nil)
       {
         if(self.pvc!.next == nil)
         {
@@ -329,7 +325,7 @@ class TablePageView: UITableViewController
       }
       else
       {
-        let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
+        let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
         let viewControllers = [startingViewController]
         
         self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
@@ -338,51 +334,3 @@ class TablePageView: UITableViewController
   }
 }
 
-
-class MemPage: UITableViewController
-{
-  let memList : [String]
-
-  init(memList: [String])
-  {
-    self.memList = memList
-    super.init(style: UITableViewStyle.Grouped)
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-    self.tableView.rowHeight = 50.0
-  }
-  
-  override func didReceiveMemoryWarning()
-  {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-  
-  
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-  {
-    return self.memList.count
-  }
-  
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-  {
-    let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
-    
-    Cell.textLabel?.text = memList[indexPath.row]
-    Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
-    return Cell
-  }
-  
-  
-  
-}
