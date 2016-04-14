@@ -251,20 +251,17 @@ class TablePageView: UITableViewController
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
     rowSel = indexPath.item
-    selected = 1
-    print(selected) // update score here
     pageIndex += 1
     self.pvc!.currentIndex += 1 //updates dots
 
-    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] < self.pvc!.numTrials![1])
+    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] < self.pvc!.numTrials![1] - 1)
     {
       self.pvc!.currentIndex = 0
       pageIndex = 0
-      print("next")
       self.pvc!.numTrials![0] += 1
       let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
       let viewControllers = [startingViewController]
-      
+      print(self.pvc!.numTrials![0])
       self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
       
     }
