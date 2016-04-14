@@ -27,16 +27,22 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var rowSelected: NSNumber?
   var currScore: NSNumber?
   var instructions: String
-  
+  var next: TablePageViewController?
+  var original: UIViewController?
   var startingViewController : TablePageView?
   
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String)
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?)
   {
     self.pageTitles = pageTitles
     self.labelArray = labelArray
     self.testName = testName
     self.startingViewController = instructionPage
     self.instructions = instructions
+    self.next = next
+    if(original != nil)
+    {
+      self.original = original!
+    }
     super.init(nibName:nil, bundle:nil)
   }
   
@@ -173,7 +179,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int
   {
-    print("current index: %d", self.currentIndex)
     return self.currentIndex
   }
   
@@ -255,16 +260,33 @@ class TablePageView: UITableViewController
     
     if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
     {
+      //self.pvc!.currentIndex = 0
+     // pageIndex = 0
       print("next")
+      self.removeFromParentViewController()
     }
     
     print(self.pvc!.pageTitles.count)
-    let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
+    if(self.pvc!.viewControllerAtIndex(pageIndex) == nil)
+    {
+      print("here")
+      if(self.pvc!.next == nil)
+      {
+        self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
+      }
+      else{
+        self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+      }
+    }
+    else
+    {
+      let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
+      let viewControllers = [startingViewController]
+      
+      self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+      
+    }
 
-    let viewControllers = [startingViewController]
-    
-    self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
-    
   }
   
 }
