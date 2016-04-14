@@ -135,7 +135,7 @@ class IndividualTableViewController: UITableViewController {
             let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthList, labelArray: coa4, testName: testName4, instructionPage: nil, instructions: instruction4, next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
             
             
-            let CognitiveNumBackwardsView = TablePageViewController(pageTitles: selectedNumList, labelArray: coa3, testName: testName3, instructionPage: nil, instructions: instruction3, next: CognitiveMonthsBackwardsView, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            let CognitiveNumBackwardsView = TablePageViewController(pageTitles: selectedNumList, labelArray: coa3, testName: testName3, instructionPage: nil, instructions: instruction3, next: CognitiveMonthsBackwardsView, original: self, numTrials: [0, 1], firstPage: false) as TablePageViewController
             
             let CognitiveImmediateMemView = TablePageViewController(pageTitles: selectedWordList, labelArray: coa2, testName: testName2, instructionPage: nil, instructions: instruction2, next: CognitiveNumBackwardsView, original: self, numTrials: [0, 3], firstPage: true) as TablePageViewController
             
