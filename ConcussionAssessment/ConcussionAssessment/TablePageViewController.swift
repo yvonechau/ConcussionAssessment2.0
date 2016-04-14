@@ -244,6 +244,7 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
   {
+
     return titleText
   }
   
@@ -258,7 +259,14 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    return LabelArray[self.pvc!.currentIndex].count
+    if(self.pvc!.firstPage)
+    {
+     return self.pvc!.pageTitles.count
+    }
+    else
+    {
+     return LabelArray[self.pvc!.currentIndex].count
+    }
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
