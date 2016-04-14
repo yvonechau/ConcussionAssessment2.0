@@ -71,8 +71,10 @@ class IndividualTableViewController: UITableViewController {
             
             let gla : Array<Array<String>> = [["No eye opening", "Eye Opening in Response To Pain", "Eye opening in Speech", "Eyes Opening Spontaneously"], ["No Verbal Response", "Incomprehensible Sounds", "Incomprehensible Words", "Confused", "Oriented"],["No Motor Response", "Extension to Pain", "Abnormal flexion to pain", "Flexion/Withdrawal to Pain", "Localizes to Pain", "Obeys Command"]]
             
-            let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil, instructions: "Rate the individual's responses for each page.", next: nil, original: self, numTrials: nil) as TablePageViewController
+            let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil, instructions: "Rate the individual's responses for each page.", next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            
             self.navigationController?.pushViewController(GlasgowView, animated: true)
+        
         case 1:
 //            let MaddocksView = MaddocksViewController() as MaddocksViewController
 //            self.navigationController?.pushViewController(MaddocksView, animated: true)
@@ -83,9 +85,9 @@ class IndividualTableViewController: UITableViewController {
             
             let ma : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"])
             
-            let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName, instructionPage: nil, instructions: "Repeat the following: \"I am going to ask you a few questiosn, please listen carefully and give your best efforts\" and record whether responses are correct or incorrect.", next: nil, original: self, numTrials: nil) as TablePageViewController
+            let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName, instructionPage: nil, instructions: "Repeat the following: \"I am going to ask you a few questiosn, please listen carefully and give your best efforts\" and record whether responses are correct or incorrect.", next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            
             self.navigationController?.pushViewController(MaddocksView, animated: true)
-
         
         case 2:
           
@@ -94,7 +96,8 @@ class IndividualTableViewController: UITableViewController {
             
             let sva : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"])
             
-            let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName, instructionPage: nil, instructions: "Rate each of the following symptoms by the amount of severity.", next: nil, original: self, numTrials: nil) as TablePageViewController
+            let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName, instructionPage: nil, instructions: "Rate each of the following symptoms by the amount of severity.", next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            
             self.navigationController?.pushViewController(SymptomView, animated: true)
         
         case 3:
@@ -116,7 +119,7 @@ class IndividualTableViewController: UITableViewController {
             let coa2 = [[String]](count: selectedWordList.count, repeatedValue: ["Correct", "Incorrect"])
             let coa3 = [[String]](count: selectedNumList.count, repeatedValue: ["Correct", "Incorrect"])
         
-            var instruction : String = "Record whether responses are correct or incorrect."
+            let instruction : String = "Record whether responses are correct or incorrect."
             var instruction2 : String = "Read the following words aloud and make sure the order is correct:\n"
             
             for word in selectedWordList{
@@ -134,11 +137,11 @@ class IndividualTableViewController: UITableViewController {
             instruction3 += "Record whether responses are correct or incorrect."
 
             
-            let CognitiveNumBackwardsView = TablePageViewController(pageTitles: selectedNumList, labelArray: coa3, testName: testName3, instructionPage: nil, instructions: instruction3, next: nil, original: self, numTrials: nil) as TablePageViewController
+            let CognitiveNumBackwardsView = TablePageViewController(pageTitles: selectedNumList, labelArray: coa3, testName: testName3, instructionPage: nil, instructions: instruction3, next: nil, original: self, numTrials: nil, firstPage: true) as TablePageViewController
             
-            let CognitiveImmediateMemView = TablePageViewController(pageTitles: selectedWordList, labelArray: coa2, testName: testName2, instructionPage: nil, instructions: instruction2, next: CognitiveNumBackwardsView, original: self, numTrials: [0, 3]) as TablePageViewController
+            let CognitiveImmediateMemView = TablePageViewController(pageTitles: selectedWordList, labelArray: coa2, testName: testName2, instructionPage: nil, instructions: instruction2, next: CognitiveNumBackwardsView, original: self, numTrials: [0, 3], firstPage: true) as TablePageViewController
             
-            let CognitiveOrientationView = TablePageViewController(pageTitles: orientationList, labelArray: coa, testName: testName, instructionPage: nil, instructions: instruction, next: CognitiveImmediateMemView, original: self, numTrials: nil) as TablePageViewController
+            let CognitiveOrientationView = TablePageViewController(pageTitles: orientationList, labelArray: coa, testName: testName, instructionPage: nil, instructions: instruction, next: CognitiveImmediateMemView, original: self, numTrials: nil, firstPage: false) as TablePageViewController
             
             self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
 
