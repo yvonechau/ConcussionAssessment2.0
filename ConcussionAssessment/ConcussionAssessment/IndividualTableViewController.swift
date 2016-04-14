@@ -100,7 +100,7 @@ class IndividualTableViewController: UITableViewController {
         case 3:
             let orientationList : Array<String> = ["What month is it?", "What is the date?", "What is the day of the week?", "What year is it?", "What time is it right now? (Within 1 hour)"]
           
-            let memSetList : [[String]] = [["elbow", "apple", "carpet", "saddle", "bubble"], ["candle", "paper", "sugar", "sandwich", "wagon"], ["baby", "monkey", "perfume", "susnet", "iron"], ["finger", "penny", "blanket", "lemon", "insect"]]
+            let memSetList : [[String]] = [["elbow", "apple", "carpet", "saddle", "bubble"], ["candle", "paper", "sugar", "sandwich", "wagon"], ["baby", "monkey", "perfume", "sunset", "iron"], ["finger", "penny", "blanket", "lemon", "insect"]]
             
             let numMemSetList: [[String]] = [["4-9-3", "3-8-1-4", "6-2-9-7-1", "7-1-8-4-6-2"], ["6-2-9", "3-2-7-9", "1-5-2-8-6", "5-3-9-1-4-8"], ["5-2-6", "1-7-9-5", "3-8-5-2-7", "8-3-1-8-6-4"], ["4-1-5", "4-9-6-8", "6-1-8-4-3", "7-2-4-8-5-7"]]
 
@@ -116,11 +116,29 @@ class IndividualTableViewController: UITableViewController {
             let coa2 = [[String]](count: selectedWordList.count, repeatedValue: ["Correct", "Incorrect"])
             let coa3 = [[String]](count: selectedNumList.count, repeatedValue: ["Correct", "Incorrect"])
         
-            let CognitiveNumBackwardsView = TablePageViewController(pageTitles: selectedNumList, labelArray: coa3, testName: testName3, instructionPage: nil, instructions: "Record whether responses are correct or incorrect", next: nil, original: self, numTrials: nil) as TablePageViewController
+            var instruction : String = "Record whether responses are correct or incorrect."
+            var instruction2 : String = "Read the following words aloud and make sure the order is correct:\n"
             
-            let CognitiveImmediateMemView = TablePageViewController(pageTitles: selectedWordList, labelArray: coa2, testName: testName2, instructionPage: nil, instructions: "Record whether responses are correct or incorrect", next: CognitiveNumBackwardsView, original: self, numTrials: [0, 3]) as TablePageViewController
+            for word in selectedWordList{
+                instruction2 += "\(word)" + "\n"
+            }
             
-            let CognitiveOrientationView = TablePageViewController(pageTitles: orientationList, labelArray: coa, testName: testName, instructionPage: nil, instructions: "Record whether responses are correct or incorrect", next: CognitiveImmediateMemView, original: self, numTrials: nil) as TablePageViewController
+            instruction2 += "Record whether responses are correct or incorrect."
+            
+            var instruction3 : String = "Read the following words aloud and make sure the order is correct:\n"
+            
+            for word in selectedNumList{
+              instruction3 += "\(word)" + "\n"
+            }
+            
+            instruction3 += "Record whether responses are correct or incorrect."
+
+            
+            let CognitiveNumBackwardsView = TablePageViewController(pageTitles: selectedNumList, labelArray: coa3, testName: testName3, instructionPage: nil, instructions: instruction3, next: nil, original: self, numTrials: nil) as TablePageViewController
+            
+            let CognitiveImmediateMemView = TablePageViewController(pageTitles: selectedWordList, labelArray: coa2, testName: testName2, instructionPage: nil, instructions: instruction2, next: CognitiveNumBackwardsView, original: self, numTrials: [0, 3]) as TablePageViewController
+            
+            let CognitiveOrientationView = TablePageViewController(pageTitles: orientationList, labelArray: coa, testName: testName, instructionPage: nil, instructions: instruction, next: CognitiveImmediateMemView, original: self, numTrials: nil) as TablePageViewController
             
             self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
 
