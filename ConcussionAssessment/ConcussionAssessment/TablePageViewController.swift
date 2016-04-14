@@ -30,8 +30,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var next: TablePageViewController?
   var original: UIViewController?
   var startingViewController : TablePageView?
-  
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?)
+  var numTrials : [Int]?
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?)
   {
     self.pageTitles = pageTitles
     self.labelArray = labelArray
@@ -39,10 +39,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     self.startingViewController = instructionPage
     self.instructions = instructions
     self.next = next
-    if(original != nil)
-    {
-      self.original = original!
-    }
+    self.original = original!
+    self.numTrials = numTrials
     super.init(nibName:nil, bundle:nil)
   }
   
@@ -257,36 +255,43 @@ class TablePageView: UITableViewController
     print(selected) // update score here
     pageIndex += 1
     self.pvc!.currentIndex += 1 //updates dots
-    
-    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
+
+    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] < self.pvc!.numTrials![1])
     {
-      //self.pvc!.currentIndex = 0
-     // pageIndex = 0
+      self.pvc!.currentIndex = 0
+      pageIndex = 0
       print("next")
-      self.removeFromParentViewController()
-    }
-    
-    print(self.pvc!.pageTitles.count)
-    if(self.pvc!.viewControllerAtIndex(pageIndex) == nil)
-    {
-      print("here")
-      if(self.pvc!.next == nil)
-      {
-        self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
-      }
-      else{
-        self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
-      }
-    }
-    else
-    {
+      self.pvc!.numTrials![0] += 1
       let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
       let viewControllers = [startingViewController]
       
       self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
       
     }
+    else{
+      if(self.pvc!.viewControllerAtIndex(pageIndex) == nil)
+      {
+        if(self.pvc!.next == nil)
+        {
+          self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
+        }
+        else{
+          self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+        }
+      }
+      else
+      {
+        let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(pageIndex)!
+        let viewControllers = [startingViewController]
+        
+        self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+        
+      }
 
+    }
+
+    
+    
   }
   
 }
