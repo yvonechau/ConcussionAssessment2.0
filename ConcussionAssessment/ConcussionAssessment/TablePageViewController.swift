@@ -136,8 +136,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     }
     index -= 1
     
-    rowSelected = (viewController as! TablePageView).rowSel
-    currScore = rowSelected
+    self.rowSelected = (viewController as! TablePageView).rowSel
+    currScore = self.rowSelected
     print(currScore)
     
     //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
@@ -208,8 +208,9 @@ class TablePageView: UITableViewController
 {
   var titleText : String = ""
   var rowSel : NSNumber = 0
-  var selected : Int? = 0
-  
+
+  var totalRowsSelected : Int = 0
+  var checked : [Bool]
   weak var pvc : TablePageViewController?
   let LabelArray : Array<Array<String>>
 
@@ -218,6 +219,7 @@ class TablePageView: UITableViewController
     self.pvc = pvc
     
     self.LabelArray = pvc.labelArray
+    self.checked = [Bool](count: self.pvc!.pageTitles.count, repeatedValue: false)
     super.init(style: UITableViewStyle.Grouped)
   }
   
@@ -287,8 +289,15 @@ class TablePageView: UITableViewController
     Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
     if(self.pvc!.firstPage)
     {
+      if(!checked[indexPath.row])
+      {
+        Cell.accessoryType = .None
+      }
+      else if(checked[indexPath.row])
+      {
+        Cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+      }
       Cell.textLabel?.text = self.pvc!.pageTitles[indexPath.row]
-      Cell.accessoryType = UITableViewCellAccessoryType.Checkmark
     }
     else{
       Cell.textLabel?.text = LabelArray[self.pvc!.currentIndex][indexPath.row]
@@ -301,16 +310,34 @@ class TablePageView: UITableViewController
   {
     rowSel = indexPath.item
     self.pvc!.currentIndex += 1 //updates dots
+    
 
-    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1 && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] < self.pvc!.numTrials![1] - 1)
+
+    if(self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex) != nil && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] < self.pvc!.numTrials![1] - 1)
     {
-      self.pvc!.currentIndex = 0
-      self.pvc!.numTrials![0] += 1
-      let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
-      let viewControllers = [startingViewController]
-      print(self.pvc!.numTrials![0])
-      self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
       
+      if let cell = tableView.cellForRowAtIndexPath(indexPath)
+      {
+        if cell.accessoryType == .Checkmark{
+          cell.accessoryType = .None
+          checked[indexPath.row] = false
+        }
+        else{
+          cell.accessoryType = .Checkmark
+          checked[indexPath.row] = true
+        }
+        self.totalRowsSelected += 1
+        
+        if(self.totalRowsSelected == self.pvc!.pageTitles.count)
+        {
+          self.pvc!.currentIndex = 0
+          self.pvc!.numTrials![0] += 1
+          let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
+          let viewControllers = [startingViewController]
+          print(self.pvc!.numTrials![0])
+          self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+        }
+      }
     }
     else{
       if(self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex) == nil)
