@@ -244,8 +244,20 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
   {
-
-    return titleText
+    if(self.pvc!.firstPage)
+    {
+      if(self.pvc!.numTrials != nil)
+      {
+        return "Trial \(self.pvc!.numTrials![0] + 1)/\(self.pvc!.numTrials![1]):"
+      }
+      else
+      {
+        return "Trial 1:"
+      }
+    }
+    else{
+      return titleText
+    }
   }
   
   override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
