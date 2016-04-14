@@ -106,7 +106,7 @@ class IndividualTableViewController: UITableViewController {
 
             
             let selectedWordList : [String] = memSetList[Int(arc4random() % UInt32(memSetList.count))]
-            let selectedNumList : [String] = memSetList[Int(arc4random() % UInt32(numMemSetList.count))]
+            let selectedNumList : [String] = numMemSetList[Int(arc4random() % UInt32(numMemSetList.count))]
             
             let testName : String = "Cognitive Assessment: Orientation"
             let testName2 = "Cognitive Assessment: Immediate Memory"
