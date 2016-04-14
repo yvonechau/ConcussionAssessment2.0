@@ -31,7 +31,9 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var original: UIViewController?
   var startingViewController : TablePageView?
   var numTrials : [Int]?
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?)
+  var firstPage: BooleanType
+  
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, firstPage: BooleanType)
   {
     self.pageTitles = pageTitles
     self.labelArray = labelArray
@@ -41,6 +43,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     self.next = next
     self.original = original!
     self.numTrials = numTrials
+    self.firstPage = firstPage
     super.init(nibName:nil, bundle:nil)
   }
   
@@ -50,7 +53,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func buttonPressed(sender: UIButton)
   {
-    print("button")
     let alertView = UIAlertController(title: "Instructions", message: self.instructions, preferredStyle: UIAlertControllerStyle.Alert)
     alertView.addAction(UIAlertAction(title: "Ok", style: .Default, handler: {
       action in
@@ -70,11 +72,31 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
 
   }
   
+  func doneButtonPressed(sender: UIButton)
+  {
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
+    
+    if(self.firstPage)
+    {
+      let memPage: MemPage = MemPage(memList: self.pageTitles)
+      let doneButton = UIButton()
+      doneButton.setTitle("Done", forState: .Normal)
+      doneButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+      
+      doneButton.addTarget(self, action: #selector(TablePageViewController.doneButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+      let modalButton : UIBarButtonItem? = UIBarButtonItem(customView: doneButton)
+
+      self.navigationItem.setRightBarButtonItem(modalButton, animated: true)
+      
+      self.presentViewController(memPage, animated: true, completion: nil)
+    }
     
     if(self.startingViewController == nil) // not instantiated so it has no instrution page
     {
@@ -282,13 +304,57 @@ class TablePageView: UITableViewController
         let viewControllers = [startingViewController]
         
         self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
-        
       }
-
     }
-
-    
-    
   }
+}
+
+
+class MemPage: UITableViewController
+{
+  let memList : [String]
+
+  init(memList: [String])
+  {
+    self.memList = memList
+    super.init(style: UITableViewStyle.Grouped)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func viewDidLoad()
+  {
+    super.viewDidLoad()
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+    self.tableView.rowHeight = 50.0
+  }
+  
+  override func didReceiveMemoryWarning()
+  {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+  {
+    return self.memList.count
+  }
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+  {
+    let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
+    
+    Cell.textLabel?.text = memList[indexPath.row]
+    Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
+    Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+    return Cell
+  }
+  
+  
   
 }
