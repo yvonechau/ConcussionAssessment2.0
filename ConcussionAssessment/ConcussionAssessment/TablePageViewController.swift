@@ -84,20 +84,20 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController!.dataSource = self
     
     print(self.firstPage)
-    if(self.firstPage)
-    {
-      let memPage: MemPage = MemPage(memList: self.pageTitles)
-      let doneButton = UIButton()
-      doneButton.setTitle("Done", forState: .Normal)
-      doneButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-      
-      doneButton.addTarget(self, action: #selector(TablePageViewController.doneButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-      let modalButton : UIBarButtonItem? = UIBarButtonItem(customView: doneButton)
-
-      self.navigationItem.setLeftBarButtonItem(modalButton, animated: true)
-      
-      self.presentViewController(memPage, animated: true, completion: nil)
-    }
+//    if(self.firstPage)
+//    {
+//      let memPage: MemPage = MemPage(memList: self.pageTitles)
+//      let doneButton = UIButton()
+//      doneButton.setTitle("Done", forState: .Normal)
+//      doneButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+//      
+//      doneButton.addTarget(self, action: #selector(TablePageViewController.doneButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//      let modalButton : UIBarButtonItem? = UIBarButtonItem(customView: doneButton)
+//
+//      self.navigationItem.setLeftBarButtonItem(modalButton, animated: true)
+//      
+//      self.presentViewController(memPage, animated: true, completion: nil)
+//    }
     
     if(self.startingViewController == nil) // not instantiated so it has no instrution page
     {
@@ -265,9 +265,17 @@ class TablePageView: UITableViewController
   {
     let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
     
-    Cell.textLabel?.text = LabelArray[self.pvc!.currentIndex][indexPath.row]
+
     Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
-    Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+    if(self.pvc!.firstPage)
+    {
+      Cell.textLabel?.text = self.pvc!.pageTitles[indexPath.row]
+      Cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+    }
+    else{
+      Cell.textLabel?.text = LabelArray[self.pvc!.currentIndex][indexPath.row]
+      Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+    }
     return Cell
   }
   
