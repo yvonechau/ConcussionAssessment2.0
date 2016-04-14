@@ -302,7 +302,7 @@ class TablePageView: UITableViewController
     rowSel = indexPath.item
     self.pvc!.currentIndex += 1 //updates dots
 
-    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] < self.pvc!.numTrials![1] - 1)
+    if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1 && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] < self.pvc!.numTrials![1] - 1)
     {
       self.pvc!.currentIndex = 0
       self.pvc!.numTrials![0] += 1
