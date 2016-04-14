@@ -83,6 +83,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     
+    print(self.firstPage)
     if(self.firstPage)
     {
       let memPage: MemPage = MemPage(memList: self.pageTitles)
@@ -93,7 +94,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
       doneButton.addTarget(self, action: #selector(TablePageViewController.doneButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
       let modalButton : UIBarButtonItem? = UIBarButtonItem(customView: doneButton)
 
-      self.navigationItem.setRightBarButtonItem(modalButton, animated: true)
+      self.navigationItem.setLeftBarButtonItem(modalButton, animated: true)
       
       self.presentViewController(memPage, animated: true, completion: nil)
     }
@@ -351,7 +352,6 @@ class MemPage: UITableViewController
     
     Cell.textLabel?.text = memList[indexPath.row]
     Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
-    Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
     return Cell
   }
   
