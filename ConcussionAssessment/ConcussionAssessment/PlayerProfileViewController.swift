@@ -17,10 +17,16 @@ class PlayerProfileViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.whiteColor()
+        let navigationBarHeight: CGFloat = navigationController!.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.size.height
+        let ProfileTopArea = Frame.origin.y + navigationBarHeight
         
-        let PlayerName = UILabel(frame: CGRect(x: 100, y: 40, width: 100, height: 20))
+        let PlayerName = UILabel(frame: CGRect(x: Frame.origin.x + 10, y: ProfileTopArea, width: Frame.width - 20, height: 60))
+        //PlayerName.lineBreakMode = .ByWordWrapping
+        //PlayerName.numberOfLines = 0
         PlayerName.text = "John Smith"
+        PlayerName.font = UIFont(name: "HelveticaNeue", size: 30)
         PlayerName.textColor = UIColor.blackColor()
+        PlayerName.backgroundColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
         self.view.addSubview(PlayerName)
     }
 
@@ -29,15 +35,4 @@ class PlayerProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

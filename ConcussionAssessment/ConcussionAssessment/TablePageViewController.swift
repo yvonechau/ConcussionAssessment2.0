@@ -26,18 +26,44 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
   var currScore: NSNumber?
+  var instructions: String
   
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String)
+  var startingViewController : TablePageView?
+  
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String)
   {
     self.pageTitles = pageTitles
     self.labelArray = labelArray
     self.testName = testName
-
+    self.startingViewController = instructionPage
+    self.instructions = instructions
     super.init(nibName:nil, bundle:nil)
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  func buttonPressed(sender: UIButton)
+  {
+    print("button")
+    let alertView = UIAlertController(title: "Instructions", message: self.instructions, preferredStyle: UIAlertControllerStyle.Alert)
+    alertView.addAction(UIAlertAction(title: "Ok", style: .Default, handler: {
+      action in
+      switch action.style
+      {
+        case .Default:
+          print("default")
+        case .Cancel:
+          print("cancel")
+        case .Destructive:
+          print("destructive")
+      }
+      
+    }))
+    
+    presentViewController(alertView, animated: true, completion: nil)
+
   }
   
   override func viewDidLoad()
@@ -46,9 +72,12 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     
-    let startingViewController: TablePageView = viewControllerAtIndex(0)!
-    //    segCtrller = startingViewController.segCtrl
-    let viewControllers = [startingViewController]
+    if(self.startingViewController == nil) // not instantiated so it has no instrution page
+    {
+        self.startingViewController = viewControllerAtIndex(0)!
+    }
+    
+    let viewControllers = [self.startingViewController!]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
     self.navigationItem.title = self.testName
@@ -56,6 +85,12 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     addChildViewController(pageViewController!)
     view.addSubview(pageViewController!.view)
     pageViewController!.didMoveToParentViewController(self)
+    let infobutton = UIButton(type: UIButtonType.InfoDark)
+
+    infobutton.addTarget(self, action: #selector(TablePageViewController.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+    let modalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
+    self.navigationItem.setRightBarButtonItem(modalButton, animated: true)
+
     
   }
   
@@ -151,14 +186,13 @@ class TablePageView: UITableViewController
   var rowSel : NSNumber = 0
   var selected : Int? = 0
   
-//  let LabelArray = ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"]
-  
   weak var pvc : TablePageViewController?
   let LabelArray : Array<Array<String>>
 
   init(pvc : TablePageViewController)
   {
     self.pvc = pvc
+    
     self.LabelArray = pvc.labelArray
     super.init(style: UITableViewStyle.Grouped)
   }
@@ -184,7 +218,6 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
   {
-    print("title: %s", titleText)
     return titleText
   }
   
@@ -216,7 +249,7 @@ class TablePageView: UITableViewController
   {
     rowSel = indexPath.item
     selected = 1
-    print(selected)
+    print(selected) // update score here
     pageIndex += 1
     self.pvc!.currentIndex += 1 //updates dots
     
