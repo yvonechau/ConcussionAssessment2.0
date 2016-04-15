@@ -75,6 +75,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func doneButtonPressed(sender: UIButton)
   {
+    print("here")
     self.numTrials![0] += 1
   }
   
@@ -315,27 +316,28 @@ class TablePageView: UITableViewController
   {
     rowSel = indexPath.item
     self.pvc!.currentIndex += 1 //updates dots
-
-    if(self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex) != nil && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] <= self.pvc!.numTrials![1] - 1)
+    if let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)
     {
-      
-      if let cell = tableView.cellForRowAtIndexPath(indexPath)
+      if(self.pvc!.numTrials != nil && self.pvc!.numTrials![0] <= self.pvc!.numTrials![1] - 1)
       {
-        if cell.accessoryType == .Checkmark{
-          cell.accessoryType = .None
-          checked[indexPath.row] = false
-        }
-        else{
-          cell.accessoryType = .Checkmark
-          checked[indexPath.row] = true
-        }
-        self.totalRowsSelected += 1
+        print("toggling")
         
         
+        if let cell = tableView.cellForRowAtIndexPath(indexPath)
+        {
+          if cell.accessoryType == .Checkmark{
+            cell.accessoryType = .None
+            checked[indexPath.row] = false
+          }
+          else{
+            cell.accessoryType = .Checkmark
+            checked[indexPath.row] = true
+          }
+          self.totalRowsSelected += 1
+          
+        }
       }
-    }
-    else{
-      if(self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex) == nil)
+      else
       {
         if(self.pvc!.next == nil)
         {
@@ -343,93 +345,31 @@ class TablePageView: UITableViewController
         }
         else
         {
-            if(self.pvc!.numTrials != nil)
-            {
-                print("poop")
-            }
+          if(self.pvc!.numTrials != nil)
+          {
+            print("poop")
+          }
           // && self.pvc!.numTrials![0] == self.pvc!.numTrials![1] - 1)
-//          {
-//            print("here")
-//            self.totalRowsSelected = 0
-//            self.pvc!.currentIndex = 0
-            //          let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
-            //          let viewControllers = [startingViewController]
-            //          print(self.pvc!.numTrials![0])
-            //          self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+          //          {
+          //            print("here")
+          //            self.totalRowsSelected = 0
+          //            self.pvc!.currentIndex = 0
+          //          let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
+          //          let viewControllers = [startingViewController]
+          //          print(self.pvc!.numTrials![0])
+          //          self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
           //}
           print("why are you happening")
           self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
         }
       }
-      else
-      {
-        let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
-        let viewControllers = [startingViewController]
-        
-        self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
-      }
+    }
+    else
+    {
+      let viewControllers = [startingViewController]
+      
+      self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
     }
   }
+  }
 }
-
-//class ToggleTableViewCell: UITableViewCell{
-//  
-//
-//  var originalCenter = CGPoint()
-//  var xOnDragRelease = false
-//  
-//  required init(coder aDecoder: NSCoder)
-//  {
-//    fatalError("NSCoding not supported")
-//  }
-//  
-//  override init(style: UITableViewCellStyle, reuseIdentifier: String?)
-//  {
-//    
-//    super.init(style: style, reuseIdentifier: reuseIdentifier)
-//    let recognizer = UIPanGestureRecognizer(target: self, action: #selector(ToggleTableViewCell.handlePan(_:)))
-//    recognizer.delegate = self
-//    
-//    self.addGestureRecognizer(recognizer)
-//    
-//
-//  }
-//  func handlePan(recognizer: UIPanGestureRecognizer)
-//  {
-//    if recognizer.state == .Began
-//    {
-//      originalCenter = center
-//    }
-//    
-//    if recognizer.state == .Changed
-//    {
-//      let translation = recognizer.translationInView(self)
-//      center = CGPointMake(originalCenter.x + translation.x, originalCenter.y)
-//      xOnDragRelease = frame.origin.x < -frame.size.width / 2.0
-//    }
-//    
-//    if recognizer.state == .Ended
-//    {
-//      let originalFrame = CGRect(x: 0, y: frame.origin.y, width: bounds.size.width, height: bounds.size.height)
-//      
-//      if !xOnDragRelease
-//      {
-//        UIView.animateWithDuration(0.2, animations: {self.frame = originalFrame})
-//      }
-//    }
-//    
-//    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool
-//    {
-//      if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer
-//      {
-//          let translation = panGestureRecognizer.translationInView(superview!)
-//          if fabs(translation.x) > fabs(translation.y)
-//          {
-//              return true
-//          }
-//          return false
-//      }
-//      return false
-//    }
-//  }
-//}
