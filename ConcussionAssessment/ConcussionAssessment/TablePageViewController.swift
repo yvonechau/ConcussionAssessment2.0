@@ -339,9 +339,9 @@ class TablePageView: UITableViewController
     rowSel = indexPath.item
     self.pvc!.currentIndex += 1 //updates dots
 
-    if(self.pvc!.firstPage)
+    if(self.pvc!.firstPage) // all words on one page
     {
-      if let cell = tableView.cellForRowAtIndexPath(indexPath)
+      if let cell = tableView.cellForRowAtIndexPath(indexPath) // for toggling checkmarks
       {
         if(cell.accessoryType == .Checkmark)
         {
@@ -352,8 +352,10 @@ class TablePageView: UITableViewController
         {
           cell.accessoryType = .Checkmark
           checked[indexPath.row] = true
+          self.totalRowsSelected += 1
+
         }
-        self.totalRowsSelected += 1
+        print(self.totalRowsSelected)
         
       }
     }
