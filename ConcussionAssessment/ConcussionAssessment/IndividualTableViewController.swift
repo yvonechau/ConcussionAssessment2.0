@@ -71,7 +71,8 @@ class IndividualTableViewController: UITableViewController {
             
             let gla : Array<Array<String>> = [["No eye opening", "Eye Opening in Response To Pain", "Eye opening in Speech", "Eyes Opening Spontaneously"], ["No Verbal Response", "Incomprehensible Sounds", "Incomprehensible Words", "Confused", "Oriented"],["No Motor Response", "Extension to Pain", "Abnormal flexion to pain", "Flexion/Withdrawal to Pain", "Localizes to Pain", "Obeys Command"]]
             
-            let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil, instructions: "Rate the individual's responses for each page.") as TablePageViewController
+            let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil, instructions: "Rate the individual's responses for each page.", next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            
             self.navigationController?.pushViewController(GlasgowView, animated: true)
         case 1:
 //            let MaddocksView = MaddocksViewController() as MaddocksViewController
@@ -83,9 +84,9 @@ class IndividualTableViewController: UITableViewController {
             
             let ma : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"])
             
-            let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName, instructionPage: nil, instructions: "Repeat the following: \"I am going to ask you a few questiosn, please listen carefully and give your best efforts\" and record whether responses are correct or incorrect.") as TablePageViewController
+            let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName, instructionPage: nil, instructions: "Repeat the following: \"I am going to ask you a few questiosn, please listen carefully and give your best efforts\" and record whether responses are correct or incorrect.", next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            
             self.navigationController?.pushViewController(MaddocksView, animated: true)
-
         
         case 2:
           
@@ -94,38 +95,54 @@ class IndividualTableViewController: UITableViewController {
             
             let sva : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["None", "Less Mild", "Mild", "Less Moderate", "Moderate", "Less Severe", "Severe"])
             
-            let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName, instructionPage: nil, instructions: "Rate each of the following symptoms by the amount of severity.") as TablePageViewController
-            self.navigationController?.pushViewController(SymptomView, animated: true)
-        case 3:
-//            let CognitiveView = CognitiveTableViewController(style: UITableViewStyle.Grouped) as CognitiveTableViewController
-//            self.navigationController?.pushViewController(CognitiveView, animated: true)
-//        
-//          if(self.pvc!.startingViewController == nil)
-//          {
-//            let memSetList : [[String]] = [["elbow", "apple", "carpet", "saddle", "bubble"], ["candle", "paper", "sugar", "sandwich", "wagon"], ["baby", "monkey", "perfume", "susnet", "iron"], ["finger", "penny", "blanket", "lemon", "insect"]]
-//            
-//            self.LabelArray =
-//          }
-          
-            let pageTitles : Array<String> = ["What month is it?", "What is the date?", "What is the day of the week?", "What year is it?", "What time is it right now? (Within 1 hour)"]
-            let testName : String = "Cognitive Assessment: Orientation"
+            let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName, instructionPage: nil, instructions: "Rate each of the following symptoms by the amount of severity.", next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
             
-            let coa : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"])
+            self.navigationController?.pushViewController(SymptomView, animated: true)
+        
+        case 3:
+            let orientationList : Array<String> = ["What month is it?", "What is the date?", "What is the day of the week?", "What year is it?", "What time is it right now? (Within 1 hour)"]
           
-            let CognitiveOrientationView = TablePageViewController(pageTitles: pageTitles, labelArray: coa, testName: testName, instructionPage: nil, instructions: "TBA") as TablePageViewController
+            let memSetList : [[String]] = [["elbow", "apple", "carpet", "saddle", "bubble"], ["candle", "paper", "sugar", "sandwich", "wagon"], ["baby", "monkey", "perfume", "sunset", "iron"], ["finger", "penny", "blanket", "lemon", "insect"]]
+            
+            let numMemSetList: [[String]] = [["4-9-3", "3-8-1-4", "6-2-9-7-1", "7-1-8-4-6-2"], ["6-2-9", "3-2-7-9", "1-5-2-8-6", "5-3-9-1-4-8"], ["5-2-6", "1-7-9-5", "3-8-5-2-7", "8-3-1-8-6-4"], ["4-1-5", "4-9-6-8", "6-1-8-4-3", "7-2-4-8-5-7"]]
+
+            
+            let monthList: [String] = ["Dec-Nov-Oct-Sept-Aug-Jul-Jun-May-Apr-Mar-Feb-Jan"]
+            
+            let selectedWordList : [String] = memSetList[Int(arc4random() % UInt32(memSetList.count))]
+            let selectedNumList : [String] = numMemSetList[Int(arc4random() % UInt32(numMemSetList.count))]
+            
+            let testName : String = "Cognitive Assessment: Orientation"
+            let testName2 = "Cognitive Assessment: Immediate Memory"
+            let testName3 = "Cognitive Assessment: Concentration: Digits Backwards"
+            let testName4 = "Cognitive Assessment: Concentration: Months in Reverse Order"
+            
+            let coa : [[String]] = [[String]](count: orientationList.count, repeatedValue: ["Correct", "Incorrect"])
+            let coa2 = [[String]](count: selectedWordList.count, repeatedValue: ["Correct", "Incorrect"])
+            let coa3 = [[String]](count: selectedNumList.count, repeatedValue: ["Correct", "Incorrect"])
+            let coa4 = [[String]](count: monthList.count, repeatedValue: ["Correct", "Incorrect"])
+            
+            
+            let instruction : String = "Record whether responses are correct or incorrect."
+            let instruction2 : String = "Repeat the following \"I am going to test your memory. I will read  you a list of words and when I am done, repeat back as many words as you can remember in any order.\"\n Complete all 3 trials regardless of score on trial 1 & 2. Read the words at a rate of one per second. Do not inform the individual that delayed recall will be tested."
+
+            
+            let instruction3 : String = "Repeat the following \"I am going to read you a string of numbers and when I am done, you repeat them back to me backwards, in reverse order of how I read them to you. For example, if I say 7-1-9, you would say 9-1-7.\"\n If correct go to next string length, if incorrect, read trial 2. Stop after incorrect on both trials. The digits should be read at rate of one per second."
+
+            
+            let instruction4 : String = "Repeat the following: \"Now tell me the months of the year in reverse order. Start with the last month and go backwards. So you'll say December, November... Go ahead.\""
+            
+            let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthList, labelArray: coa4, testName: testName4, instructionPage: nil, instructions: instruction4, next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            
+            
+            let CognitiveNumBackwardsView = TablePageViewController(pageTitles: selectedNumList, labelArray: coa3, testName: testName3, instructionPage: nil, instructions: instruction3, next: CognitiveMonthsBackwardsView, original: self, numTrials: [0, 1], firstPage: false) as TablePageViewController
+            
+            let CognitiveImmediateMemView = TablePageViewController(pageTitles: selectedWordList, labelArray: coa2, testName: testName2, instructionPage: nil, instructions: instruction2, next: CognitiveNumBackwardsView, original: self, numTrials: [0, 3], firstPage: true) as TablePageViewController
+            
+            let CognitiveOrientationView = TablePageViewController(pageTitles: orientationList, labelArray: coa, testName: testName, instructionPage: nil, instructions: instruction, next: CognitiveImmediateMemView, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            
             self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
 
-//        case 4:
-//      
-//            let pageTitles : Array<String> = ["What month is it?", "What is the date?", "What is the day of the week?", "What year is it?", "What time is it right now? (Within 1 hour)"]
-//            let testName : String = "Cognitive Assessment: Orientation"
-//            
-//            let sva : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"]])
-//            
-//            let CognitiveOrientationView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName) as TablePageViewController
-//            self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
-
-        
         case 4:
             let BalanceView = BalanceViewController() as BalanceViewController
             self.navigationController?.pushViewController(BalanceView, animated: true)
