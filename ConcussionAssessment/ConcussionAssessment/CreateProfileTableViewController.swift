@@ -11,15 +11,19 @@ import UIKit
 class CreateProfileTableViewController: UITableViewController, UITextFieldDelegate {
     
     let NumberOfSections = 2
-    let FormArray = [["First", "Last"], ["Birthday", "Gender"]]
+    var cellMaxBounds: CGFloat = 0
+    var CellDateField: UIDatePicker!
+    let FormArray = [["First", "Last"], ["Gender", "Birthday"]]
     let SectionTitleArray = ["Name", "Details"]
-    var recordedResults: [String] = []
+    var newPlayer: [[String]] = []
+    var didFinishEditingInformation = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+        //setDateField()
         
         self.title = "Create Profile"
 
@@ -46,15 +50,26 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let Cell = CustomFormCell(style: UITableViewCellStyle.Value2, title: FormArray[indexPath.section][indexPath.row], section: indexPath.section)
-        if indexPath.section == 2 && indexPath.row == 1 {
+        /*if indexPath.section == 2 && indexPath.row == 1 {
             self.recordedResults += Cell.recordedResults
         }
         else {
             //let tempText: String? = Cell.CellTextField?.text
             //recordedResults.append(tempText!)
         }
-        print(recordedResults)
+        print(recordedResults)*/
+        print(indexPath.row)
+        if (indexPath.section == 1 && indexPath.row == 1) {
+            Cell.CellTextField.userInteractionEnabled = false
+            cellMaxBounds = 288
+            print(cellMaxBounds)
+            setDateField()
+        }
         return Cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -63,6 +78,33 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     
     func dismiss() {
         
+    }
+    
+    func dateChanged() {
+        print("Entered dateChanged()")
+        // handle date changes
+        let indexPath: NSIndexPath = NSIndexPath(forRow: 1, inSection: 1)
+        let Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        
+        let birthdateString = dateFormatter.stringFromDate(CellDateField.date)
+        print(birthdateString)
+        
+        Cell.CellTextField.text = birthdateString
+    }
+    
+    func setDateField() {
+        CellDateField = UIDatePicker(frame: CGRect(x: self.view.frame.minX, y: self.cellMaxBounds, width: self.view.frame.width, height: 200))
+        CellDateField.backgroundColor = UIColor.whiteColor()
+        let topBorder: CALayer = CALayer()
+        topBorder.frame = CGRectMake(0, 0, CellDateField.frame.size.width, 1.0)
+        topBorder.backgroundColor = UIColor.grayColor().CGColor
+        CellDateField.layer.addSublayer(topBorder)
+        CellDateField.addTarget(self, action: #selector(dateChanged), forControlEvents: UIControlEvents.ValueChanged)
+        CellDateField.datePickerMode = UIDatePickerMode.Date
+        self.view.addSubview(CellDateField)
     }
 
     /*
@@ -96,24 +138,17 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
 
 class CustomFormCell: UITableViewCell {
     var CellTextField: UITextField!
-    var CellDateField: UIDatePicker!
-    var recordedResults: [String] = []
     
     init(style: UITableViewCellStyle, title: String, section: Int) {
         super.init(style: style, reuseIdentifier: "Cell")
-        if title == "Birthday" {
-            CellDateField = UIDatePicker()
-            CellDateField.datePickerMode = UIDatePickerMode.Date
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "MM-dd-yyyy"
-            recordedResults.append(dateFormatter.stringFromDate(CellDateField.date))
-            addSubview(CellDateField)
-        } else {
-            CellTextField = UITextField(frame: CGRectMake(self.frame.minX + 16, 0, self.frame.width - 32, self.frame.height))
-            CellTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
-            CellTextField?.placeholder = title
-            addSubview(CellTextField)
-        }
+        // move date stuff to the Controller
+        // datePicker target self, action: function (smart one),, UIControlEventValueChanged
+        self.selectionStyle = UITableViewCellSelectionStyle.None
+        
+        CellTextField = UITextField(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: self.frame.width, height: self.frame.height))
+        CellTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
+        CellTextField?.placeholder = title
+        addSubview(CellTextField)
     }
     
     required init?(coder aDecoder: NSCoder) {
