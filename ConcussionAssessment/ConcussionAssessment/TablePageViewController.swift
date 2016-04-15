@@ -363,28 +363,35 @@ class TablePageView: UITableViewController
     }
     else
     {
-        print("here")
         if(self.pvc!.numTrials != nil) //no all rows, but has trials
         {
-          print(indexPath)
-          if(indexPath.item == 1)
+          print(indexPath.item)
+          print(self.pvc!.numTrials)
+          if(indexPath.item == 1) // incorrect
           {
-            if(self.pvc!.numTrials![1] == 2)
+            
+            if(self.pvc!.numTrials![1] == 2) // if the number of trials increased to two
             {
               self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+
             }
-            else{
+            else //increase number of total trials if you get the first one wrong
+            {
+              self.pvc!.currentIndex = 0
+              let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
+              let viewControllers = [startingViewController]
+              self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
               self.pvc!.numTrials![1] += 1
             }
           }
-        }
-        if(self.pvc!.next == nil) //end of test
+         }
+        if(self.pvc!.next == nil) //single test or end of sequence of test
         {
-          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
+          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1) // end of test
           {
             self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
           }
-          else
+          else // still pages left
           {
             
             let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
@@ -393,10 +400,8 @@ class TablePageView: UITableViewController
           }
 
         }
-        else if(self.pvc!.next != nil)
+        else if(self.pvc!.next != nil) // still tests next
         {
-          print("here 2")
-          print(self.pvc!.currentIndex)
           if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
           {
               self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
