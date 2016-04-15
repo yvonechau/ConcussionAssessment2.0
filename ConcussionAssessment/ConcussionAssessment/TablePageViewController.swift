@@ -365,15 +365,19 @@ class TablePageView: UITableViewController
         }
         else if(self.pvc!.next != nil)
         {
-          self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
+          {
+              self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+          }
+          else
+          {
+            let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
+            let viewControllers = [startingViewController]
+            self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+          }
+          
         }
-        else
-        {
-          let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
-          let viewControllers = [startingViewController]
-          print(self.pvc!.numTrials![0])
-          self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
-        }
+      
     }
   }
 }
