@@ -43,6 +43,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     self.next = next
     self.original = original!
     self.numTrials = numTrials
+    print(numTrials)
     self.firstPage = firstPage
     super.init(nibName:nil, bundle:nil)
   }
@@ -74,7 +75,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func doneButtonPressed(sender: UIButton)
   {
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.numTrials![0] += 1
   }
   
   override func viewDidLoad()
@@ -83,21 +84,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     
-    print(self.firstPage)
-//    if(self.firstPage)
-//    {
-//      let memPage: MemPage = MemPage(memList: self.pageTitles)
-//      let doneButton = UIButton()
-//      doneButton.setTitle("Done", forState: .Normal)
-//      doneButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-//      
-//      doneButton.addTarget(self, action: #selector(TablePageViewController.doneButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//      let modalButton : UIBarButtonItem? = UIBarButtonItem(customView: doneButton)
-//
-//      self.navigationItem.setLeftBarButtonItem(modalButton, animated: true)
-//      
-//      self.presentViewController(memPage, animated: true, completion: nil)
-//    }
+    let doneModalButton : UIBarButtonItem?
+
     
     if(self.startingViewController == nil) // not instantiated so it has no instrution page
     {
@@ -115,10 +103,24 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     let infobutton = UIButton(type: UIButtonType.InfoDark)
 
     infobutton.addTarget(self, action: #selector(TablePageViewController.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-    let modalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
-    self.navigationItem.setRightBarButtonItem(modalButton, animated: true)
-
+    let infoModalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
     
+    if(self.firstPage)
+    {
+      let doneButton = UIButton()
+      doneButton.frame = CGRect(x: 50, y: 50, width: 50, height: 50)
+      doneButton.setTitle("Done", forState: .Normal)
+      doneButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+      print("done")
+      doneButton.addTarget(self, action: #selector(TablePageViewController.doneButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+      doneModalButton = UIBarButtonItem(customView: doneButton)
+      self.navigationItem.rightBarButtonItems = [doneModalButton!, infoModalButton!]
+    }
+    else
+    {
+      self.navigationItem.rightBarButtonItems = [infoModalButton!]
+    }
+
   }
   
   override func didReceiveMemoryWarning()
@@ -138,7 +140,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     
     self.rowSelected = (viewController as! TablePageView).rowSel
     currScore = self.rowSelected
-    print(currScore)
+    //print(currScore)
     
     //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
     
@@ -153,7 +155,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     {
       return nil
     }
-    print("selected passed")
+    //print("selected passed")
     index += 1
     currentIndex = index
     limitIndex = index
@@ -169,8 +171,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     
     rowSelected = (viewController as! TablePageView).rowSel
     currScore = rowSelected
-    print(currScore)
-    print("forward")
+    //print(currScore)
+    //print("forward")
     //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
     
     currentIndex = index
@@ -234,6 +236,7 @@ class TablePageView: UITableViewController
     self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
+
   }
   
   override func didReceiveMemoryWarning()
@@ -287,8 +290,10 @@ class TablePageView: UITableViewController
     
 
     Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
+    
     if(self.pvc!.firstPage)
     {
+      
       if(!checked[indexPath.row])
       {
         Cell.accessoryType = .None
@@ -310,10 +315,8 @@ class TablePageView: UITableViewController
   {
     rowSel = indexPath.item
     self.pvc!.currentIndex += 1 //updates dots
-    
 
-
-    if(self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex) != nil && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] < self.pvc!.numTrials![1] - 1)
+    if(self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex) != nil && self.pvc!.numTrials != nil && self.pvc!.numTrials![0] <= self.pvc!.numTrials![1] - 1)
     {
       
       if let cell = tableView.cellForRowAtIndexPath(indexPath)
@@ -328,15 +331,7 @@ class TablePageView: UITableViewController
         }
         self.totalRowsSelected += 1
         
-        if(self.totalRowsSelected == self.pvc!.pageTitles.count)
-        {
-          self.pvc!.currentIndex = 0
-          self.pvc!.numTrials![0] += 1
-          let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
-          let viewControllers = [startingViewController]
-          print(self.pvc!.numTrials![0])
-          self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
-        }
+        
       }
     }
     else{
@@ -346,7 +341,23 @@ class TablePageView: UITableViewController
         {
           self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
         }
-        else{
+        else
+        {
+            if(self.pvc!.numTrials != nil)
+            {
+                print("poop")
+            }
+          // && self.pvc!.numTrials![0] == self.pvc!.numTrials![1] - 1)
+//          {
+//            print("here")
+//            self.totalRowsSelected = 0
+//            self.pvc!.currentIndex = 0
+            //          let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
+            //          let viewControllers = [startingViewController]
+            //          print(self.pvc!.numTrials![0])
+            //          self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+          //}
+          print("why are you happening")
           self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
         }
       }
@@ -361,3 +372,64 @@ class TablePageView: UITableViewController
   }
 }
 
+//class ToggleTableViewCell: UITableViewCell{
+//  
+//
+//  var originalCenter = CGPoint()
+//  var xOnDragRelease = false
+//  
+//  required init(coder aDecoder: NSCoder)
+//  {
+//    fatalError("NSCoding not supported")
+//  }
+//  
+//  override init(style: UITableViewCellStyle, reuseIdentifier: String?)
+//  {
+//    
+//    super.init(style: style, reuseIdentifier: reuseIdentifier)
+//    let recognizer = UIPanGestureRecognizer(target: self, action: #selector(ToggleTableViewCell.handlePan(_:)))
+//    recognizer.delegate = self
+//    
+//    self.addGestureRecognizer(recognizer)
+//    
+//
+//  }
+//  func handlePan(recognizer: UIPanGestureRecognizer)
+//  {
+//    if recognizer.state == .Began
+//    {
+//      originalCenter = center
+//    }
+//    
+//    if recognizer.state == .Changed
+//    {
+//      let translation = recognizer.translationInView(self)
+//      center = CGPointMake(originalCenter.x + translation.x, originalCenter.y)
+//      xOnDragRelease = frame.origin.x < -frame.size.width / 2.0
+//    }
+//    
+//    if recognizer.state == .Ended
+//    {
+//      let originalFrame = CGRect(x: 0, y: frame.origin.y, width: bounds.size.width, height: bounds.size.height)
+//      
+//      if !xOnDragRelease
+//      {
+//        UIView.animateWithDuration(0.2, animations: {self.frame = originalFrame})
+//      }
+//    }
+//    
+//    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool
+//    {
+//      if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer
+//      {
+//          let translation = panGestureRecognizer.translationInView(superview!)
+//          if fabs(translation.x) > fabs(translation.y)
+//          {
+//              return true
+//          }
+//          return false
+//      }
+//      return false
+//    }
+//  }
+//}
