@@ -347,12 +347,14 @@ class TablePageView: UITableViewController
         {
           cell.accessoryType = .None
           checked[indexPath.row] = false
+          self.totalRowsSelected -= 1 // gets reset at start of each trial
+
         }
         else
         {
           cell.accessoryType = .Checkmark
           checked[indexPath.row] = true
-          self.totalRowsSelected += 1
+          self.totalRowsSelected += 1 // need to check when done
 
         }
         print(self.totalRowsSelected)
@@ -361,18 +363,47 @@ class TablePageView: UITableViewController
     }
     else
     {
+        print("here")
+        if(self.pvc!.numTrials != nil) //no all rows, but has trials
+        {
+          print(indexPath)
+          if(indexPath.item == 1)
+          {
+            if(self.pvc!.numTrials![1] == 2)
+            {
+              self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+            }
+            else{
+              self.pvc!.numTrials![1] += 1
+            }
+          }
+        }
         if(self.pvc!.next == nil) //end of test
         {
-          self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
+          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
+          {
+            self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
+          }
+          else
+          {
+            
+            let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
+            let viewControllers = [startingViewController]
+            self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+          }
+
         }
         else if(self.pvc!.next != nil)
         {
+          print("here 2")
+          print(self.pvc!.currentIndex)
           if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
           {
               self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
           }
           else
           {
+          
             let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
             let viewControllers = [startingViewController]
             self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
