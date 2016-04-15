@@ -52,6 +52,11 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     fatalError("init(coder:) has not been implemented")
   }
   
+  func setNextTest(next: TablePageViewController?)
+  {
+    self.next = next
+  }
+  
   func buttonPressed(sender: UIButton)
   {
     let alertView = UIAlertController(title: "Instructions", message: self.instructions, preferredStyle: UIAlertControllerStyle.Alert)
@@ -375,7 +380,7 @@ class TablePageView: UITableViewController
               self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
 
             }
-            else //increase number of total trials if you get the first one wrong
+            else //increase number of total trials if you get the first one wrong, goes to trial 2
             {
               self.pvc!.currentIndex = 0
               let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
