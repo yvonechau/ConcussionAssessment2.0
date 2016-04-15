@@ -76,7 +76,29 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   func doneButtonPressed(sender: UIButton)
   {
     print("here")
+    print(self.numTrials)
     self.numTrials![0] += 1
+    if(self.numTrials != nil && self.numTrials![0] <= self.numTrials![1] - 1)
+    {
+      
+      self.currentIndex = 0
+      let startingViewController: TablePageView = self.viewControllerAtIndex(self.currentIndex)!
+      let viewControllers = [startingViewController]
+      print(self.numTrials![0])
+      self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+    }
+    else
+    {
+      if(self.next == nil) //end of test
+      {
+        self.navigationController?.popToViewController(self.original!, animated: true)
+      }
+      else if(self.next != nil)
+      {
+        self.navigationController?.pushViewController(self.next!, animated: true)
+      }
+    }
+
   }
   
   override func viewDidLoad()
@@ -316,60 +338,42 @@ class TablePageView: UITableViewController
   {
     rowSel = indexPath.item
     self.pvc!.currentIndex += 1 //updates dots
-    if let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)
+
+    if(self.pvc!.firstPage)
     {
-      if(self.pvc!.numTrials != nil && self.pvc!.numTrials![0] <= self.pvc!.numTrials![1] - 1)
+      if let cell = tableView.cellForRowAtIndexPath(indexPath)
       {
-        print("toggling")
-        
-        
-        if let cell = tableView.cellForRowAtIndexPath(indexPath)
+        if(cell.accessoryType == .Checkmark)
         {
-          if cell.accessoryType == .Checkmark{
-            cell.accessoryType = .None
-            checked[indexPath.row] = false
-          }
-          else{
-            cell.accessoryType = .Checkmark
-            checked[indexPath.row] = true
-          }
-          self.totalRowsSelected += 1
-          
-        }
-      }
-      else
-      {
-        if(self.pvc!.next == nil)
-        {
-          self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
+          cell.accessoryType = .None
+          checked[indexPath.row] = false
         }
         else
         {
-          if(self.pvc!.numTrials != nil)
-          {
-            print("poop")
-          }
-          // && self.pvc!.numTrials![0] == self.pvc!.numTrials![1] - 1)
-          //          {
-          //            print("here")
-          //            self.totalRowsSelected = 0
-          //            self.pvc!.currentIndex = 0
-          //          let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
-          //          let viewControllers = [startingViewController]
-          //          print(self.pvc!.numTrials![0])
-          //          self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
-          //}
-          print("why are you happening")
-          self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+          cell.accessoryType = .Checkmark
+          checked[indexPath.row] = true
         }
+        self.totalRowsSelected += 1
+        
       }
     }
     else
     {
-      let viewControllers = [startingViewController]
-      
-      self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+        if(self.pvc!.next == nil) //end of test
+        {
+          self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
+        }
+        else if(self.pvc!.next != nil)
+        {
+          self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+        }
+        else
+        {
+          let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
+          let viewControllers = [startingViewController]
+          print(self.pvc!.numTrials![0])
+          self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+        }
     }
-  }
   }
 }
