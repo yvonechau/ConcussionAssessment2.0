@@ -87,7 +87,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         let Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
         
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MMM - dd - yyyy"
         
         let birthdateString = dateFormatter.stringFromDate(CellDateField.date)
         print(birthdateString)
@@ -98,12 +98,16 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     func setDateField() {
         CellDateField = UIDatePicker(frame: CGRect(x: self.view.frame.minX, y: self.cellMaxBounds, width: self.view.frame.width, height: 200))
         CellDateField.backgroundColor = UIColor.whiteColor()
+        
         let topBorder: CALayer = CALayer()
         topBorder.frame = CGRectMake(0, 0, CellDateField.frame.size.width, 1.0)
         topBorder.backgroundColor = UIColor.grayColor().CGColor
         CellDateField.layer.addSublayer(topBorder)
+        
         CellDateField.addTarget(self, action: #selector(dateChanged), forControlEvents: UIControlEvents.ValueChanged)
         CellDateField.datePickerMode = UIDatePickerMode.Date
+        CellDateField.maximumDate = NSDate()
+            
         self.view.addSubview(CellDateField)
     }
 
