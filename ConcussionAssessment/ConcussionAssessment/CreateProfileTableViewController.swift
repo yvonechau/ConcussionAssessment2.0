@@ -23,12 +23,11 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        //setDateField()
         
         self.title = "Create Profile"
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(CreateProfileTableViewController.dismiss))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self.finishedEditingProfile))
         self.navigationItem.rightBarButtonItem?.enabled = false;
     }
 
@@ -62,7 +61,6 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         if (indexPath.section == 1 && indexPath.row == 1) {
             Cell.CellTextField.userInteractionEnabled = false
             cellMaxBounds = 288
-            print(cellMaxBounds)
             setDateField()
         }
         return Cell
@@ -76,7 +74,20 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         return SectionTitleArray[section]
     }
     
-    func dismiss() {
+    func textFieldDidEndEditing(textField: UITextField) {
+        for section in 0...1 {
+            for row in 0...1 {
+                let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
+                let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+                if textField.text == Cell.CellTextField.text && textField.text?.characters.count > 1 {
+                    didFinishEditingInformation += 1
+                }
+            }
+        }
+        
+    }
+    
+    func finishedEditingProfile() {
         
     }
     
