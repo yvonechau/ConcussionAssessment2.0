@@ -112,9 +112,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     
-    let doneModalButton : UIBarButtonItem?
-
-    
     if(self.startingViewController == nil) // not instantiated so it has no instrution page
     {
         self.startingViewController = viewControllerAtIndex(0)!
@@ -135,14 +132,9 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     
     if(self.firstPage)
     {
-      let doneButton = UIButton()
-      doneButton.frame = CGRect(x: 50, y: 50, width: 50, height: 50)
-      doneButton.setTitle("Done", forState: .Normal)
-      doneButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+      let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TablePageViewController.doneButtonPressed(_:)))
       print("done")
-      doneButton.addTarget(self, action: #selector(TablePageViewController.doneButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-      doneModalButton = UIBarButtonItem(customView: doneButton)
-      self.navigationItem.rightBarButtonItems = [doneModalButton!, infoModalButton!]
+      self.navigationItem.rightBarButtonItems = [doneButton, infoModalButton!]
     }
     else
     {
