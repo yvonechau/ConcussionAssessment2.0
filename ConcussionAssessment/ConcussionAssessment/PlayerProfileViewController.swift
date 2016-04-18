@@ -28,6 +28,10 @@ class PlayerProfileViewController: UIViewController {
         PlayerName.textColor = UIColor.blackColor()
         PlayerName.backgroundColor = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
         self.view.addSubview(PlayerName)
+        
+        let Things = UILabel(frame: CGRect(x: Frame.origin.x + 10, y: ProfileTopArea + 100, width: Frame.width - 20, height: 20))
+        Things.text = "Total Score: 36"
+        self.view.addSubview(Things)
     }
 
     override func didReceiveMemoryWarning() {
