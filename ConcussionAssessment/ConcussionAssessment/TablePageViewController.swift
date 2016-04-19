@@ -384,13 +384,13 @@ class TablePageView: UITableViewController
          }
         if(self.pvc!.next == nil) //single test or end of sequence of test
         {
-          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1) // end of test
+          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1 || self.pvc!.pageTitles.count == 1) // end of test
           {
             self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
           }
           else // still pages left
           {
-            
+            print(self.pvc!.currentIndex)
             let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
             let viewControllers = [startingViewController]
             self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
