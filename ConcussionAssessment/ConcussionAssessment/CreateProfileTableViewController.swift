@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CreateProfileTableViewController: UITableViewController, UITextFieldDelegate {
     
@@ -28,8 +29,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         self.title = "Create Profile"
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(CreateProfileTableViewController.dismiss))
-        self.navigationItem.rightBarButtonItem?.enabled = false;
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(CreateProfileTableViewController.createNewPlayer))
+//        self.navigationItem.rightBarButtonItem?.enabled = false;
     }
 
     override func didReceiveMemoryWarning() {
@@ -76,8 +77,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         return SectionTitleArray[section]
     }
     
+    //Philsons dismiss function
     func dismiss() {
-        
     }
     
     func dateChanged() {
@@ -87,7 +88,9 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         let Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
         
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        //Changed Date Format
+        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        //dateFormatter.dateFormat = "MM-dd-yyyy"
         
         let birthdateString = dateFormatter.stringFromDate(CellDateField.date)
         print(birthdateString)
@@ -106,6 +109,43 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         CellDateField.datePickerMode = UIDatePickerMode.Date
         self.view.addSubview(CellDateField)
     }
+ 
+    //Done Button
+    func createNewPlayer()
+    {
+        var indexPath: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+        var Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+        let firstName = Cell.CellTextField.text!
+        let trimmedFirstName = firstName.stringByTrimmingCharactersInSet(
+            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        indexPath = NSIndexPath(forRow: 1, inSection: 0)
+        Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+        let lastName = Cell.CellTextField.text!
+        let trimmedLastName = lastName.stringByTrimmingCharactersInSet(
+            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        indexPath = NSIndexPath(forRow: 0, inSection: 1)
+        Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+        let gender = Cell.CellTextField.text!
+        let trimmedGender = gender.stringByTrimmingCharactersInSet(
+            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+
+        indexPath = NSIndexPath(forRow: 1, inSection: 1)
+        Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+        let birthday = Cell.CellTextField.text!
+        
+        print(trimmedFirstName + " " + trimmedLastName + " " + trimmedGender + " " + birthday)
+        
+        var dataModel = DataModel()
+        //dataModel.insertNewPlayer(trimmedFirstName, trimmedLastName, birthday, gender)
+        
+
+        
+        
+        
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.

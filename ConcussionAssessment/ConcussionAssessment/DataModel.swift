@@ -14,18 +14,56 @@ class DataModel : NSObject {
     var persistentStoreCoordinator : NSPersistentStoreCoordinator
     
     // initialize the database
+//    override init()
+//    {
+//        super.init()
+//        // This resource is the same name as your xcdatamodeld contained in your project.
+//        guard let modelURL = NSBundle.mainBundle().URLForResource("DataModel", withExtension:"momd")
+//        else {
+//            fatalError("Error loading model from bundle")
+//        }
+//        guard let mom = NSManagedObjectModel(contentsOfURL: modelURL) else
+//        {
+//            fatalError("Error initializing mom from: \(modelURL)")
+//        }
+//        let psc = NSPersistentStoreCoordinator(managedObjectModel: mom)
+//        self.managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+//        self.managedObjectContext.persistentStoreCoordinator = psc
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0))
+//        {
+//            let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+//            let docURL = urls[urls.endIndex-1]
+//            /* The directory the application uses to store the Core Data store file.
+//             This code uses a file named "DataModel.sqlite" in the application's documents directory.
+//             */
+//            let storeURL = docURL.URLByAppendingPathComponent("DataModel.sqlite")
+//            do
+//            {
+//                try psc.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
+//            }
+//            catch
+//            {
+//                fatalError("Error migrating store: \(error)")
+//            }
+//        }
+//    }
+    
     init (persistentStoreCoordinator : NSPersistentStoreCoordinator, managedObjectContext : NSManagedObjectContext) {
         self.persistentStoreCoordinator = persistentStoreCoordinator
         self.managedObjectContext = managedObjectContext
     }
     
     // create a Player Object and save it
-    func insertNewPlayer(firstName: String, lastName: String, teamName: String, playerID: String) {
+    func insertNewPlayer(firstName: String, lastName: String, birthday: NSDate, gender: String) {
         let player = NSEntityDescription.insertNewObjectForEntityForName("Player", inManagedObjectContext: managedObjectContext) as! Player
         player.firstName = firstName
         player.lastName  = lastName
-        player.teamName  = teamName
-        player.playerID  = playerID
+        //player.teamName  = teamName
+        player.birthday  = birthday
+        player.gender    = gender
+        player.dateCreated = NSDate()
+        
+        //player.playerID  = playerID
         
         do {
             try self.managedObjectContext.save()
@@ -35,11 +73,12 @@ class DataModel : NSObject {
     }
     
     // create a Score Object and save it
-    func insertNewScore(playerID: String, scoreID: String) {
+    func insertNewScore(playerID: NSNumber, scoreID: NSNumber) {
         let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
-        score.playerID = playerID
+        //score.playerID = playerID
+        //score.scoreID  = NSUUID().UUIDString
         score.date     = NSDate()
-        score.scoreID  = NSUUID().UUIDString
+        
         
         do {
             try self.managedObjectContext.save()
@@ -48,19 +87,21 @@ class DataModel : NSObject {
         }
         
     }
+
+// This function probably is not needed because core data does not use unique id keys
     
-    func insertNewScoreWithoutPlayer(scoreID: String){
-        let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
-        score.playerID = "-1"
-        score.date     = NSDate()
-        score.scoreID  = scoreID
-        
-        do {
-            try self.managedObjectContext.save()
-        } catch {
-            fatalError("Cannot create Score Object with playerID")
-        }
-    }
+//    func insertNewScoreWithoutPlayer(scoreID: String){
+//        let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
+//        score.playerID = "-1"
+//        score.date     = NSDate()
+//        score.scoreID  = scoreID
+//        
+//        do {
+//            try self.managedObjectContext.save()
+//        } catch {
+//            fatalError("Cannot create Score Object with playerID")
+//        }
+//    }
     
     /*
     // assumes global Score Object
@@ -117,9 +158,9 @@ class DataModel : NSObject {
         
         do {
             let fetchedScores = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
-            for e in fetchedScores {
-                NSLog(e.playerID! + " " + e.SACTotal!.stringValue)
-            }
+//            for e in fetchedScores {
+//                NSLog(e.playerID + " " + e.SACTotal!.stringValue)
+//            }
             return fetchedScores
         } catch {
             fatalError("Failed to fetch Scores")
