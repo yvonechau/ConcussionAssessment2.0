@@ -52,7 +52,8 @@ class GuestViewController: UITableViewController {
             case 1:
                 let IndividualController = IndividualTableViewController(style: UITableViewStyle.Grouped)
                 currentScoreID = NSUUID().UUIDString
-                database.insertNewScoreWithoutPlayer(currentScoreID!)
+                //commented out because i commented out this function
+                //database.insertNewScoreWithoutPlayer(currentScoreID!)
                 self.navigationController?.pushViewController(IndividualController, animated: true)
                 break;
             default:
