@@ -17,19 +17,29 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     let SectionTitleArray = ["Name", "Details"]
     var newPlayer: [[String]] = []
     var didFinishEditingInformation = 0
+    var textInstructions: UILabel!
+    var tap: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        //setDateField()
         
         self.title = "Create Profile"
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(CreateProfileTableViewController.dismiss))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self.finishedEditingProfile))
         self.navigationItem.rightBarButtonItem?.enabled = false;
+        
+        textInstructions = UILabel(frame: CGRect(x: 0, y: self.view.frame.height * 2/3, width: self.view.frame.width, height: 20))
+        textInstructions.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
+        textInstructions.text = "Tap away from the form to complete."
+        textInstructions.textAlignment = .Center
+        self.view.addSubview(textInstructions)
+        
+        tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,60 +60,100 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let Cell = CustomFormCell(style: UITableViewCellStyle.Value2, title: FormArray[indexPath.section][indexPath.row], section: indexPath.section)
-        /*if indexPath.section == 2 && indexPath.row == 1 {
-            self.recordedResults += Cell.recordedResults
-        }
-        else {
-            //let tempText: String? = Cell.CellTextField?.text
-            //recordedResults.append(tempText!)
-        }
-        print(recordedResults)*/
-        print(indexPath.row)
+        Cell.preservesSuperviewLayoutMargins = true
+        Cell.contentView.preservesSuperviewLayoutMargins = true
+        Cell.CellTextField.delegate = self
+        
         if (indexPath.section == 1 && indexPath.row == 1) {
             Cell.CellTextField.userInteractionEnabled = false
             cellMaxBounds = 288
-            print(cellMaxBounds)
             setDateField()
         }
+        
         return Cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return SectionTitleArray[section]
     }
     
-    func dismiss() {
-        
+    func textFieldDidEndEditing(textField: UITextField) {
+        view.endEditing(true)
+        for section in 0...1 {
+            for row in 0...1 {
+                let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
+                let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+                if Cell.CellTextField.text?.characters.count > 0 {
+                    didFinishEditingInformation += 1
+                }
+            }
+        }
+        if didFinishEditingInformation == 4 {
+            self.navigationItem.rightBarButtonItem?.enabled = true
+        } else {
+            self.navigationItem.rightBarButtonItem?.enabled = false;
+        }
+        didFinishEditingInformation = 0
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        self.navigationItem.rightBarButtonItem?.enabled = false;
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textFieldDidEndEditing(textField)
+        return true
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func finishedEditingProfile() {
+        for section in 0...1 {
+            for row in 0...1 {
+                let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
+                let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+                print(indexPath)
+                if Cell.CellTextField.text?.characters.count > 0 {
+                    //validate player info, save information
+                }
+            }
+        }
     }
     
     func dateChanged() {
-        print("Entered dateChanged()")
         // handle date changes
         let indexPath: NSIndexPath = NSIndexPath(forRow: 1, inSection: 1)
         let Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
         
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "MMM - dd - yyyy"
         
         let birthdateString = dateFormatter.stringFromDate(CellDateField.date)
-        print(birthdateString)
         
         Cell.CellTextField.text = birthdateString
+        textFieldDidEndEditing(Cell.CellTextField)
     }
     
     func setDateField() {
         CellDateField = UIDatePicker(frame: CGRect(x: self.view.frame.minX, y: self.cellMaxBounds, width: self.view.frame.width, height: 200))
         CellDateField.backgroundColor = UIColor.whiteColor()
+        
         let topBorder: CALayer = CALayer()
         topBorder.frame = CGRectMake(0, 0, CellDateField.frame.size.width, 1.0)
         topBorder.backgroundColor = UIColor.grayColor().CGColor
         CellDateField.layer.addSublayer(topBorder)
+        
+        let tappedDateField = UITapGestureRecognizer(target: self, action: #selector(dateChanged))
         CellDateField.addTarget(self, action: #selector(dateChanged), forControlEvents: UIControlEvents.ValueChanged)
         CellDateField.datePickerMode = UIDatePickerMode.Date
+        CellDateField.maximumDate = NSDate()
+        CellDateField.addGestureRecognizer(tappedDateField)
+            
         self.view.addSubview(CellDateField)
     }
 
@@ -147,6 +197,7 @@ class CustomFormCell: UITableViewCell {
         
         CellTextField = UITextField(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: self.frame.width, height: self.frame.height))
         CellTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
+        CellTextField.autocorrectionType = UITextAutocorrectionType.No
         CellTextField?.placeholder = title
         addSubview(CellTextField)
     }
@@ -157,8 +208,5 @@ class CustomFormCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        //self.textLabel?.text = "Hello"
-        //self.detailTextLabel?.text = "Welp"
     }
 }
