@@ -98,7 +98,6 @@ class IndividualTableViewController: UITableViewController {
          * COGNITIVE ASSESSMENT
          *******************************************************************************************/
         case 3:
-
             let(monthPageTitle, monthTestName, monthCOA, monthInstr) = getCogAssMonthStrings()
             let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
             let(memPageTitle, memTestName, memCOA, memInstr) = getCogAssImmediateStrings()
@@ -119,6 +118,7 @@ class IndividualTableViewController: UITableViewController {
         case 4:
             let BalanceView = BalanceViewController() as BalanceViewController
             self.navigationController?.pushViewController(BalanceView, animated: true)
+        
         default:
             fatalError("Unknown test choice.")
             
@@ -130,10 +130,10 @@ class IndividualTableViewController: UITableViewController {
 func getGlasgowStrings() -> (Array<String>, String, Array<Array<String>>, String)
 {
     let pageTitles : Array<String> = ["Best Eye Response", "No Verbal Response", "Best Motor Response"]
-    let testName : String = "Glasgow Coma Scale"
+    let testName = "Glasgow Coma Scale"
     
-    let gla : Array<Array<String>> = [["No eye opening", "Eye Opening in Response To Pain", "Eye opening in Speech", "Eyes Opening Spontaneously"], ["No Verbal Response", "Incomprehensible Sounds", "Incomprehensible Words", "Confused", "Oriented"],["No Motor Response", "Extension to Pain", "Abnormal flexion to pain", "Flexion/Withdrawal to Pain", "Localizes to Pain", "Obeys Command"]]
-    let instr : String = "Rate the individual's responses for each page."
+    let gla = [["No eye opening", "Eye Opening in Response To Pain", "Eye opening in Speech", "Eyes Opening Spontaneously"], ["No Verbal Response", "Incomprehensible Sounds", "Incomprehensible Words", "Confused", "Oriented"],["No Motor Response", "Extension to Pain", "Abnormal flexion to pain", "Flexion/Withdrawal to Pain", "Localizes to Pain", "Obeys Command"]]
+    let instr  = "Rate the individual's responses for each page."
     
     return(pageTitles, testName, gla, instr)
 }
@@ -190,7 +190,7 @@ func getCogAssImmediateStrings() -> (Array<String>, String, Array<Array<String>>
     let pageTitle: [String] = memSetList[Int(arc4random() % UInt32(memSetList.count))]
     let coa = [[String]](count: pageTitle.count, repeatedValue: ["Correct", "Incorrect"])
     let testName = "Cognitive Assessment: Immediate Memory"
-    let instr = "Repeat the following \"I am going to test your memory. I will read  you a list of words and when I am done, repeat back as many words as you can remember in any order.\"\n Complete all 3 trials regardless of score on trial 1 & 2. Read the words at a rate of one per second. Do not inform the individual that delayed recall will be tested."
+    let instr = "Repeat the following \"I am going to test your memory. I will read  you a list of words and when I am done, repeat back as many words as you can remember in any order.\"\n Complete all 3 trials regardless of score on trial 1 & 2. Read the words at a rate of one per second. Do not inform the individual that delayed recall will be tested. Press done when they can no longer remember the rest of the words for each trial."
     
     return (pageTitle, testName, coa, instr)
 }
