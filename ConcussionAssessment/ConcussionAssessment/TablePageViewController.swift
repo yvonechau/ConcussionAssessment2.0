@@ -439,7 +439,7 @@ class TablePageView: UITableViewController
          }
         if(self.pvc!.next == nil) //single test or end of sequence of test
         {
-          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1 || self.pvc!.pageTitles.count == 1) // end of test
+          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count || self.pvc!.pageTitles.count == 1) // end of test
           {
             self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
           }
@@ -454,7 +454,7 @@ class TablePageView: UITableViewController
         }
         else if(self.pvc!.next != nil) // still tests next
         {
-          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
+          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count)
           {
               self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
           }
