@@ -66,20 +66,16 @@ class IndividualTableViewController: UITableViewController {
       switch(indexPath.item) {
         case 0:
 //            let GlasgowView = GlasgowTestViewController() as GlasgowTestViewController
-            let pageTitles : Array<String> = ["Best Eye Response", "No Verbal Response", "Best Motor Response"]
+            let pageTitles : [String] = ["Best Eye Response", "No Verbal Response", "Best Motor Response"]
             let testName : String = "Glasgow Coma Scale"
             
-            let gla : Array<Array<String>> = [["No eye opening", "Eye Opening in Response To Pain", "Eye opening in Speech", "Eyes Opening Spontaneously"], ["No Verbal Response", "Incomprehensible Sounds", "Incomprehensible Words", "Confused", "Oriented"],["No Motor Response", "Extension to Pain", "Abnormal flexion to pain", "Flexion/Withdrawal to Pain", "Localizes to Pain", "Obeys Command"]]
+            let gla : [[String]] = [["No eye opening", "Eye Opening in Response To Pain", "Eye opening in Speech", "Eyes Opening Spontaneously"], ["No Verbal Response", "Incomprehensible Sounds", "Incomprehensible Words", "Confused", "Oriented"],["No Motor Response", "Extension to Pain", "Abnormal flexion to pain", "Flexion/Withdrawal to Pain", "Localizes to Pain", "Obeys Command"]]
             
             let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil, instructions: "Rate the individual's responses for each page.", next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
             
             self.navigationController?.pushViewController(GlasgowView, animated: true)
         case 1:
-//            let MaddocksView = MaddocksViewController() as MaddocksViewController
-//            self.navigationController?.pushViewController(MaddocksView, animated: true)
-      
-        
-            let pageTitles : Array<String> = ["At what venue are we today?", "Which half is it now?", "Who scored last in this match", "What did you play last week?", "Did your team win the last game?"]
+            let pageTitles : [String] = ["At what venue are we today?", "Which half is it now?", "Who scored last in this match", "What did you play last week?", "Did your team win the last game?"]
             let testName : String = "Maddocks Test"
             
             let ma : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"])
@@ -100,7 +96,7 @@ class IndividualTableViewController: UITableViewController {
             self.navigationController?.pushViewController(SymptomView, animated: true)
         
         case 3:
-            let orientationList : Array<String> = ["What month is it?", "What is the date?", "What is the day of the week?", "What year is it?", "What time is it right now? (Within 1 hour)"]
+            let orientationList : [String] = ["What month is it?", "What is the date?", "What is the day of the week?", "What year is it?", "What time is it right now? (Within 1 hour)"]
           
             let memSetList : [[String]] = [["elbow", "apple", "carpet", "saddle", "bubble"], ["candle", "paper", "sugar", "sandwich", "wagon"], ["baby", "monkey", "perfume", "sunset", "iron"], ["finger", "penny", "blanket", "lemon", "insect"]]
             
@@ -124,7 +120,7 @@ class IndividualTableViewController: UITableViewController {
             
             
             let instruction : String = "Record whether responses are correct or incorrect."
-            let instruction2 : String = "Repeat the following \"I am going to test your memory. I will read  you a list of words and when I am done, repeat back as many words as you can remember in any order.\"\n Complete all 3 trials regardless of score on trial 1 & 2. Read the words at a rate of one per second. Do not inform the individual that delayed recall will be tested."
+            let instruction2 : String = "Repeat the following \"I am going to test your memory. I will read you a list of words and when I am done, repeat back as many words as you can remember in any order.\"\n Complete all 3 trials regardless of score on trial 1 & 2. Read the words at a rate of one per second. Do not inform the individual that delayed recall will be tested. Press done when they can no longer remember the rest of the words for each trial."
 
             
             let instruction3 : String = "Repeat the following \"I am going to read you a string of numbers and when I am done, you repeat them back to me backwards, in reverse order of how I read them to you. For example, if I say 7-1-9, you would say 9-1-7.\"\n If correct go to next string length, if incorrect, read trial 2. Stop after incorrect on both trials. The digits should be read at rate of one per second."
@@ -146,6 +142,7 @@ class IndividualTableViewController: UITableViewController {
         case 4:
             let BalanceView = BalanceViewController() as BalanceViewController
             self.navigationController?.pushViewController(BalanceView, animated: true)
+        
         default:
             fatalError("Unknown test choice.")
             
