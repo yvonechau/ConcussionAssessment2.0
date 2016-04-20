@@ -51,7 +51,7 @@ class CognitiveConcentrationViewController: UIViewController, UICollectionViewDe
         
         self.title = "Concentration"
         self.navigationItem.prompt = "Assessment for <Player.name>"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: "SaveOrientationScore")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CognitiveConcentrationViewController.SaveOrientationScore))
     
         // let TestMenuTableView = UITableView()
         // TestMenuTableView.dataSource = self
