@@ -138,6 +138,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
       titleView.addSubview(tla)
       
       let widthDiff = tla.frame.size.width - titleLabelArr[index + 1].frame.size.width
+      
       if widthDiff > 0
       {
         var frame = titleLabelArr[index + 1].frame
@@ -170,9 +171,11 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
     
-//
-//    self.navigationItem.title = self.testName
-//    self.navigationItem.prompt = "Prompt"
+
+    self.navigationItem.title = self.testName
+    self.navigationItem.prompt = "Prompt"
+    
+//    self.navigationItem.titleView = setSubTitles(self.testName)
     
     
     
