@@ -106,6 +106,55 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
 
   }
   
+  func setSubTitles(fulltitle: String) -> UIView
+  {
+    var fontSize: CGFloat = 17
+    var y : CGFloat = -5
+    var titleLabel: UILabel
+    var titleLabelArr: [UILabel] = []
+    for t in fulltitle.characters.split(":").map(String.init)
+    {
+      titleLabel = UILabel(frame: CGRectMake(0, y, 0, 0))
+      
+      titleLabel.backgroundColor = UIColor.clearColor()
+      titleLabel.textColor = UIColor.blackColor()
+      titleLabel.font = UIFont.boldSystemFontOfSize(fontSize)
+      titleLabel.text = t
+      titleLabel.sizeToFit()
+      fontSize -= 2
+      if y < 0
+      {
+          y += 5 + fontSize + 1
+      }
+      else
+      {
+          y += fontSize + 1
+      }
+      titleLabelArr.append(titleLabel)
+    }
+    let titleView = UIView(frame:CGRectMake(0, 0, titleLabelArr.map{$0.frame.size.width}.maxElement()!, 30))
+    for (index, tla) in titleLabelArr.enumerate()
+    {
+      titleView.addSubview(tla)
+      
+      let widthDiff = tla.frame.size.width - titleLabelArr[index + 1].frame.size.width
+      if widthDiff > 0
+      {
+        var frame = titleLabelArr[index + 1].frame
+        frame.origin.x = widthDiff / 2
+        titleLabelArr[index + 1].frame = CGRectIntegral(frame)
+      }
+      else
+      {
+        var frame = tla.frame
+        frame.origin.x = abs(widthDiff/2)
+        titleLabelArr[index + 1].frame = CGRectIntegral(frame)
+      }
+    }
+    return titleView
+    
+  }
+  
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -120,7 +169,13 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     let viewControllers = [self.startingViewController!]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
-    self.navigationItem.title = self.testName
+    
+//
+//    self.navigationItem.title = self.testName
+//    self.navigationItem.prompt = "Prompt"
+    
+    
+    
     
     addChildViewController(pageViewController!)
     view.addSubview(pageViewController!.view)
