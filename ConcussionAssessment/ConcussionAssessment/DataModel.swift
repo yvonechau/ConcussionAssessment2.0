@@ -14,38 +14,32 @@ class DataModel : NSObject {
     var persistentStoreCoordinator : NSPersistentStoreCoordinator
     
     // initialize the database
-//    override init()
-//    {
-//        super.init()
+//    override init() {
 //        // This resource is the same name as your xcdatamodeld contained in your project.
-//        guard let modelURL = NSBundle.mainBundle().URLForResource("DataModel", withExtension:"momd")
-//        else {
+//        guard let modelURL = NSBundle.mainBundle().URLForResource("DataModel", withExtension:"momd") else {
 //            fatalError("Error loading model from bundle")
 //        }
-//        guard let mom = NSManagedObjectModel(contentsOfURL: modelURL) else
-//        {
+//        // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
+//        guard let mom = NSManagedObjectModel(contentsOfURL: modelURL) else {
 //            fatalError("Error initializing mom from: \(modelURL)")
 //        }
 //        let psc = NSPersistentStoreCoordinator(managedObjectModel: mom)
-//        self.managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-//        self.managedObjectContext.persistentStoreCoordinator = psc
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0))
-//        {
+//        managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+//        managedObjectContext.persistentStoreCoordinator = psc
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
 //            let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
 //            let docURL = urls[urls.endIndex-1]
 //            /* The directory the application uses to store the Core Data store file.
 //             This code uses a file named "DataModel.sqlite" in the application's documents directory.
 //             */
 //            let storeURL = docURL.URLByAppendingPathComponent("DataModel.sqlite")
-//            do
-//            {
+//            do {
 //                try psc.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
-//            }
-//            catch
-//            {
+//            } catch {
 //                fatalError("Error migrating store: \(error)")
 //            }
 //        }
+//        super.init()
 //    }
     
     init (persistentStoreCoordinator : NSPersistentStoreCoordinator, managedObjectContext : NSManagedObjectContext) {
@@ -61,9 +55,16 @@ class DataModel : NSObject {
         //player.teamName  = teamName
         player.birthday  = birthday
         player.gender    = gender
-        player.dateCreated = NSDate()
         
-        //player.playerID  = playerID
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let dateComponents = calendar.components([.Month, .Day, .Year],fromDate: date)
+        let components = NSDateComponents()
+        components.year = dateComponents.year
+        components.month = dateComponents.month
+        components.day = dateComponents.day
+        player.dateCreated = calendar.dateFromComponents(components)
+        //player.playerID  = player.objectID
         
         do {
             try self.managedObjectContext.save()

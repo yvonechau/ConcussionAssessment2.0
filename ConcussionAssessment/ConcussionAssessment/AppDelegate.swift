@@ -1,4 +1,4 @@
-//
+    //
 //  AppDelegate.swift
 //  ConcussionAssessment
 //
@@ -60,11 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
-        /*
-        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("ConcussionAssessment", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
-        */
+//        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+//        let modelURL = NSBundle.mainBundle().URLForResource("ConcussionAssessment", withExtension: "momd")!
+//        return NSManagedObjectModel(contentsOfURL: modelURL)!
         
         // Create an entity description for Score, based on the class <ProjectName>.<ClassName>
         let scoreDescription = NSEntityDescription()
@@ -74,11 +72,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Create the three attributes defined by Employee: firstName, lastName, and location
         let attrPlayerID = NSAttributeDescription()
         attrPlayerID.name = "playerID"
-        attrPlayerID.attributeType = NSAttributeType.StringAttributeType;
+        attrPlayerID.attributeType = NSAttributeType.Integer64AttributeType;
         
         let attrScoreID = NSAttributeDescription()
         attrScoreID.name = "scoreID"
-        attrScoreID.attributeType = NSAttributeType.StringAttributeType;
+        attrScoreID.attributeType = NSAttributeType.Integer64AttributeType;
         
         let attrNumSymptoms = NSAttributeDescription()
         attrNumSymptoms.name = "numSymptoms"
@@ -130,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let attrPlayerID1 = NSAttributeDescription()
         attrPlayerID1.name = "playerID"
-        attrPlayerID1.attributeType = NSAttributeType.StringAttributeType;
+        attrPlayerID1.attributeType = NSAttributeType.Integer64AttributeType;
         
         let attrFirstName = NSAttributeDescription()
         attrFirstName.name = "firstName"
@@ -140,15 +138,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         attrLastName.name = "lastName"
         attrLastName.attributeType = NSAttributeType.StringAttributeType;
         
-        let attrTeamName = NSAttributeDescription()
-        attrTeamName.name = "teamName"
-        attrTeamName.attributeType = NSAttributeType.StringAttributeType;
+        let attrBirthday = NSAttributeDescription()
+        attrBirthday.name = "birthday"
+        attrBirthday.attributeType = NSAttributeType.DateAttributeType;
         
-        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName]
+        let attrGender = NSAttributeDescription()
+        attrGender.name = "gender"
+        attrGender.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrDateCreated = NSAttributeDescription()
+        attrDateCreated.name = "dateCreated"
+        attrDateCreated.attributeType = NSAttributeType.DateAttributeType;
+
+        playerDescription.properties = [attrFirstName, attrLastName, attrBirthday, attrGender, attrDateCreated]
         
         // Create the model and set the entity description(s)
         var model = NSManagedObjectModel()
-        model.entities = [scoreDescription]
+        //model.entities = [scoreDescription]
+        model.entities = [playerDescription]
         
         return model
     }()
@@ -157,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData.sqlite")
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData4.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
             try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)

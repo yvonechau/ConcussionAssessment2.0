@@ -89,8 +89,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         
         let dateFormatter = NSDateFormatter()
         //Changed Date Format
-        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
-        //dateFormatter.dateFormat = "MM-dd-yyyy"
+        //dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        dateFormatter.dateFormat = "MM-dd-yyyy"
         
         let birthdateString = dateFormatter.stringFromDate(CellDateField.date)
         print(birthdateString)
@@ -133,17 +133,16 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
 
         indexPath = NSIndexPath(forRow: 1, inSection: 1)
         Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
-        let birthday = Cell.CellTextField.text!
+        let birthdayString = Cell.CellTextField.text
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        let birthday = dateFormatter.dateFromString(birthdayString!)
         
-        print(trimmedFirstName + " " + trimmedLastName + " " + trimmedGender + " " + birthday)
         
-        var dataModel = DataModel()
-        //dataModel.insertNewPlayer(trimmedFirstName, trimmedLastName, birthday, gender)
-        
+        print(trimmedFirstName + " " + trimmedLastName + " " + trimmedGender + " " + birthdayString!)
 
-        
-        
-        
+        database.insertNewPlayer(trimmedFirstName, lastName: trimmedLastName, birthday: birthday!, gender: gender)
+
     }
     
 
