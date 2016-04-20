@@ -47,7 +47,8 @@ class GuestViewController: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
-                // link FULL TEST PATH
+                currentScoreID = NSUUID().UUIDString
+                //let Sy
                 break;
             case 1:
                 let IndividualController = IndividualTableViewController(style: UITableViewStyle.Grouped)
