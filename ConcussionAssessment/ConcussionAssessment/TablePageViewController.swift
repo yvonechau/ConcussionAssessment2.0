@@ -189,7 +189,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
     
     let title : [String] = self.testName.characters.split(":").map(String.init)
-    print(title.count)
 
     self.navigationItem.prompt  = title[0]
     var subtitle : String = ""
@@ -199,14 +198,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
       {
         subtitle += t
       }
-      print(subtitle)
       self.navigationItem.title = subtitle
     }
-    
-    
-   // self.navigationItem.titleView = 	("Cognitive Assessment", subtitle: "Orientation")//(self.testName)
-    
-    
     
     
     addChildViewController(pageViewController!)
