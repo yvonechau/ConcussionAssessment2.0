@@ -188,7 +188,7 @@
 				TargetAttributes = {
 					3309A5F71C76750C00EC3795 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = RBQHTF3K3D;
+						DevelopmentTeam = 5W7RUME6X8;
 					};
 					3309A60E1C76750C00EC3795 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -370,7 +370,7 @@
 				INFOPLIST_FILE = ConcussionAssessment/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pyks.ConcussionAssessment.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyks.ConcussionAssessment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -385,7 +385,7 @@
 				INFOPLIST_FILE = ConcussionAssessment/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pyks.ConcussionAssessment.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyks.ConcussionAssessment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
