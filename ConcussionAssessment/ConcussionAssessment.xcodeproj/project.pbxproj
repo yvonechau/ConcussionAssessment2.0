@@ -11,7 +11,6 @@
 		3305DF1D1C7E22DE00D21F18 /* CognitiveImmediateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3305DF1C1C7E22DE00D21F18 /* CognitiveImmediateViewController.swift */; };
 		3305DF1F1C7E22F100D21F18 /* CognitiveConcentrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3305DF1E1C7E22F100D21F18 /* CognitiveConcentrationViewController.swift */; };
 		3309A5FC1C76750C00EC3795 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309A5FB1C76750C00EC3795 /* AppDelegate.swift */; };
-		3309A6041C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3309A6021C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld */; };
 		3309A6061C76750C00EC3795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3309A6051C76750C00EC3795 /* Assets.xcassets */; };
 		3309A6141C76750C00EC3795 /* ConcussionAssessmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309A6131C76750C00EC3795 /* ConcussionAssessmentUITests.swift */; };
 		3316E59D1CB4E4E700F25CC6 /* CreateProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3316E59C1CB4E4E700F25CC6 /* CreateProfileTableViewController.swift */; };
@@ -49,7 +48,6 @@
 		3305DF1E1C7E22F100D21F18 /* CognitiveConcentrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CognitiveConcentrationViewController.swift; sourceTree = "<group>"; };
 		3309A5F81C76750C00EC3795 /* ConcussionAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcussionAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3309A5FB1C76750C00EC3795 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3309A6031C76750C00EC3795 /* ConcussionAssessment.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ConcussionAssessment.xcdatamodel; sourceTree = "<group>"; };
 		3309A6051C76750C00EC3795 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3309A60A1C76750C00EC3795 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3309A60F1C76750C00EC3795 /* ConcussionAssessmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConcussionAssessmentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,7 +134,6 @@
 				44DB2AF01C851A81007B8D8F /* Player.swift */,
 				3309A6051C76750C00EC3795 /* Assets.xcassets */,
 				3309A60A1C76750C00EC3795 /* Info.plist */,
-				3309A6021C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld */,
 			);
 			path = ConcussionAssessment;
 			sourceTree = "<group>";
@@ -265,7 +262,6 @@
 				44DB2AEF1C851A63007B8D8F /* Score.swift in Sources */,
 				33EADDEE1C90B035009C892A /* GlasgowTestViewController.swift in Sources */,
 				3309A5FC1C76750C00EC3795 /* AppDelegate.swift in Sources */,
-				3309A6041C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld in Sources */,
 				3316E5A11CB5E83E00F25CC6 /* GuestViewController.swift in Sources */,
 				333B27EA1CB64FC100FE3D64 /* PlayerProfileViewController.swift in Sources */,
 				64C3729E1CB4FE7600D479BF /* TablePageViewController.swift in Sources */,
@@ -462,19 +458,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		3309A6021C76750C00EC3795 /* ConcussionAssessment.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				3309A6031C76750C00EC3795 /* ConcussionAssessment.xcdatamodel */,
-			);
-			currentVersion = 3309A6031C76750C00EC3795 /* ConcussionAssessment.xcdatamodel */;
-			path = ConcussionAssessment.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 3309A5F01C76750C00EC3795 /* Project object */;
 }

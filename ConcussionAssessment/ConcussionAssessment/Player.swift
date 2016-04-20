@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 class Player : NSManagedObject {
-  //@NSManaged var playerID: NSNumber?
+  @NSManaged var playerID: NSNumber?
   
   @NSManaged var firstName: String?
   @NSManaged var lastName: String?
