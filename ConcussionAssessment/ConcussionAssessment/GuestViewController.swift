@@ -57,7 +57,7 @@ class GuestViewController: UITableViewController {
                 let(sacPageTitle,sacTestName, sac, sacInstr) = getSACDelayRecallStrings(memPageTitle)
                 
                 //SAC DELAYED RECALL: IMMEDIATE MEMORY
-                let SacDelayedRecallView = TablePageViewController(pageTitles: sacPageTitle, labelArray: sac, testName: sacTestName, instructionPage: nil, instructions: sacInstr, next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+                let SacDelayedRecallView = TablePageViewController(pageTitles: sacPageTitle, labelArray: sac, testName: sacTestName, instructionPage: nil, instructions: sacInstr, next: nil, original: self, numTrials: nil, firstPage: true) as TablePageViewController
                 
                 
                 //COGNATIVE ASSESSMENT: MONTH
