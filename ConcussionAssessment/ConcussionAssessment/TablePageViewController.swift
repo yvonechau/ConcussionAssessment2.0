@@ -82,10 +82,11 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   {
     print("here")
     print(self.numTrials)
-    self.numTrials![0] += 1
-    if(self.numTrials != nil && self.numTrials![0] <= self.numTrials![1] - 1)
+
+    if(self.numTrials != nil && self.numTrials![0] < self.numTrials![1] - 1)
     {
-      
+      self.numTrials![0] += 1
+
       self.currentIndex = 0
       let startingViewController: TablePageView = self.viewControllerAtIndex(self.currentIndex)!
       let viewControllers = [startingViewController]
@@ -190,16 +191,32 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     
     let title : [String] = self.testName.characters.split(":").map(String.init)
 
-    self.navigationItem.prompt  = title[0]
-    var subtitle : String = ""
+  
     if title.count > 1
     {
+      self.navigationItem.prompt  = title[0]
+      var subtitle : String = ""
+      var index = 1
       for t in title[1..<title.count]
       {
-        subtitle += t
+        if index < title.count - 1
+        {
+            subtitle += t + ": "
+        }
+        else
+        {
+          subtitle += t
+        }
+        
+        index += 1
       }
       self.navigationItem.title = subtitle
     }
+    else
+    {
+      self.title = title[0]
+    }
+    
     
     
     addChildViewController(pageViewController!)
