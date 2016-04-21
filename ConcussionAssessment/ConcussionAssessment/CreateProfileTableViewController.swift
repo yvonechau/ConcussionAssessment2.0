@@ -36,7 +36,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         textInstructions.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
         textInstructions.text = "Tap away from the form to complete."
         textInstructions.textAlignment = .Center
-        self.view.addSubview(textInstructions)*/
+        self.view.addSubview(textInstructions)	*/
         
         tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -123,25 +123,61 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     }
     
     func finishedEditingProfile() {
+        var trimmedTeam, trimmedGender, trimmedFirstName, trimmedLastName: String!
+        var birthday: NSDate!
+        var birthdayString: String!
         for section in 0...1 {
             if section == 1 {
                 for row in 0...2 {
                     let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
+                    print(indexPath)
                     let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
-                    if Cell.CellTextField.text?.characters.count > 0 {
-                        //validate information, save
+                    switch(row) {
+                    case 0:
+                        let team = Cell.CellTextField.text!
+                        print(team)
+                        trimmedTeam = team.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    case 1:
+                        let gender = Cell.CellTextField.text!
+                        print(gender)
+                        trimmedGender = gender.stringByTrimmingCharactersInSet(
+                            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    case 2:
+                        birthdayString = Cell.CellTextField.text!
+                        print(birthdayString)
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateFormat = "MM-dd-yyyy"
+                        birthday = dateFormatter.dateFromString(birthdayString)
+                    default:
+                        fatalError("Invalid row")
                     }
                 }
             } else {
                 for row in 0...1 {
                     let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
+                    print(indexPath)
                     let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
-                    if Cell.CellTextField.text?.characters.count > 0 {
-                        //validate information, save
+                    switch(row) {
+                    case 0:
+                        let firstName = Cell.CellTextField.text!
+                        print(firstName)
+                        trimmedFirstName = firstName.stringByTrimmingCharactersInSet(
+                            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    case 1:
+                        let lastName = Cell.CellTextField.text!
+                        print(lastName)
+                        trimmedLastName = lastName.stringByTrimmingCharactersInSet(
+                            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    default:
+                        fatalError("Invalid row")
                     }
                 }
             }
         }
+        
+        print(trimmedFirstName + " " + trimmedLastName + " " + trimmedGender + " " + birthdayString)
+        
+        //database.insertNewPlayer(trimmedFirstName, lastName: trimmedLastName, birthday: birthday!, gender: trimmedGender) NEEDS TO BE CHANGED
     }
     
     func dateChanged() {
@@ -175,7 +211,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
             
         self.view.addSubview(CellDateField)
     }
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -200,9 +236,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
 
-    }
-    */
-
+    }*/
 }
 
 class CustomFormCell: UITableViewCell {
