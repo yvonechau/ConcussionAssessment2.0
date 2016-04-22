@@ -48,11 +48,13 @@ class DataModel : NSObject {
     }
     
     // create a Player Object and save it
-    func insertNewPlayer(firstName: String, lastName: String, birthday: NSDate, gender: String) {
+    func insertNewPlayer(playerID: NSNumber, firstName: String, lastName: String, teamName: String, birthday: NSDate, gender: String) {
         let player = NSEntityDescription.insertNewObjectForEntityForName("Player", inManagedObjectContext: managedObjectContext) as! Player
+        
+        player.playerID = playerID
         player.firstName = firstName
         player.lastName  = lastName
-        //player.teamName  = teamName
+        player.teamName  = teamName
         player.birthday  = birthday
         player.gender    = gender
         
@@ -64,7 +66,7 @@ class DataModel : NSObject {
         components.month = dateComponents.month
         components.day = dateComponents.day
         player.dateCreated = calendar.dateFromComponents(components)
-        //player.playerID  = player.objectID
+    
         
         do {
             try self.managedObjectContext.save()
@@ -76,9 +78,17 @@ class DataModel : NSObject {
     // create a Score Object and save it
     func insertNewScore(playerID: NSNumber, scoreID: NSNumber) {
         let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
-        //score.playerID = playerID
-        //score.scoreID  = NSUUID().UUIDString
-        score.date     = NSDate()
+        score.playerID = playerID
+        score.scoreID  = scoreID
+        
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let dateComponents = calendar.components([.Month, .Day, .Year],fromDate: date)
+        let components = NSDateComponents()
+        components.year = dateComponents.year
+        components.month = dateComponents.month
+        components.day = dateComponents.day
+        score.date = calendar.dateFromComponents(components)
         
         
         do {

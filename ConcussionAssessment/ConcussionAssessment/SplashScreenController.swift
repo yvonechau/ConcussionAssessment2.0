@@ -15,6 +15,12 @@ var database: DataModel = DataModel(persistentStoreCoordinator: appDelegate.pers
 var currentScoreID: String?
 var currentPlayerID: String?
 
+//These are our unique ids in the database
+var userDefaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+var incrementPlayerID: Int = userDefaults.integerForKey("autoincrementPlayerID")
+var incrementScoreID: Int = userDefaults.integerForKey("autoincrementScoreID")
+
+
 class SplashScreenController: UITableViewController {
     
     var performEvaluation: UITableViewCell = UITableViewCell()
