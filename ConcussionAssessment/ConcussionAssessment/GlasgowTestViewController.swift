@@ -55,7 +55,7 @@ class GlasgowTestViewController: UIViewController, UICollectionViewDelegateFlowL
         
         self.title = "Glasgow Coma Scale"
         self.navigationItem.prompt = "Assessment for <Player.name>"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: "SaveOrientationScore")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(GlasgowTestViewController.SaveOrientationScore))
         
         // let TestMenuTableView = UITableView()
         // TestMenuTableView.dataSource = self
