@@ -138,6 +138,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         attrLastName.name = "lastName"
         attrLastName.attributeType = NSAttributeType.StringAttributeType;
         
+        let attrTeamName = NSAttributeDescription()
+        attrTeamName.name = "teamName"
+        attrTeamName.attributeType = NSAttributeType.StringAttributeType;
+        
+        
         let attrBirthday = NSAttributeDescription()
         attrBirthday.name = "birthday"
         attrBirthday.attributeType = NSAttributeType.DateAttributeType;
@@ -150,7 +155,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         attrDateCreated.name = "dateCreated"
         attrDateCreated.attributeType = NSAttributeType.DateAttributeType;
 
-        playerDescription.properties = [attrFirstName, attrLastName, attrBirthday, attrGender, attrDateCreated]
+        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated]
         
         // Create the model and set the entity description(s)
         var model = NSManagedObjectModel()
@@ -164,7 +169,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData4.sqlite")
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData5.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
             try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)

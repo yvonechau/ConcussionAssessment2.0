@@ -113,6 +113,11 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     //Done Button
     func createNewPlayer()
     {
+        print(+incrementPlayerID)
+        incrementPlayerID += 1
+        userDefaults.setInteger(incrementPlayerID, forKey: "autoincrementPlayerID")
+        print(incrementPlayerID)
+        
         var indexPath: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
         var Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
         let firstName = Cell.CellTextField.text!
@@ -130,6 +135,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         let gender = Cell.CellTextField.text!
         let trimmedGender = gender.stringByTrimmingCharactersInSet(
             NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        let teamName = "Davis"
 
         indexPath = NSIndexPath(forRow: 1, inSection: 1)
         Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
@@ -141,7 +148,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         
         print(trimmedFirstName + " " + trimmedLastName + " " + trimmedGender + " " + birthdayString!)
 
-        database.insertNewPlayer(trimmedFirstName, lastName: trimmedLastName, birthday: birthday!, gender: gender)
+        database.insertNewPlayer(incrementPlayerID, firstName: trimmedFirstName, lastName: trimmedLastName, teamName: teamName, birthday: birthday!, gender: gender)
 
     }
     
