@@ -372,7 +372,8 @@ class TablePageView: UITableViewController
     return Cell
   }
   
-  
+/***** FOR YVONE: these should be where the scores get updated
+ ****/
   func setScore()
   {
     switch self.pvc!.testName
@@ -387,23 +388,28 @@ class TablePageView: UITableViewController
       
         if self.pvc!.currentIndex == self.pvc!.numPages
         {
-            database.setSeverity(currentScoreID!, score: self.pvc!.currScore)
-            database.setNumSymptoms(currentScoreID!, score: self.pvc!.numSelected)
+            database.scoreWithID(currentScoreID!)[0].severity = self.pvc!.currScore
+            database.scoreWithID(currentScoreID!)[0].numSymptoms = self.pvc!.numSelected
+//            database.setSeverity(currentScoreID!, score: self.pvc!.currScore)
+//            database.setNumSymptoms(currentScoreID!, score: self.pvc!.numSelected)
         }
       case "Glasgow Coma Scale":
         self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel) + 1
         
         if self.pvc!.currentIndex == self.pvc!.numPages
         {
-          database.setGlasgow(currentScoreID!, score: self.pvc!.currScore)
+          database.scoreWithID(currentScoreID!)[0].glasgow = self.pvc!.currScore
+
         }
+      
       
       case "Maddocks Test":
         self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
         
         if self.pvc!.currentIndex == self.pvc!.numPages
         {
-          database.setMaddocks(currentScoreID!, score: self.pvc!.currScore)
+          database.scoreWithID(currentScoreID!)[0].maddocks = self.pvc!.currScore
+
         }
       
       case "Cognitive Assessment: Orientation":
@@ -411,7 +417,9 @@ class TablePageView: UITableViewController
         
         if self.pvc!.currentIndex == self.pvc!.numPages
         {
-          database.setOrientation(currentScoreID!, score: self.pvc!.currScore)
+//          database.setOrientation(currentScoreID!, score: self.pvc!.currScore)
+          database.scoreWithID(currentScoreID!)[0].orientation = self.pvc!.currScore
+
         }
       
       case "Cognitive Assessment: Immediate Memory":
@@ -419,8 +427,9 @@ class TablePageView: UITableViewController
         
         if self.pvc!.currentIndex == self.pvc!.numPages
         {
-
-          database.setImmMemory(currentScoreID!, score: self.pvc!.currScore)
+//          database.setImmMemory(currentScoreID!, score: self.pvc!.currScore)
+          
+          database.scoreWithID(currentScoreID!)[0].immediateMemory = self.pvc!.currScore
         }
       
     
@@ -429,7 +438,9 @@ class TablePageView: UITableViewController
         
         if self.pvc!.currentIndex == self.pvc!.numPages
         {
-          database.setConcentration(currentScoreID!, score: self.pvc!.currScore)
+//          database.setConcentration(currentScoreID!, score: self.pvc!.currScore)
+          database.scoreWithID(currentScoreID!)[0].concentration = self.pvc!.currScore
+
         }
 
       case "Cognitive Assessment: Months in Reverse Order":
@@ -437,7 +448,8 @@ class TablePageView: UITableViewController
         
         if self.pvc!.currentIndex == self.pvc!.numPages
         {
-          database.setConcentration(currentScoreID!, score: self.pvc!.currScore)
+//          database.setConcentration(currentScoreID!, score: self.pvc!.currScore)
+          database.scoreWithID(currentScoreID!)[0].concentration =  Int(database.scoreWithID(currentScoreID!)[0].concentration!) + Int(self.pvc!.currScore)
 
           //database.setConcentration(currentScoreID!, score: database.getConcentration() + self.pvc!.currScore)
         }
