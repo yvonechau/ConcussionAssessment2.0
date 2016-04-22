@@ -70,7 +70,7 @@ class IndividualTableViewController: UITableViewController {
         case 0:
             let (pageTitles, testName, gla, instr) = getGlasgowStrings()
             
-            let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self, numTrials: nil, singlePage: false) as TablePageViewController
             
             self.navigationController?.pushViewController(GlasgowView, animated: true)
         
@@ -80,7 +80,7 @@ class IndividualTableViewController: UITableViewController {
         case 1:
             let (pageTitles, testName, ma, instr) = getMaddocksStrings()
             
-            let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self, numTrials: nil, singlePage: false) as TablePageViewController
             
             self.navigationController?.pushViewController(MaddocksView, animated: true)
         
@@ -90,7 +90,7 @@ class IndividualTableViewController: UITableViewController {
         case 2:
             let (pageTitles, testName, sva, instr) = getSympEvalStrings()
             
-            let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self, numTrials: nil, singlePage: false) as TablePageViewController
             
             self.navigationController?.pushViewController(SymptomView, animated: true)
         
@@ -104,14 +104,14 @@ class IndividualTableViewController: UITableViewController {
             let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
 
             
-            let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: nil, original: self, numTrials: nil, singlePage: false) as TablePageViewController
             
             
-            let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self, numTrials: [0, 1], firstPage: false) as TablePageViewController
+            let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self, numTrials: [0, 1], singlePage: false) as TablePageViewController
             
-            let CognitiveImmediateMemView = TablePageViewController(pageTitles: memPageTitle, labelArray: memCOA, testName: memTestName, instructionPage: nil, instructions: memInstr, next: CognitiveNumBackwardsView, original: self, numTrials: [0, 3], firstPage: true) as TablePageViewController
+            let CognitiveImmediateMemView = TablePageViewController(pageTitles: memPageTitle, labelArray: memCOA, testName: memTestName, instructionPage: nil, instructions: memInstr, next: CognitiveNumBackwardsView, original: self, numTrials: [0, 3], singlePage: true) as TablePageViewController
             
-            let CognitiveOrientationView = TablePageViewController(pageTitles: orientationTitle, labelArray: orientationCOA, testName: orientationTestName, instructionPage: nil, instructions: orientationInstr, next: CognitiveImmediateMemView, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+            let CognitiveOrientationView = TablePageViewController(pageTitles: orientationTitle, labelArray: orientationCOA, testName: orientationTestName, instructionPage: nil, instructions: orientationInstr, next: CognitiveImmediateMemView, original: self, numTrials: nil, singlePage: false) as TablePageViewController
             
             self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
 
