@@ -24,13 +24,17 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var currentIndex : Int = 0
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
-  var currScore: NSNumber?
+  
   var instructions: String
   var next: TablePageViewController?
   var original: UIViewController?
   var startingViewController : TablePageView?
   var numTrials : [Int]?
   var singlePage: BooleanType
+  
+  var numPages: Int
+  var numSelected: NSNumber
+  var currScore: NSNumber
   
   init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType)
   {
@@ -43,6 +47,9 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     self.original = original!
     self.numTrials = numTrials
     self.singlePage = singlePage
+    self.numPages = 0
+    self.numSelected = 0
+    self.currScore = 0
     super.init(nibName:nil, bundle:nil)
   }
   
@@ -191,13 +198,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     }
     index -= 1
     
-    self.rowSelected = (viewController as! TablePageView).rowSel
-    currScore = self.rowSelected
-    //print(currScore)
-    
-    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
-    
-    // UNDO VALUE HERE
     return viewControllerAtIndex(index)
   }
   
@@ -217,17 +217,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     {
       return nil
     }
-    
-    // SAVE VALUE HERE
-    //currentScore!.numSymptoms = //SAVE AS AN NSNUMBER
-    
-    
-    rowSelected = (viewController as! TablePageView).rowSel
-    currScore = rowSelected
-    //print(currScore)
-    //print("forward")
-    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
-    
     currentIndex = index
     
     return viewControllerAtIndex(index)
