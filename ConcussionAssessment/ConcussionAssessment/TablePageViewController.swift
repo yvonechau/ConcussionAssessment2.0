@@ -242,20 +242,21 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     {
       if self.numTrials != nil
       {
-        return self.numTrials![1]
+        self.numPages = self.numTrials![1]
       }
       else
       {
         print("here")
-        return 1
+        self.numPages = 1
       }
       
     }
     else
     {
-      return self.pageTitles.count
+      self.numPages = self.pageTitles.count
 
     }
+    return self.numPages
     
   }
   
@@ -371,10 +372,87 @@ class TablePageView: UITableViewController
     return Cell
   }
   
+  
+  func setScore()
+  {
+    switch self.pvc!.testName
+    {
+      case "Symptom Evaluation":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
+      
+        if self.rowSel == 0
+        {
+            self.pvc!.numSelected = Int(self.pvc!.currScore) + 1
+        }
+      
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+            database.setSeverity(currentScoreID!, score: self.pvc!.currScore)
+            database.setNumSymptoms(currentScoreID!, score: self.pvc!.numSelected)
+        }
+      case "Glasgow Coma Scale":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel) + 1
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+          database.setGlasgow(currentScoreID!, score: self.pvc!.currScore)
+        }
+      
+      case "Maddocks Test":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+          database.setMaddocks(currentScoreID!, score: self.pvc!.currScore)
+        }
+      
+      case "Cognitive Assessment: Orientation":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+          database.setOrientation(currentScoreID!, score: self.pvc!.currScore)
+        }
+      
+      case "Cognitive Assessment: Immediate Memory":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.totalRowsSelected)
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+
+          database.setImmMemory(currentScoreID!, score: self.pvc!.currScore)
+        }
+      
+    
+      case "Cognitive Assessment: Digits Backwards":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+          database.setConcentration(currentScoreID!, score: self.pvc!.currScore)
+        }
+
+      case "Cognitive Assessment: Months in Reverse Order":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+          database.setConcentration(currentScoreID!, score: self.pvc!.currScore)
+
+          //database.setConcentration(currentScoreID!, score: database.getConcentration() + self.pvc!.currScore)
+        }
+      
+      default: print("none")
+    }
+  }
+  
+  
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
     rowSel = indexPath.item
     self.pvc!.currentIndex += 1 //updates dots
+    self.setScore()
+
 
     if(self.pvc!.singlePage) // all words on one page
     {
@@ -396,9 +474,11 @@ class TablePageView: UITableViewController
         }
         
       }
+      self.setScore()
     }
     else
     {
+
         if(self.pvc!.numTrials != nil) //no all rows, but has trials
         {
           if(indexPath.item == 1) // incorrect
@@ -448,7 +528,6 @@ class TablePageView: UITableViewController
           }
           
         }
-      
     }
   }
 }

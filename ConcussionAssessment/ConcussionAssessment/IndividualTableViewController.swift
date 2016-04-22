@@ -164,7 +164,7 @@ func getCogAssMonthStrings() -> (Array<String>, String, Array<Array<String>>, St
 {
     let pageTitle: [String] = ["Dec-Nov-Oct-Sept-Aug-Jul-Jun-May-Apr-Mar-Feb-Jan"]
     let coa = [[String]](count: pageTitle.count, repeatedValue: ["Correct", "Incorrect"])
-    let testName : String = "Cognitive Assessment: Concentration: Months in Reverse Order"
+    let testName : String = "Cognitive Assessment: Months in Reverse Order"
     let instr : String = "Repeat the following: \"Now tell me the months of the year in reverse order. Start with the last month and go backwards. So you'll say December, November... Go ahead.\""
     
     return(pageTitle, testName, coa, instr)
@@ -177,7 +177,7 @@ func getCogAssNumStrings() -> (Array<String>, String, Array<Array<String>>, Stri
     
     let pageTitle: [String] = numMemSetList[Int(arc4random() % UInt32(numMemSetList.count))]
     let coa = [[String]](count: numMemSetList.count, repeatedValue: ["Correct", "Incorrect"])
-    let testName = "Cognitive Assessment: Concentration: Digits Backwards"
+    let testName = "Cognitive Assessment: Digits Backwards"
     let instr : String = "Repeat the following \"I am going to read you a string of numbers and when I am done, you repeat them back to me backwards, in reverse order of how I read them to you. For example, if I say 7-1-9, you would say 9-1-7.\"\n If correct go to next string length, if incorrect, read trial 2. Stop after incorrect on both trials. The digits should be read at rate of one per second."
     
     return (pageTitle, testName, coa, instr)
