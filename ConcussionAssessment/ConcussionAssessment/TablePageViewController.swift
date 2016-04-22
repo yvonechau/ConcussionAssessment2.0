@@ -30,9 +30,9 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var original: UIViewController?
   var startingViewController : TablePageView?
   var numTrials : [Int]?
-  var firstPage: BooleanType
+  var singlePage: BooleanType
   
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, firstPage: BooleanType)
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType)
   {
     self.pageTitles = pageTitles
     self.labelArray = labelArray
@@ -42,7 +42,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     self.next = next
     self.original = original!
     self.numTrials = numTrials
-    self.firstPage = firstPage
+    self.singlePage = singlePage
     super.init(nibName:nil, bundle:nil)
   }
   
@@ -164,7 +164,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     let infoModalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
     
     
-    if(self.firstPage)
+    if(self.singlePage)
     {
       let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TablePageViewController.doneButtonPressed(_:)))
       self.navigationItem.rightBarButtonItems = [doneButton, infoModalButton!]
@@ -249,7 +249,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int
   {
-    if self.firstPage
+    if self.singlePage
     {
       if self.numTrials != nil
       {
@@ -318,7 +318,7 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
   {
-    if(self.pvc!.firstPage)
+    if(self.pvc!.singlePage)
     {
       if(self.pvc!.numTrials != nil)
       {
@@ -345,7 +345,7 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    if(self.pvc!.firstPage)
+    if(self.pvc!.singlePage)
     {
      return self.pvc!.pageTitles.count
     }
@@ -362,7 +362,7 @@ class TablePageView: UITableViewController
 
     Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
     
-    if(self.pvc!.firstPage)
+    if(self.pvc!.singlePage)
     {
       
       if(!checked[indexPath.row])
@@ -387,7 +387,7 @@ class TablePageView: UITableViewController
     rowSel = indexPath.item
     self.pvc!.currentIndex += 1 //updates dots
 
-    if(self.pvc!.firstPage) // all words on one page
+    if(self.pvc!.singlePage) // all words on one page
     {
       if let cell = tableView.cellForRowAtIndexPath(indexPath) // for toggling checkmarks
       {
