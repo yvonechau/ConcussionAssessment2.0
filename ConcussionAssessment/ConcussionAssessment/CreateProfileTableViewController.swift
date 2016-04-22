@@ -28,26 +28,14 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         
         self.title = "Create Profile"
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self.finishedEditingProfile))
         self.navigationItem.rightBarButtonItem?.enabled = false;
-        
-        /*textInstructions = UILabel(frame: CGRect(x: 0, y: self.view.frame.height * 2/3, width: self.view.frame.width, height: 20))
-        textInstructions.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
-        textInstructions.text = "Tap away from the form to complete."
-        textInstructions.textAlignment = .Center
-        self.view.addSubview(textInstructions)	*/
-        
-        tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return NumberOfSections
@@ -170,7 +158,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         
         print(trimmedFirstName + " " + trimmedLastName + " " + trimmedTeam + " " + trimmedGender + " " + birthdayString)
         
-        //database.insertNewPlayer(trimmedFirstName, lastName: trimmedLastName, birthday: birthday!, gender: trimmedGender) NEEDS TO BE CHANGED
+        //database.insertNewPlayer(incrementPlayerID, firstName: trimmedFirstName, lastName: trimmedLastName, teamName: trimmedTeam, birthday: birthday!, gender: trimmedGender)
     }
     
     func dateChanged() {
@@ -204,7 +192,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
             
         self.view.addSubview(CellDateField)
     }
-    
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
