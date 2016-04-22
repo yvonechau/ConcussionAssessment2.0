@@ -130,21 +130,17 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
             if section == 1 {
                 for row in 0...2 {
                     let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
-                    print(indexPath)
                     let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
                     switch(row) {
                     case 0:
                         let team = Cell.CellTextField.text!
-                        print(team)
                         trimmedTeam = team.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     case 1:
                         let gender = Cell.CellTextField.text!
-                        print(gender)
                         trimmedGender = gender.stringByTrimmingCharactersInSet(
                             NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     case 2:
                         birthdayString = Cell.CellTextField.text!
-                        print(birthdayString)
                         let dateFormatter = NSDateFormatter()
                         dateFormatter.dateFormat = "MM-dd-yyyy"
                         birthday = dateFormatter.dateFromString(birthdayString)
@@ -155,17 +151,14 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
             } else {
                 for row in 0...1 {
                     let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
-                    print(indexPath)
                     let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
                     switch(row) {
                     case 0:
                         let firstName = Cell.CellTextField.text!
-                        print(firstName)
                         trimmedFirstName = firstName.stringByTrimmingCharactersInSet(
                             NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     case 1:
                         let lastName = Cell.CellTextField.text!
-                        print(lastName)
                         trimmedLastName = lastName.stringByTrimmingCharactersInSet(
                             NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     default:
@@ -175,7 +168,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
             }
         }
         
-        print(trimmedFirstName + " " + trimmedLastName + " " + trimmedGender + " " + birthdayString)
+        print(trimmedFirstName + " " + trimmedLastName + " " + trimmedTeam + " " + trimmedGender + " " + birthdayString)
         
         //database.insertNewPlayer(trimmedFirstName, lastName: trimmedLastName, birthday: birthday!, gender: trimmedGender) NEEDS TO BE CHANGED
     }
