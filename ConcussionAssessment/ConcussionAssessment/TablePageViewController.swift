@@ -35,7 +35,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, firstPage: BooleanType)
   {
     self.pageTitles = pageTitles
-    print(pageTitles.count)
     self.labelArray = labelArray
     self.testName = testName
     self.startingViewController = instructionPage
@@ -168,7 +167,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     if(self.firstPage)
     {
       let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TablePageViewController.doneButtonPressed(_:)))
-      print("done")
       self.navigationItem.rightBarButtonItems = [doneButton, infoModalButton!]
     }
     else
@@ -253,7 +251,16 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   {
     if self.firstPage
     {
-      return 1
+      if self.numTrials != nil
+      {
+        return self.numTrials![1]
+      }
+      else
+      {
+        print("here")
+        return 1
+      }
+      
     }
     else
     {
@@ -398,7 +405,6 @@ class TablePageView: UITableViewController
           self.totalRowsSelected += 1 // need to check when done
 
         }
-        print(self.totalRowsSelected)
         
       }
     }
@@ -406,8 +412,6 @@ class TablePageView: UITableViewController
     {
         if(self.pvc!.numTrials != nil) //no all rows, but has trials
         {
-          print(indexPath.item)
-          print(self.pvc!.numTrials)
           if(indexPath.item == 1) // incorrect
           {
             
@@ -434,7 +438,6 @@ class TablePageView: UITableViewController
           }
           else // still pages left
           {
-            print(self.pvc!.currentIndex)
             let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
             let viewControllers = [startingViewController]
             self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
