@@ -18,7 +18,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
 {
   
   var pageViewController: UIPageViewController?
-  
   var testName: String
   var pageTitles : Array<String>
   var labelArray : Array<Array<String>>
@@ -43,7 +42,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     self.next = next
     self.original = original!
     self.numTrials = numTrials
-    print(numTrials)
     self.firstPage = firstPage
     super.init(nibName:nil, bundle:nil)
   }
@@ -73,23 +71,19 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
       }
       
     }))
-    
     presentViewController(alertView, animated: true, completion: nil)
 
   }
   
   func doneButtonPressed(sender: UIButton)
   {
-    print("here")
-    print(self.numTrials)
-    self.numTrials![0] += 1
-    if(self.numTrials != nil && self.numTrials![0] <= self.numTrials![1] - 1)
+    if(self.numTrials != nil && self.numTrials![0] < self.numTrials![1] - 1) // increase the current trial it is on when done button is pressed if there are trials
     {
-      
+      self.numTrials![0] += 1
+
       self.currentIndex = 0
       let startingViewController: TablePageView = self.viewControllerAtIndex(self.currentIndex)!
       let viewControllers = [startingViewController]
-      print(self.numTrials![0])
       self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
     }
     else
@@ -105,72 +99,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     }
 
   }
-  
-//  func setSubTitles(fulltitle: String) -> UIView?
-//  {
-//    var fontSize: CGFloat = 17
-//    var y : CGFloat = -5
-//    var titleLabel: UILabel
-//    var titleLabelArr: [UILabel] = []
-//    for t in fulltitle.
-//    {
-//      print(t)
-//      titleLabel = UILabel(frame: CGRectMake(0, y, 0, 0))
-//      
-//      titleLabel.backgroundColor = UIColor.clearColor()
-//      titleLabel.textColor = UIColor.blackColor()
-//      titleLabel.font = UIFont.boldSystemFontOfSize(fontSize)
-//      titleLabel.text = t
-//      titleLabel.sizeToFit()
-//      fontSize -= 3
-//      if y < 0
-//      {
-//          y += 5 + fontSize + 1
-//      }
-//      else
-//      {
-//          y += fontSize + 1
-//      }
-//      titleLabelArr.append(titleLabel)
-//    }
-//    print(titleLabelArr.count)
-//    if(titleLabelArr.count > 1)
-//    {
-//      let titleView = UIView(frame:CGRectMake(0, 0, titleLabelArr.map{$0.frame.size.width}.maxElement()!, 30))
-//      for (index, tla) in titleLabelArr.reverse().enumerate()
-//      {
-//        if index - 1 >= 0
-//        {
-//          print("here")
-//          if let widthDiff : CGFloat? = titleLabelArr[index - 1].frame.size.width - tla.frame.size.width
-//          {
-//            print("here")
-//            if widthDiff! > 0
-//            {
-//              print("width")
-//              var frame = titleLabelArr[index - 1].frame
-//              frame.origin.x = widthDiff! / 2
-//              titleLabelArr[index - 1].frame = CGRectIntegral(frame)
-//            }
-//            else
-//            {
-//              print("width2")
-//              var frame = tla.frame
-//              frame.origin.x = abs(widthDiff!/2)
-//              titleLabelArr[index - 1].frame = CGRectIntegral(frame)
-//            }
-//          }
-//        }
-//
-//      }
-//      return titleView
-//    }
-//    else
-//    {
-//      return nil
-//    }
-//    
-//  }
 
   
   override func viewDidLoad()
@@ -179,7 +107,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     
-    if(self.startingViewController == nil) // not instantiated so it has no instrution page
+    if(self.startingViewController == nil) // not instantiated so it has no instruction page
     {
         self.startingViewController = viewControllerAtIndex(0)!
     }
@@ -188,32 +116,57 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
     
-    let title : [String] = self.testName.characters.split(":").map(String.init)
-
-    self.navigationItem.prompt  = title[0]
-    var subtitle : String = ""
-    if title.count > 1
-    {
-      for t in title[1..<title.count]
-      {
-        subtitle += t
-      }
-      self.navigationItem.title = subtitle
-    }
-    
     
     addChildViewController(pageViewController!)
     view.addSubview(pageViewController!.view)
     pageViewController!.didMoveToParentViewController(self)
+    
+    
+    
+    
+    /***** TITLE SETTINGS ****
+     *********************************/
+    
+    let title : [String] = self.testName.characters.split(":").map(String.init)
+
+  
+    if title.count > 1
+    {
+      self.navigationItem.prompt  = title[0]
+      var subtitle : String = ""
+      var index = 1
+      for t in title[1..<title.count]
+      {
+        if index < title.count - 1
+        {
+            subtitle += t + ": "
+        }
+        else
+        {
+          subtitle += t
+        }
+        
+        index += 1
+      }
+      self.navigationItem.title = subtitle
+    }
+    else
+    {
+      self.title = title[0]
+    }
+    
+  
+    /***** RIGHT NAV BAR BUTTONS ****
+    *********************************/
     let infobutton = UIButton(type: UIButtonType.InfoDark)
 
     infobutton.addTarget(self, action: #selector(TablePageViewController.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     let infoModalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
     
+    
     if(self.firstPage)
     {
       let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TablePageViewController.doneButtonPressed(_:)))
-      print("done")
       self.navigationItem.rightBarButtonItems = [doneButton, infoModalButton!]
     }
     else
@@ -296,7 +249,25 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int
   {
-    return self.pageTitles.count
+    if self.firstPage
+    {
+      if self.numTrials != nil
+      {
+        return self.numTrials![1]
+      }
+      else
+      {
+        print("here")
+        return 1
+      }
+      
+    }
+    else
+    {
+      return self.pageTitles.count
+
+    }
+    
   }
   
   func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int
@@ -434,7 +405,6 @@ class TablePageView: UITableViewController
           self.totalRowsSelected += 1 // need to check when done
 
         }
-        print(self.totalRowsSelected)
         
       }
     }
@@ -442,8 +412,6 @@ class TablePageView: UITableViewController
     {
         if(self.pvc!.numTrials != nil) //no all rows, but has trials
         {
-          print(indexPath.item)
-          print(self.pvc!.numTrials)
           if(indexPath.item == 1) // incorrect
           {
             
@@ -470,7 +438,6 @@ class TablePageView: UITableViewController
           }
           else // still pages left
           {
-            print(self.pvc!.currentIndex)
             let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
             let viewControllers = [startingViewController]
             self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
