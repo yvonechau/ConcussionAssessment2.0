@@ -47,7 +47,37 @@ class GuestViewController: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
-                // link FULL TEST PATH
+                currentScoreID = NSUUID().UUIDString
+                
+                let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
+                let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
+                let(memPageTitle, memTestName, memCOA, memInstr) = getCogAssImmediateStrings()
+                let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
+                let(monthPageTitle, monthTestName, monthCOA, monthInstr) = getCogAssMonthStrings()
+                let(sacPageTitle,sacTestName, sac, sacInstr) = getSACDelayRecallStrings(memPageTitle)
+                
+                //SAC DELAYED RECALL: IMMEDIATE MEMORY
+                let SacDelayedRecallView = TablePageViewController(pageTitles: sacPageTitle, labelArray: sac, testName: sacTestName, instructionPage: nil, instructions: sacInstr, next: nil, original: self, numTrials: nil, firstPage: true) as TablePageViewController
+                
+                
+                //COGNATIVE ASSESSMENT: MONTH
+                let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: SacDelayedRecallView, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+                
+                //COGNATIVE ASSESSMENT: NUMBER
+                let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self, numTrials: [0, 1], firstPage: false) as TablePageViewController
+                
+                //COGNATIVE ASSESSMENT: IMMEDIATE MEMORY
+                let CognitiveImmediateMemView = TablePageViewController(pageTitles: memPageTitle, labelArray: memCOA, testName: memTestName, instructionPage: nil, instructions: memInstr, next: CognitiveNumBackwardsView, original: self, numTrials: [0, 3], firstPage: true) as TablePageViewController
+                
+                //COGNATIVE ASSESSMENT: ORIENTATION
+                let CognitiveOrientationView = TablePageViewController(pageTitles: orientationTitle, labelArray: orientationCOA, testName: orientationTestName, instructionPage: nil, instructions: orientationInstr, next: CognitiveImmediateMemView, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+                
+                //SYMPTOM EVALUATION
+                let SymptomView = TablePageViewController(pageTitles: sympEvalPageTitles, labelArray: sva, testName: sympEvalTestName, instructionPage: nil, instructions: sympEvalInstr, next: CognitiveOrientationView, original: self, numTrials: nil, firstPage: false) as TablePageViewController
+                
+                self.navigationController?.pushViewController(SymptomView, animated: true)
+                
+                
                 break;
             case 1:
                 let IndividualController = IndividualTableViewController(style: UITableViewStyle.Grouped)
