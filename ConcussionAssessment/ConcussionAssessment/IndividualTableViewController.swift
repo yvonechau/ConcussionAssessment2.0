@@ -205,3 +205,11 @@ func getCogAssOrientationStrings() -> (Array<String>, String, Array<Array<String
     return (pageTitle, testName, coa, instr)
 }
 
+func getSACDelayRecallStrings(pageTitle: [String]) -> (Array<String>, String, Array<Array<String>>, String)
+{
+    let testName = "SAC Delayed Recall"
+    let sac = [[String]](count: pageTitle.count, repeatedValue: ["Correct", "Incorrect"])
+    let instr = "Repeat the following \"Do you remember that list of words I read a few times earlier? Tell me as many words from the list as you can remember in any order.\" Press done when they can no longer remember the rest of the words for the trial"
+    
+    return(pageTitle, testName, sac, instr)
+}
