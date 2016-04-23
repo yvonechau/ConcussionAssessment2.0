@@ -56,13 +56,13 @@ class ListPlayerProfileController: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
-                let PlayerProfileSelection = PlayerProfileViewController() as PlayerProfileViewController
+                let PlayerProfileSelection = PlayerProfileViewController(name: "John Smith", playerID: 12345) as PlayerProfileViewController
                 self.navigationController?.pushViewController(PlayerProfileSelection, animated: true)
             case 1:
-                let PlayerProfileSelection = PlayerProfileViewController() as PlayerProfileViewController
+                let PlayerProfileSelection = PlayerProfileViewController(name: "Jane Doe", playerID: 12345) as PlayerProfileViewController
                 self.navigationController?.pushViewController(PlayerProfileSelection, animated: true)
             case 2:
-                let PlayerProfileSelection = PlayerProfileViewController() as PlayerProfileViewController
+                let PlayerProfileSelection = PlayerProfileViewController(name: "Apple Martin", playerID: 12345) as PlayerProfileViewController
                 self.navigationController?.pushViewController(PlayerProfileSelection, animated: true)
             default:
                 fatalError("Invalid row")

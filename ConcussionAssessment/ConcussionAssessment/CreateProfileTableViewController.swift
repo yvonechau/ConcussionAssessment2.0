@@ -13,11 +13,11 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     let NumberOfSections = 2
     var cellMaxBounds: CGFloat = 0
     var CellDateField: UIDatePicker!
-    let FormArray = [["First", "Last"], ["Gender", "Birthday"]]
+    let FormArray = [["First", "Last"], ["Team", "Gender", "Birthday"]]
     let SectionTitleArray = ["Name", "Details"]
     var newPlayer: [[String]] = []
     var didFinishEditingInformation = 0
-    var textInstructions: UILabel!
+    //var textInstructions: UILabel!
     var tap: UITapGestureRecognizer!
     
     override func viewDidLoad() {
@@ -28,26 +28,14 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         
         self.title = "Create Profile"
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self.finishedEditingProfile))
         self.navigationItem.rightBarButtonItem?.enabled = false;
-        
-        textInstructions = UILabel(frame: CGRect(x: 0, y: self.view.frame.height * 2/3, width: self.view.frame.width, height: 20))
-        textInstructions.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.0)
-        textInstructions.text = "Tap away from the form to complete."
-        textInstructions.textAlignment = .Center
-        self.view.addSubview(textInstructions)
-        
-        tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return NumberOfSections
@@ -64,9 +52,9 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         Cell.contentView.preservesSuperviewLayoutMargins = true
         Cell.CellTextField.delegate = self
         
-        if (indexPath.section == 1 && indexPath.row == 1) {
+        if (indexPath.section == 1 && indexPath.row == 2) {
             Cell.CellTextField.userInteractionEnabled = false
-            cellMaxBounds = 288
+            cellMaxBounds = 330
             setDateField()
         }
         
@@ -83,15 +71,25 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     func textFieldDidEndEditing(textField: UITextField) {
         view.endEditing(true)
         for section in 0...1 {
-            for row in 0...1 {
-                let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
-                let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
-                if Cell.CellTextField.text?.characters.count > 0 {
-                    didFinishEditingInformation += 1
+            if section == 1 {
+                for row in 0...2 {
+                    let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
+                    let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+                    if Cell.CellTextField.text?.characters.count > 0 {
+                        didFinishEditingInformation += 1
+                    }
+                }
+            } else {
+                for row in 0...1 {
+                    let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
+                    let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+                    if Cell.CellTextField.text?.characters.count > 0 {
+                        didFinishEditingInformation += 1
+                    }
                 }
             }
         }
-        if didFinishEditingInformation == 4 {
+        if didFinishEditingInformation == 5 {
             self.navigationItem.rightBarButtonItem?.enabled = true
         } else {
             self.navigationItem.rightBarButtonItem?.enabled = false;
@@ -113,21 +111,59 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     }
     
     func finishedEditingProfile() {
+        var trimmedTeam, trimmedGender, trimmedFirstName, trimmedLastName: String!
+        var birthday: NSDate!
+        var birthdayString: String!
         for section in 0...1 {
-            for row in 0...1 {
-                let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
-                let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
-                print(indexPath)
-                if Cell.CellTextField.text?.characters.count > 0 {
-                    //validate player info, save information
+            if section == 1 {
+                for row in 0...2 {
+                    let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
+                    let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+                    switch(row) {
+                    case 0:
+                        let team = Cell.CellTextField.text!
+                        trimmedTeam = team.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    case 1:
+                        let gender = Cell.CellTextField.text!
+                        trimmedGender = gender.stringByTrimmingCharactersInSet(
+                            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    case 2:
+                        birthdayString = Cell.CellTextField.text!
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateFormat = "MM-dd-yyyy"
+                        birthday = dateFormatter.dateFromString(birthdayString)
+                    default:
+                        fatalError("Invalid row")
+                    }
+                }
+            } else {
+                for row in 0...1 {
+                    let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
+                    let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+                    switch(row) {
+                    case 0:
+                        let firstName = Cell.CellTextField.text!
+                        trimmedFirstName = firstName.stringByTrimmingCharactersInSet(
+                            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    case 1:
+                        let lastName = Cell.CellTextField.text!
+                        trimmedLastName = lastName.stringByTrimmingCharactersInSet(
+                            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    default:
+                        fatalError("Invalid row")
+                    }
                 }
             }
         }
+        
+        print(trimmedFirstName + " " + trimmedLastName + " " + trimmedTeam + " " + trimmedGender + " " + birthdayString)
+        
+        //database.insertNewPlayer(incrementPlayerID, firstName: trimmedFirstName, lastName: trimmedLastName, teamName: trimmedTeam, birthday: birthday!, gender: trimmedGender)
     }
     
     func dateChanged() {
         // handle date changes
-        let indexPath: NSIndexPath = NSIndexPath(forRow: 1, inSection: 1)
+        let indexPath: NSIndexPath = NSIndexPath(forRow: 2, inSection: 1)
         let Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
         
         let dateFormatter = NSDateFormatter()
@@ -181,9 +217,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
 
-    }
-    */
-
+    }*/
 }
 
 class CustomFormCell: UITableViewCell {
