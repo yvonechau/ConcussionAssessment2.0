@@ -26,7 +26,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var rowSelected: NSNumber?
   var currScore: NSNumber?
   var instructions: String
-  var next: TablePageViewController?
+  var next: UIViewController?
   var original: UIViewController?
   var startingViewController : TablePageView?
   var numTrials : [Int]?
@@ -90,7 +90,10 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     {
       if(self.next == nil) //end of test
       {
-        self.navigationController?.popToViewController(self.original!, animated: true)
+        print("What")
+        //self.navigationController?.popToViewController(self.original!, animated: true)
+        let scoreboard = ScoreBoardController(originalPage: self.original!)
+        self.navigationController?.pushViewController(scoreboard, animated: true)
       }
       else if(self.next != nil)
       {
@@ -435,6 +438,10 @@ class TablePageView: UITableViewController
           if(self.pvc!.currentIndex == self.pvc!.pageTitles.count || self.pvc!.pageTitles.count == 1) // end of test
           {
             self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
+            //self.navigationController?.popToRootViewControllerAnimated(true);
+            
+            let scoreboard = ScoreBoardController(originalPage: self.pvc!.original!)
+            self.navigationController?.pushViewController(scoreboard, animated: falseg)
           }
           else // still pages left
           {
