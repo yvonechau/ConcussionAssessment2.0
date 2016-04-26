@@ -61,6 +61,9 @@ class IndividualTableViewController: UITableViewController {
       pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
       pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
       pageControl.backgroundColor = UIColor.darkGrayColor()
+        
+      currentScoreID = NSUUID().UUIDString
+      database.insertNewScore("no player", scoreID: currentScoreID!)
       
       
       switch(indexPath.item) {
@@ -89,6 +92,7 @@ class IndividualTableViewController: UITableViewController {
          *******************************************************************************************/
         case 2:
             let (pageTitles, testName, sva, instr) = getSympEvalStrings()
+            
             
             let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self, numTrials: nil, firstPage: false) as TablePageViewController
             
