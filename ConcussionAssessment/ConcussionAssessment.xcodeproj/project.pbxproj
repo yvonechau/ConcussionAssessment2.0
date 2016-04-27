@@ -18,7 +18,7 @@
 		333B27EA1CB64FC100FE3D64 /* PlayerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3316E59E1CB4F4DF00F25CC6 /* PlayerProfileViewController.swift */; };
 		334E26A11C7D8F28001D04FE /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E26A01C7D8F28001D04FE /* BalanceViewController.swift */; };
 		3384B8111C86023C0048FBD6 /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3384B8101C86023C0048FBD6 /* TestCell.swift */; };
-		33EC93431CCA32AE00C19AE7 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EC93421CCA32AE00C19AE7 /* ProfileCollectionViewCell.swift */; };
+		33EC93451CCEFEDF00C19AE7 /* ProfileCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EC93441CCEFEDE00C19AE7 /* ProfileCollectionViewLayout.swift */; };
 		33ECA3891C7C5F1B00D93FFE /* IndividualTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */; };
 		440403021CB323DB0055366A /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440403011CB323DB0055366A /* MenuController.swift */; };
 		4426239E1C7D79B2003F21BC /* ListPlayerProfilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4426239D1C7D79B2003F21BC /* ListPlayerProfilesController.swift */; };
@@ -56,7 +56,7 @@
 		3316E5A01CB5E83E00F25CC6 /* GuestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestViewController.swift; sourceTree = "<group>"; };
 		334E26A01C7D8F28001D04FE /* BalanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		3384B8101C86023C0048FBD6 /* TestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
-		33EC93421CCA32AE00C19AE7 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		33EC93441CCEFEDE00C19AE7 /* ProfileCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewLayout.swift; sourceTree = "<group>"; };
 		33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndividualTableViewController.swift; sourceTree = "<group>"; };
 		440403011CB323DB0055366A /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		4426239D1C7D79B2003F21BC /* ListPlayerProfilesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlayerProfilesController.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 				440403011CB323DB0055366A /* MenuController.swift */,
 				3316E59C1CB4E4E700F25CC6 /* CreateProfileTableViewController.swift */,
 				3316E59E1CB4F4DF00F25CC6 /* PlayerProfileViewController.swift */,
-				33EC93421CCA32AE00C19AE7 /* ProfileCollectionViewCell.swift */,
+				33EC93441CCEFEDE00C19AE7 /* ProfileCollectionViewLayout.swift */,
 				4489129E1C7BEA2E001D1E7D /* SplashScreenController.swift */,
 				33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */,
 				3316E5A01CB5E83E00F25CC6 /* GuestViewController.swift */,
@@ -243,6 +243,7 @@
 			files = (
 				334E26A11C7D8F28001D04FE /* BalanceViewController.swift in Sources */,
 				440403021CB323DB0055366A /* MenuController.swift in Sources */,
+				33EC93451CCEFEDF00C19AE7 /* ProfileCollectionViewLayout.swift in Sources */,
 				3305DF1B1C7E209000D21F18 /* CognitiveOrientationViewController.swift in Sources */,
 				3316E59D1CB4E4E700F25CC6 /* CreateProfileTableViewController.swift in Sources */,
 				3305DF1D1C7E22DE00D21F18 /* CognitiveImmediateViewController.swift in Sources */,
@@ -258,7 +259,6 @@
 				333B27EA1CB64FC100FE3D64 /* PlayerProfileViewController.swift in Sources */,
 				64C3729E1CB4FE7600D479BF /* TablePageViewController.swift in Sources */,
 				4489129F1C7BEA2E001D1E7D /* SplashScreenController.swift in Sources */,
-				33EC93431CCA32AE00C19AE7 /* ProfileCollectionViewCell.swift in Sources */,
 				4426239E1C7D79B2003F21BC /* ListPlayerProfilesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
