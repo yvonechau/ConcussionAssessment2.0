@@ -19,7 +19,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        numberScoresDisplayed = 9
+        numberScoresDisplayed = 15 + 1
         self.title = name
 
         // Do any additional setup after loading the view.
@@ -31,12 +31,12 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         //PlayerName.lineBreakMode = .ByWordWrapping
         //PlayerName.numberOfLines = 0
         PlayerName.text = self.name
-        PlayerName.font = UIFont(name: "HelveticaNeue", size: 30)
+        PlayerName.font = UIFont.systemFontOfSize(30, weight: UIFontWeightLight)
         PlayerName.textColor = UIColor.blackColor()
         PlayerName.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
         
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        //layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        let layout: ProfileCollectionViewLayout = ProfileCollectionViewLayout()
+        //layout.sectionInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         //layout.itemSize = CGSize(width: Frame.width / 3, height: Frame.width / 3)
         
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
@@ -45,7 +45,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
         self.view.addSubview(collectionView)
-        self.view.addSubview(PlayerName)
+        //self.view.addSubview(PlayerName)
     }
     
     init(name: String, playerID: Int) {
@@ -75,20 +75,29 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let numberOfCols: CGFloat = 3
+        let collectionViewCellSize: CGFloat = (collectionView.frame.width - ((numberOfCols + 1) * 7.5)) / numberOfCols
         if indexPath.row == 0 {
-            return CGSize(width: self.Frame.width - 20, height: 100)
+            return CGSize(width: collectionView.frame.width - 10, height: collectionViewCellSize)
         } else {
-            return CGSize(width: 90, height: 90)
+            return CGSize(width: collectionViewCellSize, height: collectionViewCellSize)
         }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        
-        let cellWidthPadding = collectionView.frame.size.width / 30
-        let cellHeightPadding = collectionView.frame.size.height / 4
+        let cellWidthPadding: CGFloat = 5.0
+        let cellHeightPadding: CGFloat = 5.0
         return UIEdgeInsets(top: cellHeightPadding,left: cellWidthPadding,
                             bottom: cellHeightPadding,right: cellWidthPadding)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacing section: Int) -> CGFloat {
+        return 5.0
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineitemSpacing section: Int) -> CGFloat {
+        return 5.0
     }
     
 }
