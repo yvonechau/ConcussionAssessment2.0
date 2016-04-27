@@ -382,10 +382,12 @@ class TablePageView: UITableViewController
     {
       case "Symptom Evaluation":
         self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
-      
+        print(self.rowSel)
         if self.rowSel == 0
         {
-            self.pvc!.numSelected = Int(self.pvc!.currScore) + 1
+            print("hallo")
+            self.pvc!.numSelected = Int(self.pvc!.numSelected) + Int(1)
+            print(self.pvc!.numSelected)
         }
       
         if self.pvc!.currentIndex == self.pvc!.numPages
