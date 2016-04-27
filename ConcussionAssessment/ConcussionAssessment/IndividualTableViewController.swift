@@ -17,6 +17,8 @@ class IndividualTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.title = "Tests"
+        currentScoreID = NSUUID().UUIDString
+        database.insertNewScore("no player", scoreID: currentScoreID!)
         //self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         
         // let TestMenuTableView = UITableView()
@@ -61,10 +63,6 @@ class IndividualTableViewController: UITableViewController {
       pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
       pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
       pageControl.backgroundColor = UIColor.darkGrayColor()
-        
-      currentScoreID = NSUUID().UUIDString
-      database.insertNewScore("no player", scoreID: currentScoreID!)
-      
       
       switch(indexPath.item) {
         /******************************************************************************************
