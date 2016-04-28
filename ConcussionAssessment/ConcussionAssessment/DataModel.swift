@@ -165,8 +165,26 @@ class DataModel : NSObject {
         return []
     }
     
+    func playerWithID(playerID: String) -> [Player]
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player");
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", playerID);
+        
+        do {
+            let fetchedPlayers = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+            for e in fetchedPlayers {
+                NSLog(e.firstName! + " " + e.lastName!)
+            }
+            return fetchedPlayers
+        } catch {
+            fatalError("Failed to fetch players")
+        }
+        
+        return []
+    }
+    
     // Get all Player Objects that exist
-    func players(name: String) -> [Player] {
+    func fetchPlayers(name: String) -> [Player] {
         let fetchRequest = NSFetchRequest(entityName: "Player");
 
         do {
