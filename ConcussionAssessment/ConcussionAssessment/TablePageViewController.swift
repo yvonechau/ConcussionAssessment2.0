@@ -24,7 +24,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var currentIndex : Int = 0
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
-  
+  var totalRows: Int = 0
+  var donePressed: Bool = false
   var instructions: String
   var next: UIViewController?
   var original: UIViewController?
@@ -84,6 +85,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func doneButtonPressed(sender: UIButton)
   {
+    self.donePressed = true
+    self.setScore()
     if(self.numTrials != nil && self.numTrials![0] < self.numTrials![1] - 1) // increase the current trial it is on when done button is pressed if there are trials
     {
       self.numTrials![0] += 1
@@ -97,7 +100,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     {
       if(self.next == nil) //end of test
       {
-        print("What")
         //self.navigationController?.popToViewController(self.original!, animated: true)
         let scoreboard = ScoreBoardController(originalPage: self.original!)
         self.navigationController?.pushViewController(scoreboard, animated: true)
@@ -107,8 +109,92 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
         self.navigationController?.pushViewController(self.next!, animated: true)
       }
     }
-
+    
   }
+  
+  func setScore()
+  {
+    switch self.testName
+    {
+    case "Symptom Evaluation":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!)
+
+      if self.rowSelected == 0
+      {
+        self.numSelected = Int(self.numSelected) + Int(1)
+      }
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setSeverity(currentScoreID!, score: self.currScore)
+        database.setNumSymptoms(currentScoreID!, score: self.numSelected)
+      }
+    case "Glasgow Coma Scale":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!) + 1
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setGlasgow(currentScoreID!, score: self.currScore)
+      }
+      
+    case "Maddocks Test":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!)
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setMaddocks(currentScoreID!, score: self.currScore)
+      }
+      
+    case "Cognitive Assessment: Orientation":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!)
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setOrientation(currentScoreID!, score: self.currScore)
+      }
+      
+    case "Cognitive Assessment: Immediate Memory": // Need to be checked for trial reboots
+      self.currScore = Int(self.totalRows)
+      if self.donePressed
+      {
+        if database.scoreWithID(currentScoreID!)[0].immediateMemory != nil
+        {
+            database.setImmMemory(currentScoreID!, score: Int(self.currScore) + Int(database.scoreWithID(currentScoreID!)[0].immediateMemory!))
+        }
+        else
+        {
+            database.setImmMemory(currentScoreID!, score: self.currScore)
+        }
+        print("what is going on")
+        print(database.scoreWithID(currentScoreID!)[0].immediateMemory)
+        self.donePressed = false
+      }
+    
+      
+      
+    case "Cognitive Assessment: Digits Backwards":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!)
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setConcentration(currentScoreID!, score: self.currScore)
+      }
+      
+    case "Cognitive Assessment: Months in Reverse Order":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!)
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setConcentration(currentScoreID!, score: self.currScore)
+        
+        //database.setConcentration(currentScoreID!, score: database.getConcentration() + self.pvc!.currScore)
+      }
+      
+    default: print("none")
+    }
+  }
+
+  
 
   
   override func viewDidLoad()
@@ -376,85 +462,12 @@ class TablePageView: UITableViewController
   }
   
   
-  func setScore()
-  {
-    switch self.pvc!.testName
-    {
-      case "Symptom Evaluation":
-        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
-      
-        if self.rowSel == 0
-        {
-            self.pvc!.numSelected = Int(self.pvc!.currScore) + 1
-        }
-      
-        if self.pvc!.currentIndex == self.pvc!.numPages
-        {
-            database.setSeverity(currentScoreID!, score: self.pvc!.currScore)
-            database.setNumSymptoms(currentScoreID!, score: self.pvc!.numSelected)
-        }
-      case "Glasgow Coma Scale":
-        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel) + 1
-        
-        if self.pvc!.currentIndex == self.pvc!.numPages
-        {
-          database.setGlasgow(currentScoreID!, score: self.pvc!.currScore)
-        }
-      
-      case "Maddocks Test":
-        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
-        
-        if self.pvc!.currentIndex == self.pvc!.numPages
-        {
-          database.setMaddocks(currentScoreID!, score: self.pvc!.currScore)
-        }
-      
-      case "Cognitive Assessment: Orientation":
-        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
-        
-        if self.pvc!.currentIndex == self.pvc!.numPages
-        {
-          database.setOrientation(currentScoreID!, score: self.pvc!.currScore)
-        }
-      
-      case "Cognitive Assessment: Immediate Memory":
-        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.totalRowsSelected)
-        
-        if self.pvc!.currentIndex == self.pvc!.numPages
-        {
-
-          database.setImmMemory(currentScoreID!, score: self.pvc!.currScore)
-        }
-      
-    
-      case "Cognitive Assessment: Digits Backwards":
-        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
-        
-        if self.pvc!.currentIndex == self.pvc!.numPages
-        {
-          database.setConcentration(currentScoreID!, score: self.pvc!.currScore)
-        }
-
-      case "Cognitive Assessment: Months in Reverse Order":
-        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
-        
-        if self.pvc!.currentIndex == self.pvc!.numPages
-        {
-          database.setConcentration(currentScoreID!, score: self.pvc!.currScore)
-
-          //database.setConcentration(currentScoreID!, score: database.getConcentration() + self.pvc!.currScore)
-        }
-      
-      default: print("none")
-    }
-  }
-  
-  
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
     rowSel = indexPath.item
+    self.pvc!.rowSelected = rowSel
     self.pvc!.currentIndex += 1 //updates dots
-    self.setScore()
+    self.pvc!.setScore()
 
 
     if(self.pvc!.singlePage) // all words on one page
@@ -477,7 +490,9 @@ class TablePageView: UITableViewController
         }
         
       }
-      self.setScore()
+      
+      self.pvc!.totalRows = self.totalRowsSelected
+      self.pvc!.setScore()
     }
     else
     {
