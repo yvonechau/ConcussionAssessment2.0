@@ -71,7 +71,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
         cell.backgroundColor = UIColor.whiteColor()
-        var textLabel: UILabel = UILabel(frame: CGRect(x: cell.frame.minX, y: cell.frame.minY, width: cell.frame.width, height: cell.frame.height))
+        let textLabel: UILabel = UILabel(frame: CGRect(x: cell.frame.minX, y: cell.frame.minY, width: cell.frame.width, height: cell.frame.height))
         textLabel.font = UIFont.systemFontOfSize(30, weight: UIFontWeightLight)
         textLabel.text = "The box has section " + String(indexPath.section) + " and an item of " + String(indexPath.item)
         cell.addSubview(textLabel)

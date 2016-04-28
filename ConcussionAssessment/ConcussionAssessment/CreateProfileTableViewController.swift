@@ -158,7 +158,13 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         
         print(trimmedFirstName + " " + trimmedLastName + " " + trimmedTeam + " " + trimmedGender + " " + birthdayString)
         
-        //database.insertNewPlayer(incrementPlayerID, firstName: trimmedFirstName, lastName: trimmedLastName, teamName: trimmedTeam, birthday: birthday!, gender: trimmedGender)
+        let currentPlayerID = NSUUID().UUIDString
+        database.insertNewPlayer(currentPlayerID)
+        database.setFirstName(currentPlayerID, name: trimmedFirstName)
+        database.setLastName(currentPlayerID, name: trimmedLastName)
+        database.setBirthday(currentPlayerID, date: birthday)
+        database.setGender(currentPlayerID, gender: trimmedGender)
+        database.setTeamName(currentPlayerID, name: trimmedTeam)
     }
     
     func dateChanged() {
