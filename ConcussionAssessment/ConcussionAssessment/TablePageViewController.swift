@@ -523,7 +523,7 @@ class TablePageView: UITableViewController
           if(self.pvc!.currentIndex == self.pvc!.pageTitles.count || self.pvc!.pageTitles.count == 1) // end of test
           {
             print("End Test")
-            self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
+           // self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
             //self.navigationController?.popToRootViewControllerAnimated(true);
             
             let scoreboard = ScoreBoardController(originalPage: self.pvc!.original!)
