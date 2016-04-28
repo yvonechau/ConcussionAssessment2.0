@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileCollectionViewLayout: UICollectionViewLayout {
+class ProfileCollectionViewLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         
@@ -19,15 +19,21 @@ class ProfileCollectionViewLayout: UICollectionViewLayout {
     }
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        var attr: [UICollectionViewLayoutAttributes] = super.layoutAttributesForElementsInRect(rect)!
+        var attr = super.layoutAttributesForElementsInRect(rect)!
         for i in 1 ..< attr.count {
             let currentLayoutAttributes: UICollectionViewLayoutAttributes = attr[i] 
             let prevLayoutAttributes: UICollectionViewLayoutAttributes = attr[i - 1]
             let maximumSpacing: CGFloat = 5
-            let origin: CGFloat = CGRectGetMaxX(prevLayoutAttributes.frame)
-            if origin + maximumSpacing + currentLayoutAttributes.frame.size.width < self.collectionViewContentSize().width {
+            let originX: CGFloat = CGRectGetMaxX(prevLayoutAttributes.frame)
+            let originY: CGFloat = CGRectGetMaxY(prevLayoutAttributes.frame)
+            if originX + maximumSpacing + currentLayoutAttributes.frame.size.width < self.collectionViewContentSize().width {
                 var frame: CGRect = currentLayoutAttributes.frame
-                frame.origin.x = origin + maximumSpacing
+                frame.origin.x = originX + maximumSpacing
+                currentLayoutAttributes.frame = frame
+            }
+            if originY + maximumSpacing + currentLayoutAttributes.frame.size.height < self.collectionViewContentSize().height {
+                var frame: CGRect = currentLayoutAttributes.frame
+                frame.origin.y = originY + maximumSpacing
                 currentLayoutAttributes.frame = frame
             }
         }

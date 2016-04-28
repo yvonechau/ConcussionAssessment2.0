@@ -31,7 +31,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         //PlayerName.lineBreakMode = .ByWordWrapping
         //PlayerName.numberOfLines = 0
         PlayerName.text = self.name
-        PlayerName.font = UIFont.systemFontOfSize(30, weight: UIFontWeightLight)
+        PlayerName.font = UIFont.systemFontOfSize(60, weight: UIFontWeightLight)
         PlayerName.textColor = UIColor.blackColor()
         PlayerName.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
         
@@ -71,12 +71,16 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
         cell.backgroundColor = UIColor.whiteColor()
+        var textLabel: UILabel = UILabel(frame: CGRect(x: cell.frame.minX, y: cell.frame.minY, width: cell.frame.width, height: cell.frame.height))
+        textLabel.font = UIFont.systemFontOfSize(30, weight: UIFontWeightLight)
+        textLabel.text = "The box has section " + String(indexPath.section) + " and an item of " + String(indexPath.item)
+        cell.addSubview(textLabel)
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let numberOfCols: CGFloat = 3
-        let collectionViewCellSize: CGFloat = (collectionView.frame.width - ((numberOfCols + 1) * 7.5)) / numberOfCols
+        let collectionViewCellSize: CGFloat = (collectionView.frame.width - ((numberOfCols + 1) * 5)) / numberOfCols
         if indexPath.row == 0 {
             return CGSize(width: collectionView.frame.width - 10, height: collectionViewCellSize)
         } else {
