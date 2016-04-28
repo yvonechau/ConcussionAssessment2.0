@@ -144,7 +144,7 @@ func getMaddocksStrings() -> (Array<String>, String, Array<Array<String>>, Strin
     let pageTitles : Array<String> = ["At what venue are we today?", "Which half is it now?", "Who scored last in this match", "What did you play last week?", "Did your team win the last game?"]
     let testName : String = "Maddocks Test"
     
-    let ma : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Correct", "Incorrect"])
+    let ma : [[String]] = [[String]](count: pageTitles.count, repeatedValue: ["Incorrect", "Correct"])
     let instr : String = "Repeat the following: \"I am going to ask you a few questiosn, please listen carefully and give your best efforts\" and record whether responses are correct or incorrect."
     
     return(pageTitles, testName, ma, instr)
@@ -164,7 +164,7 @@ func getSympEvalStrings() -> (Array<String>, String, Array<Array<String>>, Strin
 func getCogAssMonthStrings() -> (Array<String>, String, Array<Array<String>>, String)
 {
     let pageTitle: [String] = ["Dec-Nov-Oct-Sept-Aug-Jul-Jun-May-Apr-Mar-Feb-Jan"]
-    let coa = [[String]](count: pageTitle.count, repeatedValue: ["Correct", "Incorrect"])
+    let coa = [[String]](count: pageTitle.count, repeatedValue: ["Incorrect", "Correct"])
     let testName : String = "Cognitive Assessment: Months in Reverse Order"
     let instr : String = "Repeat the following: \"Now tell me the months of the year in reverse order. Start with the last month and go backwards. So you'll say December, November... Go ahead.\""
     
@@ -177,7 +177,7 @@ func getCogAssNumStrings() -> (Array<String>, String, Array<Array<String>>, Stri
     let numMemSetList: [[String]] = [["4-9-3", "3-8-1-4", "6-2-9-7-1", "7-1-8-4-6-2"], ["6-2-9", "3-2-7-9", "1-5-2-8-6", "5-3-9-1-4-8"], ["5-2-6", "1-7-9-5", "3-8-5-2-7", "8-3-1-8-6-4"], ["4-1-5", "4-9-6-8", "6-1-8-4-3", "7-2-4-8-5-7"]]
     
     let pageTitle: [String] = numMemSetList[Int(arc4random() % UInt32(numMemSetList.count))]
-    let coa = [[String]](count: numMemSetList.count, repeatedValue: ["Correct", "Incorrect"])
+    let coa = [[String]](count: numMemSetList.count, repeatedValue: ["Incorrect", "Correct"])
     let testName = "Cognitive Assessment: Digits Backwards"
     let instr : String = "Repeat the following \"I am going to read you a string of numbers and when I am done, you repeat them back to me backwards, in reverse order of how I read them to you. For example, if I say 7-1-9, you would say 9-1-7.\"\n If correct go to next string length, if incorrect, read trial 2. Stop after incorrect on both trials. The digits should be read at rate of one per second."
     
@@ -189,7 +189,7 @@ func getCogAssImmediateStrings() -> (Array<String>, String, Array<Array<String>>
     let memSetList : [[String]] = [["elbow", "apple", "carpet", "saddle", "bubble"], ["candle", "paper", "sugar", "sandwich", "wagon"], ["baby", "monkey", "perfume", "sunset", "iron"], ["finger", "penny", "blanket", "lemon", "insect"]]
     
     let pageTitle: [String] = memSetList[Int(arc4random() % UInt32(memSetList.count))]
-    let coa = [[String]](count: pageTitle.count, repeatedValue: ["Correct", "Incorrect"])
+    let coa = [[String]](count: pageTitle.count, repeatedValue: ["Incorrect", "Correct"])
     let testName = "Cognitive Assessment: Immediate Memory"
     let instr = "Repeat the following \"I am going to test your memory. I will read  you a list of words and when I am done, repeat back as many words as you can remember in any order.\"\n Complete all 3 trials regardless of score on trial 1 & 2. Read the words at a rate of one per second. Do not inform the individual that delayed recall will be tested. Press done when they can no longer remember the rest of the words for each trial."
     
@@ -199,7 +199,7 @@ func getCogAssImmediateStrings() -> (Array<String>, String, Array<Array<String>>
 func getCogAssOrientationStrings() -> (Array<String>, String, Array<Array<String>>, String)
 {
     let pageTitle : [String] = ["What month is it?", "What is the date?", "What is the day of the week?", "What year is it?", "What time is it right now? (Within 1 hour)"]
-    let coa = [[String]](count: pageTitle.count, repeatedValue: ["Correct", "Incorrect"])
+    let coa = [[String]](count: pageTitle.count, repeatedValue: ["Incorrect", "Correct"])
     let testName = "Cognitive Assessment: Orientation"
     let instr  = "Record whether responses are correct or incorrect."
     
@@ -209,7 +209,7 @@ func getCogAssOrientationStrings() -> (Array<String>, String, Array<Array<String
 func getSACDelayRecallStrings(pageTitle: [String]) -> (Array<String>, String, Array<Array<String>>, String)
 {
     let testName = "SAC Delayed Recall"
-    let sac = [[String]](count: pageTitle.count, repeatedValue: ["Correct", "Incorrect"])
+    let sac = [[String]](count: pageTitle.count, repeatedValue: ["Incorrect", "Correct"])
     let instr = "Repeat the following \"Do you remember that list of words I read a few times earlier? Tell me as many words from the list as you can remember in any order.\" Press done when they can no longer remember the rest of the words for the trial"
     
     return(pageTitle, testName, sac, instr)
