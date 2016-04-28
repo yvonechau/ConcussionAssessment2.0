@@ -54,8 +54,9 @@ class DataModel : NSObject {
     }
     
     // create a Player Object and save it
-    func insertNewPlayer(firstName: String, lastName: String, birthday: NSDate, gender: String) {
+    func insertNewPlayer(playerID: String, firstName: String, lastName: String, birthday: NSDate, gender: String) {
         let player = NSEntityDescription.insertNewObjectForEntityForName("Player", inManagedObjectContext: managedObjectContext) as! Player
+        player.playerID  = playerID
         player.firstName = firstName
         player.lastName  = lastName
         //player.teamName  = teamName
@@ -73,11 +74,29 @@ class DataModel : NSObject {
     }
     
     // create a Score Object and save it
-    func insertNewScore(playerID: NSNumber, scoreID: NSNumber) {
+    func insertNewScore(playerID: String, scoreID: String) {
         let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
         //score.playerID = playerID
         //score.scoreID  = NSUUID().UUIDString
         score.date     = NSDate()
+        score.scoreID  = scoreID
+        score.playerID = playerID
+        
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+        
+    }
+    
+    func insertNewScoreNoPlayer(scoreID: String) {
+        let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
+        //score.playerID = playerID
+        //score.scoreID  = NSUUID().UUIDString
+        score.date     = NSDate()
+        score.scoreID  = scoreID
         
         
         do {

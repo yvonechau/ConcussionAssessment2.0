@@ -48,6 +48,7 @@ class GuestViewController: UITableViewController {
             switch(indexPath.row) {
             case 0:
                 currentScoreID = NSUUID().UUIDString
+                database.insertNewScore("no player", scoreID: currentScoreID!)
                 
                 let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
                 let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
@@ -77,11 +78,9 @@ class GuestViewController: UITableViewController {
                 
                 self.navigationController?.pushViewController(SymptomView, animated: true)
                 
-                
                 break;
             case 1:
                 let IndividualController = IndividualTableViewController(style: UITableViewStyle.Grouped)
-                currentScoreID = NSUUID().UUIDString
                 //commented out because i commented out this function
                 //database.insertNewScoreWithoutPlayer(currentScoreID!)
                 self.navigationController?.pushViewController(IndividualController, animated: true)

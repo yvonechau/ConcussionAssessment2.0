@@ -12,8 +12,8 @@ import CoreData
 class Score : NSManagedObject {
     // Define relationship with Player? 
     // Player -HAS A- Score
-    //@NSManaged var playerID: NSNumber?
-    //@NSManaged var scoreID:  NSNumber?
+    @NSManaged var playerID: String?
+    @NSManaged var scoreID:  String?
     
     
     @NSManaged var numSymptoms: NSNumber?     // 22
