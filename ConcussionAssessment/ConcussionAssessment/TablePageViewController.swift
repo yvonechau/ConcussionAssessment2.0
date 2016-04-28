@@ -499,7 +499,7 @@ class TablePageView: UITableViewController
 
         if(self.pvc!.numTrials != nil) //no all rows, but has trials
         {
-          if(indexPath.item == 1) // incorrect
+          if(indexPath.item == 0) // incorrect
           {
             
             if(self.pvc!.numTrials![1] == 2) // if the number of trials increased to two
@@ -517,6 +517,7 @@ class TablePageView: UITableViewController
             }
           }
          }
+
         if(self.pvc!.next == nil) //single test or end of sequence of test
         {
           if(self.pvc!.currentIndex == self.pvc!.pageTitles.count || self.pvc!.pageTitles.count == 1) // end of test
