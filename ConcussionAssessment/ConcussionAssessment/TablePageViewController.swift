@@ -165,7 +165,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
         {
             database.setImmMemory(currentScoreID!, score: self.currScore)
         }
-       
         print(database.scoreWithID(currentScoreID!)[0].immediateMemory)
         self.donePressed = false
       }
