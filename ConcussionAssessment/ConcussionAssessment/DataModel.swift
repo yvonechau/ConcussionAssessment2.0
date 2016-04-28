@@ -184,7 +184,7 @@ class DataModel : NSObject {
     }
     
     // Get all Player Objects that exist
-    func fetchPlayers(name: String) -> [Player] {
+    func fetchPlayers() -> [Player] {
         let fetchRequest = NSFetchRequest(entityName: "Player");
 
         do {
