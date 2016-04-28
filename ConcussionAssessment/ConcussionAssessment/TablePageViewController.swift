@@ -165,12 +165,10 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
         {
             database.setImmMemory(currentScoreID!, score: self.currScore)
         }
-        print("what is going on")
+       
         print(database.scoreWithID(currentScoreID!)[0].immediateMemory)
         self.donePressed = false
       }
-    
-      
       
     case "Cognitive Assessment: Digits Backwards":
       self.currScore = Int(self.currScore) + Int(self.rowSelected!)
@@ -189,9 +187,18 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
         
         //database.setConcentration(currentScoreID!, score: database.getConcentration() + self.pvc!.currScore)
       }
+    case "SAC Delayed Recall": // Need to be checked for trial reboots
+      self.currScore = Int(self.totalRows)
+      if self.donePressed
+      {
+        database.setSACTotal(currentScoreID!, score: self.currScore)
+       
+        self.donePressed = false
+      }
       
     default: print("none")
     }
+    
   }
 
   
