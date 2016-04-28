@@ -24,15 +24,19 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   var currentIndex : Int = 0
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
-  var currScore: NSNumber?
+  
   var instructions: String
   var next: TablePageViewController?
   var original: UIViewController?
   var startingViewController : TablePageView?
   var numTrials : [Int]?
-  var firstPage: BooleanType
+  var singlePage: BooleanType
   
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, firstPage: BooleanType)
+  var numPages: Int
+  var numSelected: NSNumber
+  var currScore: NSNumber
+  
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType)
   {
     self.pageTitles = pageTitles
     self.labelArray = labelArray
@@ -42,7 +46,10 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     self.next = next
     self.original = original!
     self.numTrials = numTrials
-    self.firstPage = firstPage
+    self.singlePage = singlePage
+    self.numPages = 0
+    self.numSelected = 0
+    self.currScore = 0
     super.init(nibName:nil, bundle:nil)
   }
   
@@ -164,7 +171,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     let infoModalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
     
     
-    if(self.firstPage)
+    if(self.singlePage)
     {
       let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TablePageViewController.doneButtonPressed(_:)))
       self.navigationItem.rightBarButtonItems = [doneButton, infoModalButton!]
@@ -191,13 +198,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     }
     index -= 1
     
-    self.rowSelected = (viewController as! TablePageView).rowSel
-    currScore = self.rowSelected
-    //print(currScore)
-    
-    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
-    
-    // UNDO VALUE HERE
     return viewControllerAtIndex(index)
   }
   
@@ -217,17 +217,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     {
       return nil
     }
-    
-    // SAVE VALUE HERE
-    //currentScore!.numSymptoms = //SAVE AS AN NSNUMBER
-    
-    
-    rowSelected = (viewController as! TablePageView).rowSel
-    currScore = rowSelected
-    //print(currScore)
-    //print("forward")
-    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
-    
     currentIndex = index
     
     return viewControllerAtIndex(index)
@@ -249,24 +238,25 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int
   {
-    if self.firstPage
+    if self.singlePage
     {
       if self.numTrials != nil
       {
-        return self.numTrials![1]
+        self.numPages = self.numTrials![1]
       }
       else
       {
         print("here")
-        return 1
+        self.numPages = 1
       }
       
     }
     else
     {
-      return self.pageTitles.count
+      self.numPages = self.pageTitles.count
 
     }
+    return self.numPages
     
   }
   
@@ -318,7 +308,7 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
   {
-    if(self.pvc!.firstPage)
+    if(self.pvc!.singlePage)
     {
       if(self.pvc!.numTrials != nil)
       {
@@ -345,7 +335,7 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    if(self.pvc!.firstPage)
+    if(self.pvc!.singlePage)
     {
      return self.pvc!.pageTitles.count
     }
@@ -362,7 +352,7 @@ class TablePageView: UITableViewController
 
     Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
     
-    if(self.pvc!.firstPage)
+    if(self.pvc!.singlePage)
     {
       
       if(!checked[indexPath.row])
@@ -382,12 +372,89 @@ class TablePageView: UITableViewController
     return Cell
   }
   
+  
+  func setScore()
+  {
+    switch self.pvc!.testName
+    {
+      case "Symptom Evaluation":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
+      
+        if self.rowSel == 0
+        {
+            self.pvc!.numSelected = Int(self.pvc!.currScore) + 1
+        }
+      
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+            database.setSeverity(currentScoreID!, score: self.pvc!.currScore)
+            database.setNumSymptoms(currentScoreID!, score: self.pvc!.numSelected)
+        }
+      case "Glasgow Coma Scale":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel) + 1
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+          database.setGlasgow(currentScoreID!, score: self.pvc!.currScore)
+        }
+      
+      case "Maddocks Test":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+          database.setMaddocks(currentScoreID!, score: self.pvc!.currScore)
+        }
+      
+      case "Cognitive Assessment: Orientation":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+          database.setOrientation(currentScoreID!, score: self.pvc!.currScore)
+        }
+      
+      case "Cognitive Assessment: Immediate Memory":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.totalRowsSelected)
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+
+          database.setImmMemory(currentScoreID!, score: self.pvc!.currScore)
+        }
+      
+    
+      case "Cognitive Assessment: Digits Backwards":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+          database.setConcentration(currentScoreID!, score: self.pvc!.currScore)
+        }
+
+      case "Cognitive Assessment: Months in Reverse Order":
+        self.pvc!.currScore = Int(self.pvc!.currScore) + Int(self.rowSel)
+        
+        if self.pvc!.currentIndex == self.pvc!.numPages
+        {
+          database.setConcentration(currentScoreID!, score: self.pvc!.currScore)
+
+          //database.setConcentration(currentScoreID!, score: database.getConcentration() + self.pvc!.currScore)
+        }
+      
+      default: print("none")
+    }
+  }
+  
+  
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
     rowSel = indexPath.item
     self.pvc!.currentIndex += 1 //updates dots
+    self.setScore()
 
-    if(self.pvc!.firstPage) // all words on one page
+
+    if(self.pvc!.singlePage) // all words on one page
     {
       if let cell = tableView.cellForRowAtIndexPath(indexPath) // for toggling checkmarks
       {
@@ -407,9 +474,11 @@ class TablePageView: UITableViewController
         }
         
       }
+      self.setScore()
     }
     else
     {
+
         if(self.pvc!.numTrials != nil) //no all rows, but has trials
         {
           if(indexPath.item == 1) // incorrect
@@ -459,7 +528,6 @@ class TablePageView: UITableViewController
           }
           
         }
-      
     }
   }
 }
