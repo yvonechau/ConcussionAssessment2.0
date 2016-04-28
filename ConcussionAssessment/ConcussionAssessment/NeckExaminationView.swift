@@ -28,7 +28,8 @@ class NeckExamView: TablePageView, UIPickerViewDataSource, UIPickerViewDelegate
   
   required init?(coder aDecoder: NSCoder)
   {
-    <#code#>
+    fatalError("init(coder:) has not been implemented")
+
   }
   
   override func viewDidLoad()
