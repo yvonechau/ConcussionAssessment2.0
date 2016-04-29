@@ -6,7 +6,7 @@
 //  Copyright © 2016 PYKS. All rights reserved.
 //
 
-import Foundation 
+import Foundation
 import UIKit
 
 class ListPlayerProfileController: UITableViewController {
@@ -45,12 +45,12 @@ class ListPlayerProfileController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
         case 0: return 3    // section 0 has 2 rows
-            //case 1: return 1    // section 1 has 1 row
+        //case 1: return 1    // section 1 has 1 row
         default: fatalError("Unknown number of sections")
         }
     }
     
-
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {    // Return the row for the corresponding section and row
         switch(indexPath.section) {
         case 0:
@@ -84,5 +84,4 @@ class ListPlayerProfileController: UITableViewController {
         }
     }
 }
-
 

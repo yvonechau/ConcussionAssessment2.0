@@ -1,4 +1,4 @@
-//
+    //
 //  AppDelegate.swift
 //  ConcussionAssessment
 //
@@ -60,11 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
-        /*
-        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("ConcussionAssessment", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
-        */
+//        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+//        let modelURL = NSBundle.mainBundle().URLForResource("ConcussionAssessment", withExtension: "momd")!
+//        return NSManagedObjectModel(contentsOfURL: modelURL)!
         
         // Create an entity description for Score, based on the class <ProjectName>.<ClassName>
         let scoreDescription = NSEntityDescription()
@@ -144,11 +142,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         attrTeamName.name = "teamName"
         attrTeamName.attributeType = NSAttributeType.StringAttributeType;
         
-        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName]
+        
+        let attrBirthday = NSAttributeDescription()
+        attrBirthday.name = "birthday"
+        attrBirthday.attributeType = NSAttributeType.DateAttributeType;
+        
+        let attrGender = NSAttributeDescription()
+        attrGender.name = "gender"
+        attrGender.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrDateCreated = NSAttributeDescription()
+        attrDateCreated.name = "dateCreated"
+        attrDateCreated.attributeType = NSAttributeType.DateAttributeType;
+
+        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated]
         
         // Create the model and set the entity description(s)
         var model = NSManagedObjectModel()
-        model.entities = [scoreDescription]
+        //model.entities = [scoreDescription]
+        model.entities = [playerDescription]
         
         return model
     }()
