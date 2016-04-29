@@ -165,6 +165,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         database.setBirthday(currentPlayerID, date: birthday)
         database.setGender(currentPlayerID, gender: trimmedGender)
         database.setTeamName(currentPlayerID, name: trimmedTeam)
+        
+        print(database.playerWithID(currentPlayerID))
     }
     
     func dateChanged() {
