@@ -66,7 +66,21 @@ class DataModel : NSObject {
         components.month = dateComponents.month
         components.day = dateComponents.day
         player.dateCreated = calendar.dateFromComponents(components)
+        
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Player Object")
+        }
+    }
     
+    // create new Player Object without info
+    func insertNewPlayer(playerID: String)
+    {
+        let player = NSEntityDescription.insertNewObjectForEntityForName("Player", inManagedObjectContext: managedObjectContext) as! Player
+        player.playerID = playerID
+        player.dateCreated = NSDate()
         
         do {
             try self.managedObjectContext.save()
@@ -89,6 +103,22 @@ class DataModel : NSObject {
         components.month = dateComponents.month
         components.day = dateComponents.day
         score.date = calendar.dateFromComponents(components)
+        
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+        
+    }
+    
+    func insertNewScoreNoPlayer(scoreID: String) {
+        let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
+        //score.playerID = playerID
+        //score.scoreID  = NSUUID().UUIDString
+        score.date     = NSDate()
+        score.scoreID  = scoreID
         
         
         do {
@@ -143,8 +173,26 @@ class DataModel : NSObject {
         return []
     }
     
+    func playerWithID(playerID: String) -> [Player]
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player");
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", playerID);
+        
+        do {
+            let fetchedPlayers = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+            for e in fetchedPlayers {
+                NSLog(e.firstName! + " " + e.lastName!)
+            }
+            return fetchedPlayers
+        } catch {
+            fatalError("Failed to fetch players")
+        }
+        
+        return []
+    }
+    
     // Get all Player Objects that exist
-    func players(name: String) -> [Player] {
+    func fetchPlayers() -> [Player] {
         let fetchRequest = NSFetchRequest(entityName: "Player");
 
         do {
@@ -350,6 +398,113 @@ class DataModel : NSObject {
             fatalError("Cannot create Score Object with playerID")
         }
     }
+    
+    func setFirstName(id: String, name: String)
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        var fetchPlayer: [Player]
+        
+        do {
+            fetchPlayer = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+        } catch {
+            fatalError("Failed to get Player")
+        }
+        
+        fetchPlayer[0].firstName = name
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot save first name with playerID")
+        }
+    }
+    
+    func setLastName(id: String, name: String)
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        var fetchPlayer: [Player]
+        
+        do {
+            fetchPlayer = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+        } catch {
+            fatalError("Failed to get Player")
+        }
+        
+        fetchPlayer[0].lastName = name
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot save first name with playerID")
+        }
+    }
+    
+    func setBirthday(id: String, date: NSDate)
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        var fetchPlayer: [Player]
+        
+        do {
+            fetchPlayer = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+        } catch {
+            fatalError("Failed to get Player")
+        }
+        
+        fetchPlayer[0].birthday = date
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot save first name with playerID")
+        }
+    }
+    
+    func setGender(id: String, gender: String)
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        var fetchPlayer: [Player]
+        
+        do {
+            fetchPlayer = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+        } catch {
+            fatalError("Failed to get Player")
+        }
+        
+        fetchPlayer[0].gender = gender
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot save first name with playerID")
+        }
+    }
+    
+
+    func setTeamName(id: String, name: String)
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        var fetchPlayer: [Player]
+        
+        do {
+            fetchPlayer = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+        } catch {
+            fatalError("Failed to get Player")
+        }
+        
+        fetchPlayer[0].teamName = name
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot save first name with playerID")
+        }
+    }
+    
     /*
     // create an Score Object and save it
     func insertNewScore() {
