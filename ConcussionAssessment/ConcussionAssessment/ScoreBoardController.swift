@@ -54,7 +54,7 @@ class ScoreBoardController : UIViewController
         
     
         var total: Int = 0
-        for i in 0...5
+        for i in 2...5
         {
             if let str = scoreResults[i]{
                 total += Int(str)!
