@@ -48,9 +48,6 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         collectionView.registerClass(LabelCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = UIColor.groupTableViewBackgroundColor()
         
-        self.navigationController!.navigationBar.barTintColor = UIColor(rgb: 0x002855)
-        self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         let infoButton: UIButton = UIButton(type: .InfoLight)
         infoButton.addTarget(self, action: #selector(self.infoButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
