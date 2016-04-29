@@ -42,10 +42,9 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.registerClass(LabelCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
         self.view.addSubview(collectionView)
-        //self.view.addSubview(PlayerName)
     }
     
     init(name: String, playerID: Int) {
@@ -69,12 +68,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
-        cell.backgroundColor = UIColor.whiteColor()
-        let textLabel: UILabel = UILabel(frame: CGRect(x: cell.frame.minX, y: cell.frame.minY, width: cell.frame.width, height: cell.frame.height))
-        textLabel.font = UIFont.systemFontOfSize(30, weight: UIFontWeightLight)
-        textLabel.text = "The box has section " + String(indexPath.section) + " and an item of " + String(indexPath.item)
-        cell.addSubview(textLabel)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! LabelCell
+        cell.setCellText("Text")
         return cell
     }
     
@@ -103,5 +98,28 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineitemSpacing section: Int) -> CGFloat {
         return 5.0
     }
-    
+ 
+    private class LabelCell : UICollectionViewCell {
+        var label : UILabel;
+        
+        override init(frame: CGRect) {
+            label = UILabel(frame: frame);
+            
+            super.init(frame: frame)
+            
+            label.font = UIFont.systemFontOfSize(30, weight: UIFontWeightLight)
+            label.frame = self.contentView.bounds
+            self.backgroundColor = UIColor.whiteColor()
+            self.contentView.addSubview(label)
+        }
+        
+        func setCellText(cellText : String) {
+            label.text = cellText
+        }
+
+        required init?(coder aDecoder: NSCoder) {
+            // don't support encoding
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
 }
