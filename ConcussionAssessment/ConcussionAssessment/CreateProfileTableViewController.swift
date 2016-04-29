@@ -238,7 +238,7 @@ class CustomFormCell: UITableViewCell {
         CellTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
         CellTextField.autocorrectionType = UITextAutocorrectionType.No
         CellTextField?.placeholder = title
-        addSubview(CellTextField)
+        self.contentView.addSubview(CellTextField)
     }
     
     required init?(coder aDecoder: NSCoder) {

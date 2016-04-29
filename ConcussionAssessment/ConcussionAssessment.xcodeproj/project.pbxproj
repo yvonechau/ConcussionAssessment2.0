@@ -16,6 +16,7 @@
 		3316E5A11CB5E83E00F25CC6 /* GuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3316E5A01CB5E83E00F25CC6 /* GuestViewController.swift */; };
 		333B27EA1CB64FC100FE3D64 /* PlayerProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3316E59E1CB4F4DF00F25CC6 /* PlayerProfileViewController.swift */; };
 		334E26A11C7D8F28001D04FE /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334E26A01C7D8F28001D04FE /* BalanceViewController.swift */; };
+		335B53E41CD341FF00C0BB36 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335B53E31CD341FF00C0BB36 /* UIColorExtensions.swift */; };
 		3384B8111C86023C0048FBD6 /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3384B8101C86023C0048FBD6 /* TestCell.swift */; };
 		33ECA3891C7C5F1B00D93FFE /* IndividualTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */; };
 		440403021CB323DB0055366A /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440403011CB323DB0055366A /* MenuController.swift */; };
@@ -52,6 +53,7 @@
 		3316E59E1CB4F4DF00F25CC6 /* PlayerProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerProfileViewController.swift; sourceTree = "<group>"; };
 		3316E5A01CB5E83E00F25CC6 /* GuestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuestViewController.swift; sourceTree = "<group>"; };
 		334E26A01C7D8F28001D04FE /* BalanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
+		335B53E31CD341FF00C0BB36 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		3384B8101C86023C0048FBD6 /* TestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
 		33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndividualTableViewController.swift; sourceTree = "<group>"; };
 		440403011CB323DB0055366A /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				440403011CB323DB0055366A /* MenuController.swift */,
 				3316E59C1CB4E4E700F25CC6 /* CreateProfileTableViewController.swift */,
 				3316E59E1CB4F4DF00F25CC6 /* PlayerProfileViewController.swift */,
+				335B53E31CD341FF00C0BB36 /* UIColorExtensions.swift */,
 				4489129E1C7BEA2E001D1E7D /* SplashScreenController.swift */,
 				33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */,
 				3316E5A01CB5E83E00F25CC6 /* GuestViewController.swift */,
@@ -244,6 +247,7 @@
 				44DB2AF11C851A81007B8D8F /* Player.swift in Sources */,
 				3384B8111C86023C0048FBD6 /* TestCell.swift in Sources */,
 				442623A21C7E462B003F21BC /* ScoreBoardController.swift in Sources */,
+				335B53E41CD341FF00C0BB36 /* UIColorExtensions.swift in Sources */,
 				442623A41C7FE3DE003F21BC /* DataModel.swift in Sources */,
 				44DB2AEF1C851A63007B8D8F /* Score.swift in Sources */,
 				3309A5FC1C76750C00EC3795 /* AppDelegate.swift in Sources */,
