@@ -22,7 +22,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        numberScoresDisplayed = 24
+        numberScoresDisplayed = 21
         self.title = name
 
         // Do any additional setup after loading the view.
