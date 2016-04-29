@@ -15,6 +15,7 @@ var database: DataModel = DataModel(persistentStoreCoordinator: appDelegate.pers
 var currentScoreID: String?
 var currentPlayerID: String?
 
+
 class SplashScreenController: UITableViewController {
     
     var performEvaluation: UITableViewCell = UITableViewCell()
