@@ -16,6 +16,9 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     var playerID: Int!
     let Frame = UIScreen.mainScreen().bounds
     
+    let numberOfColumns = 3
+    let innerSpacing: CGFloat = 2
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,9 +38,9 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         PlayerName.textColor = UIColor.blackColor()
         PlayerName.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
         
-        let layout: ProfileCollectionViewLayout = ProfileCollectionViewLayout()
-        //layout.sectionInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
-        //layout.itemSize = CGSize(width: Frame.width / 3, height: Frame.width / 3)
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0;
+        layout.minimumLineSpacing = innerSpacing * 2;
         
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView.dataSource = self
@@ -74,29 +77,9 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let numberOfCols: CGFloat = 3
-        let collectionViewCellSize: CGFloat = (collectionView.frame.width - ((numberOfCols + 1) * 5)) / numberOfCols
-        if indexPath.row == 0 {
-            return CGSize(width: collectionView.frame.width - 10, height: collectionViewCellSize)
-        } else {
-            return CGSize(width: collectionViewCellSize, height: collectionViewCellSize)
-        }
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        let cellWidthPadding: CGFloat = 5.0
-        let cellHeightPadding: CGFloat = 5.0
-        return UIEdgeInsets(top: cellHeightPadding,left: cellWidthPadding,
-                            bottom: cellHeightPadding,right: cellWidthPadding)
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacing section: Int) -> CGFloat {
-        return 5.0
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineitemSpacing section: Int) -> CGFloat {
-        return 5.0
+        let squareDims = (collectionView.bounds.size.width - CGFloat(numberOfColumns + 1) * innerSpacing) / CGFloat(numberOfColumns)
+        
+        return CGSize(width: squareDims, height: squareDims)
     }
  
     private class LabelCell : UICollectionViewCell {
