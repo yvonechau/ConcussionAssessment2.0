@@ -242,6 +242,55 @@ class DataModel : NSObject {
         
         return []
     }
+    
+    // Get all Score Data Members as a String Array with specific ScoreID
+    func scoreStringArray(id: String) -> ([String], [String?])
+    {
+        let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score"]
+        var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
+        
+        var score = scoreWithID(id)
+        let currentScore = score[0]
+        
+        scoreResults[0] = (currentScore.numSymptoms)?.stringValue
+        scoreResults[1] = (currentScore.severity)?.stringValue
+        scoreResults[2] = (currentScore.orientation)?.stringValue
+        scoreResults[3] = (currentScore.immediateMemory)?.stringValue
+        scoreResults[4] = (currentScore.concentration)?.stringValue
+        scoreResults[5] = (currentScore.delayedRecall)?.stringValue
+        
+        var total: Int = 0
+        for i in 2...5
+        {
+            if let str = scoreResults[i]{
+                total += Int(str)!
+            }
+        }
+        
+        scoreResults[6] = String(total)
+        
+        scoreResults[7] = (currentScore.maddocks)?.stringValue
+        scoreResults[8] = (currentScore.glasgow)?.stringValue
+        
+        return (scoreTitle, scoreResults)
+        
+        /*
+        Use this for scoreResults:
+         if scoreResults[i] is nil then print untested
+         
+        if let str = scoreResults[index] {
+            score.text = str
+        } else {
+            score.text = "Untested"
+        }
+         
+        to call: 
+        
+        let (scoreTitles, scoreResults) = database.scoreStringArray( < ID > )
+        
+        */
+        
+    }
 
     func setNumSymptoms(id: String, score: NSNumber) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
