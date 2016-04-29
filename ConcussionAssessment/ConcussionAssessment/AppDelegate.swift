@@ -72,11 +72,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Create the three attributes defined by Employee: firstName, lastName, and location
         let attrPlayerID = NSAttributeDescription()
         attrPlayerID.name = "playerID"
-        attrPlayerID.attributeType = NSAttributeType.Integer64AttributeType;
+        attrPlayerID.attributeType = NSAttributeType.StringAttributeType;
         
         let attrScoreID = NSAttributeDescription()
         attrScoreID.name = "scoreID"
-        attrScoreID.attributeType = NSAttributeType.Integer64AttributeType;
+        attrScoreID.attributeType = NSAttributeType.StringAttributeType;
         
         let attrNumSymptoms = NSAttributeDescription()
         attrNumSymptoms.name = "numSymptoms"
@@ -128,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let attrPlayerID1 = NSAttributeDescription()
         attrPlayerID1.name = "playerID"
-        attrPlayerID1.attributeType = NSAttributeType.Integer64AttributeType;
+        attrPlayerID1.attributeType = NSAttributeType.StringAttributeType;
         
         let attrFirstName = NSAttributeDescription()
         attrFirstName.name = "firstName"

@@ -48,7 +48,7 @@ class DataModel : NSObject {
     }
     
     // create a Player Object and save it
-    func insertNewPlayer(playerID: NSNumber, firstName: String, lastName: String, teamName: String, birthday: NSDate, gender: String) {
+    func insertNewPlayer(playerID: String, firstName: String, lastName: String, teamName: String, birthday: NSDate, gender: String) {
         let player = NSEntityDescription.insertNewObjectForEntityForName("Player", inManagedObjectContext: managedObjectContext) as! Player
         
         player.playerID = playerID
@@ -76,7 +76,7 @@ class DataModel : NSObject {
     }
     
     // create a Score Object and save it
-    func insertNewScore(playerID: NSNumber, scoreID: NSNumber) {
+    func insertNewScore(playerID: String, scoreID: String) {
         let score = NSEntityDescription.insertNewObjectForEntityForName("Score", inManagedObjectContext: managedObjectContext) as! Score
         score.playerID = playerID
         score.scoreID  = scoreID
@@ -309,7 +309,7 @@ class DataModel : NSObject {
         }
     }
     
-    func setSACTotal(id: String, score: NSNumber) {
+    func setSACTotal(id: NSNumber, score: NSNumber) {
         
     }
     
