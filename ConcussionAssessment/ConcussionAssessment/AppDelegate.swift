@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let splashScreenController = SplashScreenController()
         let navController = UINavigationController(rootViewController: splashScreenController)
         
+        navController.navigationBar.barTintColor = UIColor(rgb: 0x002855)
+        navController.navigationBar.tintColor = UIColor.whiteColor()
+        navController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.rootViewController = navController
         self.window?.makeKeyAndVisible()
