@@ -75,7 +75,7 @@ class SplashScreenController: UITableViewController {
                 self.navigationController?.pushViewController(mc, animated:true)
                 break;
             case 1:
-                let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped)
+                let lpp = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "List")
                 self.navigationController?.pushViewController(lpp, animated:true)
                 break;
             default:
