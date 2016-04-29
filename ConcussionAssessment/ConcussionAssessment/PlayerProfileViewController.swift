@@ -13,7 +13,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     var collectionView: UICollectionView!
     var numberScoresDisplayed: Int!
     var name: String!
-    var playerID: Int!
+    var playerID: String!
     let Frame = UIScreen.mainScreen().bounds
     
     var innerSpacing: CGFloat
@@ -57,7 +57,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         self.view.addSubview(collectionView)
     }
     
-    init(name: String, playerID: Int) {
+    init(name: String, playerID: String) {
         switch UIDevice.currentDevice().userInterfaceIdiom {
         case .Pad:
             innerSpacing = 4

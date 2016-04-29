@@ -10,78 +10,65 @@ import Foundation
 import UIKit
 
 class ListPlayerProfileController: UITableViewController {
-    
     var player1: UITableViewCell = UITableViewCell()
     var player2: UITableViewCell = UITableViewCell()
     var player3: UITableViewCell = UITableViewCell()
+    var listOfPlayers: [Player]
+    var typeOfProfilePage: String
+    let numberOfSections = 1
     
     override func loadView() {
         super.loadView()
         
         // set the title
         self.title = "Profiles"
-        
-        
-        self.player1.textLabel?.text = "John Smith"
-        self.player1.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        self.player1.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        
-        self.player2.textLabel?.text = "Jane Doe"
-        self.player2.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        self.player2.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        
-        self.player3.textLabel?.text = "Apple Martin"
-        self.player3.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        self.player3.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
     }
     
+    init(style: UITableViewStyle, type: String) {
+        listOfPlayers = database.fetchPlayers()
+        self.typeOfProfilePage = type
+        super.init(style: style)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // Return the number of sections
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return numberOfSections
     }
     
     // Return the number of rows for each section in your static table
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch(section) {
-        case 0: return 3    // section 0 has 2 rows
-        //case 1: return 1    // section 1 has 1 row
-        default: fatalError("Unknown number of sections")
-        }
+        return listOfPlayers.count
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {    // Return the row for the corresponding section and row
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // Return the row for the corresponding section and row
+        let fullPlayerName: String = listOfPlayers[indexPath.row].firstName! + " " + listOfPlayers[indexPath.row].lastName!
+        let playerID: String = listOfPlayers[indexPath.row].playerID!
         switch(indexPath.section) {
         case 0:
-            switch(indexPath.row) {
-            case 0:
-                let PlayerProfileSelection = PlayerProfileViewController(name: "John Smith", playerID: 12345) as PlayerProfileViewController
+                let PlayerProfileSelection = PlayerProfileViewController(name: fullPlayerName, playerID: playerID) as PlayerProfileViewController
                 self.navigationController?.pushViewController(PlayerProfileSelection, animated: true)
-            case 1:
-                let PlayerProfileSelection = PlayerProfileViewController(name: "Jane Doe", playerID: 12345) as PlayerProfileViewController
-                self.navigationController?.pushViewController(PlayerProfileSelection, animated: true)
-            case 2:
-                let PlayerProfileSelection = PlayerProfileViewController(name: "Apple Martin", playerID: 12345) as PlayerProfileViewController
-                self.navigationController?.pushViewController(PlayerProfileSelection, animated: true)
-            default:
-                fatalError("Invalid row")
-            }
         default:
             fatalError("Invalid section")
         }
     }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
         switch(indexPath.section) {
         case 0:
-            switch(indexPath.row) {
-            case 0: return self.player1   // section 0, row 0 is the first name
-            case 1: return self.player2   // section 0, row 1 is the last name
-            case 2: return self.player3
-            default: fatalError("Unknown row in section 0")
-            }
+            // Lists the name and team for each player in the database
+            cell.textLabel?.text = listOfPlayers[indexPath.row].firstName! + " " + listOfPlayers[indexPath.row].lastName!
+            cell.detailTextLabel?.text = "Team: " + listOfPlayers[indexPath.row].teamName!
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         default: fatalError("Unknown section")
         }
+        return cell
     }
 }
 
