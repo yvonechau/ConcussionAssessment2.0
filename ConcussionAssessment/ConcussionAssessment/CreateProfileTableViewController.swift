@@ -166,7 +166,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         database.setGender(currentPlayerID, gender: trimmedGender)
         database.setTeamName(currentPlayerID, name: trimmedTeam)
         
-        print(database.playerWithID(currentPlayerID))
+        //print(database.playerWithID(currentPlayerID))
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func dateChanged() {
