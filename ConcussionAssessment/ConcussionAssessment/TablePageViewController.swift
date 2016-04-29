@@ -18,22 +18,26 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
 {
   
   var pageViewController: UIPageViewController?
-  
   var testName: String
   var pageTitles : Array<String>
   var labelArray : Array<Array<String>>
   var currentIndex : Int = 0
   var limitIndex: Int = 0
   var rowSelected: NSNumber?
-  var currScore: NSNumber?
+  var totalRows: Int = 0
+  var donePressed: Bool = false
   var instructions: String
-  var next: TablePageViewController?
+  var next: UIViewController?
   var original: UIViewController?
   var startingViewController : TablePageView?
   var numTrials : [Int]?
-  var firstPage: BooleanType
+  var singlePage: BooleanType
   
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, firstPage: BooleanType)
+  var numPages: Int
+  var numSelected: NSNumber
+  var currScore: NSNumber
+  
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType)
   {
     self.pageTitles = pageTitles
     self.labelArray = labelArray
@@ -43,8 +47,10 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     self.next = next
     self.original = original!
     self.numTrials = numTrials
-    print(numTrials)
-    self.firstPage = firstPage
+    self.singlePage = singlePage
+    self.numPages = 0
+    self.numSelected = 0
+    self.currScore = 0
     super.init(nibName:nil, bundle:nil)
   }
   
@@ -73,38 +79,123 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
       }
       
     }))
-    
     presentViewController(alertView, animated: true, completion: nil)
 
   }
   
   func doneButtonPressed(sender: UIButton)
   {
-    print("here")
-    print(self.numTrials)
-    self.numTrials![0] += 1
-    if(self.numTrials != nil && self.numTrials![0] <= self.numTrials![1] - 1)
+    self.donePressed = true
+    self.setScore()
+    if(self.numTrials != nil && self.numTrials![0] < self.numTrials![1] - 1) // increase the current trial it is on when done button is pressed if there are trials
     {
-      
+      self.numTrials![0] += 1
+
       self.currentIndex = 0
       let startingViewController: TablePageView = self.viewControllerAtIndex(self.currentIndex)!
       let viewControllers = [startingViewController]
-      print(self.numTrials![0])
       self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
     }
     else
     {
       if(self.next == nil) //end of test
       {
-        self.navigationController?.popToViewController(self.original!, animated: true)
+        //self.navigationController?.popToViewController(self.original!, animated: true)
+        let scoreboard = ScoreBoardController(originalPage: self.original!)
+        self.navigationController?.pushViewController(scoreboard, animated: true)
       }
       else if(self.next != nil)
       {
         self.navigationController?.pushViewController(self.next!, animated: true)
       }
     }
-
+    
   }
+  
+  func setScore()
+  {
+    switch self.testName
+    {
+    case "Symptom Evaluation":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!)
+
+      if self.rowSelected == 0
+      {
+        self.numSelected = Int(self.numSelected) + Int(1)
+      }
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setSeverity(currentScoreID!, score: self.currScore)
+        database.setNumSymptoms(currentScoreID!, score: self.numSelected)
+      }
+    case "Glasgow Coma Scale":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!) + 1
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setGlasgow(currentScoreID!, score: self.currScore)
+      }
+      
+    case "Maddocks Test":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!)
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setMaddocks(currentScoreID!, score: self.currScore)
+      }
+      
+    case "Cognitive Assessment: Orientation":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!)
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setOrientation(currentScoreID!, score: self.currScore)
+      }
+      
+    case "Cognitive Assessment: Immediate Memory": // Need to be checked for trial reboots
+      self.currScore = Int(self.totalRows)
+      if self.donePressed
+      {
+        if database.scoreWithID(currentScoreID!)[0].immediateMemory != nil
+        {
+            database.setImmMemory(currentScoreID!, score: Int(self.currScore) + Int(database.scoreWithID(currentScoreID!)[0].immediateMemory!))
+        }
+        else
+        {
+            database.setImmMemory(currentScoreID!, score: self.currScore)
+        }
+        print("what is going on")
+        print(database.scoreWithID(currentScoreID!)[0].immediateMemory)
+        self.donePressed = false
+      }
+    
+      
+      
+    case "Cognitive Assessment: Digits Backwards":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!)
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setConcentration(currentScoreID!, score: self.currScore)
+      }
+      
+    case "Cognitive Assessment: Months in Reverse Order":
+      self.currScore = Int(self.currScore) + Int(self.rowSelected!)
+      
+      if self.currentIndex == self.numPages
+      {
+        database.setConcentration(currentScoreID!, score: self.currScore)
+        
+        //database.setConcentration(currentScoreID!, score: database.getConcentration() + self.pvc!.currScore)
+      }
+      
+    default: print("none")
+    }
+  }
+
+  
+
   
   override func viewDidLoad()
   {
@@ -112,10 +203,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     
-    let doneModalButton : UIBarButtonItem?
-
-    
-    if(self.startingViewController == nil) // not instantiated so it has no instrution page
+    if(self.startingViewController == nil) // not instantiated so it has no instruction page
     {
         self.startingViewController = viewControllerAtIndex(0)!
     }
@@ -123,26 +211,59 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     let viewControllers = [self.startingViewController!]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
     pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
-    self.navigationItem.title = self.testName
+    
     
     addChildViewController(pageViewController!)
     view.addSubview(pageViewController!.view)
     pageViewController!.didMoveToParentViewController(self)
+    
+    
+    
+    
+    /***** TITLE SETTINGS ****
+     *********************************/
+    
+    let title : [String] = self.testName.characters.split(":").map(String.init)
+
+  
+    if title.count > 1
+    {
+      self.navigationItem.prompt  = title[0]
+      var subtitle : String = ""
+      var index = 1
+      for t in title[1..<title.count]
+      {
+        if index < title.count - 1
+        {
+            subtitle += t + ": "
+        }
+        else
+        {
+          subtitle += t
+        }
+        
+        index += 1
+      }
+      self.navigationItem.title = subtitle
+    }
+    else
+    {
+      self.title = title[0]
+    }
+    
+  
+    /***** RIGHT NAV BAR BUTTONS ****
+    *********************************/
     let infobutton = UIButton(type: UIButtonType.InfoDark)
 
     infobutton.addTarget(self, action: #selector(TablePageViewController.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     let infoModalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
     
-    if(self.firstPage)
+    
+    if(self.singlePage)
     {
-      let doneButton = UIButton()
-      doneButton.frame = CGRect(x: 50, y: 50, width: 50, height: 50)
-      doneButton.setTitle("Done", forState: .Normal)
-      doneButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
-      print("done")
-      doneButton.addTarget(self, action: #selector(TablePageViewController.doneButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-      doneModalButton = UIBarButtonItem(customView: doneButton)
-      self.navigationItem.rightBarButtonItems = [doneModalButton!, infoModalButton!]
+      let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TablePageViewController.doneButtonPressed(_:)))
+      self.navigationItem.rightBarButtonItems = [doneButton, infoModalButton!]
     }
     else
     {
@@ -166,13 +287,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     }
     index -= 1
     
-    self.rowSelected = (viewController as! TablePageView).rowSel
-    currScore = self.rowSelected
-    //print(currScore)
-    
-    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
-    
-    // UNDO VALUE HERE
     return viewControllerAtIndex(index)
   }
   
@@ -192,17 +306,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     {
       return nil
     }
-    
-    // SAVE VALUE HERE
-    //currentScore!.numSymptoms = //SAVE AS AN NSNUMBER
-    
-    
-    rowSelected = (viewController as! TablePageView).rowSel
-    currScore = rowSelected
-    //print(currScore)
-    //print("forward")
-    //currentScore!.numSymptoms = currentScore!.numSymptoms!.integerValue - currScore!.integerValue //SAVE AS AN NSNUMBER
-    
     currentIndex = index
     
     return viewControllerAtIndex(index)
@@ -224,7 +327,26 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   
   func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int
   {
-    return self.pageTitles.count
+    if self.singlePage
+    {
+      if self.numTrials != nil
+      {
+        self.numPages = self.numTrials![1]
+      }
+      else
+      {
+        print("here")
+        self.numPages = 1
+      }
+      
+    }
+    else
+    {
+      self.numPages = self.pageTitles.count
+
+    }
+    return self.numPages
+    
   }
   
   func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int
@@ -275,7 +397,7 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
   {
-    if(self.pvc!.firstPage)
+    if(self.pvc!.singlePage)
     {
       if(self.pvc!.numTrials != nil)
       {
@@ -302,7 +424,7 @@ class TablePageView: UITableViewController
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    if(self.pvc!.firstPage)
+    if(self.pvc!.singlePage)
     {
      return self.pvc!.pageTitles.count
     }
@@ -319,7 +441,7 @@ class TablePageView: UITableViewController
 
     Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
     
-    if(self.pvc!.firstPage)
+    if(self.pvc!.singlePage)
     {
       
       if(!checked[indexPath.row])
@@ -339,12 +461,16 @@ class TablePageView: UITableViewController
     return Cell
   }
   
+  
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
     rowSel = indexPath.item
+    self.pvc!.rowSelected = rowSel
     self.pvc!.currentIndex += 1 //updates dots
+    self.pvc!.setScore()
 
-    if(self.pvc!.firstPage) // all words on one page
+
+    if(self.pvc!.singlePage) // all words on one page
     {
       if let cell = tableView.cellForRowAtIndexPath(indexPath) // for toggling checkmarks
       {
@@ -362,16 +488,17 @@ class TablePageView: UITableViewController
           self.totalRowsSelected += 1 // need to check when done
 
         }
-        print(self.totalRowsSelected)
         
       }
+      
+      self.pvc!.totalRows = self.totalRowsSelected
+      self.pvc!.setScore()
     }
     else
     {
+
         if(self.pvc!.numTrials != nil) //no all rows, but has trials
         {
-          print(indexPath.item)
-          print(self.pvc!.numTrials)
           if(indexPath.item == 1) // incorrect
           {
             
@@ -392,13 +519,18 @@ class TablePageView: UITableViewController
          }
         if(self.pvc!.next == nil) //single test or end of sequence of test
         {
-          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1) // end of test
+          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count || self.pvc!.pageTitles.count == 1) // end of test
           {
+            print("End Test")
             self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
+            //self.navigationController?.popToRootViewControllerAnimated(true);
+            
+            let scoreboard = ScoreBoardController(originalPage: self.pvc!.original!)
+            self.pvc!.navigationController?.pushViewController(scoreboard, animated: true)
           }
           else // still pages left
           {
-            
+            print("More Pages")
             let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
             let viewControllers = [startingViewController]
             self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
@@ -407,7 +539,7 @@ class TablePageView: UITableViewController
         }
         else if(self.pvc!.next != nil) // still tests next
         {
-          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count - 1)
+          if(self.pvc!.currentIndex == self.pvc!.pageTitles.count)
           {
               self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
           }
@@ -420,7 +552,6 @@ class TablePageView: UITableViewController
           }
           
         }
-      
     }
   }
 }
