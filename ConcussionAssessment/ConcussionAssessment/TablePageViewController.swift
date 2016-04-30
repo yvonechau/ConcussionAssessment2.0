@@ -87,6 +87,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   {
     self.donePressed = true
     self.setScore()
+    self.currentIndex += 1
     if(self.numTrials != nil && self.numTrials![0] < self.numTrials![1] - 1) // increase the current trial it is on when done button is pressed if there are trials
     {
       self.numTrials![0] += 1
@@ -190,7 +191,9 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
       self.currScore = Int(self.totalRows)
       if self.donePressed
       {
-        database.setSACTotal(currentScoreID!, score: self.currScore)
+        print(self.totalRows)
+
+        database.setDelayedRecall(currentScoreID!, score: self.currScore)
        
         self.donePressed = false
       }
