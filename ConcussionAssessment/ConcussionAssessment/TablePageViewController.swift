@@ -87,6 +87,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   {
     self.donePressed = true
     self.setScore()
+    self.currentIndex += 1
     if(self.numTrials != nil && self.numTrials![0] < self.numTrials![1] - 1) // increase the current trial it is on when done button is pressed if there are trials
     {
       self.numTrials![0] += 1
@@ -165,12 +166,9 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
         {
             database.setImmMemory(currentScoreID!, score: self.currScore)
         }
-        print("what is going on")
         print(database.scoreWithID(currentScoreID!)[0].immediateMemory)
         self.donePressed = false
       }
-    
-      
       
     case "Cognitive Assessment: Digits Backwards":
       self.currScore = Int(self.currScore) + Int(self.rowSelected!)
@@ -189,9 +187,20 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
         
         //database.setConcentration(currentScoreID!, score: database.getConcentration() + self.pvc!.currScore)
       }
+    case "SAC Delayed Recall": // Need to be checked for trial reboots
+      self.currScore = Int(self.totalRows)
+      if self.donePressed
+      {
+        print(self.totalRows)
+
+        database.setDelayedRecall(currentScoreID!, score: self.currScore)
+       
+        self.donePressed = false
+      }
       
     default: print("none")
     }
+    
   }
 
   
@@ -499,7 +508,7 @@ class TablePageView: UITableViewController
 
         if(self.pvc!.numTrials != nil) //no all rows, but has trials
         {
-          if(indexPath.item == 1) // incorrect
+          if(indexPath.item == 0) // incorrect
           {
             
             if(self.pvc!.numTrials![1] == 2) // if the number of trials increased to two
@@ -517,12 +526,13 @@ class TablePageView: UITableViewController
             }
           }
          }
+
         if(self.pvc!.next == nil) //single test or end of sequence of test
         {
           if(self.pvc!.currentIndex == self.pvc!.pageTitles.count || self.pvc!.pageTitles.count == 1) // end of test
           {
             print("End Test")
-            self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
+           // self.pvc!.navigationController?.popToViewController(self.pvc!.original!, animated: true)
             //self.navigationController?.popToRootViewControllerAnimated(true);
             
             let scoreboard = ScoreBoardController(originalPage: self.pvc!.original!)
