@@ -14,6 +14,9 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     var numberScoresDisplayed: Int!
     var name: String!
     var playerID: String!
+    var scoreResults: [String?]
+    var scoreTitles: [String]
+    var didGetScores: Bool = true
     let Frame = UIScreen.mainScreen().bounds
     
     var innerSpacing: CGFloat
@@ -61,10 +64,15 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         default:
             innerSpacing = 2
         }
-        super.init(nibName: nil, bundle: nil)
         self.name = name
         self.playerID = playerID
+        (self.scoreTitles, self.scoreResults) = database.scoreStringArray(self.playerID)
+        if scoreResults.count <= 0 {
+            didGetScores = false
+        }
+        print(scoreResults)
         
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -156,7 +164,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             super.init(frame: frame)
             
             // options for main score label
-            label.font = UIFont.systemFontOfSize(CGFloat(30.0), weight: UIFontWeightLight)
+            label.font = UIFont.systemFontOfSize(CGFloat(60.0), weight: UIFontWeightLight)
             label.frame = CGRect(x: self.contentView.frame.origin.x, y: self.contentView.frame.origin.y, width: self.contentView.frame.width, height: 2*self.contentView.frame.height/3)
             label.backgroundColor = UIColor(rgb: 0x1ad6fd)
             label.textAlignment = .Center
