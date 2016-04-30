@@ -73,8 +73,8 @@ class ListPlayerProfileController: UITableViewController {
             } else if typeOfProfilePage == "Select" {
                 switch(indexPath.section) {
                 case 0:
-                    let currentScoreID = NSUUID().UUIDString
-                    database.insertNewScore(playerID, scoreID: currentScoreID)
+                    currentScoreID = NSUUID().UUIDString
+                    database.insertNewScore(playerID, scoreID: currentScoreID!)
                     
                     let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
                     let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
