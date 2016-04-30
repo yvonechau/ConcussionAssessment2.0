@@ -163,8 +163,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Create the model and set the entity description(s)
         var model = NSManagedObjectModel()
-        //model.entities = [scoreDescription]
-        model.entities = [playerDescription]
+        model.entities = [scoreDescription, playerDescription]
         
         return model
     }()
