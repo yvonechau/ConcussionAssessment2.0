@@ -16,6 +16,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     var playerID: String!
     var scoreResults: [String?]
     var scoreTitles: [String]
+    var scoresOfPlayer: [Score]
     var didGetScores: Bool = true
     let Frame = UIScreen.mainScreen().bounds
     
@@ -40,6 +41,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         PlayerName.font = UIFont.systemFontOfSize(60, weight: UIFontWeightLight)
         PlayerName.textColor = UIColor.darkTextColor()
         PlayerName.backgroundColor = UIColor(red: 0.925, green: 0.925, blue: 0.925, alpha: 1.0)*/
+        
+        let numberScores = getScoresForDisplay()
         
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0;
@@ -66,11 +69,13 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         }
         self.name = name
         self.playerID = playerID
-        (self.scoreTitles, self.scoreResults) = database.scoreStringArray(self.playerID)
-        if scoreResults.count <= 0 {
+        self.scoresOfPlayer = database.scoresOfPlayer(self.playerID)
+        print(scoresOfPlayer)
+        if scoresOfPlayer.count <= 0 {
             didGetScores = false
         }
-        print(scoreResults)
+        
+        (scoreTitles, scoreResults) = database.scoreStringArray(scoresOfPlayer[0].scoreID!)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -92,21 +97,19 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! LabelCell
         switch indexPath.item {
         case 0:
-            cell.setCellText("30", categoryLabelText: catText[0])
+            cell.setCellText(scoreResults[6]!, categoryLabelText: catText[0])
         case 3:
-            cell.setCellText("30", categoryLabelText: catText[1])
+            cell.setCellText(scoreResults[0]!, categoryLabelText: catText[1])
         case 6:
-            cell.setCellText("30", categoryLabelText: catText[2])
+            cell.setCellText(scoreResults[1]!, categoryLabelText: catText[2])
         case 9:
-            cell.setCellText("30", categoryLabelText: catText[3])
+            cell.setCellText(scoreResults[2]!, categoryLabelText: catText[3])
         case 12:
-            cell.setCellText("30", categoryLabelText: catText[4])
+            cell.setCellText(scoreResults[3]!, categoryLabelText: catText[4])
         case 15:
-            cell.setCellText("30", categoryLabelText: catText[5])
+            cell.setCellText(scoreResults[4]!, categoryLabelText: catText[5])
         case 18:
-            cell.setCellText("30", categoryLabelText: catText[6])
-        case 21:
-            cell.setCellText("30", categoryLabelText: catText[7])
+            cell.setCellText(scoreResults[5]!, categoryLabelText: catText[6])
         default:
             cell.setCellText("27", categoryLabelText: "Minus or Plus")
         }
@@ -145,6 +148,14 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             cellHeightPadding = 4.0
         }
         return UIEdgeInsets(top: cellHeightPadding,left: cellWidthPadding, bottom: cellHeightPadding,right: cellWidthPadding)
+    }
+    
+    func getScoresForDisplay() -> Int {
+        var numberOfScoresToDisplay: Int = 1
+        
+        
+        
+        return numberOfScoresToDisplay
     }
     
     func infoButtonPressed() {
