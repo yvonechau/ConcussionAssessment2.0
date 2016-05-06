@@ -272,6 +272,19 @@ class DataModel : NSObject {
         scoreResults[7] = (currentScore.maddocks)?.stringValue
         scoreResults[8] = (currentScore.glasgow)?.stringValue
         
+        for index in 0...8
+        {
+            var score : String
+            
+            if let str = scoreResults[index] {
+                score = str
+            } else {
+                score = "Untested"
+            }
+            
+            scoreResults[index] = score
+        }
+        
         return (scoreTitle, scoreResults)
         
         /*
