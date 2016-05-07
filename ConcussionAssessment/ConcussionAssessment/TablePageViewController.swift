@@ -120,9 +120,10 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     case "Symptom Evaluation":
       self.currScore = Int(self.currScore) + Int(self.rowSelected!)
 
-      if self.rowSelected == 0
+      if self.rowSelected != 0
       {
         self.numSelected = Int(self.numSelected) + Int(1)
+        print(self.rowSelected)
       }
       
       if self.currentIndex == self.numPages
