@@ -223,17 +223,24 @@ func getSACDelayRecallStrings(pageTitle: [String]) -> (Array<String>, String, Ar
 
 
 
-func getNeckStrings() -> (Array<String>, String, Array<Array<String>>, String)
+func getNeckStrings() -> (Array<String>, String, [[[String]]], String)
 {
+  
   
   let rangeOfMotion : [[String]] = [createRange(45, name: "Flexion"), createRange(45, name: "Extension"), createRange(80, name: "Right Rotation"), createRange(80, name: "Left Rotation"), createRange(45, name: "Right Lateral Flexion"), createRange(45, name: "Left Lateral Flexion")]
 
   let tenderness : [[String]] = [["Yes", "No", "Right Paraspinal"], ["Yes", "No", "Left Paraspinal"], ["Yes", "No", "Bony"]]
   
   var upperLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Upper Limb"], ["Normal", "Abnormal", "Left Upper Limit"]]
+
+  var lowerLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
+  
+  var lowerLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
+  
+
   
   let pageTitle: [String] = ["Range of Motion", "Tenderness", "Upper Limb Sensation", "Upper Limb Strength", "Lower Limb Sensation", "Lower Limb Strength"]
-  let coa = [[String]](count: pageTitle.count, repeatedValue: ["Incorrect", "Correct"])
+  let  = [[String]]
   let testName = "Cognitive Assessment: Immediate Memory"
   let instr = "Repeat the following: \n\n\"I am going to test your memory. I will read  you a list of words and when I am done, repeat back as many words as you can remember in any order.\"\n\n Complete all 3 trials regardless of score on trial 1 & 2. Read the words at a rate of one per second. Do not inform the individual that delayed recall will be tested.\n\n Press done when they can no longer remember the rest of the words for each trial."
   
