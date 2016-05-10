@@ -47,6 +47,11 @@ class GuestViewController: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
+              
+                let pageControl = UIPageControl.appearance()
+                pageControl.pageIndicatorTintColor = UIColor.whiteColor()
+                pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
+                pageControl.backgroundColor = UIColor(rgb: 0x002855)
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore("no player", scoreID: currentScoreID!)
                 
