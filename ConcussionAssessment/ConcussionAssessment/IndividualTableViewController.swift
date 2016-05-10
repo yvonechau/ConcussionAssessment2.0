@@ -119,7 +119,9 @@ class IndividualTableViewController: UITableViewController {
         case 4:
             let BalanceView = BalanceViewController() as BalanceViewController
             self.navigationController?.pushViewController(BalanceView, animated: true)
-        
+
+        case 5:
+            let NeckView = NeckExamViewController()
         default:
             fatalError("Unknown test choice.")
             
@@ -216,3 +218,26 @@ func getSACDelayRecallStrings(pageTitle: [String]) -> (Array<String>, String, Ar
 }
 
 
+
+
+func getNeckStrings() -> (Array<String>, String, Array<Array<String>>, String)
+{
+  
+  createRange(45)
+  let memSetList : [[String]] = [["candle", "paper", "sugar", "sandwich", "wagon"], ["baby", "monkey", "perfume", "sunset", "iron"], ["finger", "penny", "blanket", "lemon", "insect"]]
+  
+  let pageTitle: [String] = memSetList[Int(arc4random() % UInt32(memSetList.count))]
+  let coa = [[String]](count: pageTitle.count, repeatedValue: ["Incorrect", "Correct"])
+  let testName = "Cognitive Assessment: Immediate Memory"
+  let instr = "Repeat the following: \n\n\"I am going to test your memory. I will read  you a list of words and when I am done, repeat back as many words as you can remember in any order.\"\n\n Complete all 3 trials regardless of score on trial 1 & 2. Read the words at a rate of one per second. Do not inform the individual that delayed recall will be tested.\n\n Press done when they can no longer remember the rest of the words for each trial."
+  
+  return (pageTitle, testName, coa, instr)
+}
+
+func createRange(upperLimit: Int)->[String]
+{
+  let range = (0..<upperLimit).filter{$0 % 5 == 0}.map(String($0))
+  
+  print(range)
+  return range
+}

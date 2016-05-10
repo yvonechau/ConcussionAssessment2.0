@@ -72,19 +72,21 @@ class NeckExamView: TablePageView, UIPickerViewDataSource, UIPickerViewDelegate
   }
   
   
-//  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-//  {
-//    return LabelArray[self.pvc!.currentIndex].count
-//  }
-//  
-//  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-//  {
-//    
-//    
-//    
-//    return Cell
-//  }
-//  
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+  {
+    return 1
+  }
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+  {
+    let cell = UITableViewCell()
+    
+    
+    cell.addSubview(self.pickerView)
+    
+    return cell
+  }
+  
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
