@@ -10,8 +10,8 @@ import UIKit
 
 class IndividualTableViewController: UITableViewController {
     
-    let LabelArray = ["Glasgow Coma Scale", "Maddocks Score", "Symptom Evaluation", "Cognitive Assessment", "Balance Examination"]
-    let DetailLabelArray: [String] = ["", "Questionnaire for patient.", "Checking to see how the patient is feeling.", "Checking details.", ""]
+    let LabelArray = ["Glasgow Coma Scale", "Maddocks Score", "Symptom Evaluation", "Cognitive Assessment", "Balance Examination", "Neck Examination"]
+    let DetailLabelArray: [String] = ["", "Questionnaire for patient.", "Checking to see how the patient is feeling.", "Checking details.", "", ""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,7 +121,10 @@ class IndividualTableViewController: UITableViewController {
             self.navigationController?.pushViewController(BalanceView, animated: true)
 
         case 5:
-            let NeckView = NeckExamViewController()
+            let(neckPageTitle, neckTestName, neckQuestionArray, neckInstr) = getNeckStrings()
+
+          
+//            let NeckView = NeckExamViewController(pageTitles: neckPageTitle, labelArray: neckQuestionArray, testName: neckTestName, instructionPage: nil, instructions: neckInstr, next: nil, )
         default:
             fatalError("Unknown test choice.")
             
@@ -223,10 +226,13 @@ func getSACDelayRecallStrings(pageTitle: [String]) -> (Array<String>, String, Ar
 func getNeckStrings() -> (Array<String>, String, Array<Array<String>>, String)
 {
   
-  createRange(45)
-  let memSetList : [[String]] = [["candle", "paper", "sugar", "sandwich", "wagon"], ["baby", "monkey", "perfume", "sunset", "iron"], ["finger", "penny", "blanket", "lemon", "insect"]]
+  let rangeOfMotion : [[String]] = [createRange(45, name: "Flexion"), createRange(45, name: "Extension"), createRange(80, name: "Right Rotation"), createRange(80, name: "Left Rotation"), createRange(45, name: "Right Lateral Flexion"), createRange(45, name: "Left Lateral Flexion")]
+
+  let tenderness : [[String]] = [["Yes", "No", "Right Paraspinal"], ["Yes", "No", "Left Paraspinal"], ["Yes", "No", "Bony"]]
   
-  let pageTitle: [String] = memSetList[Int(arc4random() % UInt32(memSetList.count))]
+  var upperLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Upper Limb"], ["Normal", "Abnormal", "Left Upper Limit"]]
+  
+  let pageTitle: [String] = ["Range of Motion", "Tenderness", "Upper Limb Sensation", "Upper Limb Strength", "Lower Limb Sensation", "Lower Limb Strength"]
   let coa = [[String]](count: pageTitle.count, repeatedValue: ["Incorrect", "Correct"])
   let testName = "Cognitive Assessment: Immediate Memory"
   let instr = "Repeat the following: \n\n\"I am going to test your memory. I will read  you a list of words and when I am done, repeat back as many words as you can remember in any order.\"\n\n Complete all 3 trials regardless of score on trial 1 & 2. Read the words at a rate of one per second. Do not inform the individual that delayed recall will be tested.\n\n Press done when they can no longer remember the rest of the words for each trial."
@@ -234,10 +240,11 @@ func getNeckStrings() -> (Array<String>, String, Array<Array<String>>, String)
   return (pageTitle, testName, coa, instr)
 }
 
-func createRange(upperLimit: Int)->[String]
+func createRange(upperLimit: Int, name: String)->[String]
 {
-  let range = (0..<upperLimit).filter{$0 % 5 == 0}.map(String($0))
+  var range = (0..<upperLimit + 5).filter{$0 % 5 == 0}.map({String($0)})
   
+  range.append(name)
   print(range)
   return range
 }
