@@ -60,9 +60,9 @@ class IndividualTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
       
       let pageControl = UIPageControl.appearance()
-      pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
+      pageControl.pageIndicatorTintColor = UIColor.whiteColor()
       pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
-      pageControl.backgroundColor = UIColor.darkGrayColor()
+      pageControl.backgroundColor = UIColor(rgb: 0x002855)
       
       switch(indexPath.item) {
         /******************************************************************************************
