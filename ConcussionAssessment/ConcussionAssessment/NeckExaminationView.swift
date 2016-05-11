@@ -16,20 +16,43 @@ import UIKit
 
 class NeckExamViewController: TablePageViewController
 {
+  let pageContent : [[[String]]]
+
   
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType, pageContent: [[[String]]])
+  {
+    self.pageContent = pageContent
+    super.init(pageTitles: pageTitles, labelArray: labelArray, testName: testName, instructionPage: instructionPage, instructions: instructions, next: next, original: original, numTrials: numTrials, singlePage: singlePage)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 }
 
 class NeckExamView: TablePageView, UIPickerViewDataSource, UIPickerViewDelegate
 {
   
+  
+  weak var nvc : NeckExamViewController?
+  let pageContent : [[[String]]]
+  
+  
   var textField: UITextField
   var pickerView: UIPickerView
   
-  
-  required init?(coder aDecoder: NSCoder)
+  init(nvc : NeckExamViewController)
   {
-    fatalError("init(coder:) has not been implemented")
+    self.nvc = nvc
 
+    super.init(pvc: self.pvc)
+
+    
+    self.pageContent = nvc.pageContent
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   override func viewDidLoad()
@@ -49,26 +72,7 @@ class NeckExamView: TablePageView, UIPickerViewDataSource, UIPickerViewDelegate
   
   func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
   {
-    return self.LabelArray.count
-  }
-  
-  override func didReceiveMemoryWarning()
-  {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-  
-  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
-  {
-    return titleText
-  }
-  
-  override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
-  {
-    let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-    
-    header.textLabel?.font = UIFont(name: "Helvetica Neue", size: 20.0)
-    
+    return self.pageContent[self.pvc!.currentIndex].count
   }
   
   
