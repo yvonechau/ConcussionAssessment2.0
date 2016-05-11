@@ -43,12 +43,17 @@ class NeckExamView: TablePageView, UIPickerViewDataSource, UIPickerViewDelegate
   
   init(nvc : NeckExamViewController)
   {
-    self.nvc = nvc
-
-    super.init(pvc: self.pvc)
-
     
+    self.nvc = nvc
     self.pageContent = nvc.pageContent
+    self.textField = UITextField()
+    self.pickerView = UIPickerView()
+    
+    super.init()
+    super.setPVC(self.pvc)
+    self.pickerView.dataSource = self
+    self.pickerView.delegate = self
+    
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -59,8 +64,6 @@ class NeckExamView: TablePageView, UIPickerViewDataSource, UIPickerViewDelegate
   {
     super.viewDidLoad()
     
-    self.pickerView.dataSource = self
-    self.pickerView.delegate = self
     
   }
   

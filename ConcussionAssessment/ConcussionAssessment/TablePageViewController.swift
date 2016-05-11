@@ -376,6 +376,13 @@ class TablePageView: UITableViewController
   weak var pvc : TablePageViewController?
   let LabelArray : Array<Array<String>>
 
+  init()
+  {
+    self.checked = [Bool](count: self.pvc!.pageTitles.count, repeatedValue: false)
+    self.LabelArray = [[""]]
+    super.init(style: UITableViewStyle.Grouped)
+  }
+  
   init(pvc : TablePageViewController)
   {
     self.pvc = pvc
@@ -389,6 +396,10 @@ class TablePageView: UITableViewController
     fatalError("init(coder:) has not been implemented")
   }
   
+  func setPVC(pvc : TablePageViewController?)
+  {
+    self.pvc = pvc!
+  }
   override func viewDidLoad()
   {
     super.viewDidLoad()
