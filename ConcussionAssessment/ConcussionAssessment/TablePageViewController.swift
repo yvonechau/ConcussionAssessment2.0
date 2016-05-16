@@ -16,7 +16,6 @@ import UIKit
 
 class TablePageViewController: UIViewController, UIPageViewControllerDataSource
 {
-  
   var pageViewController: UIPageViewController?
   var testName: String
   var pageTitles : Array<String>
@@ -91,7 +90,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     if(self.numTrials != nil && self.numTrials![0] < self.numTrials![1] - 1) // increase the current trial it is on when done button is pressed if there are trials
     {
       self.numTrials![0] += 1
-
       self.currentIndex = 0
       let startingViewController: TablePageView = self.viewControllerAtIndex(self.currentIndex)!
       let viewControllers = [startingViewController]
@@ -110,7 +108,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
         self.navigationController?.pushViewController(self.next!, animated: true)
       }
     }
-    
   }
   
   func setScore()
@@ -205,8 +202,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   }
 
   
-
-  
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -226,8 +221,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     addChildViewController(pageViewController!)
     view.addSubview(pageViewController!.view)
     pageViewController!.didMoveToParentViewController(self)
-    
-    
     
     
     /***** TITLE SETTINGS ****
@@ -376,12 +369,6 @@ class TablePageView: UITableViewController
   weak var pvc : TablePageViewController?
   let LabelArray : Array<Array<String>>
 
-  init()
-  {
-    self.checked = [Bool](count: self.pvc!.pageTitles.count, repeatedValue: false)
-    self.LabelArray = [[""]]
-    super.init(style: UITableViewStyle.Grouped)
-  }
   
   init(pvc : TablePageViewController)
   {

@@ -1,4 +1,3 @@
-//
 //  TablePageViewController.swift
 //  ConcussionAssessment
 //
@@ -14,46 +13,160 @@
 import UIKit
 
 
-class NeckExamViewController: TablePageViewController
+class NeckExamViewController: UIViewController, UIPageViewControllerDataSource
 {
-  let pageContent : [[[String]]]
-
+  var pageViewController: UIPageViewController?
+  var testName: String
+  var pageTitles : Array<String>
+  var pageContent : [[[String]]]
+  var currentIndex : Int = 0
+  var limitIndex: Int = 0
+  var rowSelected: NSNumber?
+  var totalRows: Int = 0
+  var donePressed: Bool = false
+  var instructions: String
+  var next: UIViewController?
+  var original: UIViewController?
+  var startingViewController : NeckExamView?
   
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, next: TablePageViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType, pageContent: [[[String]]])
+  var numPages: Int
+  var numSelected: NSNumber
+  var currScore: NSNumber
+  
+  init(pageTitles : Array<String>, pageContent: [[[String]]], testName : String, instructions: String, next: UIViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType)
   {
+    self.pageTitles = pageTitles
+    self.testName = testName
     self.pageContent = pageContent
-    super.init(pageTitles: pageTitles, labelArray: labelArray, testName: testName, instructionPage: instructionPage, instructions: instructions, next: next, original: original, numTrials: numTrials, singlePage: singlePage)
+    self.instructions = instructions
+    self.next = next
+    self.original = original!
+    self.numPages = 0
+    self.numSelected = 0
+    self.currScore = 0
+    super.init(nibName:nil, bundle:nil)
   }
   
-  required init?(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder)
+  {
     fatalError("init(coder:) has not been implemented")
   }
+  
+  override func viewDidLoad()
+  {
+    super.viewDidLoad()
+    pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+    pageViewController!.dataSource = self
+    
+    if(self.startingViewController == nil) // not instantiated so it has no instruction page
+    {
+      self.startingViewController = viewControllerAtIndex(0)!
+    }
+    
+    let viewControllers = [self.startingViewController!]
+    pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
+    pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+    
+    
+    addChildViewController(pageViewController!)
+    view.addSubview(pageViewController!.view)
+    pageViewController!.didMoveToParentViewController(self)
+    
+    
+    let infobutton = UIButton(type: UIButtonType.InfoDark)
+    
+    infobutton.addTarget(self, action: #selector(TablePageViewController.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+    let infoModalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
+    self.navigationItem.rightBarButtonItems = [infoModalButton!]
+  }
+  
+  override func didReceiveMemoryWarning()
+  {
+    super.didReceiveMemoryWarning()
+  }
+  
+  func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
+  {
+    var index = self.currentIndex
+    
+    if(index == 0) || (index == NSNotFound)
+    {
+      return nil
+    }
+    index -= 1
+    
+    return viewControllerAtIndex(index)
+  }
+  
+  func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
+  {
+    var index = self.currentIndex
+    if index == NSNotFound
+    {
+      return nil
+    }
+
+    index += 1
+    currentIndex = index
+    limitIndex = index
+    
+    if(index == self.pageTitles.count)
+    {
+      return nil
+    }
+    currentIndex = index
+    
+    return viewControllerAtIndex(index)
+  }
+  
+  func viewControllerAtIndex(index: Int) ->NeckExamView?
+  {
+    if self.pageTitles.count == 0 || index >= self.pageTitles.count || index < limitIndex
+    {
+      return nil
+    }
+    
+    let pageContentViewController = NeckExamView(nvc: self)
+    pageContentViewController.titleText = pageTitles[index]
+    
+    return pageContentViewController
+  }
+  
+  
+  func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int
+  {
+    return self.pageTitles.count
+    
+  }
+  
+  func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int
+  {
+    return self.currentIndex
+  }
+  
 }
 
-class NeckExamView: TablePageView, UIPickerViewDataSource, UIPickerViewDelegate
+class NeckExamView: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate
 {
-  
-  
+
   weak var nvc : NeckExamViewController?
   let pageContent : [[[String]]]
-  
+  var titleText : String = ""
   
   var textField: UITextField
   var pickerView: UIPickerView
   
-  init(nvc : NeckExamViewController)
+  
+init(nvc : NeckExamViewController)
   {
-    
     self.nvc = nvc
     self.pageContent = nvc.pageContent
     self.textField = UITextField()
     self.pickerView = UIPickerView()
     
-    super.init()
-    super.setPVC(self.pvc)
+    super.init(style: UITableViewStyle.Grouped)
     self.pickerView.dataSource = self
     self.pickerView.delegate = self
-    
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -63,8 +176,6 @@ class NeckExamView: TablePageView, UIPickerViewDataSource, UIPickerViewDelegate
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    
-    
   }
   
   // Data Source Methods
@@ -75,19 +186,22 @@ class NeckExamView: TablePageView, UIPickerViewDataSource, UIPickerViewDelegate
   
   func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
   {
-    return self.pageContent[self.pvc!.currentIndex].count
+    return self.pageContent[self.nvc!.currentIndex].count
   }
   
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    return 1
+    print("Here")
+    print(self.pageContent)
+    print(self.nvc!)
+    
+    return self.pageContent[self.nvc!.currentIndex].count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
     let cell = UITableViewCell()
-    
     
     cell.addSubview(self.pickerView)
     
@@ -97,6 +211,5 @@ class NeckExamView: TablePageView, UIPickerViewDataSource, UIPickerViewDelegate
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
-    rowSel = indexPath.item
   }
 }

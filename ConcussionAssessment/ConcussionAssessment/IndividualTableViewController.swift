@@ -122,9 +122,11 @@ class IndividualTableViewController: UITableViewController {
 
         case 5:
             let(neckPageTitle, neckTestName, neckQuestionArray, neckInstr) = getNeckStrings()
+            
+            print(neckQuestionArray)
+          
 
-            let lA : Array<Array<String>> = [[""]]
-            let NeckView = NeckExamViewController(pageTitles: neckPageTitle, labelArray: lA, testName: neckTestName, instructionPage: nil, instructions: neckInstr, next: nil, original: self, numTrials: nil, singlePage: false, pageContent: neckQuestionArray)
+            let NeckView = NeckExamViewController(pageTitles: neckPageTitle, pageContent: neckQuestionArray, testName: neckTestName, instructions: neckInstr, next: nil, original: self, numTrials: nil, singlePage: false)
         
             self.navigationController?.pushViewController(NeckView, animated: true)
 
