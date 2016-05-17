@@ -154,7 +154,6 @@ class NeckExamView: UITableViewController, UIPickerViewDataSource, UIPickerViewD
   var titleText : String = ""
   
   var textField: UITextField
-  var pickerView: UIPickerView
   
   
 init(nvc : NeckExamViewController)
@@ -162,7 +161,6 @@ init(nvc : NeckExamViewController)
     self.nvc = nvc
     self.pageContent = nvc.pageContent
     self.textField = UITextField()
-    self.pickerView = UIPickerView(frame: CGRectMake(0.0, 0.0, 200, 300))
 
     super.init(style: UITableViewStyle.Grouped)
 
@@ -225,10 +223,11 @@ init(nvc : NeckExamViewController)
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
     let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
+    let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(0.0, -30, 200, 100))
 
-    self.pickerView.dataSource = self
-    self.pickerView.delegate = self
-    Cell.contentView.addSubview(self.pickerView)
+    pickerView.dataSource = self
+    pickerView.delegate = self
+    Cell.contentView.addSubview(pickerView)
     
     return Cell
   }
