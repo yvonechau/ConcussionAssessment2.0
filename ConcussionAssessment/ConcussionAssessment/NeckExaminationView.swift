@@ -162,11 +162,10 @@ init(nvc : NeckExamViewController)
     self.nvc = nvc
     self.pageContent = nvc.pageContent
     self.textField = UITextField()
-    self.pickerView = UIPickerView()
-    
+    self.pickerView = UIPickerView(frame: CGRectMake(0.0, 0.0, 200, 300))
+
     super.init(style: UITableViewStyle.Grouped)
-    self.pickerView.dataSource = self
-    self.pickerView.delegate = self
+
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -175,7 +174,7 @@ init(nvc : NeckExamViewController)
   
   override func viewDidLoad()
   {
-    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
+    self.tableView.contentInset = UIEdgeInsetsMake(50.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
 
@@ -193,25 +192,43 @@ init(nvc : NeckExamViewController)
     return self.pageContent[self.nvc!.currentIndex].count
   }
   
+  func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+  {
+    print(self.pageContent[self.nvc!.currentIndex][row])
+    return "alex is dead to me"
+  }
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+  {
+    return self.pageContent[self.nvc!.currentIndex].count
+
+  }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    print(pageContent[self.nvc!.currentIndex])
-    return self.pageContent[self.nvc!.currentIndex].count
+    return 1
   }
   
-  //called for how many rows in a section
+  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
+  {
+    let sectionHeader = self.pageContent[self.nvc!.currentIndex][section]
+
+    return sectionHeader[sectionHeader.count - 1]
+  }
+  
+  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+  {
+    return 50
+  }
+
+
+ //called for how many rows in a section
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
-    let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
-    
-    
-      Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
-      Cell.accessoryType = UITableViewCellAccessoryType.None
-      let cellContent = self.pageContent[self.nvc!.currentIndex][indexPath.row]
-      print(cellContent[indexPath.row])
-      Cell.textLabel?.text = cellContent[cellContent.count - 1]
-    
+    let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
+
+    self.pickerView.dataSource = self
+    self.pickerView.delegate = self
+    Cell.contentView.addSubview(self.pickerView)
     
     return Cell
   }
@@ -220,4 +237,9 @@ init(nvc : NeckExamViewController)
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
   }
+}
+
+class PickerCell: UITableViewCell
+{
+  
 }
