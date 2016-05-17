@@ -13,7 +13,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     let NumberOfSections = 2
     var cellMaxBounds: CGFloat = 0
     var CellDateField: UIDatePicker!
-    let FormArray = [["First", "Last"], ["Team", "Gender", "Birthday"]]
+    let FormArray = [["First", "Last"], ["Team", "Gender", "Student ID #", "Birthday", ""]]
     let SectionTitleArray = ["Name", "Details"]
     var newPlayer: [[String]] = []
     var didFinishEditingInformation = 0
@@ -31,6 +31,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self.finishedEditingProfile))
         self.navigationItem.rightBarButtonItem?.enabled = false;
+        
+        self.tableView.tableFooterView = UIView()
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,10 +55,10 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         Cell.contentView.preservesSuperviewLayoutMargins = true
         Cell.CellTextField.delegate = self
         
-        if (indexPath.section == 1 && indexPath.row == 2) {
+        if (indexPath.section == 1 && indexPath.row == 3) {
             Cell.CellTextField.userInteractionEnabled = false
-            cellMaxBounds = 330
-            setDateField()
+            //cellMaxBounds = 330
+            setDateField(indexPath)
         }
         
         return Cell
@@ -73,7 +75,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         view.endEditing(true)
         for section in 0...1 {
             if section == 1 {
-                for row in 0...2 {
+                for row in 0...3 {
                     let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
                     let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
                     if Cell.CellTextField.text?.characters.count > 0 {
@@ -90,7 +92,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
                 }
             }
         }
-        if didFinishEditingInformation == 5 {
+        if didFinishEditingInformation == 6 {
             self.navigationItem.rightBarButtonItem?.enabled = true
         } else {
             self.navigationItem.rightBarButtonItem?.enabled = false;
@@ -117,7 +119,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         var birthdayString: String!
         for section in 0...1 {
             if section == 1 {
-                for row in 0...2 {
+                for row in 0...3 {
                     let indexPath: NSIndexPath = NSIndexPath(forRow: row, inSection: section)
                     let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
                     switch(row) {
@@ -129,6 +131,9 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
                         trimmedGender = gender.stringByTrimmingCharactersInSet(
                             NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     case 2:
+                        let studentID = Cell.CellTextField.text!
+                        //trimmedStudentID
+                    case 3:
                         birthdayString = Cell.CellTextField.text!
                         let dateFormatter = NSDateFormatter()
                         dateFormatter.dateFormat = "MM-dd-yyyy"
@@ -173,7 +178,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     
     func dateChanged() {
         // handle date changes
-        let indexPath: NSIndexPath = NSIndexPath(forRow: 2, inSection: 1)
+        let indexPath: NSIndexPath = NSIndexPath(forRow: 3, inSection: 1)
         let Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
         
         let dateFormatter = NSDateFormatter()
@@ -185,14 +190,14 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         textFieldDidEndEditing(Cell.CellTextField)
     }
     
-    func setDateField() {
+    func setDateField(indexPath: NSIndexPath) {
         CellDateField = UIDatePicker(frame: CGRect(x: self.view.frame.minX, y: self.cellMaxBounds, width: self.view.frame.width, height: 200))
-        CellDateField.backgroundColor = UIColor.whiteColor()
+        //CellDateField.backgroundColor = UIColor.whiteColor()
         
-        let topBorder: CALayer = CALayer()
+        /*let topBorder: CALayer = CALayer()
         topBorder.frame = CGRectMake(0, 0, CellDateField.frame.size.width, 1.0)
         topBorder.backgroundColor = UIColor.grayColor().CGColor
-        CellDateField.layer.addSublayer(topBorder)
+        CellDateField.layer.addSublayer(topBorder)*/
         
         let tappedDateField = UITapGestureRecognizer(target: self, action: #selector(dateChanged))
         CellDateField.addTarget(self, action: #selector(dateChanged), forControlEvents: UIControlEvents.ValueChanged)
@@ -200,7 +205,10 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         CellDateField.maximumDate = NSDate()
         CellDateField.addGestureRecognizer(tappedDateField)
         
-        self.view.addSubview(CellDateField)
+        let indexPath: NSIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
+        let Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
+        Cell.contentView.addSubview(CellDateField)
+        //self.view.addSubview(CellDateField)
     }
     
     /*
