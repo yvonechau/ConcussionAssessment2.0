@@ -16,7 +16,7 @@ class GuestViewController: UITableViewController {
     override func loadView() {
         super.loadView()
         
-        self.title = "Guest"
+        self.navigationItem.title = "Take Test"
     }
     
     
