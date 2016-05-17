@@ -246,14 +246,8 @@ class DataModel : NSObject {
     // Get all Score Data Members as a String Array with specific ScoreID
     func scoreStringArray(id: String) -> ([String], [String?])
     {
-        print("scoreStringArray")
         let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score"]
         var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
-        
-        if id == "0"
-        {
-            return (scoreTitle, ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"])
-        }
         
         var score = scoreWithID(id)
         let currentScore = score[0]
@@ -285,7 +279,7 @@ class DataModel : NSObject {
             if let str = scoreResults[index] {
                 score = str
             } else {
-                score = "N/A"
+                score = "Untested"
             }
             
             scoreResults[index] = score
@@ -295,12 +289,12 @@ class DataModel : NSObject {
         
         /*
         Use this for scoreResults:
-         if scoreResults[i] is nil then print N/A
+         if scoreResults[i] is nil then print untested
          
         if let str = scoreResults[index] {
             score.text = str
         } else {
-            score.text = "N/A"
+            score.text = "Untested"
         }
          
         to call: 
