@@ -33,15 +33,12 @@ class ListPlayerProfileController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         listOfPlayers = database.fetchPlayers()
-        print(listOfPlayers)
         if listOfPlayers.count <= 0 {
             doListPlayers = false
-            print("no players")
         }
         else {
             doListPlayers = true
         }
-        print("I APPAEARED")
         self.tableView!.reloadData()
 
     }
