@@ -175,6 +175,10 @@ init(nvc : NeckExamViewController)
   
   override func viewDidLoad()
   {
+    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+    self.tableView.rowHeight = 50.0
+
     super.viewDidLoad()
   }
   
@@ -192,20 +196,24 @@ init(nvc : NeckExamViewController)
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
-    print("Here")
-    print(self.pageContent)
-    print(self.nvc!)
-    
+    print(pageContent[self.nvc!.currentIndex])
     return self.pageContent[self.nvc!.currentIndex].count
   }
   
+  //called for how many rows in a section
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
-    let cell = UITableViewCell()
+    let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
     
-    cell.addSubview(self.pickerView)
     
-    return cell
+      Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
+      Cell.accessoryType = UITableViewCellAccessoryType.None
+      let cellContent = self.pageContent[self.nvc!.currentIndex][indexPath.row]
+      print(cellContent[indexPath.row])
+      Cell.textLabel?.text = cellContent[cellContent.count - 1]
+    
+    
+    return Cell
   }
   
   

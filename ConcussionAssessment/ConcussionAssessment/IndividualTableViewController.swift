@@ -123,9 +123,6 @@ class IndividualTableViewController: UITableViewController {
         case 5:
             let(neckPageTitle, neckTestName, neckQuestionArray, neckInstr) = getNeckStrings()
             
-            print(neckQuestionArray)
-          
-
             let NeckView = NeckExamViewController(pageTitles: neckPageTitle, pageContent: neckQuestionArray, testName: neckTestName, instructions: neckInstr, next: nil, original: self, numTrials: nil, singlePage: false)
         
             self.navigationController?.pushViewController(NeckView, animated: true)
@@ -251,8 +248,6 @@ func createRange(upperLimit: Int, name: String)->[String]
 {
   var range = (0..<upperLimit + 5).filter{$0 % 5 == 0}.map({String($0)})
   
-  
   range.append(name)
-  print(range)
   return range
 }
