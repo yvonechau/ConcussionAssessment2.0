@@ -13,19 +13,44 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
-        let splashScreenController = SplashScreenController()
-        let navController = UINavigationController(rootViewController: splashScreenController)
-        
-        navController.navigationBar.barTintColor = UIColor(rgb: 0x002855)
-        navController.navigationBar.tintColor = UIColor.whiteColor()
-        navController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
 
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = navController
+        
+        let tabBar = UITabBarController()
+        let takeTestPage = GuestViewController()
+        let viewPlayerProfilePage = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "List")
+        let createPlayerProfilePage = CreateProfileTableViewController()
+        
+        let navTakeTestPage = UINavigationController(rootViewController: takeTestPage)
+        navTakeTestPage.navigationBar.barTintColor = UIColor(rgb: 0x002855)
+        navTakeTestPage.navigationBar.tintColor = UIColor.whiteColor()
+        navTakeTestPage.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+        let navViewPlayerProfilePage = UINavigationController(rootViewController: viewPlayerProfilePage)
+        navViewPlayerProfilePage.navigationBar.barTintColor = UIColor(rgb: 0x002855)
+        navViewPlayerProfilePage.navigationBar.tintColor = UIColor.whiteColor()
+        navViewPlayerProfilePage.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+        let navCreatePlayerProfilePage = UINavigationController(rootViewController: createPlayerProfilePage)
+        navCreatePlayerProfilePage.navigationBar.barTintColor = UIColor(rgb: 0x002855)
+        navCreatePlayerProfilePage.navigationBar.tintColor = UIColor.whiteColor()
+        navCreatePlayerProfilePage.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+    
+        
+        navTakeTestPage.tabBarItem.title = "Take Test"
+        navViewPlayerProfilePage.tabBarItem.title = "View Profiles"
+        navCreatePlayerProfilePage.tabBarItem.title = "Create Profile"
+        
+        tabBar.addChildViewController(navTakeTestPage)
+        tabBar.addChildViewController(navViewPlayerProfilePage)
+        tabBar.addChildViewController(navCreatePlayerProfilePage)
+        
+        
+        self.window?.rootViewController = tabBar
         self.window?.makeKeyAndVisible()
       
         UIApplication.sharedApplication().statusBarStyle = .LightContent

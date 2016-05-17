@@ -22,12 +22,28 @@ class ListPlayerProfileController: UITableViewController {
         super.loadView()
         
         // set the title
-        self.title = "Profiles"
+        self.navigationItem.title = "Profile"
         
         if typeOfProfilePage == "List" && doListPlayers == true {
             //self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editProfiles))
 
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        listOfPlayers = database.fetchPlayers()
+        print(listOfPlayers)
+        if listOfPlayers.count <= 0 {
+            doListPlayers = false
+            print("no players")
+        }
+        else {
+            doListPlayers = true
+        }
+        print("I APPAEARED")
+        self.tableView!.reloadData()
+
     }
     
     init(style: UITableViewStyle, type: String) {
