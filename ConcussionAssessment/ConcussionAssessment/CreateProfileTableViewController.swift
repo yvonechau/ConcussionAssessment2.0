@@ -19,6 +19,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     var didFinishEditingInformation = 0
     //var textInstructions: UILabel!
     var tap: UITapGestureRecognizer!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,7 +168,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         database.setTeamName(currentPlayerID, name: trimmedTeam)
         
         //print(database.playerWithID(currentPlayerID))
-        self.navigationController?.popViewControllerAnimated(true)
+        //self.navigationController?.popViewControllerAnimated(true)
     }
     
     func dateChanged() {
