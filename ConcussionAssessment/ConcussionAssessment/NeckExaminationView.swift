@@ -180,7 +180,7 @@ init(nvc : NeckExamViewController)
     self.tableView.rowHeight = 50.0
 
     let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
-    doneButton.actionsForTarget(<#T##target: AnyObject?##AnyObject?#>, forControlEvent: <#T##UIControlEvents#>)
+    //doneButton.actionsForTarget(target: AnyObject?, forControlEvent: UIControlEvents)
     doneButton.setTitle("Done", forState: .Normal)
     doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     doneButton.backgroundColor =  UIColor(rgb: 0x002855)
