@@ -90,13 +90,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     if(self.numTrials != nil && self.numTrials![0] < self.numTrials![1] - 1) // increase the current trial it is on when done button is pressed if there are trials
     {
       self.numTrials![0] += 1
-      //NECK_EXAMINATION
-      self.currentIndex = 0
-
-      // CURRENT MASTER
-      //self.currentIndex = self.numTrials![0] //changes pagination dots to current trial
-      //self.totalRows = 0 //resets trial score back to 0
-
+      self.currentIndex = self.numTrials![0] //changes pagination dots to current trial
+      self.totalRows = 0 //resets trial score back to 0
       let startingViewController: TablePageView = self.viewControllerAtIndex(self.currentIndex)!
       let viewControllers = [startingViewController]
       self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
