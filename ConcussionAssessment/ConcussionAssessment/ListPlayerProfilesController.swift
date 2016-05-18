@@ -17,6 +17,13 @@ class ListPlayerProfileController: UITableViewController {
     var listOfPlayers: [Player]
     var typeOfProfilePage: String
     let numberOfSections = 1
+    var originalView = 1;
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.createNewProfile))
+    }
     
     override func loadView() {
         super.loadView()
@@ -33,25 +40,23 @@ class ListPlayerProfileController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         listOfPlayers = database.fetchPlayers()
-        print(listOfPlayers)
         if listOfPlayers.count <= 0 {
             doListPlayers = false
-            print("no players")
         }
         else {
             doListPlayers = true
         }
-        print("I APPAEARED")
         self.tableView!.reloadData()
 
     }
     
-    init(style: UITableViewStyle, type: String) {
+    init(style: UITableViewStyle, type: String, original: Int) {
         listOfPlayers = database.fetchPlayers()
         if listOfPlayers.count <= 0 {
             doListPlayers = false
         }
         self.typeOfProfilePage = type
+        self.originalView = original
         super.init(style: style)
     }
     
@@ -122,10 +127,74 @@ class ListPlayerProfileController: UITableViewController {
                 default:
                     fatalError("Invalid section")
                 }
+            } else if typeOfProfilePage == "Cognative Assessment" {
+                currentScoreID = NSUUID().UUIDString
+                database.insertNewScore(playerID, scoreID: currentScoreID!)
+                
+                let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
+                let(memPageTitle, memTestName, memCOA, memInstr) = getCogAssImmediateStrings()
+                let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
+                let(monthPageTitle, monthTestName, monthCOA, monthInstr) = getCogAssMonthStrings()
+                
+                //COGNATIVE ASSESSMENT: MONTH
+                let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView] , numTrials: nil, singlePage: false) as TablePageViewController
+            
+                
+                //COGNATIVE ASSESSMENT: NUMBER
+                let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 1], singlePage: false) as TablePageViewController
+                
+                //COGNATIVE ASSESSMENT: IMMEDIATE MEMORY
+                let CognitiveImmediateMemView = TablePageViewController(pageTitles: memPageTitle, labelArray: memCOA, testName: memTestName, instructionPage: nil, instructions: memInstr, next: CognitiveNumBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 3], singlePage: true) as TablePageViewController
+                
+                //COGNATIVE ASSESSMENT: ORIENTATION
+                let CognitiveOrientationView = TablePageViewController(pageTitles: orientationTitle, labelArray: orientationCOA, testName: orientationTestName, instructionPage: nil, instructions: orientationInstr, next: CognitiveImmediateMemView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                
+                self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
+                
+            } else if typeOfProfilePage == "Symptom Evaluation" {
+                currentScoreID = NSUUID().UUIDString
+                database.insertNewScore(playerID, scoreID: currentScoreID!)
+                
+                let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
+                
+                //SYMPTOM EVALUATION
+                let SymptomView = TablePageViewController(pageTitles: sympEvalPageTitles, labelArray: sva, testName: sympEvalTestName, instructionPage: nil, instructions: sympEvalInstr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                
+                self.navigationController?.pushViewController(SymptomView, animated: true)
+                
+            } else if typeOfProfilePage == "Neck Examination" {
+                currentScoreID = NSUUID().UUIDString
+                database.insertNewScore(playerID, scoreID: currentScoreID!)
+                
+            } else if typeOfProfilePage == "BESS" {
+                currentScoreID = NSUUID().UUIDString
+                database.insertNewScore(playerID, scoreID: currentScoreID!)
+                
+            } else if typeOfProfilePage == "Glasgow" {
+                currentScoreID = NSUUID().UUIDString
+                database.insertNewScore(playerID, scoreID: currentScoreID!)
+                
+                let (pageTitles, testName, gla, instr) = getGlasgowStrings()
+                
+                let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                
+                self.navigationController?.pushViewController(GlasgowView, animated: true)
+                
+            } else if typeOfProfilePage == "Maddocks" {
+                currentScoreID = NSUUID().UUIDString
+                database.insertNewScore(playerID, scoreID: currentScoreID!)
+                
+                let (pageTitles, testName, ma, instr) = getMaddocksStrings()
+                
+                let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                
+                self.navigationController?.pushViewController(MaddocksView, animated: true)
+   
+                
             }
         }
     }
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
         if doListPlayers == true {
@@ -146,6 +215,11 @@ class ListPlayerProfileController: UITableViewController {
     
     func editProfiles() {
         
+    }
+    
+    func createNewProfile() {
+        let CreateProfileController = CreateProfileTableViewController() as CreateProfileTableViewController
+        self.navigationController?.pushViewController(CreateProfileController, animated: true)
     }
 }
 

@@ -142,7 +142,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
                             NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     case 2:
                         let studentID = Cell.CellTextField.text!
-                        //trimmedStudentID = studentID.stringByTrimmingCharactersInSet(NSCharacterSet.decimalDigitCharacterSet())
+                        trimmedStudentID = studentID.stringByTrimmingCharactersInSet(NSCharacterSet.decimalDigitCharacterSet())
                     case 3:
                         birthdayString = Cell.CellTextField.text!
                         let dateFormatter = NSDateFormatter()
@@ -183,7 +183,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         database.setTeamName(currentPlayerID, name: trimmedTeam)
         
         //print(database.playerWithID(currentPlayerID))
-        //self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func dateChanged() {

@@ -22,8 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabBar = UITabBarController()
         let takeTestPage = GuestViewController()
-        let viewPlayerProfilePage = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "List")
-        let createPlayerProfilePage = CreateProfileTableViewController(style: UITableViewStyle.Grouped)
+        let viewPlayerProfilePage = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "List", original: 1)
         
         let navTakeTestPage = UINavigationController(rootViewController: takeTestPage)
         navTakeTestPage.navigationBar.barTintColor = UIColor(rgb: 0x002855)
@@ -34,20 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navViewPlayerProfilePage.navigationBar.barTintColor = UIColor(rgb: 0x002855)
         navViewPlayerProfilePage.navigationBar.tintColor = UIColor.whiteColor()
         navViewPlayerProfilePage.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        
-        let navCreatePlayerProfilePage = UINavigationController(rootViewController: createPlayerProfilePage)
-        navCreatePlayerProfilePage.navigationBar.barTintColor = UIColor(rgb: 0x002855)
-        navCreatePlayerProfilePage.navigationBar.tintColor = UIColor.whiteColor()
-        navCreatePlayerProfilePage.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
     
         
         navTakeTestPage.tabBarItem.title = "Take Test"
         navViewPlayerProfilePage.tabBarItem.title = "View Profiles"
-        navCreatePlayerProfilePage.tabBarItem.title = "Create Profile"
         
         tabBar.addChildViewController(navTakeTestPage)
         tabBar.addChildViewController(navViewPlayerProfilePage)
-        tabBar.addChildViewController(navCreatePlayerProfilePage)
         
         
         self.window?.rootViewController = tabBar
@@ -186,8 +178,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attrDateCreated = NSAttributeDescription()
         attrDateCreated.name = "dateCreated"
         attrDateCreated.attributeType = NSAttributeType.DateAttributeType;
+        
+        let attrIDNumber = NSAttributeDescription()
+        attrIDNumber.name = "idNumber"
+        attrIDNumber.attributeType = NSAttributeType.StringAttributeType;
 
-        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated]
+        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated, attrIDNumber]
         
         // Create the model and set the entity description(s)
         var model = NSManagedObjectModel()
