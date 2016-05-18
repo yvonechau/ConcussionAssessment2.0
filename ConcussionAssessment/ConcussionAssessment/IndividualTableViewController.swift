@@ -120,10 +120,12 @@ class IndividualTableViewController: UITableViewController {
          * BESS Test
          *******************************************************************************************/
         case 4:
-            //let (pageTitles, testName, ba, balanceInstructions) = getBalanceStrings()
-            
-            let BalanceView = BalanceViewController(name: fullPlayerName, playerID: playerID) as BalanceViewController
+            let (balancePageTitles, balanceTestName, balanceInstructions) = getBalanceStrings()
+            let BalanceView = BalanceViewController(pageTitles: balancePageTitles, testName: balanceTestName, instructions: balanceInstructions, original: self)
             self.navigationController?.pushViewController(BalanceView, animated: true)
+        
+//            let BalanceView = BalanceViewController(name: fullPlayerName, playerID: playerID) as BalanceViewController
+//            self.navigationController?.pushViewController(BalanceView, animated: true)
         
         default:
             fatalError("Unknown test choice.")
@@ -219,15 +221,15 @@ func getSACDelayRecallStrings(pageTitle: [String]) -> (Array<String>, String, Ar
     
     return(pageTitle, testName, sac, instr)
 }
-//
-//func getBalanceStrings() -> (Array<String>, String, Array<Array<String>>, String)
-//{
-//  let pageTitle : [String] = ["Double Leg Stance", "Single Leg Stance", "Tandem Stance"]
-//  let testName = "Balance Examination"
-//  let ba = [[String]](count: pageTitle.count, repeatedValue: [""])
-//  let balanceInstructions = "Instructions"
-//  
-//  return(pageTitle, testName, ba, balanceInstructions)
-//}
+
+func getBalanceStrings() -> (Array<String>, String, String)
+{
+  let pageTitle : [String] = ["Double Leg Stance", "Single Leg Stance", "Tandem Stance"]
+  let testName = "Balance Examination"
+  //let ba = [[String]](count: pageTitle.count, repeatedValue: [""])
+  let balanceInstructions = "Instructions"
+  
+  return(pageTitle, testName, balanceInstructions)
+}
 
 
