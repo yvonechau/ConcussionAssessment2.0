@@ -13,7 +13,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     let NumberOfSections = 2
     var cellMaxBounds: CGFloat = 0
     var CellDateField: UIDatePicker!
-    let FormArray = [["First", "Last"], ["Team", "Gender", "Student ID #", "Birthday", ""]]
+    let FormArray = [["First", "Last"], ["Team", "Gender", "ID # (optional)", "Pick birth date below", ""]]
     let SectionTitleArray = ["Name", "Details"]
     var newPlayer: [[String]] = []
     var didFinishEditingInformation = 0
@@ -30,7 +30,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         self.title = "Create Profile"
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self.finishedEditingProfile))
-        self.navigationItem.rightBarButtonItem?.enabled = false;
+        self.navigationItem.rightBarButtonItem?.enabled = false
         
         self.tableView.tableFooterView = UIView()
     }
@@ -50,15 +50,18 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let Cell = CustomFormCell(style: UITableViewCellStyle.Value2, title: FormArray[indexPath.section][indexPath.row], section: indexPath.section)
+        let Cell = CustomFormCell(style: UITableViewCellStyle.Value2, title: FormArray[indexPath.section][indexPath.row], section: indexPath.section, tableFrame: tableView.frame)
         Cell.preservesSuperviewLayoutMargins = true
         Cell.contentView.preservesSuperviewLayoutMargins = true
-        Cell.CellTextField.delegate = self
         
         if (indexPath.section == 1 && indexPath.row == 3) {
             Cell.CellTextField.userInteractionEnabled = false
-            //cellMaxBounds = 330
-            setDateField(indexPath)
+        }
+        
+        if (indexPath.section == 1 && indexPath.row == 4) {
+            Cell.contentView.addSubview(setDateField(tableView))
+        } else {
+            Cell.CellTextField.delegate = self
         }
         
         return Cell
@@ -69,6 +72,13 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return SectionTitleArray[section]
+    }
+    
+    override func tableView(tableview: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 1 && indexPath.row == 4 {
+            return 200.0
+        }
+        return 44.0
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
@@ -132,7 +142,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
                             NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     case 2:
                         let studentID = Cell.CellTextField.text!
-                        //trimmedStudentID
+                        //trimmedStudentID = studentID.stringByTrimmingCharactersInSet(NSCharacterSet.decimalDigitCharacterSet())
                     case 3:
                         birthdayString = Cell.CellTextField.text!
                         let dateFormatter = NSDateFormatter()
@@ -190,9 +200,16 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         textFieldDidEndEditing(Cell.CellTextField)
     }
     
-    func setDateField(indexPath: NSIndexPath) {
-        CellDateField = UIDatePicker(frame: CGRect(x: self.view.frame.minX, y: self.cellMaxBounds, width: self.view.frame.width, height: 200))
-        //CellDateField.backgroundColor = UIColor.whiteColor()
+    func setDateField(tableView: UITableView) -> UIDatePicker {
+        CellDateField = UIDatePicker()
+        CellDateField.backgroundColor = UIColor.whiteColor()
+        
+        switch UIDevice.currentDevice().userInterfaceIdiom {
+        case .Pad:
+            CellDateField.frame = CGRect(x: tableView.frame.minX + 48, y: 0, width: tableView.frame.width - 96, height: 200)
+        default:
+            CellDateField.frame = CGRect(x: tableView.frame.minX + 16, y: 0, width: tableView.frame.width - 32, height: 200)
+        }
         
         /*let topBorder: CALayer = CALayer()
         topBorder.frame = CGRectMake(0, 0, CellDateField.frame.size.width, 1.0)
@@ -204,11 +221,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         CellDateField.datePickerMode = UIDatePickerMode.Date
         CellDateField.maximumDate = NSDate()
         CellDateField.addGestureRecognizer(tappedDateField)
-        
-        let indexPath: NSIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
-        let Cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
-        Cell.contentView.addSubview(CellDateField)
-        //self.view.addSubview(CellDateField)
+
+        return CellDateField
     }
     
     /*
@@ -240,17 +254,26 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
 class CustomFormCell: UITableViewCell {
     var CellTextField: UITextField!
     
-    init(style: UITableViewCellStyle, title: String, section: Int) {
+    init(style: UITableViewCellStyle, title: String, section: Int, tableFrame: CGRect) {
         super.init(style: style, reuseIdentifier: "Cell")
         // move date stuff to the Controller
         // datePicker target self, action: function (smart one),, UIControlEventValueChanged
         self.selectionStyle = UITableViewCellSelectionStyle.None
         
-        CellTextField = UITextField(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: self.frame.width, height: self.frame.height))
-        CellTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
-        CellTextField.autocorrectionType = UITextAutocorrectionType.No
-        CellTextField?.placeholder = title
-        self.contentView.addSubview(CellTextField)
+        switch UIDevice.currentDevice().userInterfaceIdiom {
+        case .Pad:
+            self.frame = CGRect(x: self.frame.minX + 48, y: self.frame.minY, width: self.frame.width - 96, height: self.frame.height)
+        default:
+            self.frame = CGRect(x: self.frame.minX + 16, y: self.frame.minY, width: self.frame.width - 32, height: self.frame.height)
+        }
+        
+        if title != "" {
+            CellTextField = UITextField(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: tableFrame.width, height: self.frame.height))
+            CellTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
+            CellTextField.autocorrectionType = UITextAutocorrectionType.No
+            CellTextField?.placeholder = title
+            self.contentView.addSubview(CellTextField)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBar = UITabBarController()
         let takeTestPage = GuestViewController()
         let viewPlayerProfilePage = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "List")
-        let createPlayerProfilePage = CreateProfileTableViewController()
+        let createPlayerProfilePage = CreateProfileTableViewController(style: UITableViewStyle.Grouped)
         
         let navTakeTestPage = UINavigationController(rootViewController: takeTestPage)
         navTakeTestPage.navigationBar.barTintColor = UIColor(rgb: 0x002855)
