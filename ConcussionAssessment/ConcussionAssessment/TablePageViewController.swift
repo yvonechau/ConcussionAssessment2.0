@@ -90,7 +90,12 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     if(self.numTrials != nil && self.numTrials![0] < self.numTrials![1] - 1) // increase the current trial it is on when done button is pressed if there are trials
     {
       self.numTrials![0] += 1
+<<<<<<< HEAD
       self.currentIndex = 0
+=======
+      self.currentIndex = self.numTrials![0] //changes pagination dots to current trial
+      self.totalRows = 0 //resets trial score back to 0
+>>>>>>> master
       let startingViewController: TablePageView = self.viewControllerAtIndex(self.currentIndex)!
       let viewControllers = [startingViewController]
       self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
@@ -476,8 +481,7 @@ class TablePageView: UITableViewController
     self.pvc!.rowSelected = rowSel
     self.pvc!.currentIndex += 1 //updates dots
     self.pvc!.setScore()
-
-
+    
     if(self.pvc!.singlePage) // all words on one page
     {
       if let cell = tableView.cellForRowAtIndexPath(indexPath) // for toggling checkmarks
@@ -494,11 +498,8 @@ class TablePageView: UITableViewController
           cell.accessoryType = .Checkmark
           checked[indexPath.row] = true
           self.totalRowsSelected += 1 // need to check when done
-
         }
-        
       }
-      
       self.pvc!.totalRows = self.totalRowsSelected
       self.pvc!.setScore()
     }

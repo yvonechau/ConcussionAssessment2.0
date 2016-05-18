@@ -73,9 +73,11 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         print(scoresOfPlayer)
         if scoresOfPlayer.count <= 0 {
             didGetScores = false
+            (scoreTitles, scoreResults) = database.scoreStringArray("0")
         }
-        
-        (scoreTitles, scoreResults) = database.scoreStringArray(scoresOfPlayer[0].scoreID!)
+        else {
+            (scoreTitles, scoreResults) = database.scoreStringArray(scoresOfPlayer[0].scoreID!)
+        }
         
         super.init(nibName: nil, bundle: nil)
     }

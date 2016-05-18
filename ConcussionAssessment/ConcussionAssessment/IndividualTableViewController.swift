@@ -69,63 +69,42 @@ class IndividualTableViewController: UITableViewController {
          * GLASGOW TEST
          *******************************************************************************************/
         case 0:
-            let (pageTitles, testName, gla, instr) = getGlasgowStrings()
-            
-            let GlasgowView = TablePageViewController(pageTitles: pageTitles, labelArray: gla, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self, numTrials: nil, singlePage: false) as TablePageViewController
-            
-            self.navigationController?.pushViewController(GlasgowView, animated: true)
+            let takeGlasgowTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Glasgow", original: 2)
+            self.navigationController?.pushViewController(takeGlasgowTest, animated: true)
         
         /******************************************************************************************
          * MADDOCKS TEST
          *******************************************************************************************/
         case 1:
-            let (pageTitles, testName, ma, instr) = getMaddocksStrings()
-            
-            let MaddocksView = TablePageViewController(pageTitles: pageTitles, labelArray: ma, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self, numTrials: nil, singlePage: false) as TablePageViewController
-            
-            self.navigationController?.pushViewController(MaddocksView, animated: true)
+            let takeMaddocksTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Maddocks", original: 2)
+            self.navigationController?.pushViewController(takeMaddocksTest, animated: true)
         
         /******************************************************************************************
          * SYMPTOM EVALUATION
          *******************************************************************************************/
         case 2:
-            let (pageTitles, testName, sva, instr) = getSympEvalStrings()
-            
-            let SymptomView = TablePageViewController(pageTitles: pageTitles, labelArray: sva, testName: testName, instructionPage: nil, instructions: instr, next: nil, original: self, numTrials: nil, singlePage: false) as TablePageViewController
-            
-            self.navigationController?.pushViewController(SymptomView, animated: true)
+            let takeSymptomEvaluation = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Symptom Evaluation", original: 2)
+            self.navigationController?.pushViewController(takeSymptomEvaluation, animated: true)
         
         /******************************************************************************************
          * COGNITIVE ASSESSMENT
          *******************************************************************************************/
         case 3:
-            let(monthPageTitle, monthTestName, monthCOA, monthInstr) = getCogAssMonthStrings()
-            let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
-            let(memPageTitle, memTestName, memCOA, memInstr) = getCogAssImmediateStrings()
-            let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
-
-            
-            let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: nil, original: self, numTrials: nil, singlePage: false) as TablePageViewController
-            
-            
-            let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self, numTrials: [0, 1], singlePage: false) as TablePageViewController
-            
-            let CognitiveImmediateMemView = TablePageViewController(pageTitles: memPageTitle, labelArray: memCOA, testName: memTestName, instructionPage: nil, instructions: memInstr, next: CognitiveNumBackwardsView, original: self, numTrials: [0, 3], singlePage: true) as TablePageViewController
-            
-            let CognitiveOrientationView = TablePageViewController(pageTitles: orientationTitle, labelArray: orientationCOA, testName: orientationTestName, instructionPage: nil, instructions: orientationInstr, next: CognitiveImmediateMemView, original: self, numTrials: nil, singlePage: false) as TablePageViewController
-            
-            self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
-
+            let takeCognitiveAssessment = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Cognative Assessment", original: 2)
+            self.navigationController?.pushViewController(takeCognitiveAssessment, animated: true)
+        /******************************************************************************************
+         * BESS
+         *******************************************************************************************/
         case 4:
-            let BalanceView = BalanceViewController() as BalanceViewController
-            self.navigationController?.pushViewController(BalanceView, animated: true)
-
-        case 5:
-            let(neckPageTitle, neckTestName, neckQuestionArray, neckInstr) = getNeckStrings()
+            let takeBessTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "BESS", original: 2)
+            self.navigationController?.pushViewController(takeBessTest, animated: true)
             
-            let NeckView = NeckExamViewController(pageTitles: neckPageTitle, pageContent: neckQuestionArray, testName: neckTestName, instructions: neckInstr, next: nil, original: self, numTrials: nil, singlePage: false)
-        
-            self.navigationController?.pushViewController(NeckView, animated: true)
+        /******************************************************************************************
+         * NECK EXAMINATION
+         *******************************************************************************************/
+        case 5:
+            let takeNeckExamination = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Neck Examination", original: 2)
+            self.navigationController?.pushViewController(takeNeckExamination, animated:true)
 
         default:
             fatalError("Unknown test choice.")

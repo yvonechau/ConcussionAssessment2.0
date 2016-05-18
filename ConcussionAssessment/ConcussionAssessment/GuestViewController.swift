@@ -5,6 +5,7 @@
 //  Created by Philson Wong on 4/5/2016
 //  Copyright © 2016 PYKS. All rights reserved.
 //
+//  THIS CONTROLLER - NOW IS THE FULL TEST AND INDIVIDUAL TEST PAGE
 
 import UIKit
 import CoreData
@@ -16,7 +17,7 @@ class GuestViewController: UITableViewController {
     override func loadView() {
         super.loadView()
         
-        self.title = "Guest"
+        self.navigationItem.title = "Take Test"
     }
     
     
@@ -52,8 +53,14 @@ class GuestViewController: UITableViewController {
                 pageControl.pageIndicatorTintColor = UIColor.whiteColor()
                 pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
                 pageControl.backgroundColor = UIColor(rgb: 0x002855)
-                currentScoreID = NSUUID().UUIDString
-                database.insertNewScore("no player", scoreID: currentScoreID!)
+                
+                let takeFullTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Select", original: 2)
+                self.navigationController?.pushViewController(takeFullTest, animated: true)
+                
+                
+                //currentScoreID = NSUUID().UUIDString
+                //database.insertNewScore("no player", scoreID: currentScoreID!)
+                /*
                 
                 let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
                 let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
@@ -82,6 +89,7 @@ class GuestViewController: UITableViewController {
                 let SymptomView = TablePageViewController(pageTitles: sympEvalPageTitles, labelArray: sva, testName: sympEvalTestName, instructionPage: nil, instructions: sympEvalInstr, next: CognitiveOrientationView, original: self, numTrials: nil, singlePage: false) as TablePageViewController
                 
                 self.navigationController?.pushViewController(SymptomView, animated: true)
+                */
                 
                 break;
             case 1:
