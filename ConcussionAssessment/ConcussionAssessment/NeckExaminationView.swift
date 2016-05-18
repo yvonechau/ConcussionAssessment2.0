@@ -173,14 +173,29 @@ init(nvc : NeckExamViewController)
     fatalError("init(coder:) has not been implemented")
   }
   
+  func buttonPressed(sender: UIButton)
+  {
+    self.nvc!.currentIndex += 1
+    let startingViewController: NeckExamView = self.nvc!.viewControllerAtIndex(self.nvc!.currentIndex)!
+    let viewControllers = [startingViewController]
+    self.nvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+    
+  }
+  
+  
   override func viewDidLoad()
   {
     self.tableView.contentInset = UIEdgeInsetsMake(80.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
 
-    let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
+
+    //let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
     //doneButton.actionsForTarget(target: AnyObject?, forControlEvent: UIControlEvents)
+
+    let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 60))
+    doneButton.addTarget(self, action: #selector(NeckExamView.buttonPressed(_:)), forControlEvents: .TouchUpInside)
+
     doneButton.setTitle("Done", forState: .Normal)
     doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     doneButton.backgroundColor =  UIColor(rgb: 0x002855)
@@ -189,7 +204,7 @@ init(nvc : NeckExamViewController)
     
     super.viewDidLoad()
   }
-  
+ 
   // Data Source Methods
   
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -209,7 +224,6 @@ init(nvc : NeckExamViewController)
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
     return self.pageContent[self.nvc!.currentIndex].count
-
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
