@@ -193,7 +193,8 @@ init(nvc : NeckExamViewController)
   func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
   {
     print(self.pageContent[self.nvc!.currentIndex][row])
-    return "alex is dead to me"
+    
+    return pageContent[self.nvc!.currentIndex][row][component]
   }
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
@@ -215,7 +216,7 @@ init(nvc : NeckExamViewController)
   
   override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
   {
-    return 50
+    return 60
   }
 
 
@@ -223,7 +224,7 @@ init(nvc : NeckExamViewController)
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
     let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
-    let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(0.0, -30, 200, 100))
+    let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(10, -20, 200, 100))
 
     pickerView.dataSource = self
     pickerView.delegate = self
