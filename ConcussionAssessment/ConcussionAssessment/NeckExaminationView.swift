@@ -72,6 +72,9 @@ class NeckExamViewController: UIViewController, UIPageViewControllerDataSource
     view.addSubview(pageViewController!.view)
     pageViewController!.didMoveToParentViewController(self)
     
+    self.navigationItem.prompt = self.testName
+    self.title = self.pageTitles[self.currentIndex]
+    
     
     let infobutton = UIButton(type: UIButtonType.InfoDark)
     
@@ -172,10 +175,18 @@ init(nvc : NeckExamViewController)
   
   override func viewDidLoad()
   {
-    self.tableView.contentInset = UIEdgeInsetsMake(50.0, 0, -120.0, 0)
+    self.tableView.contentInset = UIEdgeInsetsMake(80.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
 
+    let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
+    doneButton.actionsForTarget(<#T##target: AnyObject?##AnyObject?#>, forControlEvent: <#T##UIControlEvents#>)
+    doneButton.setTitle("Done", forState: .Normal)
+    doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+    doneButton.backgroundColor =  UIColor(rgb: 0x002855)
+
+    self.tableView.addSubview(doneButton)
+    
     super.viewDidLoad()
   }
   
@@ -228,13 +239,13 @@ init(nvc : NeckExamViewController)
     pickerView.dataSource = self
     pickerView.delegate = self
     Cell.contentView.addSubview(pickerView)
-    
     return Cell
   }
   
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
+    
   }
 }
 
