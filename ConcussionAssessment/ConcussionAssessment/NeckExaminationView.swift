@@ -187,15 +187,14 @@ init(nvc : NeckExamViewController)
   
   func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
   {
-    return self.pageContent[self.nvc!.currentIndex].count
+    return pageContent[nvc!.currentIndex][pickerView.selectedRowInComponent(component)].count - 1
+
   }
-  
   func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
   {
-    print(self.pageContent[self.nvc!.currentIndex][row])
-    
-    return pageContent[self.nvc!.currentIndex][row][component]
+    return pageContent[nvc!.currentIndex][pickerView.selectedRowInComponent(component)][row]
   }
+  
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
     return self.pageContent[self.nvc!.currentIndex].count
