@@ -179,8 +179,8 @@ init(nvc : NeckExamViewController)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
 
-    let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
-    doneButton.actionsForTarget(<#T##target: AnyObject?##AnyObject?#>, forControlEvent: <#T##UIControlEvents#>)
+    let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 60))
+    doneButton.addTarget(self, action: #selector(TablePageViewController.buttonPressed(_:)), forControlEvents: .TouchUpInside)
     doneButton.setTitle("Done", forState: .Normal)
     doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     doneButton.backgroundColor =  UIColor(rgb: 0x002855)
@@ -188,6 +188,14 @@ init(nvc : NeckExamViewController)
     self.tableView.addSubview(doneButton)
     
     super.viewDidLoad()
+  }
+  func buttonPressed()
+  {
+    self.nvc!.currentIndex += 1
+    let startingViewController: NeckExamView = self.nvc!.viewControllerAtIndex(self.nvc!.currentIndex)!
+    let viewControllers = [startingViewController]
+    self.nvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+
   }
   
   // Data Source Methods
