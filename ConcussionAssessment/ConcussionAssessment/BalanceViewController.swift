@@ -205,7 +205,9 @@ class BalanceView : UITableViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    
+    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+    self.tableView.rowHeight = 50.0
     
   }
   
@@ -213,5 +215,18 @@ class BalanceView : UITableViewController
   {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+  
+  override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
+  {
+    return titleText
+  }
+  
+  override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+  {
+    let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+    
+    header.textLabel?.font = UIFont(name: "Helvetica Neue", size: 20.0)
+    
   }
 }
