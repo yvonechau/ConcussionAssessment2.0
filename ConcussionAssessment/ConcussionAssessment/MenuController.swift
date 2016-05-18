@@ -73,7 +73,7 @@ class MenuController: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
-                let LPPController = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Select")
+                let LPPController = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Select", original: 1)
                 self.navigationController?.pushViewController(LPPController, animated: true)
                 break;
             case 1:

@@ -48,7 +48,7 @@ class DataModel : NSObject {
     }
     
     // create a Player Object and save it
-    func insertNewPlayer(playerID: String, firstName: String, lastName: String, teamName: String, birthday: NSDate, gender: String) {
+    func insertNewPlayer(playerID: String, firstName: String, lastName: String, teamName: String, birthday: NSDate, gender: String, studentID: String) {
         let player = NSEntityDescription.insertNewObjectForEntityForName("Player", inManagedObjectContext: managedObjectContext) as! Player
         
         player.playerID = playerID
@@ -57,6 +57,7 @@ class DataModel : NSObject {
         player.teamName  = teamName
         player.birthday  = birthday
         player.gender    = gender
+        player.idNumber  = studentID
         
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -246,8 +247,14 @@ class DataModel : NSObject {
     // Get all Score Data Members as a String Array with specific ScoreID
     func scoreStringArray(id: String) -> ([String], [String?])
     {
+        print("scoreStringArray")
         let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score"]
         var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
+        
+        if id == "0"
+        {
+            return (scoreTitle, ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"])
+        }
         
         var score = scoreWithID(id)
         let currentScore = score[0]
@@ -279,7 +286,7 @@ class DataModel : NSObject {
             if let str = scoreResults[index] {
                 score = str
             } else {
-                score = "Untested"
+                score = "N/A"
             }
             
             scoreResults[index] = score
@@ -289,12 +296,12 @@ class DataModel : NSObject {
         
         /*
         Use this for scoreResults:
-         if scoreResults[i] is nil then print untested
+         if scoreResults[i] is nil then print N/A
          
         if let str = scoreResults[index] {
             score.text = str
         } else {
-            score.text = "Untested"
+            score.text = "N/A"
         }
          
         to call: 
@@ -559,6 +566,27 @@ class DataModel : NSObject {
         }
         
         fetchPlayer[0].teamName = name
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot save first name with playerID")
+        }
+    }
+    
+    func setIDNumber(id: String, studentID: String)
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        var fetchPlayer: [Player]
+        
+        do {
+            fetchPlayer = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+        } catch {
+            fatalError("Failed to get Player")
+        }
+        
+        fetchPlayer[0].idNumber = studentID
         
         do {
             try self.managedObjectContext.save()
