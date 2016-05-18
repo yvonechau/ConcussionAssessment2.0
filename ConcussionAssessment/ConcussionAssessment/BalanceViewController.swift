@@ -54,7 +54,31 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
       
     }))
     presentViewController(alertView, animated: true, completion: nil)
+  }
+  
+  func doneButtonPressed(sender: UIButton)
+  {
+    self.donePressed = true
+    self.setScore()
+    self.currentIndex += 1
+    if(currentIndex == numPages)
+    {
+    //self.navigationController?.popToViewController(self.original!, animated: true)
+        let scoreboard = ScoreBoardController(originalPage: self.original!)
+        self.navigationController?.pushViewController(scoreboard, animated: true)
+    }
+    else
+    {
+      let startingViewController: BalanceView = self.viewControllerAtIndex(self.currentIndex)!
+      let viewControllers = [startingViewController]
+      self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+    }
     
+  }
+  
+  func setScore()
+  {
+    print("set balance score")
   }
   
   override func viewDidLoad() {
@@ -114,9 +138,9 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     /***** RIGHT NAV BAR BUTTONS ****
      *********************************/
     let infobutton = UIButton(type: UIButtonType.InfoDark)
-    infobutton.addTarget(self, action: #selector(TablePageViewController.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+    infobutton.addTarget(self, action: #selector(BalanceViewController.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     let infoModalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TablePageViewController.doneButtonPressed(_:)))
+    let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(BalanceViewController.doneButtonPressed(_:)))
     
     self.navigationItem.rightBarButtonItems = [doneButton, infoModalButton!]
 
@@ -175,7 +199,7 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
   
   func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int
   {
-    self.numPages = 1
+    self.numPages = self.pageTitles.count
     return self.numPages
   }
   
@@ -190,6 +214,7 @@ class BalanceView : UITableViewController
 {
   var titleText : String = ""
   weak var bvc : BalanceViewController?
+
   
   init(bvc : BalanceViewController)
   {
@@ -225,8 +250,25 @@ class BalanceView : UITableViewController
   override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
   {
     let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-    
     header.textLabel?.font = UIFont(name: "Helvetica Neue", size: 20.0)
-    
   }
+  
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+  {
+    //return self.bvc!.pageTitles.count
+    return 2
+  }
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
+//    cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
+//    
+//    let label1 = cell.viewWithTag(1) as! UILabel // 1 is tag of first label;
+//    label1.text = "AAAA"
+    return cell
+  }
+  
+  
+  
+  
 }
