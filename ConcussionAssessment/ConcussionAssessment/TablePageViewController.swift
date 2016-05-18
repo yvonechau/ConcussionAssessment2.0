@@ -198,6 +198,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
        
         self.donePressed = false
       }
+    case "Balance Examination":
+      print("balance score")
       
     default: print("none")
     }
@@ -502,7 +504,6 @@ class TablePageView: UITableViewController
     }
     else
     {
-
         if(self.pvc!.numTrials != nil) //no all rows, but has trials
         {
           if(indexPath.item == 0) // incorrect

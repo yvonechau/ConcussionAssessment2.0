@@ -116,8 +116,13 @@ class IndividualTableViewController: UITableViewController {
             
             self.navigationController?.pushViewController(CognitiveOrientationView, animated: true)
 
+        /******************************************************************************************
+         * BESS Test
+         *******************************************************************************************/
         case 4:
-            let BalanceView = BalanceViewController() as BalanceViewController
+            //let (pageTitles, testName, ba, balanceInstructions) = getBalanceStrings()
+            
+            let BalanceView = BalanceViewController(name: fullPlayerName, playerID: playerID) as BalanceViewController
             self.navigationController?.pushViewController(BalanceView, animated: true)
         
         default:
@@ -214,5 +219,15 @@ func getSACDelayRecallStrings(pageTitle: [String]) -> (Array<String>, String, Ar
     
     return(pageTitle, testName, sac, instr)
 }
+//
+//func getBalanceStrings() -> (Array<String>, String, Array<Array<String>>, String)
+//{
+//  let pageTitle : [String] = ["Double Leg Stance", "Single Leg Stance", "Tandem Stance"]
+//  let testName = "Balance Examination"
+//  let ba = [[String]](count: pageTitle.count, repeatedValue: [""])
+//  let balanceInstructions = "Instructions"
+//  
+//  return(pageTitle, testName, ba, balanceInstructions)
+//}
 
 
