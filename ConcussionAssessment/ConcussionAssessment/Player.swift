@@ -18,4 +18,5 @@ class Player : NSManagedObject {
   @NSManaged var birthday: NSDate?
   @NSManaged var gender: String?
   @NSManaged var dateCreated: NSDate?
+  @NSManaged var idNumber: String?
 }

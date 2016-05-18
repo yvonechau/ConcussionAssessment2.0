@@ -186,8 +186,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attrDateCreated = NSAttributeDescription()
         attrDateCreated.name = "dateCreated"
         attrDateCreated.attributeType = NSAttributeType.DateAttributeType;
+        
+        let attrIDNumber = NSAttributeDescription()
+        attrIDNumber.name = "idNumber"
+        attrIDNumber.attributeType = NSAttributeType.StringAttributeType;
 
-        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated]
+        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated, attrIDNumber]
         
         // Create the model and set the entity description(s)
         var model = NSManagedObjectModel()
