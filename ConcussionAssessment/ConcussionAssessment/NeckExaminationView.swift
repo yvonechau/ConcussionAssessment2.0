@@ -176,9 +176,18 @@ init(nvc : NeckExamViewController)
   func buttonPressed(sender: UIButton)
   {
     self.nvc!.currentIndex += 1
-    let startingViewController: NeckExamView = self.nvc!.viewControllerAtIndex(self.nvc!.currentIndex)!
-    let viewControllers = [startingViewController]
-    self.nvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+    if self.nvc!.currentIndex == self.pageContent.count
+    {
+      self.navigationController?.popToViewController(self.nvc!.original!, animated: true)
+    }
+    else{
+      let startingViewController: NeckExamView = self.nvc!.viewControllerAtIndex(self.nvc!.currentIndex)!
+      let viewControllers = [startingViewController]
+      self.nvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+      print(self.nvc!.pageTitles[self.nvc!.currentIndex])
+      self.nvc!.navigationItem.title = self.nvc!.pageTitles[self.nvc!.currentIndex]
+
+    }
     
   }
   
@@ -188,7 +197,6 @@ init(nvc : NeckExamViewController)
     self.tableView.contentInset = UIEdgeInsetsMake(80.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
-
 
     //let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
     //doneButton.actionsForTarget(target: AnyObject?, forControlEvent: UIControlEvents)
@@ -223,6 +231,9 @@ init(nvc : NeckExamViewController)
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
+    print("here")
+    print(self.nvc!.pageContent.count)
+    print(self.nvc!.currentIndex)
     return self.pageContent[self.nvc!.currentIndex].count
   }
   

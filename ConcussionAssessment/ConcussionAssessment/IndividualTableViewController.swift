@@ -91,7 +91,7 @@ class IndividualTableViewController: UITableViewController {
          * COGNITIVE ASSESSMENT
          *******************************************************************************************/
         case 3:
-            let takeCognitiveAssessment = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Cognative Assessment", original: 2)
+            let takeCognitiveAssessment = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Cognitive Assessment", original: 2)
             self.navigationController?.pushViewController(takeCognitiveAssessment, animated: true)
         /******************************************************************************************
          * BESS
@@ -213,11 +213,13 @@ func getNeckStrings() -> (Array<String>, String, [[[String]]], String)
 
   let tenderness : [[String]] = [["Yes", "No", "Right Paraspinal"], ["Yes", "No", "Left Paraspinal"], ["Yes", "No", "Bony"]]
   let upperLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Upper Limb"], ["Normal", "Abnormal", "Left Upper Limit"]]
+  let upperLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
+
   let lowerLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
   let lowerLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
   
   let pageTitle: [String] = ["Range of Motion", "Tenderness", "Upper Limb Sensation", "Upper Limb Strength", "Lower Limb Sensation", "Lower Limb Strength"]
-  let pageContent: [[[String]]] = [rangeOfMotion, tenderness, upperLimbSensation, lowerLimbSensation, lowerLimbStrength]
+  let pageContent: [[[String]]] = [rangeOfMotion, tenderness, upperLimbSensation, upperLimbStrength, lowerLimbSensation, lowerLimbStrength]
   let testName = "Neck Examination"
   let instr = "TBA"
   

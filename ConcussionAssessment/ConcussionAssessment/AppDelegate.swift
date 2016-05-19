@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBar = UITabBarController()
         let takeTestPage = GuestViewController()
         let viewPlayerProfilePage = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "List", original: 1)
-        //let viewCreatePlayerPage = CreateProfileTableViewController()
+        let viewCreatePlayerPage = CreateProfileTableViewController()
         
         let navTakeTestPage = UINavigationController(rootViewController: takeTestPage)
         navTakeTestPage.navigationBar.barTintColor = UIColor(rgb: 0x002855)
@@ -35,20 +35,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navViewPlayerProfilePage.navigationBar.tintColor = UIColor.whiteColor()
         navViewPlayerProfilePage.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
-        /*
+      
         let navCreatePlayerPage = UINavigationController(rootViewController: viewCreatePlayerPage)
         navCreatePlayerPage.navigationBar.barTintColor = UIColor(rgb: 0x002855)
         navCreatePlayerPage.navigationBar.tintColor = UIColor.whiteColor()
         navCreatePlayerPage.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        */
+     
         
         navTakeTestPage.tabBarItem.title = "Take Test"
         navViewPlayerProfilePage.tabBarItem.title = "View Profiles"
-        //navCreatePlayerPage.tabBarItem.title = "CreateProfiles"
+        navCreatePlayerPage.tabBarItem.title = "CreateProfiles"
         
         tabBar.addChildViewController(navTakeTestPage)
         tabBar.addChildViewController(navViewPlayerProfilePage)
-        //tabBar.addChildViewController(navCreatePlayerPage)
+        tabBar.addChildViewController(navCreatePlayerPage)
         
         
         self.window?.rootViewController = tabBar
