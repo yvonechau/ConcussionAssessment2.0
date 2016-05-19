@@ -14,7 +14,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     var numberScoresDisplayed: Int!
     var name: String!
     var playerID: String!
-    var scoreResults: [String?]
+    var scoreResults: [[String?]]
     var scoreTitles: [String]
     var scoresOfPlayer: [Score]
     var didGetScores: Bool = true
@@ -67,15 +67,26 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         default:
             innerSpacing = 2
         }
+    
+        self.scoreResults = []
+        self.scoreTitles = []
         self.name = name
         self.playerID = playerID
         self.scoresOfPlayer = database.scoresOfPlayer(self.playerID)
-        print(scoresOfPlayer)
+        print(scoresOfPlayer.count)
+        
         if scoresOfPlayer.count <= 0 {
             didGetScores = false
+        } else {
+            let (tempScoreTitles, tempScoreResults) = database.scoreStringArray(scoresOfPlayer[0].scoreID!)
+            scoreResults.append(tempScoreResults)
+            scoreTitles = tempScoreTitles
         }
         
-        (scoreTitles, scoreResults) = database.scoreStringArray(scoresOfPlayer[0].scoreID!)
+        /*for x in 0..<3 {
+            (scoreTitles, scoreResults[x]) = database.scoreStringArray(scoresOfPlayer[x].scoreID!)
+        }*/
+        
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -95,23 +106,109 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! LabelCell
-        switch indexPath.item {
+        
+        let categoryNumber = indexPath.item / numberOfColumns
+        
+        switch categoryNumber {
         case 0:
-            cell.setCellText(scoreResults[6]!, categoryLabelText: catText[0])
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText(scoreResults[0][6]!, categoryLabelText: catText[0])
+            case 1:
+                cell.setCellText(scoreResults[1][6]!, categoryLabelText: catText[0])
+            case 2:
+                cell.setCellText(scoreResults[2][6]!, categoryLabelText: catText[0])
+            default:
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
+        case 1:
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText(scoreResults[0][0]!, categoryLabelText: catText[1])
+            case 1:
+                cell.setCellText(scoreResults[1][0]!, categoryLabelText: catText[1])
+            case 2:
+                cell.setCellText(scoreResults[2][0]!, categoryLabelText: catText[1])
+            default:
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
+        case 2:
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText(scoreResults[0][6]!, categoryLabelText: catText[0])
+            case 1:
+                cell.setCellText(scoreResults[1][6]!, categoryLabelText: catText[0])
+            case 2:
+                cell.setCellText(scoreResults[2][6]!, categoryLabelText: catText[0])
+            default:
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
         case 3:
-            cell.setCellText(scoreResults[0]!, categoryLabelText: catText[1])
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText(scoreResults[0][1]!, categoryLabelText: catText[2])
+            case 1:
+                cell.setCellText(scoreResults[1][1]!, categoryLabelText: catText[2])
+            case 2:
+                cell.setCellText(scoreResults[2][1]!, categoryLabelText: catText[2])
+            default:
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
+        case 4:
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText(scoreResults[0][2]!, categoryLabelText: catText[3])
+            case 1:
+                cell.setCellText(scoreResults[1][2]!, categoryLabelText: catText[3])
+            case 2:
+                cell.setCellText(scoreResults[2][2]!, categoryLabelText: catText[3])
+            default:
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
+        case 5:
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText(scoreResults[0][4]!, categoryLabelText: catText[5])
+            case 1:
+                cell.setCellText(scoreResults[1][4]!, categoryLabelText: catText[5])
+            case 2:
+                cell.setCellText(scoreResults[2][4]!, categoryLabelText: catText[5])
+            default:
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
         case 6:
-            cell.setCellText(scoreResults[1]!, categoryLabelText: catText[2])
-        case 9:
-            cell.setCellText(scoreResults[2]!, categoryLabelText: catText[3])
-        case 12:
-            cell.setCellText(scoreResults[3]!, categoryLabelText: catText[4])
-        case 15:
-            cell.setCellText(scoreResults[4]!, categoryLabelText: catText[5])
-        case 18:
-            cell.setCellText(scoreResults[5]!, categoryLabelText: catText[6])
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText(scoreResults[0][4]!, categoryLabelText: catText[5])
+            case 1:
+                cell.setCellText(scoreResults[1][4]!, categoryLabelText: catText[5])
+            case 2:
+                cell.setCellText(scoreResults[2][4]!, categoryLabelText: catText[5])
+            default:
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
+        case 7:
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText(scoreResults[0][5]!, categoryLabelText: catText[6])
+            case 1:
+                cell.setCellText(scoreResults[1][5]!, categoryLabelText: catText[6])
+            case 2:
+                cell.setCellText(scoreResults[2][5]!, categoryLabelText: catText[6])
+            default:
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
         default:
-            cell.setCellText("27", categoryLabelText: "Minus or Plus")
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText("invalid", categoryLabelText: "N/A")
+            case 1:
+                cell.setCellText("invalid", categoryLabelText: "N/A")
+            case 2:
+                cell.setCellText("invalid", categoryLabelText: "N/A")
+            default:
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
         }
         return cell
     }

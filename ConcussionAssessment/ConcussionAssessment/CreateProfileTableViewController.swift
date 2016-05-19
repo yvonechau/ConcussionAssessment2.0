@@ -13,14 +13,16 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     let NumberOfSections = 2
     var cellMaxBounds: CGFloat = 0
     var CellDateField: UIDatePicker!
+    let genderItems = ["Male", "Female", "Other"]
     let FormArray = [["First", "Last"], ["Team", "Gender", "ID # (optional)", "Pick birth date below", ""]]
+    var FormArrayDataName = [String](count: 2, repeatedValue: "")
+    var FormArrayDataInfo = [String](count: 4, repeatedValue: "")
     let SectionTitleArray = ["Name", "Details"]
     var newPlayer: [[String]] = []
     var didFinishEditingInformation = 0
     //var textInstructions: UILabel!
     var tap: UITapGestureRecognizer!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +34,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self.finishedEditingProfile))
         self.navigationItem.rightBarButtonItem?.enabled = false
         
-        self.tableView.tableFooterView = UIView()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CreateProfileTableViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,14 +57,21 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         Cell.preservesSuperviewLayoutMargins = true
         Cell.contentView.preservesSuperviewLayoutMargins = true
         
-        if (indexPath.section == 1 && indexPath.row == 3) {
+        if (indexPath.section == 1 && (indexPath.row == 3 || indexPath.row == 1)) {
             Cell.CellTextField.userInteractionEnabled = false
         }
         
         if (indexPath.section == 1 && indexPath.row == 4) {
             Cell.contentView.addSubview(setDateField(tableView))
+        } else if (indexPath.section == 1 && indexPath.row == 1) {
+            Cell.contentView.addSubview(setGenderField(tableView))
         } else {
             Cell.CellTextField.delegate = self
+            if indexPath.section == 0 {
+                Cell.CellTextField.text = FormArrayDataName[indexPath.item]
+            } else if indexPath.section == 1 {
+                Cell.CellTextField.text = FormArrayDataInfo[indexPath.item]
+            }
         }
         
         return Cell
@@ -90,6 +100,9 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
                     let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
                     if Cell.CellTextField.text?.characters.count > 0 {
                         didFinishEditingInformation += 1
+                        FormArrayDataInfo[indexPath.item] = Cell.CellTextField.text!
+                    } else if (row == 2) {
+                        didFinishEditingInformation += 1
                     }
                 }
             } else {
@@ -98,6 +111,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
                     let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
                     if Cell.CellTextField.text?.characters.count > 0 {
                         didFinishEditingInformation += 1
+                        FormArrayDataName[indexPath.item] = Cell.CellTextField.text!
+                        print(FormArrayDataName)
                     }
                 }
             }
@@ -123,8 +138,29 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         view.endEditing(true)
     }
     
+    func setGenderField(tableView: UITableView) -> UISegmentedControl {
+        let genderChoice = UISegmentedControl(items: self.genderItems)
+        
+        switch UIDevice.currentDevice().userInterfaceIdiom {
+        case .Pad:
+            genderChoice.frame = CGRect(x: tableView.frame.minX + 48, y: genderChoice.frame.minY, width: 300, height: 28)
+        default:
+            genderChoice.frame = CGRect(x: tableView.frame.minX + 16, y: genderChoice.frame.minY, width: 200, height: 28)
+        }
+        
+        genderChoice.addTarget(self, action: #selector(self.genderChoiceToText), forControlEvents: .ValueChanged)
+        return genderChoice
+    }
+    
+    func genderChoiceToText(sender: UISegmentedControl) {
+        let indexPath: NSIndexPath = NSIndexPath(forRow: 1, inSection: 1)
+        let Cell = tableView.cellForRowAtIndexPath(indexPath)
+        
+        switch 
+    }
+    
     func finishedEditingProfile() {
-        var trimmedTeam, trimmedGender, trimmedFirstName, trimmedLastName: String!
+        var trimmedTeam, trimmedGender, trimmedFirstName, trimmedLastName, trimmedIDNumber: String!
         var birthday: NSDate!
         var birthdayString: String!
         for section in 0...1 {
@@ -141,8 +177,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
                         trimmedGender = gender.stringByTrimmingCharactersInSet(
                             NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     case 2:
-                        let studentID = Cell.CellTextField.text!
-                        trimmedStudentID = studentID.stringByTrimmingCharactersInSet(NSCharacterSet.decimalDigitCharacterSet())
+                        let idNumber = Cell.CellTextField.text!
+                        trimmedIDNumber = idNumber.stringByTrimmingCharactersInSet(NSCharacterSet.decimalDigitCharacterSet())
                     case 3:
                         birthdayString = Cell.CellTextField.text!
                         let dateFormatter = NSDateFormatter()
@@ -181,6 +217,9 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         database.setBirthday(currentPlayerID, date: birthday)
         database.setGender(currentPlayerID, gender: trimmedGender)
         database.setTeamName(currentPlayerID, name: trimmedTeam)
+        if trimmedIDNumber.characters.count > 0 {
+            database.setIDNumber(currentPlayerID, studentID: trimmedIDNumber)
+        }
         
         //print(database.playerWithID(currentPlayerID))
         self.navigationController?.popViewControllerAnimated(true)
@@ -197,6 +236,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         let birthdateString = dateFormatter.stringFromDate(CellDateField.date)
         
         Cell.CellTextField.text = birthdateString
+        Cell.CellTextField.textColor = UIColor(rgb: 0x007aff)
         textFieldDidEndEditing(Cell.CellTextField)
     }
     
@@ -210,11 +250,6 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         default:
             CellDateField.frame = CGRect(x: tableView.frame.minX + 16, y: 0, width: tableView.frame.width - 32, height: 200)
         }
-        
-        /*let topBorder: CALayer = CALayer()
-        topBorder.frame = CGRectMake(0, 0, CellDateField.frame.size.width, 1.0)
-        topBorder.backgroundColor = UIColor.grayColor().CGColor
-        CellDateField.layer.addSublayer(topBorder)*/
         
         let tappedDateField = UITapGestureRecognizer(target: self, action: #selector(dateChanged))
         CellDateField.addTarget(self, action: #selector(dateChanged), forControlEvents: UIControlEvents.ValueChanged)
@@ -260,6 +295,7 @@ class CustomFormCell: UITableViewCell {
         // datePicker target self, action: function (smart one),, UIControlEventValueChanged
         self.selectionStyle = UITableViewCellSelectionStyle.None
         
+        
         switch UIDevice.currentDevice().userInterfaceIdiom {
         case .Pad:
             self.frame = CGRect(x: self.frame.minX + 48, y: self.frame.minY, width: self.frame.width - 96, height: self.frame.height)
@@ -269,9 +305,18 @@ class CustomFormCell: UITableViewCell {
         
         if title != "" {
             CellTextField = UITextField(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: tableFrame.width, height: self.frame.height))
+            switch UIDevice.currentDevice().userInterfaceIdiom {
+            case .Pad:
+                CellTextField.frame = CGRect(x: self.frame.minX, y: self.frame.minY, width: tableFrame.width - 96, height: self.frame.height)
+            default:
+                CellTextField.frame = CGRect(x: self.frame.minX, y: self.frame.minY, width: tableFrame.width - 32, height: self.frame.height)
+            }
+            
             CellTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
             CellTextField.autocorrectionType = UITextAutocorrectionType.No
-            CellTextField?.placeholder = title
+            if title != "Gender" {
+                CellTextField?.placeholder = title
+            }
             self.contentView.addSubview(CellTextField)
         }
     }
