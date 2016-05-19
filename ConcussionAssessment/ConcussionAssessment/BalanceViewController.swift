@@ -20,6 +20,9 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
   var numPages: Int
   var currScore: NSNumber
   var startingViewController: BalanceView? = nil
+  var cellTimerLabel: UILabel!
+  var cellTimerButton: UIButton!
+  var timer = NSTimer()
 
   
   init(pageTitles : Array<String>, testName : String, instructions: String, original: UIViewController?)
@@ -37,7 +40,7 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func buttonPressed(sender: UIButton)
+  func instructionButtonPressed(sender: UIButton)
   {
     let alertView = UIAlertController(title: "Instructions", message: self.instructions, preferredStyle: UIAlertControllerStyle.Alert)
     alertView.addAction(UIAlertAction(title: "Ok", style: .Default, handler: {
@@ -99,10 +102,7 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     addChildViewController(pageViewController!)
     view.addSubview(pageViewController!.view)
     pageViewController!.didMoveToParentViewController(self)
-    
-    
-    
-    
+
     /***** TITLE SETTINGS ****
      *********************************/
     
@@ -134,11 +134,10 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
       self.title = title[0]
     }
     
-    
     /***** RIGHT NAV BAR BUTTONS ****
      *********************************/
     let infobutton = UIButton(type: UIButtonType.InfoDark)
-    infobutton.addTarget(self, action: #selector(BalanceViewController.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+    infobutton.addTarget(self, action: #selector(BalanceViewController.instructionButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     let infoModalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
     let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(BalanceViewController.doneButtonPressed(_:)))
     
@@ -214,7 +213,7 @@ class BalanceView : UITableViewController
 {
   var titleText : String = ""
   weak var bvc : BalanceViewController?
-
+  var count = 20.00 as Float
   
   init(bvc : BalanceViewController)
   {
@@ -233,7 +232,6 @@ class BalanceView : UITableViewController
     self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
-    
   }
   
   override func didReceiveMemoryWarning()
@@ -260,15 +258,78 @@ class BalanceView : UITableViewController
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
-//    cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
-//    
-//    let label1 = cell.viewWithTag(1) as! UILabel // 1 is tag of first label;
-//    label1.text = "AAAA"
+    let cell = TimerCell(style: UITableViewCellStyle.Default, title: "")
+//    cell.preservesSuperviewLayoutMargins = true
+//    cell.contentView.preservesSuperviewLayoutMargins = true
+    
+    if(indexPath.row == 0)
+    {
+      print("reached")
+      initializeTimer()
+    }
     return cell
   }
   
+  func initializeTimer()
+  {
+    self.bvc!.cellTimerLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: -200, width: self.view.frame.width, height: self.view.frame.height))
+    self.bvc!.cellTimerLabel.text = String(count)
+    self.bvc!.cellTimerLabel.textAlignment = NSTextAlignment.Center
+    self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 36.0)
+    
+    self.bvc!.cellTimerButton = UIButton()
+    self.bvc!.cellTimerButton.addTarget(self, action: #selector(BalanceView.timerButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+    self.bvc!.cellTimerButton.frame = CGRectMake(self.view.frame.minX, self.view.frame.minY, 100, 40)
+    self.bvc!.cellTimerButton.setTitle("Start", forState: .Normal)
+    self.bvc!.cellTimerButton.backgroundColor = UIColor.blackColor()
+    
+    
+    self.view.addSubview(self.bvc!.cellTimerLabel)
+    self.view.addSubview(self.bvc!.cellTimerButton)
+    
+    
+    
+    
+  }
   
+  func timerButtonPressed(sender: UIButton)
+  {
+    print("timer start")
+    self.bvc!.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BalanceView.timerCountdown), userInfo: nil, repeats: true)
+  }
   
+  func timerCountdown()
+  {
+    if(count > 0) {
+      count -= 0.1
+      self.bvc!.cellTimerLabel.text = String(count)
+      print(count)
+    }
+  }
   
+}
+
+class TimerCell: UITableViewCell {
+  var countdownTimer: UILabel!
+//  var count = 20 as Int
+  
+  init(style: UITableViewCellStyle, title: String) {
+    super.init(style: style, reuseIdentifier: "Cell")
+    self.selectionStyle = UITableViewCellSelectionStyle.None
+    
+    countdownTimer = UILabel(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: self.frame.width, height: self.frame.height))
+//    countdownTimer.text = String(count)
+//    countdownTimer.clearButtonMode = UITextFieldViewMode.WhileEditing
+//    countdownTimer.autocorrectionType = UITextAutocorrectionType.No
+//    countdownTimer?.placeholder = title
+    
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+  }
 }
