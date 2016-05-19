@@ -61,10 +61,12 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
             Cell.CellTextField.userInteractionEnabled = false
         }
         
+        if (indexPath.section == 1 && indexPath.row == 1) {
+            Cell.contentView.addSubview(setGenderField(tableView))
+        }
+        
         if (indexPath.section == 1 && indexPath.row == 4) {
             Cell.contentView.addSubview(setDateField(tableView))
-        } else if (indexPath.section == 1 && indexPath.row == 1) {
-            Cell.contentView.addSubview(setGenderField(tableView))
         } else {
             Cell.CellTextField.delegate = self
             if indexPath.section == 0 {
@@ -143,20 +145,29 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         
         switch UIDevice.currentDevice().userInterfaceIdiom {
         case .Pad:
-            genderChoice.frame = CGRect(x: tableView.frame.minX + 48, y: genderChoice.frame.minY, width: 300, height: 28)
+            genderChoice.frame = CGRect(x: tableView.frame.maxX - 300 - 32, y: genderChoice.frame.minY, width: 300, height: 28)
         default:
-            genderChoice.frame = CGRect(x: tableView.frame.minX + 16, y: genderChoice.frame.minY, width: 200, height: 28)
+            genderChoice.frame = CGRect(x: tableView.frame.maxX - 200 - 16, y: genderChoice.frame.minY, width: 200, height: 28)
         }
         
-        genderChoice.addTarget(self, action: #selector(self.genderChoiceToText), forControlEvents: .ValueChanged)
+        genderChoice.addTarget(self, action: "genderChoiceToText:", forControlEvents: .ValueChanged)
         return genderChoice
     }
     
     func genderChoiceToText(sender: UISegmentedControl) {
         let indexPath: NSIndexPath = NSIndexPath(forRow: 1, inSection: 1)
-        let Cell = tableView.cellForRowAtIndexPath(indexPath)
+        let Cell = tableView.cellForRowAtIndexPath(indexPath) as! CustomFormCell
         
-        switch 
+        switch sender.selectedSegmentIndex {
+        case 0:
+            Cell.CellTextField.text = "Male"
+        case 1:
+            Cell.CellTextField.text = "Female"
+        case 2:
+            Cell.CellTextField.text = "Other"
+        default:
+            Cell.CellTextField.text = "None"
+        }
     }
     
     func finishedEditingProfile() {
@@ -314,9 +325,7 @@ class CustomFormCell: UITableViewCell {
             
             CellTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
             CellTextField.autocorrectionType = UITextAutocorrectionType.No
-            if title != "Gender" {
-                CellTextField?.placeholder = title
-            }
+            CellTextField?.placeholder = title
             self.contentView.addSubview(CellTextField)
         }
     }
