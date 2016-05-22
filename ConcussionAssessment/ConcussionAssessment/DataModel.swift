@@ -48,7 +48,7 @@ class DataModel : NSObject {
     }
     
     // create a Player Object and save it
-    func insertNewPlayer(playerID: String, firstName: String, lastName: String, teamName: String, birthday: NSDate, gender: String) {
+    func insertNewPlayer(playerID: String, firstName: String, lastName: String, teamName: String, birthday: NSDate, gender: String, studentID: String) {
         let player = NSEntityDescription.insertNewObjectForEntityForName("Player", inManagedObjectContext: managedObjectContext) as! Player
         
         player.playerID = playerID
@@ -57,6 +57,7 @@ class DataModel : NSObject {
         player.teamName  = teamName
         player.birthday  = birthday
         player.gender    = gender
+        player.idNumber  = studentID
         
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()
@@ -559,6 +560,27 @@ class DataModel : NSObject {
         }
         
         fetchPlayer[0].teamName = name
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot save first name with playerID")
+        }
+    }
+    
+    func setIDNumber(id: String, studentID: String)
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        var fetchPlayer: [Player]
+        
+        do {
+            fetchPlayer = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+        } catch {
+            fatalError("Failed to get Player")
+        }
+        
+        fetchPlayer[0].idNumber = studentID
         
         do {
             try self.managedObjectContext.save()
