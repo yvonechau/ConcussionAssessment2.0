@@ -22,7 +22,13 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
   var startingViewController: BalanceView? = nil
   var cellTimerLabel: UILabel!
   var cellTimerButton: UIButton!
+  var cellCounterLabel: UILabel!
+  var cellIncrementButton: UIButton!
+  var cellDecrementButton: UIButton!
   var timer = NSTimer()
+  var timerCount = 20.00 as Float
+  var count = 0 as Int
+  var doneButton: UIBarButtonItem!
 
   
   init(pageTitles : Array<String>, testName : String, instructions: String, original: UIViewController?)
@@ -64,6 +70,9 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     self.donePressed = true
     self.setScore()
     self.currentIndex += 1
+    self.count = 0
+    self.timerCount = 20
+    self.timer.invalidate()
     if(currentIndex == numPages)
     {
     //self.navigationController?.popToViewController(self.original!, animated: true)
@@ -81,7 +90,7 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
   
   func setScore()
   {
-    print("set balance score")
+    print("set balance score \(count)")
   }
   
   override func viewDidLoad() {
@@ -139,7 +148,8 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     let infobutton = UIButton(type: UIButtonType.InfoDark)
     infobutton.addTarget(self, action: #selector(BalanceViewController.instructionButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     let infoModalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(BalanceViewController.doneButtonPressed(_:)))
+    doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(BalanceViewController.doneButtonPressed(_:)))
+    doneButton.enabled = false
     
     self.navigationItem.rightBarButtonItems = [doneButton, infoModalButton!]
 
@@ -213,8 +223,9 @@ class BalanceView : UITableViewController
 {
   var titleText : String = ""
   weak var bvc : BalanceViewController?
-  var count = 20.00 as Float
-  
+//  var timer = 20.00 as Float
+//  var count = 0 as Int
+
   init(bvc : BalanceViewController)
   {
     self.bvc = bvc
@@ -264,33 +275,68 @@ class BalanceView : UITableViewController
     
     if(indexPath.row == 0)
     {
-      print("reached")
-      initializeTimer()
+      //initializeTimer()
+      self.bvc!.cellTimerLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.minX-self.view.frame.midX, width: self.view.frame.width, height: self.view.frame.height))
+      self.bvc!.cellTimerLabel.text = String(self.bvc!.timerCount)
+      self.bvc!.cellTimerLabel.textAlignment = NSTextAlignment.Center
+      self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 36.0)
+      
+      self.bvc!.cellTimerButton = UIButton()
+      self.bvc!.cellTimerButton.addTarget(self, action: #selector(BalanceView.timerButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+      self.bvc!.cellTimerButton.frame = CGRectMake(self.view.frame.midX-50, self.view.frame.minY, 100, 40)
+      self.bvc!.cellTimerButton.setTitle("Start", forState: .Normal)
+      self.bvc!.cellTimerButton.backgroundColor = UIColor.blackColor()
+      
+      
+      cell.contentView.addSubview(self.bvc!.cellTimerLabel)
+      cell.contentView.addSubview(self.bvc!.cellTimerButton)
     }
+    
+    if(indexPath.row == 1)
+    {
+      self.bvc!.cellCounterLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.minX, width: self.view.frame.width, height: self.view.frame.height))
+      self.bvc!.cellCounterLabel.text = String(self.bvc!.count)
+      self.bvc!.cellCounterLabel.textAlignment = NSTextAlignment.Center
+      self.bvc!.cellCounterLabel.font = UIFont(name: "Helvetica Neue", size: 36.0)
+      
+      self.bvc!.cellIncrementButton = UIButton()
+      self.bvc!.cellIncrementButton.addTarget(self, action: #selector(BalanceView.incrementButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+      self.bvc!.cellIncrementButton.frame = CGRectMake(self.view.frame.midX + 50, self.view.frame.minY + 0, 25, 25)
+      self.bvc!.cellIncrementButton.setTitle("+", forState: .Normal)
+      self.bvc!.cellIncrementButton.backgroundColor = UIColor.blackColor()
+      
+      self.bvc!.cellDecrementButton = UIButton()
+      self.bvc!.cellDecrementButton.addTarget(self, action: #selector(BalanceView.decrementButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+      self.bvc!.cellDecrementButton.frame = CGRectMake(self.view.frame.midX + 50, self.view.frame.minY + 30, 25, 25)
+      self.bvc!.cellDecrementButton.setTitle("-", forState: .Normal)
+      self.bvc!.cellDecrementButton.backgroundColor = UIColor.blackColor()
+      
+      cell.contentView.addSubview(self.bvc!.cellIncrementButton)
+      cell.contentView.addSubview(self.bvc!.cellDecrementButton)
+      cell.contentView.addSubview(self.bvc!.cellCounterLabel)
+
+    }
+    
     return cell
   }
   
-  func initializeTimer()
-  {
-    self.bvc!.cellTimerLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: -200, width: self.view.frame.width, height: self.view.frame.height))
-    self.bvc!.cellTimerLabel.text = String(count)
-    self.bvc!.cellTimerLabel.textAlignment = NSTextAlignment.Center
-    self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 36.0)
-    
-    self.bvc!.cellTimerButton = UIButton()
-    self.bvc!.cellTimerButton.addTarget(self, action: #selector(BalanceView.timerButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-    self.bvc!.cellTimerButton.frame = CGRectMake(self.view.frame.minX, self.view.frame.minY, 100, 40)
-    self.bvc!.cellTimerButton.setTitle("Start", forState: .Normal)
-    self.bvc!.cellTimerButton.backgroundColor = UIColor.blackColor()
-    
-    
-    self.view.addSubview(self.bvc!.cellTimerLabel)
-    self.view.addSubview(self.bvc!.cellTimerButton)
-    
-    
-    
-    
-  }
+//  func initializeTimer()
+//  {
+//    self.bvc!.cellTimerLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: -200, width: self.view.frame.width, height: self.view.frame.height))
+//    self.bvc!.cellTimerLabel.text = String(count)
+//    self.bvc!.cellTimerLabel.textAlignment = NSTextAlignment.Center
+//    self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 36.0)
+//    
+//    self.bvc!.cellTimerButton = UIButton()
+//    self.bvc!.cellTimerButton.addTarget(self, action: #selector(BalanceView.timerButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//    self.bvc!.cellTimerButton.frame = CGRectMake(self.view.frame.minX, self.view.frame.minY, 100, 40)
+//    self.bvc!.cellTimerButton.setTitle("Start", forState: .Normal)
+//    self.bvc!.cellTimerButton.backgroundColor = UIColor.blackColor()
+//    
+//    
+//    self.view.addSubview(self.bvc!.cellTimerLabel)
+//    self.view.addSubview(self.bvc!.cellTimerButton)
+//  }
   
   func timerButtonPressed(sender: UIButton)
   {
@@ -298,12 +344,37 @@ class BalanceView : UITableViewController
     self.bvc!.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BalanceView.timerCountdown), userInfo: nil, repeats: true)
   }
   
+  func incrementButtonPressed(sender: UIButton)
+  {
+    if(self.bvc!.count < 10)
+    {
+      self.bvc!.count += 1
+    }
+    self.bvc!.cellCounterLabel.text = String(self.bvc!.count)
+  }
+  
+  func decrementButtonPressed(sender: UIButton)
+  {
+    if(self.bvc!.count > 0)
+    {
+      self.bvc!.count -= 1
+    }
+    self.bvc!.cellCounterLabel.text = String(self.bvc!.count)
+  }
+  
   func timerCountdown()
   {
-    if(count > 0) {
-      count -= 0.1
-      self.bvc!.cellTimerLabel.text = String(count)
-      print(count)
+    if(self.bvc!.timerCount > 0) {
+      self.bvc!.timerCount -= 0.1
+      self.bvc!.cellTimerLabel.text = String(format: "%.1f", self.bvc!.timerCount)
+      if(self.bvc!.timerCount < 0.1)
+      {
+        self.bvc!.timerCount = 0
+        self.bvc!.cellTimerLabel.text = "Press Done When Ready"
+        self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 20.0)
+        self.bvc!.doneButton!.enabled = true
+        
+      }
     }
   }
   
