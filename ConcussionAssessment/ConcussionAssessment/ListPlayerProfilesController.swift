@@ -170,6 +170,12 @@ class ListPlayerProfileController: UITableViewController {
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(playerID, scoreID: currentScoreID!)
                 
+                let(neckPageTitle, neckTestName, neckQuestionArray, neckInstr) = getNeckStrings()
+                
+                let NeckView = NeckExamViewController(pageTitles: neckPageTitle, pageContent: neckQuestionArray, testName: neckTestName, instructions: neckInstr, next: nil, original: self, numTrials: nil, singlePage: false)
+                
+                self.navigationController?.pushViewController(NeckView, animated: true)
+                
             } else if typeOfProfilePage == "BESS" {
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(playerID, scoreID: currentScoreID!)
