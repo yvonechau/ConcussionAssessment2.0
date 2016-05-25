@@ -9,7 +9,7 @@
 import UIKit
 
 class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    var catText: [String] = ["SAC Total", "Number of Symptoms", "Severity", "Orientation", "Immediate memory", "Concentration", "Delayed recall", "Delayed Recall"]
+    var catText: [String] = ["SAC Total", "Number of Symptoms", "Severity", "Orientation", "Immediate memory", "Concentration", "Delayed recall", "Maddocks Score", "Glasgow Score"]
     var collectionView: UICollectionView!
     var numberScoresDisplayed: Int!
     var name: String!
@@ -18,6 +18,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     var scoreTitles: [String]
     var scoresOfPlayer: [Score]
     var didGetScores: Bool = true
+    var infoButton: UIButton
     let Frame = UIScreen.mainScreen().bounds
     
     var innerSpacing: CGFloat
@@ -26,7 +27,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        numberScoresDisplayed = 21
+        numberScoresDisplayed = catText.count * numberOfColumns
         self.title = name
 
         // Do any additional setup after loading the view.
@@ -54,7 +55,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         collectionView.registerClass(LabelCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = UIColor.groupTableViewBackgroundColor()
         
-        let infoButton: UIButton = UIButton(type: .InfoLight)
+        infoButton = UIButton(type: .InfoLight)
         infoButton.addTarget(self, action: #selector(self.infoButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
         self.view.addSubview(collectionView)
@@ -68,6 +69,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             innerSpacing = 2
         }
     
+        infoButton = UIButton(type: .InfoLight)
         self.scoreResults = []
         self.scoreTitles = []
         self.name = name
@@ -78,15 +80,22 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         if scoresOfPlayer.count <= 0 {
             didGetScores = false
         } else {
+            print("Scores of player: \(scoresOfPlayer.count)")
             let (tempScoreTitles, tempScoreResults) = database.scoreStringArray(scoresOfPlayer[0].scoreID!)
             scoreResults.append(tempScoreResults)
             scoreTitles = tempScoreTitles
         }
         
-        /*for x in 0..<3 {
-            (scoreTitles, scoreResults[x]) = database.scoreStringArray(scoresOfPlayer[x].scoreID!)
+        var scoreCount = 0
+        /*while(scoreCount < scoresOfPlayer.count) {
+            if (scoreCount > 3) {
+                break;
+            }
+            let (tempScoreTitles, tempScoreResults) = database.scoreStringArray(scoresOfPlayer[scoreCount].scoreID!)
+            scoreResults.append(tempScoreResults)
+            scoreTitles = tempScoreTitles
+            scoreCount += 1
         }*/
-        
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -111,17 +120,23 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         
         switch categoryNumber {
         case 0:
+            cell.label.textColor = UIColor(rgb: 0xff5e3a)
             switch scoresOfPlayer.count - 1 {
             case 0:
-                cell.setCellText(scoreResults[0][6]!, categoryLabelText: catText[0])
+                setFrameForScoreDisplay(cell)
+                cell.setCellText(scoreResults[0][6]!, categoryLabelText: catText[0], testInfoText: "Baseline")
             case 1:
-                cell.setCellText(scoreResults[1][6]!, categoryLabelText: catText[0])
+                setFrameForScoreDisplay(cell)
+                cell.setCellText(scoreResults[1][6]!, categoryLabelText: catText[0], testInfoText: "Post-injury 1")
             case 2:
-                cell.setCellText(scoreResults[2][6]!, categoryLabelText: catText[0])
+                setFrameForScoreDisplay(cell)
+                cell.setCellText(scoreResults[2][6]!, categoryLabelText: catText[0], testInfoText: "Post-injury 2")
             default:
-                cell.setCellText("--", categoryLabelText: "N/A")
+                cell.label.textColor = UIColor(rgb: 0xff3b30)
+                cell.setCellText("--", categoryLabelText: "No tests/invalid test!")
             }
         case 1:
+            cell.label.textColor = UIColor(rgb: 0x007aff)
             switch scoresOfPlayer.count - 1 {
             case 0:
                 cell.setCellText(scoreResults[0][0]!, categoryLabelText: catText[1])
@@ -130,20 +145,11 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             case 2:
                 cell.setCellText(scoreResults[2][0]!, categoryLabelText: catText[1])
             default:
+                cell.label.textColor = UIColor(rgb: 0xff3b30)
                 cell.setCellText("--", categoryLabelText: "N/A")
             }
         case 2:
-            switch scoresOfPlayer.count - 1 {
-            case 0:
-                cell.setCellText(scoreResults[0][6]!, categoryLabelText: catText[0])
-            case 1:
-                cell.setCellText(scoreResults[1][6]!, categoryLabelText: catText[0])
-            case 2:
-                cell.setCellText(scoreResults[2][6]!, categoryLabelText: catText[0])
-            default:
-                cell.setCellText("--", categoryLabelText: "N/A")
-            }
-        case 3:
+            cell.label.textColor = UIColor(rgb: 0x5856d6)
             switch scoresOfPlayer.count - 1 {
             case 0:
                 cell.setCellText(scoreResults[0][1]!, categoryLabelText: catText[2])
@@ -152,9 +158,11 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             case 2:
                 cell.setCellText(scoreResults[2][1]!, categoryLabelText: catText[2])
             default:
+                cell.label.textColor = UIColor(rgb: 0xff3b30)
                 cell.setCellText("--", categoryLabelText: "N/A")
             }
-        case 4:
+        case 3:
+            cell.label.textColor = UIColor(rgb: 0xff5e3a)
             switch scoresOfPlayer.count - 1 {
             case 0:
                 cell.setCellText(scoreResults[0][2]!, categoryLabelText: catText[3])
@@ -163,9 +171,24 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             case 2:
                 cell.setCellText(scoreResults[2][2]!, categoryLabelText: catText[3])
             default:
+                cell.label.textColor = UIColor(rgb: 0xff3b30)
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
+        case 4:
+            cell.label.textColor = UIColor(rgb: 0xff5e3a)
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText(scoreResults[0][3]!, categoryLabelText: catText[4])
+            case 1:
+                cell.setCellText(scoreResults[1][3]!, categoryLabelText: catText[4])
+            case 2:
+                cell.setCellText(scoreResults[2][3]!, categoryLabelText: catText[4])
+            default:
+                cell.label.textColor = UIColor(rgb: 0xff3b30)
                 cell.setCellText("--", categoryLabelText: "N/A")
             }
         case 5:
+            cell.label.textColor = UIColor(rgb: 0xff5e3a)
             switch scoresOfPlayer.count - 1 {
             case 0:
                 cell.setCellText(scoreResults[0][4]!, categoryLabelText: catText[5])
@@ -174,20 +197,11 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             case 2:
                 cell.setCellText(scoreResults[2][4]!, categoryLabelText: catText[5])
             default:
+                cell.label.textColor = UIColor(rgb: 0xff3b30)
                 cell.setCellText("--", categoryLabelText: "N/A")
             }
         case 6:
-            switch scoresOfPlayer.count - 1 {
-            case 0:
-                cell.setCellText(scoreResults[0][4]!, categoryLabelText: catText[5])
-            case 1:
-                cell.setCellText(scoreResults[1][4]!, categoryLabelText: catText[5])
-            case 2:
-                cell.setCellText(scoreResults[2][4]!, categoryLabelText: catText[5])
-            default:
-                cell.setCellText("--", categoryLabelText: "N/A")
-            }
-        case 7:
+            cell.label.textColor = UIColor(rgb: 0xff5e3a)
             switch scoresOfPlayer.count - 1 {
             case 0:
                 cell.setCellText(scoreResults[0][5]!, categoryLabelText: catText[6])
@@ -196,9 +210,11 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             case 2:
                 cell.setCellText(scoreResults[2][5]!, categoryLabelText: catText[6])
             default:
+                cell.label.textColor = UIColor(rgb: 0xff3b30)
                 cell.setCellText("--", categoryLabelText: "N/A")
             }
         default:
+            cell.label.textColor = UIColor(rgb: 0xff3b30)
             switch scoresOfPlayer.count - 1 {
             case 0:
                 cell.setCellText("invalid", categoryLabelText: "N/A")
@@ -248,18 +264,47 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     }
     
     func getScoresForDisplay() -> Int {
-        var numberOfScoresToDisplay: Int = 1
-        
-        
-        
+        let numberOfScoresToDisplay: Int = 1
         return numberOfScoresToDisplay
     }
     
     func infoButtonPressed() {
+        var userInfoPopover = popoverTableController(style: UITableViewStyle.Grouped)
+        userInfoPopover.modalPresentationStyle = .Popover
+        userInfoPopover.preferredContentSize = CGSizeMake(320, 480)
         
+        let popOverController = userInfoPopover.popoverPresentationController
+        popOverController?.permittedArrowDirections = .Up
+        popOverController?.sourceView = self.infoButton
+        popOverController?.sourceRect = CGRectMake(infoButton.frame.width / 2, infoButton.frame.height, 0, 0)
+        
+        self.presentViewController(userInfoPopover, animated: true, completion: nil)
+    }
+    
+    private func setFrameForScoreDisplay(Cell: LabelCell) {
+        Cell.label.frame = CGRect(x: Cell.contentView.frame.origin.x, y: Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width, height: Cell.contentView.frame.height/3)
+        Cell.testInfoLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: Cell.contentView.frame.minY, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
+        Cell.categoryLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: 2*Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
+    }
+   
+    private class popoverTableController: UITableViewController {
+        override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+            return 2
+        }
+        
+        override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 3
+            
+        }
+        
+        /*override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            let Cell = UITableViewCell(style: UITableViewCellStyle., reuseIdentifier: <#T##String?#>)
+            
+            return Cell
+        }*/
     }
  
-    private class LabelCell : UICollectionViewCell {
+    private class LabelCell: UICollectionViewCell {
         var testInfoLabel: UILabel
         var label: UILabel
         var categoryLabel: UILabel
@@ -272,9 +317,10 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             super.init(frame: frame)
             
             // options for main score label
-            label.font = UIFont.systemFontOfSize(CGFloat(60.0), weight: UIFontWeightLight)
+            label.font = UIFont.systemFontOfSize(CGFloat(60.0), weight: UIFontWeightUltraLight)
             label.frame = CGRect(x: self.contentView.frame.origin.x, y: self.contentView.frame.origin.y, width: self.contentView.frame.width, height: 2*self.contentView.frame.height/3)
-            label.backgroundColor = UIColor(rgb: 0x1ad6fd)
+            label.backgroundColor = UIColor(rgb: 0xfefefe)
+            label.textColor = UIColor(rgb: 0xff3b30)
             label.textAlignment = .Center
             
             // options for score category labels
@@ -283,25 +329,40 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                 categoryLabel.font = UIFont.systemFontOfSize(CGFloat(12.0))
                 categoryLabel.numberOfLines = 0
                 categoryLabel.frame = CGRect(x: self.contentView.frame.maxX/6, y: self.contentView.frame.maxY/3, width: self.contentView.frame.width*2/3, height: 2*self.contentView.frame.height/3)
+                testInfoLabel.font = UIFont.systemFontOfSize(CGFloat(12.0))
+                testInfoLabel.frame = CGRect(x: self.contentView.frame.maxX/6, y: self.contentView.frame.minY, width: self.contentView.frame.width*2/3, height: self.contentView.frame.height/3)
             case .Pad:
                 categoryLabel.font = UIFont.systemFontOfSize(CGFloat(20.0))
                 categoryLabel.numberOfLines = 1
                 categoryLabel.frame = CGRect(x: self.contentView.frame.origin.x, y: self.contentView.frame.maxY/3, width: self.contentView.frame.width, height: 2*self.contentView.frame.height/3)
+                testInfoLabel.font = UIFont.systemFontOfSize(CGFloat(20.0))
+                testInfoLabel.frame = CGRect(x: self.contentView.frame.maxX/6, y: self.contentView.frame.minY, width: self.contentView.frame.width*2/3, height: self.contentView.frame.height/3)
             default:
                 categoryLabel.adjustsFontSizeToFitWidth = true
                 categoryLabel.frame = CGRect(x: self.contentView.frame.maxX/6, y: self.contentView.frame.maxY/3, width: self.contentView.frame.width*2/3, height: 2*self.contentView.frame.height/3)
+                testInfoLabel.adjustsFontSizeToFitWidth = true
+                testInfoLabel.frame = CGRect(x: self.contentView.frame.maxX/6, y: self.contentView.frame.minY, width: self.contentView.frame.width*2/3, height: self.contentView.frame.height/3)
             }
             categoryLabel.textAlignment = .Center
+            testInfoLabel.textAlignment = .Center
             
             // set bgcolor and add to contentView of cell
             self.backgroundColor = UIColor.whiteColor()
             self.contentView.addSubview(label)
             self.contentView.addSubview(categoryLabel)
+            self.contentView.addSubview(testInfoLabel)
+        }
+        
+        func setCellText(cellText: String, categoryLabelText: String, testInfoText: String) {
+            label.text = cellText
+            categoryLabel.text = categoryLabelText
+            testInfoLabel.text = testInfoText
         }
         
         func setCellText(cellText: String, categoryLabelText: String) {
             label.text = cellText
             categoryLabel.text = categoryLabelText
+            testInfoLabel.text = ""
         }
 
         required init?(coder aDecoder: NSCoder) {
