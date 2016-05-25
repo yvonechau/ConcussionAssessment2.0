@@ -198,12 +198,12 @@ func getSACDelayRecallStrings(pageTitle: [String]) -> (Array<String>, String, Ar
     return(pageTitle, testName, sac, instr)
 }
 
-func getBalanceStrings() -> (Array<String>, String, String)
+func getBalanceStrings() -> (Array<String>, String, Array<String>)
 {
   let pageTitle : [String] = ["Double Leg Stance", "Single Leg Stance", "Tandem Stance"]
   let testName = "Balance Examination"
   //let ba = [[String]](count: pageTitle.count, repeatedValue: [""])
-  let balanceInstructions = "Instructions"
+  let balanceInstructions = ["Instructions 1", "Instructions 2", "Instructions 3"]
   
   return(pageTitle, testName, balanceInstructions)
 }
