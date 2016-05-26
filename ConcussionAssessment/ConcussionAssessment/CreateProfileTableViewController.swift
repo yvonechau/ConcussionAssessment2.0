@@ -145,12 +145,12 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
         
         switch UIDevice.currentDevice().userInterfaceIdiom {
         case .Pad:
-            genderChoice.frame = CGRect(x: tableView.frame.maxX - 300 - 32, y: genderChoice.frame.minY, width: 300, height: 28)
+            genderChoice.frame = CGRect(x: tableView.frame.maxX - 300 - 48, y: genderChoice.frame.maxY / 4, width: 300, height: 28)
         default:
-            genderChoice.frame = CGRect(x: tableView.frame.maxX - 200 - 16, y: genderChoice.frame.minY, width: 200, height: 28)
+            genderChoice.frame = CGRect(x: tableView.frame.maxX - 200 - 16, y: genderChoice.frame.maxY / 4, width: 200, height: 28)
         }
         
-        genderChoice.addTarget(self, action: "genderChoiceToText:", forControlEvents: .ValueChanged)
+        genderChoice.addTarget(self, action: #selector(CreateProfileTableViewController.genderChoiceToText(_:)), forControlEvents: .ValueChanged)
         return genderChoice
     }
     
