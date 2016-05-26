@@ -151,8 +151,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         attrDate.name = "date"
         attrDate.attributeType = NSAttributeType.DateAttributeType;
         
+        let attrBLScore = NSAttributeDescription()
+        attrBLScore.name = "baselineScoreID"
+        attrBLScore.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrBESS = NSAttributeDescription()
+        attrBESS.name = "bessTest"
+        attrBESS.attributeType = NSAttributeType.Integer64AttributeType;
+        
         // This works because NSAttributeDescription is a subclass of NSPropertyDescription
-        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate]
+        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate, attrBLScore, attrBESS]
         
         // Create an entity description for Player, based on the class <ProjectName>.<ClassName>
         let playerDescription = NSEntityDescription()
@@ -191,8 +199,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attrIDNumber = NSAttributeDescription()
         attrIDNumber.name = "idNumber"
         attrIDNumber.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrBaselineScoreID = NSAttributeDescription()
+        attrBaselineScoreID.name = "baselineScoreID"
+        attrBaselineScoreID.attributeType = NSAttributeType.StringAttributeType;
 
-        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated, attrIDNumber]
+        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated, attrIDNumber, attrBaselineScoreID]
         
         // Create the model and set the entity description(s)
         var model = NSManagedObjectModel()

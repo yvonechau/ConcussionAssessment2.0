@@ -247,8 +247,8 @@ class DataModel : NSObject {
     // Get all Score Data Members as a String Array with specific ScoreID
     func scoreStringArray(id: String) -> ([String], [String?])
     {
-        let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score"]
-        var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
+        let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Bess Test", "Maddocks Score", "Glasgow Score"]
+        var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
         
         var score = scoreWithID(id)
         let currentScore = score[0]
@@ -269,11 +269,12 @@ class DataModel : NSObject {
         }
         
         scoreResults[6] = String(total)
+    
+        scoreResults[7] = (currentScore.bessTest)?.stringValue
+        scoreResults[8] = (currentScore.maddocks)?.stringValue
+        scoreResults[9] = (currentScore.glasgow)?.stringValue
         
-        scoreResults[7] = (currentScore.maddocks)?.stringValue
-        scoreResults[8] = (currentScore.glasgow)?.stringValue
-        
-        for index in 0...8
+        for index in 0...9
         {
             var score : String
             
@@ -454,6 +455,25 @@ class DataModel : NSObject {
             fatalError("Failed to get Score")
         }
         fetchScore[0].glasgow = score;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    func setBess(id: String, score: NSNumber) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].bessTest = score;
         
         do {
             try self.managedObjectContext.save()

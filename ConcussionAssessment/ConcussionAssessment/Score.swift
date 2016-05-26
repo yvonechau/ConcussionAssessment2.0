@@ -28,6 +28,10 @@ class Score : NSManagedObject {
     @NSManaged var SACTotal: NSNumber?        // 30
     @NSManaged var maddocks: NSNumber?        // 5
     @NSManaged var glasgow: NSNumber?         // 15
+    //@NSManaged var neckExamination: NSNumber?
+    @NSManaged var bessTest: NSNumber? 
     @NSManaged var date: NSDate?
+    
+    @NSManaged var baselineScoreID: String?
 }
 
