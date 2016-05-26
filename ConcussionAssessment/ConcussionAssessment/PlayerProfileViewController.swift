@@ -309,7 +309,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         }
     }
    
-    class PopoverTableController: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate {
+    class PopoverTableController: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
         let tableTitleArray: [[String]] = [["First", "Last"], ["Team", "ID", "Gender", "Birthday"]]
         let currentPlayerID: String
         var currentPlayer: Player
@@ -320,6 +320,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             currentPlayer = database.playerWithID(playerID)[0]
             tableView = UITableView(frame: CGRectZero, style: .Grouped)
             super.init(nibName: nil, bundle: nil)
+            tableView.delegate = self
+            tableView.dataSource = self
         }
         
         override func viewDidLoad() {
