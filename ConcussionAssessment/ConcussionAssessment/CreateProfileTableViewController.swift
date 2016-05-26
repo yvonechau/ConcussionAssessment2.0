@@ -150,7 +150,7 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
             genderChoice.frame = CGRect(x: tableView.frame.maxX - 200 - 16, y: genderChoice.frame.maxY / 4, width: 200, height: 28)
         }
         
-        genderChoice.addTarget(self, action: "genderChoiceToText:", forControlEvents: .ValueChanged)
+        genderChoice.addTarget(self, action: #selector(CreateProfileTableViewController.genderChoiceToText(_:)), forControlEvents: .ValueChanged)
         return genderChoice
     }
     

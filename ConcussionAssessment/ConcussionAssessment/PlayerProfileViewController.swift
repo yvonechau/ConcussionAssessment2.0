@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIPopoverPresentationControllerDelegate {
     var catText: [String] = ["SAC Total", "Number of Symptoms", "Severity", "Orientation", "Immediate memory", "Concentration", "Delayed recall", "Maddocks Score", "Glasgow Score"]
     var collectionView: UICollectionView!
     var numberScoresDisplayed: Int!
@@ -118,18 +118,19 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         
         let categoryNumber = indexPath.item / numberOfColumns
         
+        setFrameForScoreDisplay(cell, isTopRow: false)
         switch categoryNumber {
         case 0:
             cell.label.textColor = UIColor(rgb: 0xff5e3a)
             switch scoresOfPlayer.count - 1 {
             case 0:
-                setFrameForScoreDisplay(cell)
+                setFrameForScoreDisplay(cell, isTopRow: true)
                 cell.setCellText(scoreResults[0][6]!, categoryLabelText: catText[0], testInfoText: "Baseline")
             case 1:
-                setFrameForScoreDisplay(cell)
+                setFrameForScoreDisplay(cell, isTopRow: true)
                 cell.setCellText(scoreResults[1][6]!, categoryLabelText: catText[0], testInfoText: "Post-injury 1")
             case 2:
-                setFrameForScoreDisplay(cell)
+                setFrameForScoreDisplay(cell, isTopRow: true)
                 cell.setCellText(scoreResults[2][6]!, categoryLabelText: catText[0], testInfoText: "Post-injury 2")
             default:
                 cell.label.textColor = UIColor(rgb: 0xff3b30)
@@ -269,39 +270,133 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     }
     
     func infoButtonPressed() {
-        var userInfoPopover = popoverTableController(style: UITableViewStyle.Grouped)
+        let cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self.doneWithInfo))
+        let userInfoPopover = PopoverTableController(style: UITableViewStyle.Grouped, playerID: playerID)
         userInfoPopover.modalPresentationStyle = .Popover
-        userInfoPopover.preferredContentSize = CGSizeMake(320, 480)
+        userInfoPopover.setToolbarItems([cancelButton], animated: true)
         
         let popOverController = userInfoPopover.popoverPresentationController
         popOverController?.permittedArrowDirections = .Up
         popOverController?.sourceView = self.infoButton
-        popOverController?.sourceRect = CGRectMake(infoButton.frame.width / 2, infoButton.frame.height, 0, 0)
+        popOverController?.sourceRect = CGRectMake(infoButton.frame.width, infoButton.frame.height, 0, 0)
         
+        popOverController?.delegate = userInfoPopover
         self.presentViewController(userInfoPopover, animated: true, completion: nil)
     }
     
-    private func setFrameForScoreDisplay(Cell: LabelCell) {
-        Cell.label.frame = CGRect(x: Cell.contentView.frame.origin.x, y: Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width, height: Cell.contentView.frame.height/3)
-        Cell.testInfoLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: Cell.contentView.frame.minY, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
-        Cell.categoryLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: 2*Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
+    func doneWithInfo(popover: PopoverTableController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    private func setFrameForScoreDisplay(Cell: LabelCell, isTopRow: Bool) {
+        if isTopRow {
+            Cell.label.frame = CGRect(x: Cell.contentView.frame.origin.x, y: Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width, height: Cell.contentView.frame.height/3)
+            Cell.testInfoLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: Cell.contentView.frame.minY, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
+            Cell.categoryLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: 2*Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
+        } else {
+            Cell.label.frame = CGRect(x: Cell.contentView.frame.origin.x, y: Cell.contentView.frame.origin.y, width: Cell.contentView.frame.width, height: 2*Cell.contentView.frame.height/3)
+            switch UIDevice.currentDevice().userInterfaceIdiom {
+            case .Phone:
+                Cell.categoryLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width*2/3, height: 2*Cell.contentView.frame.height/3)
+                Cell.testInfoLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: Cell.contentView.frame.minY, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
+            case .Pad:
+                Cell.categoryLabel.frame = CGRect(x: Cell.contentView.frame.origin.x, y: Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width, height: 2*Cell.contentView.frame.height/3)
+                Cell.testInfoLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: Cell.contentView.frame.minY, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
+            default:
+                Cell.categoryLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width*2/3, height: 2*Cell.contentView.frame.height/3)
+                Cell.testInfoLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: Cell.contentView.frame.minY, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
+            }
+        }
     }
    
-    private class popoverTableController: UITableViewController {
-        override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-            return 2
+    class PopoverTableController: UIViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate {
+        let tableTitleArray: [[String]] = [["First", "Last"], ["Team", "ID", "Gender", "Birthday"]]
+        let currentPlayerID: String
+        var currentPlayer: Player
+        var tableView: UITableView
+        
+        init(style: UITableViewStyle, playerID: String) {
+            currentPlayerID = playerID
+            currentPlayer = database.playerWithID(playerID)[0]
+            tableView = UITableView(frame: CGRectZero, style: .Grouped)
+            super.init(nibName: nil, bundle: nil)
         }
         
-        override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 3
-            
+        override func viewDidLoad() {
+            tableView.frame = self.view.frame
+            tableView.delegate = self
+            self.view.addSubview(tableView)
         }
         
-        /*override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            let Cell = UITableViewCell(style: UITableViewCellStyle., reuseIdentifier: <#T##String?#>)
-            
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func preferredStatusBarStyle() -> UIStatusBarStyle {
+            return UIStatusBarStyle.Default
+        }
+        
+        func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+            return UIModalPresentationStyle.FullScreen
+        }
+        
+        func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+            let navigationController = UINavigationController(rootViewController: controller.presentedViewController)
+            let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(PopoverTableController.dismissPopover))
+            navigationController.topViewController!.navigationItem.rightBarButtonItem = doneButton
+            return navigationController
+        }
+        
+        func dismissPopover() {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+            return tableTitleArray.count
+        }
+        
+        func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return tableTitleArray[section].count
+        }
+        
+        func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            let Cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "Cell")
+            Cell.textLabel?.text = tableTitleArray[indexPath.section][indexPath.item]
+            switch indexPath.section {
+            case 0:
+                switch indexPath.item {
+                case 0:
+                    Cell.detailTextLabel?.text = currentPlayer.firstName
+                case 1:
+                    Cell.detailTextLabel?.text = currentPlayer.lastName
+                default:
+                    fatalError("Error with populating table")
+                }
+            case 1:
+                switch indexPath.item {
+                case 0:
+                    Cell.detailTextLabel?.text = currentPlayer.teamName
+                case 1:
+                    if let id = currentPlayer.idNumber {
+                        Cell.detailTextLabel?.text = id
+                    } else {
+                        Cell.detailTextLabel?.text = "No ID available"
+                    }
+                case 2:
+                    Cell.detailTextLabel?.text = currentPlayer.gender
+                case 3:
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "MM / dd / yyyy"
+                    let birthdateString = dateFormatter.stringFromDate(currentPlayer.birthday!)
+                    Cell.detailTextLabel?.text = birthdateString
+                default:
+                    fatalError("Error with populating table")
+                }
+            default:
+                fatalError("Error with populating table")
+            }
             return Cell
-        }*/
+        }
     }
  
     private class LabelCell: UICollectionViewCell {
