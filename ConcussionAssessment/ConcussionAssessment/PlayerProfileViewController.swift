@@ -270,10 +270,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     }
     
     func infoButtonPressed() {
-        let cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self.doneWithInfo))
         let userInfoPopover = PopoverTableController(style: UITableViewStyle.Grouped, playerID: playerID)
         userInfoPopover.modalPresentationStyle = .Popover
-        userInfoPopover.setToolbarItems([cancelButton], animated: true)
         
         let popOverController = userInfoPopover.popoverPresentationController
         popOverController?.permittedArrowDirections = .Up
@@ -325,7 +323,14 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         }
         
         override func viewDidLoad() {
-            tableView.frame = self.view.frame
+            switch UIDevice.currentDevice().userInterfaceIdiom {
+            case .Phone:
+                tableView.frame = self.view.frame
+            case .Pad:
+                tableView.frame = CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: 320, height: 480)
+            default:
+                tableView.frame = self.view.frame
+            }
             tableView.delegate = self
             self.view.addSubview(tableView)
         }
@@ -344,8 +349,12 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         
         func presentationController(controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
             let navigationController = UINavigationController(rootViewController: controller.presentedViewController)
-            let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(PopoverTableController.dismissPopover))
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(PopoverTableController.dismissPopover))
+            doneButton.tintColor = UIColor.whiteColor()
             navigationController.topViewController!.navigationItem.rightBarButtonItem = doneButton
+            navigationController.topViewController!.title = "Player Details"
+            navigationController.navigationBar.barStyle = .Black
+            navigationController.navigationBar.barTintColor = UIColor(rgb: 0x002855)
             return navigationController
         }
         
@@ -359,6 +368,18 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         
         func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return tableTitleArray[section].count
+        }
+        
+        func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+        {
+            switch(section) {
+            case 0:
+                return "Name"
+            case 1:
+                return "Details"
+            default:
+                return "N/A"
+            }
         }
         
         func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
