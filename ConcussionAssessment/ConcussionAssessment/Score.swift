@@ -29,5 +29,6 @@ class Score : NSManagedObject {
     @NSManaged var maddocks: NSNumber?        // 5
     @NSManaged var glasgow: NSNumber?         // 15
     @NSManaged var date: NSDate?
+    @NSManaged var balance: NSNumber?
 }
 

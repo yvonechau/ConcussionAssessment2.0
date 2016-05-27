@@ -11,8 +11,8 @@ import UIKit
 
 class ScoreBoardController : UIViewController
 {
-    let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score"]
-    var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
+    let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score", "Balance Examination Score"]
+    var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
     var y_pos: CGFloat = 0;
     var original : UIViewController?
     
@@ -51,8 +51,8 @@ class ScoreBoardController : UIViewController
         
         scoreResults[7] = (currentScore.maddocks)?.stringValue
         scoreResults[8] = (currentScore.glasgow)?.stringValue
-        
-    
+        scoreResults[9] = (currentScore.balance)?.stringValue
+        print(scoreResults[9])
         var total: Int = 0
         for i in 2...5
         {
@@ -63,7 +63,7 @@ class ScoreBoardController : UIViewController
         
         scoreResults[6] = String(total)
         
-        for index in 0...8
+        for index in 0...9
         {
             let title = UILabel(frame: CGRect(x: 20, y: y_pos, width: view.frame.width, height: 200))
             title.textColor = UIColor.blackColor()

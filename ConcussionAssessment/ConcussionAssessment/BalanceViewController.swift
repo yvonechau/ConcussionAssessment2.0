@@ -68,16 +68,16 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
   func doneButtonPressed(sender: UIButton)
   {
     self.donePressed = true
-    self.setScore()
     self.currentIndex += 1
+    self.setScore()
     self.count = 0
     self.timerCount = 20
     self.timer.invalidate()
     if(currentIndex == numPages)
     {
     //self.navigationController?.popToViewController(self.original!, animated: true)
-        let scoreboard = ScoreBoardController(originalPage: self.original!)
-        self.navigationController?.pushViewController(scoreboard, animated: true)
+      let scoreboard = ScoreBoardController(originalPage: self.original!)
+      self.navigationController?.pushViewController(scoreboard, animated: true)
     }
     else
     {
@@ -90,7 +90,15 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
   
   func setScore()
   {
-    print("set balance score \(count)")
+    self.currScore = Int(self.currScore) + Int(self.count)
+    print("set balance score \(self.currScore)")
+    
+    if self.currentIndex == self.numPages
+    {
+      database.setBalance(currentScoreID!, score: self.currScore)
+      print("reached")
+    }
+
   }
   
   override func viewDidLoad() {
@@ -325,6 +333,7 @@ class BalanceView : UITableViewController
   {
     print("timer start")
     self.bvc!.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BalanceView.timerCountdown), userInfo: nil, repeats: true)
+    sender.enabled = false
   }
   
   func incrementButtonPressed(sender: UIButton)
