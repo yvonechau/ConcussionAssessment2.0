@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class TestType: UITableViewController {
+class TestTypeController: UITableViewController {
     
     
     var baseline: UITableViewCell = UITableViewCell()
@@ -19,6 +19,7 @@ class TestType: UITableViewController {
     var postInjury: UITableViewCell = UITableViewCell()
     
     var currentPlayerID: String
+    var originalView: Int
     
     override func loadView() {
         super.loadView()
@@ -41,9 +42,9 @@ class TestType: UITableViewController {
         
     }
     
-    init(playerID: String) {
+    init(playerID: String, original: Int) {
         currentPlayerID = playerID
-        
+        originalView = original
         super.init(style: UITableViewStyle.Grouped)
     }
     
@@ -86,16 +87,91 @@ class TestType: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
-                let LPPController = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Select", original: 1)
-                self.navigationController?.pushViewController(LPPController, animated: true)
+                currentScoreID = NSUUID().UUIDString
+                database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
+                database.setBaselineForScore(currentScoreID!, baseline: currentScoreID!)
+                database.setBaselineForPlayer(currentPlayerID, baseline: currentScoreID!)
+                
+                let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
+                let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
+                let(memPageTitle, memTestName, memCOA, memInstr) = getCogAssImmediateStrings()
+                let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
+                let(monthPageTitle, monthTestName, monthCOA, monthInstr) = getCogAssMonthStrings()
+                let(sacPageTitle,sacTestName, sac, sacInstr) = getSACDelayRecallStrings(memPageTitle)
+                
+                //SAC DELAYED RECALL: IMMEDIATE MEMORY
+                let SacDelayedRecallView = TablePageViewController(pageTitles: sacPageTitle, labelArray: sac, testName: sacTestName, instructionPage: nil, instructions: sacInstr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: true) as TablePageViewController
+                
+                
+                //COGNATIVE ASSESSMENT: MONTH
+                let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: SacDelayedRecallView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                
+                //COGNATIVE ASSESSMENT: NUMBER
+                let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 1], singlePage: false) as TablePageViewController
+                
+                //COGNATIVE ASSESSMENT: IMMEDIATE MEMORY
+                let CognitiveImmediateMemView = TablePageViewController(pageTitles: memPageTitle, labelArray: memCOA, testName: memTestName, instructionPage: nil, instructions: memInstr, next: CognitiveNumBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 3], singlePage: true) as TablePageViewController
+                
+                //COGNATIVE ASSESSMENT: ORIENTATION
+                let CognitiveOrientationView = TablePageViewController(pageTitles: orientationTitle, labelArray: orientationCOA, testName: orientationTestName, instructionPage: nil, instructions: orientationInstr, next: CognitiveImmediateMemView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                
+                //SYMPTOM EVALUATION
+                let SymptomView = TablePageViewController(pageTitles: sympEvalPageTitles, labelArray: sva, testName: sympEvalTestName, instructionPage: nil, instructions: sympEvalInstr, next: CognitiveOrientationView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                
+                self.navigationController?.pushViewController(SymptomView, animated: true)
                 break;
             case 1:
-                let CNPController = CreateProfileTableViewController(style: UITableViewStyle.Grouped)
-                self.navigationController?.pushViewController(CNPController, animated: true)
+                
+                // set new baseline, compare dates??? 
+                // set score's baseline to new baseline. 
+
+                
+                // broken
                 break;
             case 2:
-                let GVController = GuestViewController(style: UITableViewStyle.Grouped)
-                self.navigationController?.pushViewController(GVController, animated: true)
+                
+                if(database.numPlayerScores(currentPlayerID) <= 0)
+                {
+                    let alert = UIAlertController(title: "Alert", message: "No Injury. Please create New Injury.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                else
+                {
+                    currentScoreID = NSUUID().UUIDString
+                    database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
+                    let baselineID = database.getPlayerBaseline(currentPlayerID)
+                    database.setBaselineForScore(currentScoreID!, baseline: baselineID)
+                    
+                    let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
+                    let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
+                    let(memPageTitle, memTestName, memCOA, memInstr) = getCogAssImmediateStrings()
+                    let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
+                    let(monthPageTitle, monthTestName, monthCOA, monthInstr) = getCogAssMonthStrings()
+                    let(sacPageTitle,sacTestName, sac, sacInstr) = getSACDelayRecallStrings(memPageTitle)
+                    
+                    //SAC DELAYED RECALL: IMMEDIATE MEMORY
+                    let SacDelayedRecallView = TablePageViewController(pageTitles: sacPageTitle, labelArray: sac, testName: sacTestName, instructionPage: nil, instructions: sacInstr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: true) as TablePageViewController
+                    
+                    
+                    //COGNATIVE ASSESSMENT: MONTH
+                    let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: SacDelayedRecallView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                    
+                    //COGNATIVE ASSESSMENT: NUMBER
+                    let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 1], singlePage: false) as TablePageViewController
+                    
+                    //COGNATIVE ASSESSMENT: IMMEDIATE MEMORY
+                    let CognitiveImmediateMemView = TablePageViewController(pageTitles: memPageTitle, labelArray: memCOA, testName: memTestName, instructionPage: nil, instructions: memInstr, next: CognitiveNumBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 3], singlePage: true) as TablePageViewController
+                    
+                    //COGNATIVE ASSESSMENT: ORIENTATION
+                    let CognitiveOrientationView = TablePageViewController(pageTitles: orientationTitle, labelArray: orientationCOA, testName: orientationTestName, instructionPage: nil, instructions: orientationInstr, next: CognitiveImmediateMemView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                    
+                    //SYMPTOM EVALUATION
+                    let SymptomView = TablePageViewController(pageTitles: sympEvalPageTitles, labelArray: sva, testName: sympEvalTestName, instructionPage: nil, instructions: sympEvalInstr, next: CognitiveOrientationView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                    
+                    self.navigationController?.pushViewController(SymptomView, animated: true)
+                }
+                
                 break;
             default:
                 fatalError("Unknow Row");

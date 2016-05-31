@@ -259,7 +259,20 @@ class DataModel : NSObject {
         return ([],0)
     }
     
-    
+    func numPlayerScores(id: String) -> Int
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        
+        do {
+            let fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            return fetchScore.count
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        
+        return 0
+    }
     
     // Get all Score Data Members as a String Array with specific ScoreID
     func scoreStringArray(id: String) -> ([String], [String?])
@@ -320,6 +333,24 @@ class DataModel : NSObject {
         
         */
         
+    }
+    
+    func getPlayerBaseline(id: String) -> String
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player");
+        
+        do {
+            let fetchedPlayers = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+            for e in fetchedPlayers {
+                NSLog(e.firstName! + " " + e.lastName!)
+            }
+            return fetchedPlayers[0].baselineScore!
+        } catch {
+            fatalError("Failed to fetch players")
+        }
+        
+        return "0"
+
     }
     
     func setBaselineForScore(id: String, baseline: String) {
