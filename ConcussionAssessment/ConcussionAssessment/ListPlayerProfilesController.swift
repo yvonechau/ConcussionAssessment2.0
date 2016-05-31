@@ -132,7 +132,7 @@ class ListPlayerProfileController: UITableViewController {
                 default:
                     fatalError("Invalid section")
                 }
-            } else if typeOfProfilePage == "Cognative Assessment" {
+            } else if typeOfProfilePage == "Cognitive Assessment" {
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(playerID, scoreID: currentScoreID!)
                 
