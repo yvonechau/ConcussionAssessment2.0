@@ -72,6 +72,7 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     self.count = 0
     self.timerCount = 20
     self.timer.invalidate()
+    self.doneButton.enabled = false
     if(currentIndex == numPages)
     {
     //self.navigationController?.popToViewController(self.original!, animated: true)
@@ -352,7 +353,10 @@ class BalanceView : UITableViewController
   
   func timerCountdown()
   {
-    if(self.bvc!.timerCount > 0) {
+    if self.bvc == nil
+    {
+    }
+    else if(self.bvc!.timerCount > 0) {
       self.bvc!.timerCount -= 0.1
       self.bvc!.cellTimerLabel.text = String(format: "%.1f", self.bvc!.timerCount)
       if(self.bvc!.timerCount < 0.1)
