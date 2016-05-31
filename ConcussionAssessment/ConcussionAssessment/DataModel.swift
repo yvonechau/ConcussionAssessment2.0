@@ -306,6 +306,26 @@ class DataModel : NSObject {
         */
         
     }
+    
+    func setBaselineForScore(id: String, baseline: String) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].baselineScore = baseline;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
 
     func setNumSymptoms(id: String, score: NSNumber) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
@@ -482,6 +502,28 @@ class DataModel : NSObject {
       }
     }
   
+    
+    func setIDNumber(id: String, studentID: String)
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        var fetchPlayer: [Player]
+        
+        do {
+            fetchPlayer = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+        } catch {
+            fatalError("Failed to get Player")
+        }
+        
+        fetchPlayer[0].idNumber = studentID
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot save first name with playerID")
+        }
+    }
+    
     func setFirstName(id: String, name: String)
     {
         let fetchRequest = NSFetchRequest(entityName: "Player")
@@ -588,7 +630,7 @@ class DataModel : NSObject {
         }
     }
     
-    func setIDNumber(id: String, studentID: String)
+    func setBaselineForPlayer(id: String, baseline: String)
     {
         let fetchRequest = NSFetchRequest(entityName: "Player")
         fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
@@ -600,7 +642,7 @@ class DataModel : NSObject {
             fatalError("Failed to get Player")
         }
         
-        fetchPlayer[0].idNumber = studentID
+        fetchPlayer[0].baselineScore = baseline
         
         do {
             try self.managedObjectContext.save()

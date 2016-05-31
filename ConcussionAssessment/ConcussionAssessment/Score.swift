@@ -30,5 +30,8 @@ class Score : NSManagedObject {
     @NSManaged var glasgow: NSNumber?         // 15
     @NSManaged var date: NSDate?
     @NSManaged var balance: NSNumber?
+    
+    @NSManaged var baselineScore: String?
+    
 }
 
