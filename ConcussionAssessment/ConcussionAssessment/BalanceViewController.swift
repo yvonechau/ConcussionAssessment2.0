@@ -23,8 +23,7 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
   var cellTimerLabel: UILabel!
   var cellTimerButton: UIButton!
   var cellCounterLabel: UILabel!
-  var cellIncrementButton: UIButton!
-  var cellDecrementButton: UIButton!
+  var cellIncrementButton: UIStepper!
   var timer = NSTimer()
   var timerCount = 20.00 as Float
   var count = 0 as Int
@@ -96,7 +95,6 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     if self.currentIndex == self.numPages
     {
       database.setBalance(currentScoreID!, score: self.currScore)
-      print("reached")
     }
 
   }
@@ -249,7 +247,7 @@ class BalanceView : UITableViewController
   {
     super.viewDidLoad()
     self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     self.tableView.rowHeight = 50.0
   }
   
@@ -292,10 +290,14 @@ class BalanceView : UITableViewController
       
       self.bvc!.cellTimerButton = UIButton()
       self.bvc!.cellTimerButton.addTarget(self, action: #selector(BalanceView.timerButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-      self.bvc!.cellTimerButton.frame = CGRectMake(self.view.frame.midX-50, self.view.frame.minY, 100, 40)
+      self.bvc!.cellTimerButton.frame = CGRectMake(self.view.frame.midX-50, self.view.frame.minY + 10, 100, 40)
       self.bvc!.cellTimerButton.setTitle("Start", forState: .Normal)
-      self.bvc!.cellTimerButton.backgroundColor = UIColor.blackColor()
-      
+      self.bvc!.cellTimerButton.backgroundColor = UIColor.whiteColor()
+      self.bvc!.cellTimerButton.setTitleColor(UIColor(rgb: 0x007AFF), forState: .Normal)
+      self.bvc!.cellTimerButton.layer.borderWidth = 1
+      self.bvc!.cellTimerButton.layer.borderColor = (UIColor(rgb: 0x007AFF)).CGColor
+      self.bvc!.cellTimerButton.layer.cornerRadius = 10
+      self.bvc!.cellTimerButton.clipsToBounds = true;
       
       cell.contentView.addSubview(self.bvc!.cellTimerLabel)
       cell.contentView.addSubview(self.bvc!.cellTimerButton)
@@ -308,20 +310,16 @@ class BalanceView : UITableViewController
       self.bvc!.cellCounterLabel.textAlignment = NSTextAlignment.Center
       self.bvc!.cellCounterLabel.font = UIFont(name: "Helvetica Neue", size: 36.0)
       
-      self.bvc!.cellIncrementButton = UIButton()
-      self.bvc!.cellIncrementButton.addTarget(self, action: #selector(BalanceView.incrementButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+      self.bvc!.cellIncrementButton = UIStepper()
+      self.bvc!.cellIncrementButton.wraps = false
+      self.bvc!.cellIncrementButton.continuous = false
+      self.bvc!.cellIncrementButton.autorepeat = false
+      self.bvc!.cellIncrementButton.maximumValue = 10
+      self.bvc!.cellIncrementButton.minimumValue = 0
+      self.bvc!.cellIncrementButton.addTarget(self, action: #selector(BalanceView.stepperPressed(_:)), forControlEvents: UIControlEvents.ValueChanged)
       self.bvc!.cellIncrementButton.frame = CGRectMake(self.view.frame.midX + 50, self.view.frame.minY + 0, 25, 25)
-      self.bvc!.cellIncrementButton.setTitle("+", forState: .Normal)
-      self.bvc!.cellIncrementButton.backgroundColor = UIColor.blackColor()
-      
-      self.bvc!.cellDecrementButton = UIButton()
-      self.bvc!.cellDecrementButton.addTarget(self, action: #selector(BalanceView.decrementButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-      self.bvc!.cellDecrementButton.frame = CGRectMake(self.view.frame.midX + 50, self.view.frame.minY + 30, 25, 25)
-      self.bvc!.cellDecrementButton.setTitle("-", forState: .Normal)
-      self.bvc!.cellDecrementButton.backgroundColor = UIColor.blackColor()
       
       cell.contentView.addSubview(self.bvc!.cellIncrementButton)
-      cell.contentView.addSubview(self.bvc!.cellDecrementButton)
       cell.contentView.addSubview(self.bvc!.cellCounterLabel)
 
     }
@@ -336,21 +334,10 @@ class BalanceView : UITableViewController
     sender.enabled = false
   }
   
-  func incrementButtonPressed(sender: UIButton)
+  func stepperPressed(sender: UIStepper)
   {
-    if(self.bvc!.count < 10)
-    {
-      self.bvc!.count += 1
-    }
-    self.bvc!.cellCounterLabel.text = String(self.bvc!.count)
-  }
-  
-  func decrementButtonPressed(sender: UIButton)
-  {
-    if(self.bvc!.count > 0)
-    {
-      self.bvc!.count -= 1
-    }
+    //print("It Works, Value is --&gt;\(Int(sender.value).description)")
+    self.bvc!.count = Int(sender.value)
     self.bvc!.cellCounterLabel.text = String(self.bvc!.count)
   }
   

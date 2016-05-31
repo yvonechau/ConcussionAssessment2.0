@@ -52,7 +52,6 @@ class ScoreBoardController : UIViewController
         scoreResults[7] = (currentScore.maddocks)?.stringValue
         scoreResults[8] = (currentScore.glasgow)?.stringValue
         scoreResults[9] = (currentScore.balance)?.stringValue
-        print(scoreResults[9])
         var total: Int = 0
         for i in 2...5
         {
