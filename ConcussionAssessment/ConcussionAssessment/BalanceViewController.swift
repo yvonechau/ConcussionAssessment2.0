@@ -28,9 +28,10 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
   var timerCount = 20.00 as Float
   var count = 0 as Int
   var doneButton: UIBarButtonItem!
+  var next: UIViewController?
 
   
-  init(pageTitles : Array<String>, testName : String, instructions: Array<String>, original: UIViewController?)
+  init(pageTitles : Array<String>, testName : String, instructions: Array<String>, original: UIViewController?, next: TablePageViewController?)
   {
     self.pageTitles = pageTitles
     self.testName = testName
@@ -38,6 +39,7 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     self.original = original!
     self.numPages = 0
     self.currScore = 0
+    self.next = next
     super.init(nibName:nil, bundle:nil)
   }
   
@@ -75,9 +77,15 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     self.doneButton.enabled = false
     if(currentIndex == numPages)
     {
-    //self.navigationController?.popToViewController(self.original!, animated: true)
-      let scoreboard = ScoreBoardController(originalPage: self.original!)
-      self.navigationController?.pushViewController(scoreboard, animated: true)
+      if(self.next == nil) //end of test
+      {
+        let scoreboard = ScoreBoardController(originalPage: self.original!)
+        self.navigationController?.pushViewController(scoreboard, animated: true)
+      }
+      else if(self.next != nil)
+      {
+        self.navigationController?.pushViewController(self.next!, animated: true)
+      }
     }
     else
     {

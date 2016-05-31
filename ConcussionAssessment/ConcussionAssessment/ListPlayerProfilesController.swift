@@ -191,7 +191,7 @@ class ListPlayerProfileController: UITableViewController {
                 database.insertNewScore(playerID, scoreID: currentScoreID!)
               
               let (balancePageTitles, balanceTestName, balanceInstructions) = getBalanceStrings()
-              let BalanceView = BalanceViewController(pageTitles: balancePageTitles, testName: balanceTestName, instructions: balanceInstructions, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView])
+              let BalanceView = BalanceViewController(pageTitles: balancePageTitles, testName: balanceTestName, instructions: balanceInstructions, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], next: nil)
               self.navigationController?.pushViewController(BalanceView, animated: true)
               
               
