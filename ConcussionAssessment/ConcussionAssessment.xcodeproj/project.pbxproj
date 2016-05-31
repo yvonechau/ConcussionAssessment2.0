@@ -20,6 +20,7 @@
 		3384B8111C86023C0048FBD6 /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3384B8101C86023C0048FBD6 /* TestCell.swift */; };
 		33ECA3891C7C5F1B00D93FFE /* IndividualTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */; };
 		440403021CB323DB0055366A /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440403011CB323DB0055366A /* MenuController.swift */; };
+		4408A3E71CFDAECC00F789C7 /* TestTypeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4408A3E61CFDAECC00F789C7 /* TestTypeController.swift */; };
 		4426239E1C7D79B2003F21BC /* ListPlayerProfilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4426239D1C7D79B2003F21BC /* ListPlayerProfilesController.swift */; };
 		442623A21C7E462B003F21BC /* ScoreBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442623A11C7E462B003F21BC /* ScoreBoardController.swift */; };
 		442623A41C7FE3DE003F21BC /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442623A31C7FE3DD003F21BC /* DataModel.swift */; };
@@ -58,6 +59,7 @@
 		3384B8101C86023C0048FBD6 /* TestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
 		33ECA3881C7C5F1A00D93FFE /* IndividualTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndividualTableViewController.swift; sourceTree = "<group>"; };
 		440403011CB323DB0055366A /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		4408A3E61CFDAECC00F789C7 /* TestTypeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTypeController.swift; sourceTree = "<group>"; };
 		4426239D1C7D79B2003F21BC /* ListPlayerProfilesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlayerProfilesController.swift; sourceTree = "<group>"; };
 		442623A11C7E462B003F21BC /* ScoreBoardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreBoardController.swift; sourceTree = "<group>"; };
 		442623A31C7FE3DD003F21BC /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				3316E5A01CB5E83E00F25CC6 /* GuestViewController.swift */,
 				334E26A01C7D8F28001D04FE /* BalanceViewController.swift */,
 				442623A11C7E462B003F21BC /* ScoreBoardController.swift */,
+				4408A3E61CFDAECC00F789C7 /* TestTypeController.swift */,
 				3305DF1C1C7E22DE00D21F18 /* CognitiveImmediateViewController.swift */,
 				3305DF1A1C7E209000D21F18 /* CognitiveOrientationViewController.swift */,
 				3384B8101C86023C0048FBD6 /* TestCell.swift */,
@@ -258,6 +261,7 @@
 				3316E5A11CB5E83E00F25CC6 /* GuestViewController.swift in Sources */,
 				333B27EA1CB64FC100FE3D64 /* PlayerProfileViewController.swift in Sources */,
 				64C3729E1CB4FE7600D479BF /* TablePageViewController.swift in Sources */,
+				4408A3E71CFDAECC00F789C7 /* TestTypeController.swift in Sources */,
 				4489129F1C7BEA2E001D1E7D /* SplashScreenController.swift in Sources */,
 				4426239E1C7D79B2003F21BC /* ListPlayerProfilesController.swift in Sources */,
 			);

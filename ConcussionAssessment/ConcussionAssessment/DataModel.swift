@@ -244,10 +244,27 @@ class DataModel : NSObject {
         return []
     }
     
+    // Get the Score objects with Specific Baseline
+    func scoreWithBaseline(id: String) -> ([Score], Int) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "baselineScore == %@", id);
+        
+        do {
+            let fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            return (fetchScore, fetchScore.count)
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        
+        return ([],0)
+    }
+    
+    
+    
     // Get all Score Data Members as a String Array with specific ScoreID
     func scoreStringArray(id: String) -> ([String], [String?])
     {
-        let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score", "Balance Examination Score"]
+        let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Balance Examination Score"]
         var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
         
         var score = scoreWithID(id)
@@ -270,11 +287,9 @@ class DataModel : NSObject {
         
         scoreResults[6] = String(total)
         
-        scoreResults[7] = (currentScore.maddocks)?.stringValue
-        scoreResults[8] = (currentScore.glasgow)?.stringValue
-        scoreResults[9] = (currentScore.balance)?.stringValue
+        scoreResults[7] = (currentScore.balance)?.stringValue
         
-        for index in 0...9
+        for index in 0...7
         {
             var score : String
             
