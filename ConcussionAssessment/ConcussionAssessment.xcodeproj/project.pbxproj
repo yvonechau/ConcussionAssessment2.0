@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3305DF1B1C7E209000D21F18 /* CognitiveOrientationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3305DF1A1C7E209000D21F18 /* CognitiveOrientationViewController.swift */; };
-		3305DF1D1C7E22DE00D21F18 /* CognitiveImmediateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3305DF1C1C7E22DE00D21F18 /* CognitiveImmediateViewController.swift */; };
 		3309A5FC1C76750C00EC3795 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309A5FB1C76750C00EC3795 /* AppDelegate.swift */; };
 		3309A6061C76750C00EC3795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3309A6051C76750C00EC3795 /* Assets.xcassets */; };
 		3309A6141C76750C00EC3795 /* ConcussionAssessmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309A6131C76750C00EC3795 /* ConcussionAssessmentUITests.swift */; };
@@ -41,8 +39,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3305DF1A1C7E209000D21F18 /* CognitiveOrientationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CognitiveOrientationViewController.swift; sourceTree = "<group>"; };
-		3305DF1C1C7E22DE00D21F18 /* CognitiveImmediateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CognitiveImmediateViewController.swift; sourceTree = "<group>"; };
 		3309A5F81C76750C00EC3795 /* ConcussionAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConcussionAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3309A5FB1C76750C00EC3795 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3309A6051C76750C00EC3795 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -119,8 +115,6 @@
 				3316E5A01CB5E83E00F25CC6 /* GuestViewController.swift */,
 				334E26A01C7D8F28001D04FE /* BalanceViewController.swift */,
 				442623A11C7E462B003F21BC /* ScoreBoardController.swift */,
-				3305DF1C1C7E22DE00D21F18 /* CognitiveImmediateViewController.swift */,
-				3305DF1A1C7E209000D21F18 /* CognitiveOrientationViewController.swift */,
 				3384B8101C86023C0048FBD6 /* TestCell.swift */,
 				64C3729D1CB4FE7600D479BF /* TablePageViewController.swift */,
 				442623A31C7FE3DD003F21BC /* DataModel.swift */,
@@ -243,9 +237,7 @@
 			files = (
 				334E26A11C7D8F28001D04FE /* BalanceViewController.swift in Sources */,
 				440403021CB323DB0055366A /* MenuController.swift in Sources */,
-				3305DF1B1C7E209000D21F18 /* CognitiveOrientationViewController.swift in Sources */,
 				3316E59D1CB4E4E700F25CC6 /* CreateProfileTableViewController.swift in Sources */,
-				3305DF1D1C7E22DE00D21F18 /* CognitiveImmediateViewController.swift in Sources */,
 				647FF6001CD09BF3009BA867 /* NeckExaminationView.swift in Sources */,
 				33ECA3891C7C5F1B00D93FFE /* IndividualTableViewController.swift in Sources */,
 				44DB2AF11C851A81007B8D8F /* Player.swift in Sources */,
