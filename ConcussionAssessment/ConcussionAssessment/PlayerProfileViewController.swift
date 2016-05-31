@@ -9,7 +9,7 @@
 import UIKit
 
 class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIPopoverPresentationControllerDelegate {
-    var catText: [String] = ["SAC Total", "Number of Symptoms", "Severity", "Orientation", "Immediate memory", "Concentration", "Delayed recall", "Maddocks Score", "Glasgow Score"]
+    var catText: [String] = ["SAC Total", "Number of Symptoms", "Severity", "Orientation", "Immediate memory", "Concentration", "Delayed recall", "Balance Score"]
     var collectionView: UICollectionView!
     var numberScoresDisplayed: Int!
     var name: String!
@@ -210,6 +210,19 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                 cell.setCellText(scoreResults[1][5]!, categoryLabelText: catText[6])
             case 2:
                 cell.setCellText(scoreResults[2][5]!, categoryLabelText: catText[6])
+            default:
+                cell.label.textColor = UIColor(rgb: 0xff3b30)
+                cell.setCellText("--", categoryLabelText: "N/A")
+            }
+        case 7:
+            cell.label.textColor = UIColor(rgb: 0xff5e3a)
+            switch scoresOfPlayer.count - 1 {
+            case 0:
+                cell.setCellText(scoreResults[0][5]!, categoryLabelText: catText[7])
+            case 1:
+                cell.setCellText(scoreResults[1][5]!, categoryLabelText: catText[7])
+            case 2:
+                cell.setCellText(scoreResults[2][5]!, categoryLabelText: catText[7])
             default:
                 cell.label.textColor = UIColor(rgb: 0xff3b30)
                 cell.setCellText("--", categoryLabelText: "N/A")
@@ -435,9 +448,16 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             super.init(frame: frame)
             
             // options for main score label
-            label.font = UIFont.systemFontOfSize(CGFloat(60.0), weight: UIFontWeightUltraLight)
+            switch UIDevice.currentDevice().userInterfaceIdiom {
+            case .Phone:
+                label.font = UIFont.systemFontOfSize(CGFloat(30.0), weight: UIFontWeightUltraLight)
+            case .Pad:
+                label.font = UIFont.systemFontOfSize(CGFloat(60.0), weight: UIFontWeightUltraLight)
+            default:
+                label.font = UIFont.systemFontOfSize(CGFloat(60.0), weight: UIFontWeightUltraLight)
+            }
+
             label.frame = CGRect(x: self.contentView.frame.origin.x, y: self.contentView.frame.origin.y, width: self.contentView.frame.width, height: 2*self.contentView.frame.height/3)
-            label.backgroundColor = UIColor(rgb: 0xfefefe)
             label.textColor = UIColor(rgb: 0xff3b30)
             label.textAlignment = .Center
             

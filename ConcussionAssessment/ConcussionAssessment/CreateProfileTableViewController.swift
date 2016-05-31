@@ -189,7 +189,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
                             NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     case 2:
                         let idNumber = Cell.CellTextField.text!
-                        trimmedIDNumber = idNumber.stringByTrimmingCharactersInSet(NSCharacterSet.decimalDigitCharacterSet())
+                        trimmedIDNumber = idNumber.stringByTrimmingCharactersInSet(NSCharacterSet.letterCharacterSet())
+                        print("Welp... " + trimmedIDNumber)
                     case 3:
                         birthdayString = Cell.CellTextField.text!
                         let dateFormatter = NSDateFormatter()
