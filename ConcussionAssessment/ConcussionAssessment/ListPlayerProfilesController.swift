@@ -180,7 +180,12 @@ class ListPlayerProfileController: UITableViewController {
             } else if typeOfProfilePage == "BESS" {
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(playerID, scoreID: currentScoreID!)
-                
+              
+              let (balancePageTitles, balanceTestName, balanceInstructions) = getBalanceStrings()
+              let BalanceView = BalanceViewController(pageTitles: balancePageTitles, testName: balanceTestName, instructions: balanceInstructions, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView])
+              self.navigationController?.pushViewController(BalanceView, animated: true)
+              
+              
             } else if typeOfProfilePage == "Glasgow" {
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(playerID, scoreID: currentScoreID!)
