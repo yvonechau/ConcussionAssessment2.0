@@ -245,7 +245,7 @@ class DataModel : NSObject {
     }
     
     // Get the Score objects with Specific Baseline
-    func scoreWithBaseline(id: String) -> ([Score], Int) {
+    func scoresWithBaseline(id: String) -> ([Score], Int) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
         fetchRequest.predicate = NSPredicate(format: "baselineScore == %@", id);
         

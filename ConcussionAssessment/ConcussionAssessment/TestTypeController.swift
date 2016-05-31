@@ -123,16 +123,80 @@ class TestTypeController: UITableViewController {
             case 1:
                 
                 // set new baseline, compare dates??? 
-                // set score's baseline to new baseline. 
-
+                // set score's baseline to new baseline.
                 
-                // broken
+                if(database.numPlayerScores(currentPlayerID) <= 0 )
+                {
+                    let alert = UIAlertController(title: "Alert", message: "No Baseline Score. Please take a Baseline Test", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                else
+                {
+                    let (setOfScores, numScores) = database.scoresWithBaseline(database.getPlayerBaseline(currentPlayerID))
+                    
+                    var latestScore = setOfScores[0]
+                    if(numScores > 1)
+                    {
+                        for index in 1 ... (numScores - 1)
+                        {
+                            if setOfScores[index-1].date > setOfScores[index].date
+                            {
+                                latestScore = setOfScores[index-1]
+                            }
+                            else
+                            {
+                                latestScore = setOfScores[index]
+                            }
+                        }
+                    }
+                    
+                    currentScoreID = NSUUID().UUIDString
+                    database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
+                    database.setBaselineForScore(currentScoreID!, baseline: latestScore.scoreID!)
+                    database.setBaselineForPlayer(currentPlayerID, baseline: latestScore.scoreID!)
+                    
+                    let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
+                    let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
+                    let(memPageTitle, memTestName, memCOA, memInstr) = getCogAssImmediateStrings()
+                    let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
+                    let(monthPageTitle, monthTestName, monthCOA, monthInstr) = getCogAssMonthStrings()
+                    let(sacPageTitle,sacTestName, sac, sacInstr) = getSACDelayRecallStrings(memPageTitle)
+                    
+                    //SAC DELAYED RECALL: IMMEDIATE MEMORY
+                    let SacDelayedRecallView = TablePageViewController(pageTitles: sacPageTitle, labelArray: sac, testName: sacTestName, instructionPage: nil, instructions: sacInstr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: true) as TablePageViewController
+                    
+                    
+                    //COGNATIVE ASSESSMENT: MONTH
+                    let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: SacDelayedRecallView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                    
+                    //COGNATIVE ASSESSMENT: NUMBER
+                    let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 1], singlePage: false) as TablePageViewController
+                    
+                    //COGNATIVE ASSESSMENT: IMMEDIATE MEMORY
+                    let CognitiveImmediateMemView = TablePageViewController(pageTitles: memPageTitle, labelArray: memCOA, testName: memTestName, instructionPage: nil, instructions: memInstr, next: CognitiveNumBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 3], singlePage: true) as TablePageViewController
+                    
+                    //COGNATIVE ASSESSMENT: ORIENTATION
+                    let CognitiveOrientationView = TablePageViewController(pageTitles: orientationTitle, labelArray: orientationCOA, testName: orientationTestName, instructionPage: nil, instructions: orientationInstr, next: CognitiveImmediateMemView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                    
+                    //SYMPTOM EVALUATION
+                    let SymptomView = TablePageViewController(pageTitles: sympEvalPageTitles, labelArray: sva, testName: sympEvalTestName, instructionPage: nil, instructions: sympEvalInstr, next: CognitiveOrientationView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                    
+                    self.navigationController?.pushViewController(SymptomView, animated: true)
+                }
+
                 break;
             case 2:
                 
-                if(database.numPlayerScores(currentPlayerID) <= 0)
+                if(database.numPlayerScores(currentPlayerID) == 1)
                 {
-                    let alert = UIAlertController(title: "Alert", message: "No Injury. Please create New Injury.", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alert = UIAlertController(title: "Alert", message: "No Current Injury. Please create New Injury.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                else if(database.numPlayerScores(currentPlayerID) <= 0 )
+                {
+                    let alert = UIAlertController(title: "Alert", message: "No Baseline Score. Please take a Baseline Test", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 }
@@ -182,6 +246,15 @@ class TestTypeController: UITableViewController {
             break;
         }
     }
-
     
 }
+
+public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
+}
+
+public func <(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.compare(rhs) == .OrderedAscending
+}
+
+extension NSDate: Comparable { }
