@@ -25,7 +25,7 @@ class ListPlayerProfileController: UITableViewController {
         if typeOfProfilePage == "List" {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.createNewProfile))
             if doListPlayers == true {
-                self.navigationItem.leftBarButtonItem = editButtonItem()
+                //self.navigationItem.leftBarButtonItem = editButtonItem()
             }
         }
     }
