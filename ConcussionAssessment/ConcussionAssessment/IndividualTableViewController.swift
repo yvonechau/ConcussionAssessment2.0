@@ -203,7 +203,10 @@ func getBalanceStrings() -> (Array<String>, String, Array<String>)
   let pageTitle : [String] = ["Double Leg Stance", "Single Leg Stance", "Tandem Stance"]
   let testName = "Balance Examination"
   //let ba = [[String]](count: pageTitle.count, repeatedValue: [""])
-  let balanceInstructions = ["Instructions 1", "Instructions 2", "Instructions 3"]
+  let balanceInstructions = [
+                              "In the double leg stance, the feet are flat on the ground approximately shoulder width apart.\n\nThe maximum total number of errors is 10. If a subject commits multiple errors simultaneously, only one error is recorded. Errors include: Moving the hands off the hips, Opening the eyes, Step, stumble or fall, Abduction or flexion of the hip beyond 30˚, Lifting the forefoot or heel off of the testing surface, and Remaining out of the proper testing position for greater than 5 seconds",
+                             "In the single leg stance position, the athlete is to stand on the non-dominant leg. \n\nThe maximum total number of errors is 10. If a subject commits multiple errors simultaneously, only one error is recorded. Errors include: Moving the hands off the hips, Opening the eyes, Step, stumble or fall, Abduction or flexion of the hip beyond 30˚, Lifting the forefoot or heel off of the testing surface, and Remaining out of the proper testing position for greater than 5 seconds",
+                             "In the tandem stance testing position, the dominant foot is placed in front with the heel of the non-dominant foot touching the toe of the dominant foot.\n\nThe maximum total number of errors is 10. If a subject commits multiple errors simultaneously, only one error is recorded. Errors include: Moving the hands off the hips, Opening the eyes, Step, stumble or fall, Abduction or flexion of the hip beyond 30˚, Lifting the forefoot or heel off of the testing surface, and Remaining out of the proper testing position for greater than 5 seconds"]
   
   return(pageTitle, testName, balanceInstructions)
 }

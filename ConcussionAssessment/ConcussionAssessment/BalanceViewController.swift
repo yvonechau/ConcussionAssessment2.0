@@ -317,7 +317,7 @@ class BalanceView : UITableViewController
       self.bvc!.cellIncrementButton.maximumValue = 10
       self.bvc!.cellIncrementButton.minimumValue = 0
       self.bvc!.cellIncrementButton.addTarget(self, action: #selector(BalanceView.stepperPressed(_:)), forControlEvents: UIControlEvents.ValueChanged)
-      self.bvc!.cellIncrementButton.frame = CGRectMake(self.view.frame.midX + 50, self.view.frame.minY + 0, 25, 25)
+      self.bvc!.cellIncrementButton.frame = CGRectMake(self.view.frame.midX - 50, self.view.frame.minY, 25, 25)
       
       cell.contentView.addSubview(self.bvc!.cellIncrementButton)
       cell.contentView.addSubview(self.bvc!.cellCounterLabel)
