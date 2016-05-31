@@ -271,7 +271,7 @@ class BalanceView : UITableViewController
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
     //return self.bvc!.pageTitles.count
-    return 2
+    return 6
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -283,11 +283,17 @@ class BalanceView : UITableViewController
     if(indexPath.row == 0)
     {
       //initializeTimer()
-      self.bvc!.cellTimerLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.midX/2, width: self.view.frame.width, height: 50))
+      self.bvc!.cellTimerLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 50))
       self.bvc!.cellTimerLabel.text = String(self.bvc!.timerCount)
       self.bvc!.cellTimerLabel.textAlignment = NSTextAlignment.Center
       self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 36.0)
+      self.bvc!.cellTimerLabel.userInteractionEnabled = false
       
+      cell.contentView.addSubview(self.bvc!.cellTimerLabel)
+    }
+    
+    if(indexPath.row == 1)
+    {
       self.bvc!.cellTimerButton = UIButton()
       self.bvc!.cellTimerButton.addTarget(self, action: #selector(BalanceView.timerButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
       self.bvc!.cellTimerButton.frame = CGRectMake(self.view.frame.midX-50, self.view.frame.minY + 10, 100, 40)
@@ -299,17 +305,22 @@ class BalanceView : UITableViewController
       self.bvc!.cellTimerButton.layer.cornerRadius = 10
       self.bvc!.cellTimerButton.clipsToBounds = true;
       
-      cell.contentView.addSubview(self.bvc!.cellTimerLabel)
       cell.contentView.addSubview(self.bvc!.cellTimerButton)
     }
     
-    if(indexPath.row == 1)
+    if(indexPath.row == 4)
     {
-      self.bvc!.cellCounterLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.minX, width: self.view.frame.width, height: self.view.frame.height))
-      self.bvc!.cellCounterLabel.text = String(self.bvc!.count)
+      self.bvc!.cellCounterLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 50))
+      self.bvc!.cellCounterLabel.text = "Number of Errors: \(self.bvc!.count)"
       self.bvc!.cellCounterLabel.textAlignment = NSTextAlignment.Center
-      self.bvc!.cellCounterLabel.font = UIFont(name: "Helvetica Neue", size: 36.0)
+      self.bvc!.cellCounterLabel.font = UIFont(name: "Helvetica Neue", size: 24.0)
+      self.bvc!.cellCounterLabel.userInteractionEnabled = false
       
+      cell.contentView.addSubview(self.bvc!.cellCounterLabel)
+    }
+    
+    if(indexPath.row == 5)
+    {
       self.bvc!.cellIncrementButton = UIStepper()
       self.bvc!.cellIncrementButton.wraps = false
       self.bvc!.cellIncrementButton.continuous = false
@@ -320,8 +331,6 @@ class BalanceView : UITableViewController
       self.bvc!.cellIncrementButton.frame = CGRectMake(self.view.frame.midX - 50, self.view.frame.minY, 25, 25)
       
       cell.contentView.addSubview(self.bvc!.cellIncrementButton)
-      cell.contentView.addSubview(self.bvc!.cellCounterLabel)
-
     }
     
     return cell
@@ -338,7 +347,7 @@ class BalanceView : UITableViewController
   {
     //print("It Works, Value is --&gt;\(Int(sender.value).description)")
     self.bvc!.count = Int(sender.value)
-    self.bvc!.cellCounterLabel.text = String(self.bvc!.count)
+    self.bvc!.cellCounterLabel.text = "Number of Errors: \(self.bvc!.count)"
   }
   
   func timerCountdown()
