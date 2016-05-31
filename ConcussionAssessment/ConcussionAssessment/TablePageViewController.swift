@@ -16,7 +16,6 @@ import UIKit
 
 class TablePageViewController: UIViewController, UIPageViewControllerDataSource
 {
-  
   var pageViewController: UIPageViewController?
   var testName: String
   var pageTitles : Array<String>
@@ -110,7 +109,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
         self.navigationController?.pushViewController(self.next!, animated: true)
       }
     }
-    
   }
   
   func setScore()
@@ -207,8 +205,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   }
 
   
-
-  
   override func viewDidLoad()
   {
     super.viewDidLoad()
@@ -228,8 +224,6 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     addChildViewController(pageViewController!)
     view.addSubview(pageViewController!.view)
     pageViewController!.didMoveToParentViewController(self)
-    
-    
     
     
     /***** TITLE SETTINGS ****
@@ -378,6 +372,7 @@ class TablePageView: UITableViewController
   weak var pvc : TablePageViewController?
   let LabelArray : Array<Array<String>>
 
+  
   init(pvc : TablePageViewController)
   {
     self.pvc = pvc
@@ -391,6 +386,10 @@ class TablePageView: UITableViewController
     fatalError("init(coder:) has not been implemented")
   }
   
+  func setPVC(pvc : TablePageViewController?)
+  {
+    self.pvc = pvc!
+  }
   override func viewDidLoad()
   {
     super.viewDidLoad()

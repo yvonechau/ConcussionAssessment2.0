@@ -10,8 +10,8 @@ import UIKit
 
 class IndividualTableViewController: UITableViewController {
     
-    let LabelArray = ["Glasgow Coma Scale", "Maddocks Score", "Symptom Evaluation", "Cognitive Assessment", "Balance Examination"]
-    let DetailLabelArray: [String] = ["", "Questionnaire for patient.", "Checking to see how the patient is feeling.", "Checking details.", ""]
+    let LabelArray = ["Glasgow Coma Scale", "Maddocks Score", "Symptom Evaluation", "Cognitive Assessment", "Balance Examination", "Neck Examination"]
+    let DetailLabelArray: [String] = ["", "Questionnaire for patient.", "Checking to see how the patient is feeling.", "Checking details.", "", ""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +60,7 @@ class IndividualTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
       
       let pageControl = UIPageControl.appearance()
+  
       pageControl.pageIndicatorTintColor = UIColor.whiteColor()
       pageControl.currentPageIndicatorTintColor = UIColor.blackColor()
       pageControl.backgroundColor = UIColor(rgb: 0x002855)
@@ -69,40 +70,45 @@ class IndividualTableViewController: UITableViewController {
          * GLASGOW TEST
          *******************************************************************************************/
         case 0:
-            let takeFullTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Glasgow", original: 2)
-            self.navigationController?.pushViewController(takeFullTest, animated: true)
+            let takeGlasgowTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Glasgow", original: 2)
+            self.navigationController?.pushViewController(takeGlasgowTest, animated: true)
         
         /******************************************************************************************
          * MADDOCKS TEST
          *******************************************************************************************/
         case 1:
-            let takeFullTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Maddocks", original: 2)
-            self.navigationController?.pushViewController(takeFullTest, animated: true)
+            let takeMaddocksTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Maddocks", original: 2)
+            self.navigationController?.pushViewController(takeMaddocksTest, animated: true)
         
         /******************************************************************************************
          * SYMPTOM EVALUATION
          *******************************************************************************************/
         case 2:
-            let takeFullTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Symptom Evaluation", original: 2)
-            self.navigationController?.pushViewController(takeFullTest, animated: true)
+            let takeSymptomEvaluation = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Symptom Evaluation", original: 2)
+            self.navigationController?.pushViewController(takeSymptomEvaluation, animated: true)
         
         /******************************************************************************************
          * COGNITIVE ASSESSMENT
          *******************************************************************************************/
         case 3:
-            let takeFullTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Cognative Assessment", original: 2)
-            self.navigationController?.pushViewController(takeFullTest, animated: true)
+            let takeCognitiveAssessment = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Cognitive Assessment", original: 2)
+            self.navigationController?.pushViewController(takeCognitiveAssessment, animated: true)
         
         /******************************************************************************************
          * BESS
          *******************************************************************************************/
         case 4:
-            let takeFullTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "BESS", original: 2)
-            self.navigationController?.pushViewController(takeFullTest, animated: true)
-        
-//            let BalanceView = BalanceViewController(name: fullPlayerName, playerID: playerID) as BalanceViewController
-//            self.navigationController?.pushViewController(BalanceView, animated: true)
-        
+
+            let takeBessTest = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "BESS", original: 2)
+            self.navigationController?.pushViewController(takeBessTest, animated: true)
+            
+        /******************************************************************************************
+         * NECK EXAMINATION
+         *******************************************************************************************/
+        case 5:
+            let takeNeckExamination = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Neck Examination", original: 2)
+            self.navigationController?.pushViewController(takeNeckExamination, animated:true)
+
         default:
             fatalError("Unknown test choice.")
             
@@ -212,3 +218,33 @@ func getBalanceStrings() -> (Array<String>, String, Array<String>)
 }
 
 
+
+
+func getNeckStrings() -> (Array<String>, String, [[[String]]], String)
+{
+  
+  
+  let rangeOfMotion : [[String]] = [createRange(45, name: "Flexion"), createRange(45, name: "Extension"), createRange(80, name: "Right Rotation"), createRange(80, name: "Left Rotation"), createRange(45, name: "Right Lateral Flexion"), createRange(45, name: "Left Lateral Flexion")]
+
+  let tenderness : [[String]] = [["Yes", "No", "Right Paraspinal"], ["Yes", "No", "Left Paraspinal"], ["Yes", "No", "Bony"]]
+  let upperLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Upper Limb"], ["Normal", "Abnormal", "Left Upper Limit"]]
+  let upperLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
+
+  let lowerLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
+  let lowerLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
+  
+  let pageTitle: [String] = ["Range of Motion", "Tenderness", "Upper Limb Sensation", "Upper Limb Strength", "Lower Limb Sensation", "Lower Limb Strength"]
+  let pageContent: [[[String]]] = [rangeOfMotion, tenderness, upperLimbSensation, upperLimbStrength, lowerLimbSensation, lowerLimbStrength]
+  let testName = "Neck Examination"
+  let instr = "TBA"
+  
+  return (pageTitle, testName, pageContent, instr)
+}
+
+func createRange(upperLimit: Int, name: String)->[String]
+{
+  var range = (0..<upperLimit + 5).filter{$0 % 5 == 0}.map({String($0)})
+  
+  range.append(name)
+  return range
+}
