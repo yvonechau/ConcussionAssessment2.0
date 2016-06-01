@@ -215,6 +215,7 @@ class BalanceView : UITableViewController
   {
     self.bvc = bvc
     self.doneButton = UIButton(frame: CGRectMake(self.bvc!.view.frame.size.width / 2 - 50, 0, 100, 50))
+    self.doneButton.enabled = false
 
     super.init(style: UITableViewStyle.Grouped)
  
@@ -321,12 +322,14 @@ class BalanceView : UITableViewController
     {
       let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
       
-      doneButton.addTarget(self, action: #selector(BalanceView.doneButtonPressed(_:)), forControlEvents: .TouchUpInside)
+      self.doneButton.addTarget(self, action: #selector(BalanceView.doneButtonPressed(_:)), forControlEvents: .TouchUpInside)
       
-      doneButton.setTitle("Done", forState: .Normal)
-      doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-      doneButton.backgroundColor =  UIColor(rgb: 0x002855)
-      Cell.contentView.addSubview(doneButton)
+      self.doneButton.setTitle("Done", forState: .Normal)
+      self.doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+      self.doneButton.backgroundColor =  UIColor(rgb: 0x002855)
+      self.doneButton.enabled = false
+      Cell.contentView.addSubview(self.doneButton)
+    
       
       return Cell
       
