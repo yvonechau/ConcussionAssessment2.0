@@ -207,9 +207,18 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     }
     
     let viewControllers = [self.startingViewController!]
+    
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
-    pageViewController!.view.frame = CGRectMake(0, (self.navigationController?.navigationBar.frame.size.height)! - self.tabBarController!.tabBar.frame.size.height, view.frame.size.width, view.frame.size.height-self.tabBarController!.tabBar.frame.size.height);
-    //
+    pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height - (self.tabBarController!.tabBar.frame.size.height));
+//    pageViewController!.contentInset = UIEdgeInsetsMake((self.navigationController?.navigationBar.frame.size.height)!, 0, -(self.tabBarController!.tabBar.frame.size.height), 0)
+
+//
+//    if self.singlePage
+//    {
+//      print(self.testName)
+//        pageViewController!.view.frame = CGRectMake(0, (self.navigationController?.navigationBar.frame.size.height)! - self.tabBarController!.tabBar.frame.size.height, view.frame.size.width, view.frame.size.height-self.tabBarController!.tabBar.frame.size.height - 50);
+//    }
+//    //
     //    let subviews = pageViewController!.view.subviews
     //
     //    var thisControl: UIPageControl! = nil
@@ -394,9 +403,12 @@ class TablePageView: UITableViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    self.tableView.frame = CGRectMake(0, (self.pvc!.navigationController?.navigationBar.frame.size.height)! - self.pvc!.tabBarController!.tabBar.frame.size.height, self.pvc!.view.frame.size.width, self.tableView.frame.size.height-self.pvc!.tabBarController!.tabBar.frame.size.height);
+    self.tableView.frame = CGRectMake(0, 0, self.pvc!.view.frame.size.width, self.pvc!.view.frame.size.height);
 
-    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, 0, 0)
+    self.tableView.contentInset = UIEdgeInsetsMake((self.pvc!.navigationController?.navigationBar.frame.size.height)! + 40, 0, -(self.pvc!.tabBarController!.tabBar.frame.size.height), 0)
+    self.tableView.scrollIndicatorInsets.bottom = -(self.pvc!.tabBarController!.tabBar.frame.size.height)
+    self.tableView.scrollIndicatorInsets.top = (self.pvc!.navigationController?.navigationBar.frame.size.height)! + 40
+
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
 
@@ -446,7 +458,6 @@ class TablePageView: UITableViewController
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
-    print("here")
     
     if self.pvc!.singlePage
     {
@@ -539,7 +550,6 @@ class TablePageView: UITableViewController
           doneButton.clipsToBounds = true
           Cell.contentView.addSubview(doneButton)
           Cell.backgroundColor = UIColor.clearColor()
-
           
           return Cell
           
