@@ -607,7 +607,9 @@ class TablePageView: UITableViewController
             
             if(self.pvc!.numTrials![1] == 2) // if the number of trials increased to two
             {
+              self.pvc!.view.userInteractionEnabled = false
               self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+              self.pvc!.view.userInteractionEnabled = true
 
             }
             else //increase number of total trials if you get the first one wrong, goes to trial 2
@@ -645,7 +647,10 @@ class TablePageView: UITableViewController
         {
           if(self.pvc!.currentIndex == self.pvc!.pageTitles.count)
           {
-              self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+            self.pvc!.view.userInteractionEnabled = false
+            self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+            self.pvc!.view.userInteractionEnabled = true
+            
           }
           else
           {
