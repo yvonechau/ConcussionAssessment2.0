@@ -14,9 +14,10 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     var numberScoresDisplayed: Int!
     var name: String!
     var playerID: String!
+    var playerBaselineID: String
     var scoreResults: [[String?]]
-    var scoreTitles: [String]
-    var scoresOfPlayer: [Score]
+    var scoreIdsOfPlayer: [String]
+    var numberOfScores: Int
     var didGetScores: Bool = true
     var infoButton: UIButton
     let Frame = UIScreen.mainScreen().bounds
@@ -71,32 +72,32 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     
         infoButton = UIButton(type: .InfoLight)
         self.scoreResults = []
-        self.scoreTitles = []
         self.name = name
         self.playerID = playerID
-        self.scoresOfPlayer = database.scoresOfPlayer(self.playerID)
-        print(scoresOfPlayer.count)
         
-        if scoresOfPlayer.count <= 0 {
+        if let tempPlayerBaseline: String? = database.getPlayerBaseline(self.playerID) {
+            self.playerBaselineID = tempPlayerBaseline!
+        } else {
+            self.playerBaselineID = "N/A"
+        }
+        
+        (self.scoreIdsOfPlayer, self.numberOfScores) = database.scoresWithBaseline(self.playerBaselineID)
+        print("Hello world, this is the thing: \(self.numberOfScores)")
+        print(scoreIdsOfPlayer)
+        
+        for x in 0..<self.numberOfScores {
+            let (_, tempScoreResults) = database.scoreStringArray(scoreIdsOfPlayer[x])
+            scoreResults.append(tempScoreResults)
+        }
+        
+        /*if scoresOfPlayer.count <= 0 {
             didGetScores = false
         } else {
             print("Scores of player: \(scoresOfPlayer.count)")
             let (tempScoreTitles, tempScoreResults) = database.scoreStringArray(scoresOfPlayer[0].scoreID!)
             scoreResults.append(tempScoreResults)
             scoreTitles = tempScoreTitles
-        }
-        
-        var scoreCount = 0
-        /*while(scoreCount < scoresOfPlayer.count) {
-            if (scoreCount > 3) {
-                break;
-            }
-            let (tempScoreTitles, tempScoreResults) = database.scoreStringArray(scoresOfPlayer[scoreCount].scoreID!)
-            scoreResults.append(tempScoreResults)
-            scoreTitles = tempScoreTitles
-            scoreCount += 1
         }*/
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -119,125 +120,127 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         let categoryNumber = indexPath.item / numberOfColumns
         
         setFrameForScoreDisplay(cell, isTopRow: false)
-        switch categoryNumber {
-        case 0:
-            cell.label.textColor = UIColor(rgb: 0xff5e3a)
-            switch scoresOfPlayer.count - 1 {
+        for x in 0..<numberOfScores {
+            switch categoryNumber {
             case 0:
-                setFrameForScoreDisplay(cell, isTopRow: true)
-                cell.setCellText(scoreResults[0][6]!, categoryLabelText: catText[0], testInfoText: "Baseline")
+                cell.label.textColor = UIColor(rgb: 0xff5e3a)
+                switch x {
+                case 0:
+                    setFrameForScoreDisplay(cell, isTopRow: true)
+                    cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: "Baseline")
+                case 1:
+                    setFrameForScoreDisplay(cell, isTopRow: true)
+                    cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: "Post-injury 1")
+                case 2:
+                    setFrameForScoreDisplay(cell, isTopRow: true)
+                    cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: "Post-injury 2")
+                default:
+                    cell.label.textColor = UIColor(rgb: 0xff3b30)
+                    cell.setCellText("--", categoryLabelText: "No tests/invalid test!")
+                }
             case 1:
-                setFrameForScoreDisplay(cell, isTopRow: true)
-                cell.setCellText(scoreResults[1][6]!, categoryLabelText: catText[0], testInfoText: "Post-injury 1")
+                cell.label.textColor = UIColor(rgb: 0x007aff)
+                switch x {
+                case 0:
+                    cell.setCellText(scoreResults[x][0]!, categoryLabelText: catText[1])
+                case 1:
+                    cell.setCellText(scoreResults[x][0]!, categoryLabelText: catText[1])
+                case 2:
+                    cell.setCellText(scoreResults[x][0]!, categoryLabelText: catText[1])
+                default:
+                    cell.label.textColor = UIColor(rgb: 0xff3b30)
+                    cell.setCellText("--", categoryLabelText: "N/A")
+                }
             case 2:
-                setFrameForScoreDisplay(cell, isTopRow: true)
-                cell.setCellText(scoreResults[2][6]!, categoryLabelText: catText[0], testInfoText: "Post-injury 2")
+                cell.label.textColor = UIColor(rgb: 0x5856d6)
+                switch x {
+                case 0:
+                    cell.setCellText(scoreResults[x][1]!, categoryLabelText: catText[2])
+                case 1:
+                    cell.setCellText(scoreResults[x][1]!, categoryLabelText: catText[2])
+                case 2:
+                    cell.setCellText(scoreResults[x][1]!, categoryLabelText: catText[2])
+                default:
+                    cell.label.textColor = UIColor(rgb: 0xff3b30)
+                    cell.setCellText("--", categoryLabelText: "N/A")
+                }
+            case 3:
+                cell.label.textColor = UIColor(rgb: 0xff5e3a)
+                switch x {
+                case 0:
+                    cell.setCellText(scoreResults[x][2]!, categoryLabelText: catText[3])
+                case 1:
+                    cell.setCellText(scoreResults[x][2]!, categoryLabelText: catText[3])
+                case 2:
+                    cell.setCellText(scoreResults[x][2]!, categoryLabelText: catText[3])
+                default:
+                    cell.label.textColor = UIColor(rgb: 0xff3b30)
+                    cell.setCellText("--", categoryLabelText: "N/A")
+                }
+            case 4:
+                cell.label.textColor = UIColor(rgb: 0xff5e3a)
+                switch x {
+                case 0:
+                    cell.setCellText(scoreResults[x][3]!, categoryLabelText: catText[4])
+                case 1:
+                    cell.setCellText(scoreResults[x][3]!, categoryLabelText: catText[4])
+                case 2:
+                    cell.setCellText(scoreResults[x][3]!, categoryLabelText: catText[4])
+                default:
+                    cell.label.textColor = UIColor(rgb: 0xff3b30)
+                    cell.setCellText("--", categoryLabelText: "N/A")
+                }
+            case 5:
+                cell.label.textColor = UIColor(rgb: 0xff5e3a)
+                switch x {
+                case 0:
+                    cell.setCellText(scoreResults[x][4]!, categoryLabelText: catText[5])
+                case 1:
+                    cell.setCellText(scoreResults[x][4]!, categoryLabelText: catText[5])
+                case 2:
+                    cell.setCellText(scoreResults[x][4]!, categoryLabelText: catText[5])
+                default:
+                    cell.label.textColor = UIColor(rgb: 0xff3b30)
+                    cell.setCellText("--", categoryLabelText: "N/A")
+                }
+            case 6:
+                cell.label.textColor = UIColor(rgb: 0xff5e3a)
+                switch x {
+                case 0:
+                    cell.setCellText(scoreResults[x][5]!, categoryLabelText: catText[6])
+                case 1:
+                    cell.setCellText(scoreResults[x][5]!, categoryLabelText: catText[6])
+                case 2:
+                    cell.setCellText(scoreResults[x][5]!, categoryLabelText: catText[6])
+                default:
+                    cell.label.textColor = UIColor(rgb: 0xff3b30)
+                    cell.setCellText("--", categoryLabelText: "N/A")
+                }
+            case 7:
+                cell.label.textColor = UIColor(rgb: 0xff5e3a)
+                switch x {
+                case 0:
+                    cell.setCellText(scoreResults[x][7]!, categoryLabelText: catText[7])
+                case 1:
+                    cell.setCellText(scoreResults[x][7]!, categoryLabelText: catText[7])
+                case 2:
+                    cell.setCellText(scoreResults[x][7]!, categoryLabelText: catText[7])
+                default:
+                    cell.label.textColor = UIColor(rgb: 0xff3b30)
+                    cell.setCellText("--", categoryLabelText: "N/A")
+                }
             default:
                 cell.label.textColor = UIColor(rgb: 0xff3b30)
-                cell.setCellText("--", categoryLabelText: "No tests/invalid test!")
-            }
-        case 1:
-            cell.label.textColor = UIColor(rgb: 0x007aff)
-            switch scoresOfPlayer.count - 1 {
-            case 0:
-                cell.setCellText(scoreResults[0][0]!, categoryLabelText: catText[1])
-            case 1:
-                cell.setCellText(scoreResults[1][0]!, categoryLabelText: catText[1])
-            case 2:
-                cell.setCellText(scoreResults[2][0]!, categoryLabelText: catText[1])
-            default:
-                cell.label.textColor = UIColor(rgb: 0xff3b30)
-                cell.setCellText("--", categoryLabelText: "N/A")
-            }
-        case 2:
-            cell.label.textColor = UIColor(rgb: 0x5856d6)
-            switch scoresOfPlayer.count - 1 {
-            case 0:
-                cell.setCellText(scoreResults[0][1]!, categoryLabelText: catText[2])
-            case 1:
-                cell.setCellText(scoreResults[1][1]!, categoryLabelText: catText[2])
-            case 2:
-                cell.setCellText(scoreResults[2][1]!, categoryLabelText: catText[2])
-            default:
-                cell.label.textColor = UIColor(rgb: 0xff3b30)
-                cell.setCellText("--", categoryLabelText: "N/A")
-            }
-        case 3:
-            cell.label.textColor = UIColor(rgb: 0xff5e3a)
-            switch scoresOfPlayer.count - 1 {
-            case 0:
-                cell.setCellText(scoreResults[0][2]!, categoryLabelText: catText[3])
-            case 1:
-                cell.setCellText(scoreResults[1][2]!, categoryLabelText: catText[3])
-            case 2:
-                cell.setCellText(scoreResults[2][2]!, categoryLabelText: catText[3])
-            default:
-                cell.label.textColor = UIColor(rgb: 0xff3b30)
-                cell.setCellText("--", categoryLabelText: "N/A")
-            }
-        case 4:
-            cell.label.textColor = UIColor(rgb: 0xff5e3a)
-            switch scoresOfPlayer.count - 1 {
-            case 0:
-                cell.setCellText(scoreResults[0][3]!, categoryLabelText: catText[4])
-            case 1:
-                cell.setCellText(scoreResults[1][3]!, categoryLabelText: catText[4])
-            case 2:
-                cell.setCellText(scoreResults[2][3]!, categoryLabelText: catText[4])
-            default:
-                cell.label.textColor = UIColor(rgb: 0xff3b30)
-                cell.setCellText("--", categoryLabelText: "N/A")
-            }
-        case 5:
-            cell.label.textColor = UIColor(rgb: 0xff5e3a)
-            switch scoresOfPlayer.count - 1 {
-            case 0:
-                cell.setCellText(scoreResults[0][4]!, categoryLabelText: catText[5])
-            case 1:
-                cell.setCellText(scoreResults[1][4]!, categoryLabelText: catText[5])
-            case 2:
-                cell.setCellText(scoreResults[2][4]!, categoryLabelText: catText[5])
-            default:
-                cell.label.textColor = UIColor(rgb: 0xff3b30)
-                cell.setCellText("--", categoryLabelText: "N/A")
-            }
-        case 6:
-            cell.label.textColor = UIColor(rgb: 0xff5e3a)
-            switch scoresOfPlayer.count - 1 {
-            case 0:
-                cell.setCellText(scoreResults[0][5]!, categoryLabelText: catText[6])
-            case 1:
-                cell.setCellText(scoreResults[1][5]!, categoryLabelText: catText[6])
-            case 2:
-                cell.setCellText(scoreResults[2][5]!, categoryLabelText: catText[6])
-            default:
-                cell.label.textColor = UIColor(rgb: 0xff3b30)
-                cell.setCellText("--", categoryLabelText: "N/A")
-            }
-        case 7:
-            cell.label.textColor = UIColor(rgb: 0xff5e3a)
-            switch scoresOfPlayer.count - 1 {
-            case 0:
-                cell.setCellText(scoreResults[0][5]!, categoryLabelText: catText[7])
-            case 1:
-                cell.setCellText(scoreResults[1][5]!, categoryLabelText: catText[7])
-            case 2:
-                cell.setCellText(scoreResults[2][5]!, categoryLabelText: catText[7])
-            default:
-                cell.label.textColor = UIColor(rgb: 0xff3b30)
-                cell.setCellText("--", categoryLabelText: "N/A")
-            }
-        default:
-            cell.label.textColor = UIColor(rgb: 0xff3b30)
-            switch scoresOfPlayer.count - 1 {
-            case 0:
-                cell.setCellText("invalid", categoryLabelText: "N/A")
-            case 1:
-                cell.setCellText("invalid", categoryLabelText: "N/A")
-            case 2:
-                cell.setCellText("invalid", categoryLabelText: "N/A")
-            default:
-                cell.setCellText("--", categoryLabelText: "N/A")
+                switch x {
+                case 0:
+                    cell.setCellText("invalid", categoryLabelText: "N/A")
+                case 1:
+                    cell.setCellText("invalid", categoryLabelText: "N/A")
+                case 2:
+                    cell.setCellText("invalid", categoryLabelText: "N/A")
+                default:
+                    cell.setCellText("--", categoryLabelText: "N/A")
+                }
             }
         }
         return cell
