@@ -142,7 +142,7 @@ class TestTypeController: UITableViewController {
                 else
                 {
                     let (setOfScores, numScores) = database.scoresWithBaseline(database.getPlayerBaseline(currentPlayerID))
-                    
+
                     var latestScore = setOfScores[0]
                     if(numScores > 1)
                     {
@@ -158,7 +158,7 @@ class TestTypeController: UITableViewController {
                             }
                         }
                     }
-                    
+
                     database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
                     database.setBaselineForScore(currentScoreID!, baseline: latestScore)
                     database.setScoreType(currentScoreID!, type: "Injury")
@@ -215,11 +215,15 @@ class TestTypeController: UITableViewController {
                 }
                 else
                 {
-                    //database.scoreWithBaseLine
                     database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
-                    database.setScoreType(currentScoreID!, type: "Post-Injury")
+
                     let baselineID = database.getPlayerBaseline(currentPlayerID)
                     database.setBaselineForScore(currentScoreID!, baseline: baselineID)
+                    
+                    let (_, numScores) = database.scoresWithBaseline(baselineID)
+                    let tempString:String = "Post-Injury " + String(numScores - 2)
+                    database.setScoreType(currentScoreID!, type: tempString)
+                    print(database.scoreWithID(currentScoreID!)[0].scoreType)
                     
                     let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
                     let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
