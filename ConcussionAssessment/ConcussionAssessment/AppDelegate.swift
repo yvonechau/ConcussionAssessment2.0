@@ -36,19 +36,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navViewPlayerProfilePage.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
       
-        let navCreatePlayerPage = UINavigationController(rootViewController: viewCreatePlayerPage)
+        /*let navCreatePlayerPage = UINavigationController(rootViewController: viewCreatePlayerPage)
         navCreatePlayerPage.navigationBar.barTintColor = UIColor(rgb: 0x002855)
         navCreatePlayerPage.navigationBar.tintColor = UIColor.whiteColor()
-        navCreatePlayerPage.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navCreatePlayerPage.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]*/
      
         
         navTakeTestPage.tabBarItem.title = "Take Test"
         navViewPlayerProfilePage.tabBarItem.title = "View Profiles"
-        navCreatePlayerPage.tabBarItem.title = "CreateProfiles"
+        //navCreatePlayerPage.tabBarItem.title = "CreateProfiles"
         
         tabBar.addChildViewController(navTakeTestPage)
         tabBar.addChildViewController(navViewPlayerProfilePage)
-        tabBar.addChildViewController(navCreatePlayerPage)
+//        tabBar.addChildViewController(navCreatePlayerPage)
         
         
         self.window?.rootViewController = tabBar
@@ -150,9 +150,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attrDate = NSAttributeDescription()
         attrDate.name = "date"
         attrDate.attributeType = NSAttributeType.DateAttributeType;
+      
+        let attrBalance = NSAttributeDescription()
+        attrBalance.name = "balance"
+        attrBalance.attributeType = NSAttributeType.Integer64AttributeType;
         
+        let attrBLScore = NSAttributeDescription()
+        attrBLScore.name = "baselineScore"
+        attrBLScore.attributeType = NSAttributeType.StringAttributeType;
+      
         // This works because NSAttributeDescription is a subclass of NSPropertyDescription
-        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate]
+        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate, attrBalance, attrBLScore]
         
         // Create an entity description for Player, based on the class <ProjectName>.<ClassName>
         let playerDescription = NSEntityDescription()
@@ -191,8 +199,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attrIDNumber = NSAttributeDescription()
         attrIDNumber.name = "idNumber"
         attrIDNumber.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrBLPScore = NSAttributeDescription()
+        attrBLPScore.name = "baselineScore"
+        attrBLPScore.attributeType = NSAttributeType.StringAttributeType;
 
-        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated, attrIDNumber]
+        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated, attrIDNumber, attrBLPScore]
         
         // Create the model and set the entity description(s)
         var model = NSManagedObjectModel()

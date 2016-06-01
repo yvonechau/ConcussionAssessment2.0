@@ -244,11 +244,41 @@ class DataModel : NSObject {
         return []
     }
     
+    // Get the Score objects with Specific Baseline
+    func scoresWithBaseline(id: String) -> ([Score], Int) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "baselineScore == %@", id);
+        
+        do {
+            let fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            return (fetchScore, fetchScore.count)
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        
+        return ([],0)
+    }
+    
+    func numPlayerScores(id: String) -> Int
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        
+        do {
+            let fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            return fetchScore.count
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        
+        return 0
+    }
+    
     // Get all Score Data Members as a String Array with specific ScoreID
     func scoreStringArray(id: String) -> ([String], [String?])
     {
-        let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score"]
-        var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
+        let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Balance Examination Score"]
+        var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
         
         var score = scoreWithID(id)
         let currentScore = score[0]
@@ -270,10 +300,9 @@ class DataModel : NSObject {
         
         scoreResults[6] = String(total)
         
-        scoreResults[7] = (currentScore.maddocks)?.stringValue
-        scoreResults[8] = (currentScore.glasgow)?.stringValue
+        scoreResults[7] = (currentScore.balance)?.stringValue
         
-        for index in 0...8
+        for index in 0...7
         {
             var score : String
             
@@ -305,6 +334,44 @@ class DataModel : NSObject {
         */
         
     }
+    
+    func getPlayerBaseline(id: String) -> String
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player");
+        
+        do {
+            let fetchedPlayers = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+            for e in fetchedPlayers {
+                NSLog(e.firstName! + " " + e.lastName!)
+            }
+            return fetchedPlayers[0].baselineScore!
+        } catch {
+            fatalError("Failed to fetch players")
+        }
+        
+        return "0"
+
+    }
+    
+    func setBaselineForScore(id: String, baseline: String) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].baselineScore = baseline;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
 
     func setNumSymptoms(id: String, score: NSNumber) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
@@ -461,6 +528,47 @@ class DataModel : NSObject {
             fatalError("Cannot create Score Object with playerID")
         }
     }
+  
+    func setBalance(id: String, score: NSNumber) {
+      let fetchRequest = NSFetchRequest(entityName: "Score");
+      fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+      var fetchScore: [Score]
+      
+      do {
+        fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+      } catch {
+        fatalError("Failed to get Score")
+      }
+      fetchScore[0].balance = score;
+      
+      do {
+        try self.managedObjectContext.save()
+      } catch {
+        fatalError("Cannot create Score Object with playerID")
+      }
+    }
+  
+    
+    func setIDNumber(id: String, studentID: String)
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Player")
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
+        var fetchPlayer: [Player]
+        
+        do {
+            fetchPlayer = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
+        } catch {
+            fatalError("Failed to get Player")
+        }
+        
+        fetchPlayer[0].idNumber = studentID
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot save first name with playerID")
+        }
+    }
     
     func setFirstName(id: String, name: String)
     {
@@ -568,7 +676,7 @@ class DataModel : NSObject {
         }
     }
     
-    func setIDNumber(id: String, studentID: String)
+    func setBaselineForPlayer(id: String, baseline: String)
     {
         let fetchRequest = NSFetchRequest(entityName: "Player")
         fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
@@ -580,7 +688,7 @@ class DataModel : NSObject {
             fatalError("Failed to get Player")
         }
         
-        fetchPlayer[0].idNumber = studentID
+        fetchPlayer[0].baselineScore = baseline
         
         do {
             try self.managedObjectContext.save()

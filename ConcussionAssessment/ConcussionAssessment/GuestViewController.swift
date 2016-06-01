@@ -16,7 +16,7 @@ class GuestViewController: UITableViewController {
     
     override func loadView() {
         super.loadView()
-        
+        //self.navigationItem.hidesBackButton = true;
         self.navigationItem.title = "Take Test"
     }
     

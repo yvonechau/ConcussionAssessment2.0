@@ -22,10 +22,11 @@ class ListPlayerProfileController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.createNewProfile))
-        
-        if doListPlayers == true {
-            self.navigationItem.leftBarButtonItem = editButtonItem()
+        if typeOfProfilePage == "List" {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.createNewProfile))
+            if doListPlayers == true {
+                //self.navigationItem.leftBarButtonItem = editButtonItem()
+            }
         }
     }
     
@@ -98,6 +99,7 @@ class ListPlayerProfileController: UITableViewController {
             } else if typeOfProfilePage == "Select" {
                 switch(indexPath.section) {
                 case 0:
+                    /*
                     currentScoreID = NSUUID().UUIDString
                     database.insertNewScore(playerID, scoreID: currentScoreID!)
                     
@@ -128,12 +130,20 @@ class ListPlayerProfileController: UITableViewController {
                     let SymptomView = TablePageViewController(pageTitles: sympEvalPageTitles, labelArray: sva, testName: sympEvalTestName, instructionPage: nil, instructions: sympEvalInstr, next: CognitiveOrientationView, original: self, numTrials: nil, singlePage: false) as TablePageViewController
                     
                     self.navigationController?.pushViewController(SymptomView, animated: true)
+                    */
+                    
+                    let TestType = TestTypeController(playerID: playerID, original: originalView + 1)
+                    self.navigationController?.pushViewController(TestType, animated: true)
+                    
+                    break;
                 default:
                     fatalError("Invalid section")
                 }
-            } else if typeOfProfilePage == "Cognative Assessment" {
+            } else if typeOfProfilePage == "Cognitive Assessment" {
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(playerID, scoreID: currentScoreID!)
+                
+                print("Cogantive Ass");
                 
                 let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
                 let(memPageTitle, memTestName, memCOA, memInstr) = getCogAssImmediateStrings()
@@ -179,7 +189,12 @@ class ListPlayerProfileController: UITableViewController {
             } else if typeOfProfilePage == "BESS" {
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(playerID, scoreID: currentScoreID!)
-                
+              
+              let (balancePageTitles, balanceTestName, balanceInstructions) = getBalanceStrings()
+              let BalanceView = BalanceViewController(pageTitles: balancePageTitles, testName: balanceTestName, instructions: balanceInstructions, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], next: nil)
+              self.navigationController?.pushViewController(BalanceView, animated: true)
+              
+              
             } else if typeOfProfilePage == "Glasgow" {
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(playerID, scoreID: currentScoreID!)

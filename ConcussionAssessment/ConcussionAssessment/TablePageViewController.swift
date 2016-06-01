@@ -53,6 +53,24 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     super.init(nibName:nil, bundle:nil)
   }
   
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, nextBalance: BalanceViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType)
+  {
+    self.pageTitles = pageTitles
+    self.labelArray = labelArray
+    self.testName = testName
+    self.startingViewController = instructionPage
+    self.instructions = instructions
+    self.next = nextBalance //for when the next test is BESS
+    self.original = original!
+    self.numTrials = numTrials
+    self.singlePage = singlePage
+    self.numPages = 0
+    self.numSelected = 0
+    self.currScore = 0
+    super.init(nibName:nil, bundle:nil)
+  }
+
+  
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -196,6 +214,8 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
        
         self.donePressed = false
       }
+    case "Balance Examination":
+      print("balance score")
       
     default: print("none")
     }
@@ -518,7 +538,6 @@ class TablePageView: UITableViewController
     }
     else
     {
-
         if(self.pvc!.numTrials != nil) //no all rows, but has trials
         {
           if(indexPath.item == 0) // incorrect
