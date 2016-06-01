@@ -81,7 +81,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             didGetScores = false
         } else {
             print("Scores of player: \(scoresOfPlayer.count)")
-            let (tempScoreTitles, tempScoreResults) = database.scoreStringArray(scoresOfPlayer[0].scoreID!)
+            let (tempScoreTitles, tempScoreResults, neckExam) = database.scoreStringArray(scoresOfPlayer[0].scoreID!)
             scoreResults.append(tempScoreResults)
             scoreTitles = tempScoreTitles
         }

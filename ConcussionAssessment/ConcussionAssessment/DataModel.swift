@@ -287,14 +287,20 @@ class DataModel : NSObject {
     }
     
     // Get all Score Data Members as a String Array with specific ScoreID
-    func scoreStringArray(id: String) -> ([String], [String?])
+    func scoreStringArray(id: String) -> ([String], [String?], [[String?]])
     {
         let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Balance Examination Score"]
         var scoreResults: [String?] = ["--", "--", "--", "--", "--", "--", "--", "--", "--", "--"]
+        var neckExam: [[String?]] = [["Flexion", "--"], ["Extension", "--"], ["Right Rotation", "--"], ["Left Rotation", "--"], ["Right Lateral Flexion", "--"], ["Left Lateral Flexion", "--"],
+                                     ["Tenderness in the Right Paraspinal", "--"], ["Tenderness in the Left Paraspinal", "--"], ["Tenderness in the Bone", "--"],
+                                     ["Right Upper Arm Sensation", "--"], ["Left Upper Arm Sensation", "--"],
+                                     ["Right Upper Arm Strength", "--"],  ["Left Upper Arm Strength", "--"],
+                                     ["Right Lower Arm Sensation", "--"], ["Left Lower Arm Sensation", "--"],
+                                     ["Right Lower Arm Strength", "--"],  ["Left Lower Arm Strength", "--"]]
         
         if(id == "N/A")
         {
-            return (scoreTitle, scoreResults)
+            return (scoreTitle, scoreResults, neckExam)
         }
         
         var score = scoreWithID(id)
@@ -334,7 +340,33 @@ class DataModel : NSObject {
             scoreResults[index] = score
         }
         
-        return (scoreTitle, scoreResults)
+        
+        neckExam[0][1] = (currentScore.flexion)?.stringValue
+        neckExam[1][1] = (currentScore.extension_)?.stringValue
+        neckExam[2][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[3][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[4][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[5][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[6][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[7][1] = (currentScore.numSymptoms)?.stringValue
+        
+        neckExam[8][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[9][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[10][1] = (currentScore.numSymptoms)?.stringValue
+        
+        neckExam[11][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[12][1] = (currentScore.numSymptoms)?.stringValue
+        
+        neckExam[13][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[14][1] = (currentScore.numSymptoms)?.stringValue
+        
+        neckExam[15][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[16][1] = (currentScore.numSymptoms)?.stringValue
+        
+        neckExam[17][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[18][1] = (currentScore.numSymptoms)?.stringValue
+        
+        return (scoreTitle, scoreResults, neckExam)
         
         /*
         Use this for scoreResults:
