@@ -162,9 +162,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attrBLScore = NSAttributeDescription()
         attrBLScore.name = "baselineScore"
         attrBLScore.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrFlex = NSAttributeDescription()
+        attrFlex.name = "flexion"
+        attrFlex.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrExtend = NSAttributeDescription()
+        attrExtend.name = "extnesion_"
+        attrExtend.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrRROT = NSAttributeDescription()
+        attrRROT.name = "rRotation"
+        attrRROT.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrLROT = NSAttributeDescription()
+        attrLROT.name = "lRotation"
+        attrLROT.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrRLAT = NSAttributeDescription()
+        attrRLAT.name = "rLateralFlex"
+        attrRLAT.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrLLAT = NSAttributeDescription()
+        attrLLAT.name = "lLateralFlex"
+        attrLLAT.attributeType = NSAttributeType.StringAttributeType;
+        
+        
+        
+        let attrTendR = NSAttributeDescription()
+        attrTendR.name = "rParaspinalTenderness"
+        attrTendR.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrTendL = NSAttributeDescription()
+        attrTendL.name = "lParaspinalTenderness"
+        attrTendL.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrTendB = NSAttributeDescription()
+        attrTendB.name = "bonyTenderness"
+        attrTendB.attributeType = NSAttributeType.StringAttributeType;
+        
+        
+        let attrRUPSEN = NSAttributeDescription()
+        attrRUPSEN.name = "rUpSensation"
+        attrRUPSEN.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrLUPSEN = NSAttributeDescription()
+        attrLUPSEN.name = "lUpSensation"
+        attrLUPSEN.attributeType = NSAttributeType.StringAttributeType;
+        
+        
+        let attrRUPSTREN = NSAttributeDescription()
+        attrRUPSTREN.name = "rUpStrength"
+        attrRUPSTREN.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrLUPSTREN = NSAttributeDescription()
+        attrLUPSTREN.name = "lUpStrength"
+        attrLUPSTREN.attributeType = NSAttributeType.StringAttributeType;
+        
+        
+        let attrRLOWSEN = NSAttributeDescription()
+        attrRLOWSEN.name = "rLowSensation"
+        attrRLOWSEN.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrLLOWSEN = NSAttributeDescription()
+        attrLLOWSEN.name = "lLowSensation"
+        attrLLOWSEN.attributeType = NSAttributeType.StringAttributeType;
+        
+        
+        let attrRLOWSTREN = NSAttributeDescription()
+        attrRLOWSTREN.name = "rLowStrength"
+        attrRLOWSTREN.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrLLOWSTREN = NSAttributeDescription()
+        attrLLOWSTREN.name = "lLowStrength"
+        attrLLOWSTREN.attributeType = NSAttributeType.StringAttributeType;
+        
+        
       
         // This works because NSAttributeDescription is a subclass of NSPropertyDescription
-        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate, attrBalance, attrScoreType, attrBLScore]
+        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate, attrBalance, attrScoreType, attrBLScore, attrFlex, attrExtend, attrRROT, attrLROT, attrRLAT, attrLLAT, attrTendR, attrTendL, attrTendB, attrRUPSEN, attrLUPSEN, attrRUPSTREN, attrLUPSTREN, attrRLOWSEN, attrLLOWSEN, attrRLOWSTREN, attrLLOWSTREN]
         
         // Create an entity description for Player, based on the class <ProjectName>.<ClassName>
         let playerDescription = NSEntityDescription()
