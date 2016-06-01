@@ -65,7 +65,22 @@ class NeckExamViewController: UIViewController, UIPageViewControllerDataSource
     
     let viewControllers = [self.startingViewController!]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
-    pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+    pageViewController!.view.frame = CGRectMake(0, (self.navigationController?.navigationBar.frame.size.height)! - self.tabBarController!.tabBar.frame.size.height, view.frame.size.width, view.frame.size.height-self.tabBarController!.tabBar.frame.size.height);
+    //
+    //    let subviews = pageViewController!.view.subviews
+    //
+    //    var thisControl: UIPageControl! = nil
+    //
+    //    for s in subviews
+    //    {
+    //      if let pc = s as? UIPageControl
+    //      {
+    //        thisControl = pc
+    //      }
+    //    }
+    //
+    //    thisControl.bounds.insetInPlace(dx: 0, dy: -500)
+    //    
     
     
     addChildViewController(pageViewController!)
