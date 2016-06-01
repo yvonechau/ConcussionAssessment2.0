@@ -136,6 +136,8 @@ class ListPlayerProfileController: UITableViewController {
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(playerID, scoreID: currentScoreID!)
                 
+                print("Cogantive Ass");
+                
                 let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
                 let(memPageTitle, memTestName, memCOA, memInstr) = getCogAssImmediateStrings()
                 let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
