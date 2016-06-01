@@ -31,8 +31,32 @@ class Score : NSManagedObject {
     @NSManaged var glasgow: NSNumber?         // 15
     @NSManaged var date: NSDate?
     @NSManaged var balance: NSNumber?
+    @NSManaged var domFoot: NSString?
     
     @NSManaged var baselineScore: String?
+    
+    @NSManaged var flexion: String?
+    @NSManaged var extension_: String?
+    @NSManaged var rRotation: String?
+    @NSManaged var lRotation: String?
+    @NSManaged var rLateralFlex: String?
+    @NSManaged var lLateralFlex: String?
+    
+    @NSManaged var rParaspinalTenderness: String?
+    @NSManaged var lParaspinalTenderness: String?
+    @NSManaged var bonyTenderness: String?
+
+    @NSManaged var rUpSensation: String?
+    @NSManaged var lUpSensation: String?
+    
+    @NSManaged var rUpStrength: String?
+    @NSManaged var lUpStrength: String?
+    
+    @NSManaged var rLowSensation: String?
+    @NSManaged var lLowSensation: String?
+    
+    @NSManaged var rLowStrength: String?
+    @NSManaged var lLowStrength: String?
     
 }
 

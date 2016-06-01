@@ -299,6 +299,8 @@ class DataModel : NSObject {
         
         var score = scoreWithID(id)
         let currentScore = score[0]
+      
+        print(currentScore.domFoot)
         
         scoreResults[0] = (currentScore.numSymptoms)?.stringValue
         scoreResults[1] = (currentScore.severity)?.stringValue
@@ -597,13 +599,155 @@ class DataModel : NSObject {
             fatalError("Cannot create Score Object with playerID")
         }
     }
+
     
+    func setNeckExam(id: String, flex: String, exten: String, rRot: String, lRot: String, rLat: String, lLat: String) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].flexion = flex;
+        fetchScore[0].extension_ = exten;
+        fetchScore[0].rRotation = rRot;
+        fetchScore[0].lRotation = lRot;
+        fetchScore[0].rLateralFlex = rLat;
+        fetchScore[0].lLateralFlex = lLat;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
     
+    func setNeckExam(id: String, rParaTenderness: String, lParaTenderness: String, bTenderness: String) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].rParaspinalTenderness = rParaTenderness;
+        fetchScore[0].lParaspinalTenderness = lParaTenderness;
+        fetchScore[0].bonyTenderness = bTenderness;
+
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
     
+    func setNeckExamUpperSensation(id: String, r: String, l: String) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].rUpSensation = r;
+        fetchScore[0].lUpSensation = l;
+
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
     
-    
-    
-    
+    func setNeckExamUpperStrength(id: String, r: String, l: String) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].rUpStrength = r;
+        fetchScore[0].lUpStrength = l;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+
+    func setNeckExamLowerSensation(id: String, r: String, l: String) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].rLowSensation = r;
+        fetchScore[0].lLowSensation = l;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+
+    func setNeckExamLowerStrength(id: String, r: String, l: String) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].rLowStrength = r;
+        fetchScore[0].lLowStrength = l;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+
+  
+    func setDomFoot(id: String, score: NSString) {
+      let fetchRequest = NSFetchRequest(entityName: "Score");
+      fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+      var fetchScore: [Score]
+      
+      do {
+        fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+      } catch {
+        fatalError("Failed to get Score")
+      }
+      fetchScore[0].domFoot = score;
+      
+      do {
+        try self.managedObjectContext.save()
+      } catch {
+        fatalError("Cannot create Score Object with playerID")
+      }
+    }
+  
+  
+
     
     
     /********************************************************************************************
