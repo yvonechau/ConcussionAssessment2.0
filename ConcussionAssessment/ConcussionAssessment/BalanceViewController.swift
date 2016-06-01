@@ -453,7 +453,9 @@ class BalanceView : UITableViewController
     self.bvc!.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BalanceView.timerCountdown), userInfo: nil, repeats: true)
     sender.enabled = false
     self.bvc!.cellIncrementButton.enabled = true
-    self.bvc!.cellIncrementButton.alpha = 1.0
+    self.bvc!.cellIncrementButton.alpha = 1.0    
+    self.bvc!.cellTimerButton.enabled = false
+    self.bvc!.cellTimerButton.alpha = 0.5
 
 
   }
@@ -475,9 +477,6 @@ class BalanceView : UITableViewController
       self.bvc!.cellTimerLabel.text = String(format: "%.1f", self.bvc!.timerCount)
       if(self.bvc!.timerCount < 0.1)
       {
-        self.bvc!.cellTimerButton.enabled = false
-        self.bvc!.cellTimerButton.alpha = 0.5
-
 
 
         self.bvc!.timerCount = 0
