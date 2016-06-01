@@ -242,9 +242,7 @@ init(nvc : NeckExamViewController)
   }
   
   func setScore(){
-    print("moop")
-    print(self.pageContent[self.nvc!.currentIndex])
-    var values: [String] = []
+       var values: [String] = []
 
     for Cell in cellArray
     {

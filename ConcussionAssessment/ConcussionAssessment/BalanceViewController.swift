@@ -90,6 +90,13 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     
+    for view in pageViewController!.view.subviews{
+      if let subView = view as? UIScrollView{
+        subView.scrollEnabled = false
+      }
+    }
+
+    
     if(self.startingViewController == nil) // not instantiated so it has no instruction page
     {
       self.startingViewController = viewControllerAtIndex(0)!
