@@ -390,6 +390,9 @@ class BalanceView : UITableViewController
       if(indexPath.row == 5)
       {
         self.bvc!.cellIncrementButton = UIStepper()
+        self.bvc!.cellIncrementButton.enabled = false
+        self.bvc!.cellIncrementButton.alpha = 0.5
+
         self.bvc!.cellIncrementButton.wraps = false
         self.bvc!.cellIncrementButton.continuous = false
         self.bvc!.cellIncrementButton.autorepeat = false
@@ -411,6 +414,10 @@ class BalanceView : UITableViewController
     print("timer start")
     self.bvc!.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BalanceView.timerCountdown), userInfo: nil, repeats: true)
     sender.enabled = false
+    self.bvc!.cellIncrementButton.enabled = true
+    self.bvc!.cellIncrementButton.alpha = 1.0
+
+
   }
   
   func stepperPressed(sender: UIStepper)
