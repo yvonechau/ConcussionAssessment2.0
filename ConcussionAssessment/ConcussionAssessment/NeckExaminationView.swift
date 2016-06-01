@@ -172,14 +172,14 @@ class NeckExamView: UITableViewController, UIPickerViewDataSource, UIPickerViewD
   var titleText : String = ""
   
   var textField: UITextField
-  
+  var cellArray: [UITableViewCell]
   
 init(nvc : NeckExamViewController)
   {
     self.nvc = nvc
     self.pageContent = nvc.pageContent
     self.textField = UITextField()
-
+    self.cellArray = []
     super.init(style: UITableViewStyle.Grouped)
 
   }
@@ -190,6 +190,8 @@ init(nvc : NeckExamViewController)
   
   func buttonPressed(sender: UIButton)
   {
+    self.setScore()
+
     self.nvc!.currentIndex += 1
     if self.nvc!.currentIndex == self.pageContent.count
     {
@@ -203,7 +205,6 @@ init(nvc : NeckExamViewController)
       self.nvc!.navigationItem.title = self.nvc!.pageTitles[self.nvc!.currentIndex]
 
     }
-    
   }
   
   
@@ -219,7 +220,6 @@ init(nvc : NeckExamViewController)
     self.tableView.allowsSelection = false
     //let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
     //doneButton.actionsForTarget(target: AnyObject?, forControlEvent: UIControlEvents)
-
     
     super.viewDidLoad()
   }
@@ -241,12 +241,35 @@ init(nvc : NeckExamViewController)
     return pageContent[nvc!.currentIndex][pickerView.tag][row]
   }
   
+  func setScore(){
+    print("moop")
+    print(self.pageContent[self.nvc!.currentIndex])
+    for Cell in cellArray
+    {
+      for s in (Cell.contentView.subviews)
+      {
+        if s.isKindOfClass(UIPickerView)
+        {
+          let pv = s as! UIPickerView
+          print(pageContent[nvc!.currentIndex][pv.tag][pv.selectedRowInComponent(0)])
+          
+        }
+      }
+    
+    
+
+
+    
+    }
+  }
+
+  
   func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    print(pickerView.tag)
+    print(pageContent[nvc!.currentIndex][pickerView.tag][pageContent[nvc!.currentIndex][pickerView.tag].count - 1])
+    print(pageContent[nvc!.currentIndex][pickerView.tag][pickerView.selectedRowInComponent(component)])
   }
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
-    print("here")
     
     return self.pageContent[self.nvc!.currentIndex].count + 1
   }
@@ -275,12 +298,13 @@ init(nvc : NeckExamViewController)
   {
     return 60
   }
-
+  
+  
 
  //called for how many rows in a section
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
-    if indexPath.section < self.pageContent[self.nvc!.currentIndex].count
+    if indexPath.section == 0
     {
       let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
       let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(self.tableView.frame.width/2 - 100, -20, 200, 100))
@@ -288,12 +312,24 @@ init(nvc : NeckExamViewController)
       pickerView.dataSource = self
       pickerView.delegate = self
       Cell.contentView.addSubview(pickerView)
+      cellArray.append(Cell)
+      return Cell
+    }
+    else if indexPath.section < self.pageContent[self.nvc!.currentIndex].count
+    {
+      let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
+      let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(self.tableView.frame.width/2 - 100, -20, 200, 100))
+      pickerView.tag = indexPath.section
+      pickerView.dataSource = self
+      pickerView.delegate = self
+      Cell.contentView.addSubview(pickerView)
+      cellArray.append(Cell)
+
       return Cell
     }
     else
     {
-      print("hi")
-      let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
+      let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "ButtonCell")
       
       let doneButton = UIButton(frame: CGRectMake(self.tableView.frame.size.width / 2 - 50, 0, 100, 50))
       doneButton.addTarget(self, action: #selector(NeckExamView.buttonPressed(_:)), forControlEvents: .TouchUpInside)
