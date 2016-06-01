@@ -218,8 +218,8 @@ init(nvc : NeckExamViewController)
   {
     self.tableView.frame = CGRectMake(0, (self.nvc!.navigationController?.navigationBar.frame.size.height)! - self.nvc!.tabBarController!.tabBar.frame.size.height, self.nvc!.view.frame.size.width, self.tableView.frame.size.height-self.nvc!.tabBarController!.tabBar.frame.size.height);
 
-    self.tableView.contentInset = UIEdgeInsetsMake((self.nvc!.navigationController?.navigationBar.frame.size.height)! + 40, 0, -(self.nvc!.tabBarController!.tabBar.frame.size.height), 0)
-    self.tableView.scrollIndicatorInsets.bottom = -(self.nvc!.tabBarController!.tabBar.frame.size.height)
+    self.tableView.contentInset = UIEdgeInsetsMake((self.nvc!.navigationController?.navigationBar.frame.size.height)! + 40, 0, -(self.nvc!.tabBarController!.tabBar.frame.size.height) + 10, 0)
+    self.tableView.scrollIndicatorInsets.bottom = -(self.nvc!.tabBarController!.tabBar.frame.size.height) + 10
     self.tableView.scrollIndicatorInsets.top = (self.nvc!.navigationController?.navigationBar.frame.size.height)! + 40
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     self.tableView.rowHeight = 70
