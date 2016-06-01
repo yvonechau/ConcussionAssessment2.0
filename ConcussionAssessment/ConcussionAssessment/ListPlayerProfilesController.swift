@@ -21,7 +21,8 @@ class ListPlayerProfileController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      self.navigationItem.setHidesBackButton(true, animated: true)
+
         if typeOfProfilePage == "List" {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(self.createNewProfile))
             if doListPlayers == true {

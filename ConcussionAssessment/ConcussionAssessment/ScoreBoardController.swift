@@ -57,7 +57,8 @@ class ScoreBoardController : UIViewController, UIScrollViewDelegate
     }
     
     override func viewDidLoad() {
-        
+        self.navigationItem.setHidesBackButton(true, animated: true)
+
         let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TablePageView.doneButtonPressed(_:)))
       
         self.navigationItem.rightBarButtonItems = [doneButton]

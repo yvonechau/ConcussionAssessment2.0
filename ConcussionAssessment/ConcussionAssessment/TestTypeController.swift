@@ -23,7 +23,8 @@ class TestTypeController: UITableViewController {
     
     override func loadView() {
         super.loadView()
-        
+        self.navigationItem.setHidesBackButton(true, animated: true)
+
         // set the title
         self.title = "Select Type of Test"
         
