@@ -209,9 +209,9 @@ init(nvc : NeckExamViewController)
   
   override func viewDidLoad()
   {
-    self.tableView.frame = CGRectMake(0, (self.nvc!.navigationController?.navigationBar.frame.size.height)! - self.nvc!.tabBarController!.tabBar.frame.size.height, self.nvc!.view.frame.size.width, self.nvc!.view.frame.size.height-self.nvc!.tabBarController!.tabBar.frame.size.height);
+    self.tableView.frame = CGRectMake(0, (self.nvc!.navigationController?.navigationBar.frame.size.height)! - self.nvc!.tabBarController!.tabBar.frame.size.height, self.nvc!.view.frame.size.width, self.tableView.frame.size.height-self.nvc!.tabBarController!.tabBar.frame.size.height);
 
-    self.tableView.contentInset = UIEdgeInsetsMake(80.0, 0, -120.0, 0)
+    self.tableView.contentInset = UIEdgeInsetsMake(80.0, 0, -(self.nvc!.tabBarController!.tabBar.frame.size.height - 50.0 ), 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
 
@@ -284,31 +284,22 @@ init(nvc : NeckExamViewController)
       Cell.contentView.addSubview(pickerView)
       return Cell
     }
-    else{
-      print(indexPath.section)
+    else
+    {
+      print("hi")
       let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
       
-      let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 60))
+      let doneButton = UIButton(frame: CGRectMake(self.tableView.frame.size.width / 2 - 50, 0, 100, 60))
       doneButton.addTarget(self, action: #selector(NeckExamView.buttonPressed(_:)), forControlEvents: .TouchUpInside)
       
       doneButton.setTitle("Done", forState: .Normal)
       doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
       doneButton.backgroundColor =  UIColor(rgb: 0x002855)
-      
       Cell.contentView.addSubview(doneButton)
       
       return Cell
     }
   }
-  
-  
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-  {
-    
-  }
+
 }
 
-class PickerCell: UITableViewCell
-{
-  
-}
