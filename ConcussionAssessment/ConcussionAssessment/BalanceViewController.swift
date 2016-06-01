@@ -242,6 +242,8 @@ class BalanceView : UITableViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    self.navigationItem.setHidesBackButton(true, animated: true)
+
     self.doneButton.enabled = false
 
     self.tableView.frame = CGRectMake(0, (self.bvc!.navigationController?.navigationBar.frame.size.height)! - self.bvc!.tabBarController!.tabBar.frame.size.height, self.bvc!.view.frame.size.width, self.tableView.frame.size.height-self.bvc!.tabBarController!.tabBar.frame.size.height);

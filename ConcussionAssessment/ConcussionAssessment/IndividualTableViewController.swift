@@ -15,7 +15,8 @@ class IndividualTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.setHidesBackButton(true, animated: true)
+
         self.title = "Tests"
         currentScoreID = NSUUID().UUIDString
         database.insertNewScore("no player", scoreID: currentScoreID!)

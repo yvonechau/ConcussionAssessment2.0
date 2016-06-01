@@ -55,6 +55,8 @@ class NeckExamViewController: UIViewController, UIPageViewControllerDataSource
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    self.navigationItem.setHidesBackButton(true, animated: true)
+
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     

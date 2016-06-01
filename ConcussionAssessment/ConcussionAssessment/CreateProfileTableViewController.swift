@@ -25,7 +25,8 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      self.navigationItem.setHidesBackButton(true, animated: true)
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         

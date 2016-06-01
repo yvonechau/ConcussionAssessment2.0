@@ -27,7 +27,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.setHidesBackButton(true, animated: true)
+
         numberScoresDisplayed = catText.count * numberOfColumns
         self.title = name
 

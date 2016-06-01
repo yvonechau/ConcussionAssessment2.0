@@ -198,8 +198,12 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    self.navigationItem.setHidesBackButton(true, animated: true)
+
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
+    
+    self.navigationItem.setHidesBackButton(true, animated: true)
 
     for view in pageViewController!.view.subviews{
       if let subView = view as? UIScrollView{
