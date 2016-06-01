@@ -254,7 +254,7 @@ class TestTypeController: UITableViewController {
                     
                     //SYMPTOM EVALUATION
                     let SymptomView = TablePageViewController(pageTitles: sympEvalPageTitles, labelArray: sva, testName: sympEvalTestName, instructionPage: nil, instructions: sympEvalInstr, next: CognitiveOrientationView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
-                    
+                    self.navigationItem.leftBarButtonItem = nil
                     self.navigationController?.pushViewController(SymptomView, animated: true)
                 }
                 

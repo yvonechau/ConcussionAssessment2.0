@@ -231,7 +231,7 @@ func getNeckStrings() -> (Array<String>, String, [[[String]]], String)
   let upperLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Upper Limb"], ["Normal", "Abnormal", "Left Upper Limb"]]
 
   let lowerLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limb"]]
-  let lowerLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
+  let lowerLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limb"]]
   
   let pageTitle: [String] = ["Range of Motion", "Tenderness", "Upper Limb Sensation", "Upper Limb Strength", "Lower Limb Sensation", "Lower Limb Strength"]
   let pageContent: [[[String]]] = [rangeOfMotion, tenderness, upperLimbSensation, upperLimbStrength, lowerLimbSensation, lowerLimbStrength]
