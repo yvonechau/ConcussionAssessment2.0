@@ -143,7 +143,7 @@ class TestTypeController: UITableViewController {
                     {
                         for index in 1 ... (numScores - 1)
                         {
-                            if setOfScores[index-1].date > setOfScores[index].date
+                            if database.scoreWithID(setOfScores[index-1])[0].date > database.scoreWithID(setOfScores[index])[0].date
                             {
                                 latestScore = setOfScores[index-1]
                             }
@@ -156,8 +156,8 @@ class TestTypeController: UITableViewController {
                     
                     currentScoreID = NSUUID().UUIDString
                     database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
-                    database.setBaselineForScore(currentScoreID!, baseline: latestScore.scoreID!)
-                    database.setBaselineForPlayer(currentPlayerID, baseline: latestScore.scoreID!)
+                    database.setBaselineForScore(currentScoreID!, baseline: latestScore)
+                    database.setBaselineForPlayer(currentPlayerID, baseline: latestScore)
                     
                     let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
                     let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()

@@ -245,13 +245,18 @@ class DataModel : NSObject {
     }
     
     // Get the Score objects with Specific Baseline
-    func scoresWithBaseline(id: String) -> ([Score], Int) {
+    func scoresWithBaseline(id: String) -> ([String], Int) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
         fetchRequest.predicate = NSPredicate(format: "baselineScore == %@", id);
         
+        var scoreIDs: [String] = []
         do {
             let fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
-            return (fetchScore, fetchScore.count)
+            for index in 0 ... (fetchScore.count)
+            {
+                scoreIDs.append(fetchScore[index].scoreID!)
+            }
+            return (scoreIDs, fetchScore.count)
         } catch {
             fatalError("Failed to get Score")
         }
