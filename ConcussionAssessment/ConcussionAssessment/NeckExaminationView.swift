@@ -244,6 +244,8 @@ init(nvc : NeckExamViewController)
   func setScore(){
     print("moop")
     print(self.pageContent[self.nvc!.currentIndex])
+    var values: [String] = []
+
     for Cell in cellArray
     {
       for s in (Cell.contentView.subviews)
@@ -252,22 +254,26 @@ init(nvc : NeckExamViewController)
         {
           let pv = s as! UIPickerView
           print(pageContent[nvc!.currentIndex][pv.tag][pv.selectedRowInComponent(0)])
-          
+          values.append(pageContent[nvc!.currentIndex][pv.tag][pv.selectedRowInComponent(0)])
         }
+        
       }
     
-    
-
-
-    
     }
+    switch self.nvc!.currentIndex{
+      case 0: database.setNeckExam(currentScoreID!, flexVal: values)
+      case 1: database.setNeckExam(currentScoreID!, tenderVal: values)
+      case 2: database.setNeckExamUpperSensation(currentScoreID!, upSenseVal: values)
+      case 3: database.setNeckExamUpperStrength(currentScoreID!, upStrengthVal: values)
+      case 4: database.setNeckExamLowerSensation(currentScoreID!, loSenseVal: values)
+      case 5: database.setNeckExamLowerStrength(currentScoreID!, loStrengthVal: values)
+    default: print("out of bounds")
+
+    }
+
+
   }
 
-  
-  func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    print(pageContent[nvc!.currentIndex][pickerView.tag][pageContent[nvc!.currentIndex][pickerView.tag].count - 1])
-    print(pageContent[nvc!.currentIndex][pickerView.tag][pickerView.selectedRowInComponent(component)])
-  }
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
     
