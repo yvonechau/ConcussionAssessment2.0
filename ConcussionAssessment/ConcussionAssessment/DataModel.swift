@@ -309,7 +309,7 @@ class DataModel : NSObject {
             if let str = scoreResults[index] {
                 score = str
             } else {
-                score = "Untested"
+                score = "--"
             }
             
             scoreResults[index] = score
