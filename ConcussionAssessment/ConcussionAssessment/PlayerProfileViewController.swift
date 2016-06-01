@@ -85,9 +85,11 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         print("Hello world, this is the thing: \(self.numberOfScores)")
         print(scoreIdsOfPlayer)
         
-        for x in 0..<self.numberOfScores {
-            let (_, tempScoreResults) = database.scoreStringArray(scoreIdsOfPlayer[x])
-            scoreResults.append(tempScoreResults)
+        if(self.numberOfScores > 0) {
+            for x in 0..<self.numberOfScores {
+                let (_, tempScoreResults) = database.scoreStringArray(scoreIdsOfPlayer[x])
+                scoreResults.append(tempScoreResults)
+            }
         }
         
         /*if scoresOfPlayer.count <= 0 {
