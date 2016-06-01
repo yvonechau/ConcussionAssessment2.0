@@ -357,13 +357,22 @@ class DataModel : NSObject {
     func getPlayerBaseline(id: String) -> String
     {
         let fetchRequest = NSFetchRequest(entityName: "Player");
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
         
         do {
             let fetchedPlayers = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
             for e in fetchedPlayers {
                 NSLog(e.firstName! + " " + e.lastName!)
             }
-            return fetchedPlayers[0].baselineScore!
+            var m_bl: String?
+            if let m_bl = fetchedPlayers[0].baselineScore
+            {
+                return m_bl
+            }
+            else
+            {
+                return "N/A"
+            }
         } catch {
             fatalError("Failed to fetch players")
         }
