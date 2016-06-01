@@ -87,9 +87,13 @@ class TestTypeController: UITableViewController {
         case 0:
             switch(indexPath.row) {
             case 0:
+                /********************************************************************************************
+                 * BASELINE INJURY TEST
+                 ********************************************************************************************/
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
                 database.setBaselineForScore(currentScoreID!, baseline: currentScoreID!)
+                database.setScoreType(currentScoreID!, type: "Baseline")
                 database.setBaselineForPlayer(currentPlayerID, baseline: currentScoreID!)
                 
                 let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
@@ -124,8 +128,10 @@ class TestTypeController: UITableViewController {
                 self.navigationController?.pushViewController(SymptomView, animated: true)
                 break;
             case 1:
-                
-                // set new baseline, compare dates??? 
+                /********************************************************************************************
+                 * INJURY TEST
+                 ********************************************************************************************/
+                // set new baseline, compare dates???
                 // set score's baseline to new baseline.
                 
                 if(database.numPlayerScores(currentPlayerID) <= 0 )
@@ -143,7 +149,7 @@ class TestTypeController: UITableViewController {
                     {
                         for index in 1 ... (numScores - 1)
                         {
-                            if setOfScores[index-1].date > setOfScores[index].date
+                            if database.scoreWithID(setOfScores[index-1])[0].date > database.scoreWithID(setOfScores[index])[0].date
                             {
                                 latestScore = setOfScores[index-1]
                             }
@@ -156,8 +162,9 @@ class TestTypeController: UITableViewController {
                     
                     currentScoreID = NSUUID().UUIDString
                     database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
-                    database.setBaselineForScore(currentScoreID!, baseline: latestScore.scoreID!)
-                    database.setBaselineForPlayer(currentPlayerID, baseline: latestScore.scoreID!)
+                    database.setBaselineForScore(currentScoreID!, baseline: latestScore)
+                    database.setScoreType(currentScoreID!, type: "Injury")
+                    database.setBaselineForPlayer(currentPlayerID, baseline: latestScore)
                     
                     let (sympEvalPageTitles, sympEvalTestName, sva, sympEvalInstr) = getSympEvalStrings()
                     let(orientationTitle, orientationTestName, orientationCOA, orientationInstr) = getCogAssOrientationStrings()
@@ -193,7 +200,9 @@ class TestTypeController: UITableViewController {
 
                 break;
             case 2:
-                
+                /********************************************************************************************
+                * POST INJURY TEST
+                ********************************************************************************************/
                 if(database.numPlayerScores(currentPlayerID) == 1)
                 {
                     let alert = UIAlertController(title: "Alert", message: "No Current Injury. Please create New Injury.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -208,8 +217,10 @@ class TestTypeController: UITableViewController {
                 }
                 else
                 {
+                    //database.scoreWithBaseLine
                     currentScoreID = NSUUID().UUIDString
                     database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
+                    database.setScoreType(currentScoreID!, type: "Post-Injury")
                     let baselineID = database.getPlayerBaseline(currentPlayerID)
                     database.setBaselineForScore(currentScoreID!, baseline: baselineID)
                     

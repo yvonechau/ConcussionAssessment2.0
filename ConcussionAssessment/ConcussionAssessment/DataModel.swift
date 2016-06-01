@@ -245,13 +245,18 @@ class DataModel : NSObject {
     }
     
     // Get the Score objects with Specific Baseline
-    func scoresWithBaseline(id: String) -> ([Score], Int) {
+    func scoresWithBaseline(id: String) -> ([String], Int) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
         fetchRequest.predicate = NSPredicate(format: "baselineScore == %@", id);
         
+        var scoreIDs: [String] = []
         do {
             let fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
-            return (fetchScore, fetchScore.count)
+            for index in 0 ... (fetchScore.count)
+            {
+                scoreIDs.append(fetchScore[index].scoreID!)
+            }
+            return (scoreIDs, fetchScore.count)
         } catch {
             fatalError("Failed to get Score")
         }
@@ -278,7 +283,12 @@ class DataModel : NSObject {
     func scoreStringArray(id: String) -> ([String], [String?])
     {
         let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Balance Examination Score"]
-        var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
+        var scoreResults: [String?] = ["--", "--", "--", "--", "--", "--", "--", "--", "--", "--"]
+        
+        if(id == "N/A")
+        {
+            return (scoreTitle, scoreResults)
+        }
         
         var score = scoreWithID(id)
         let currentScore = score[0]
@@ -309,7 +319,7 @@ class DataModel : NSObject {
             if let str = scoreResults[index] {
                 score = str
             } else {
-                score = "Untested"
+                score = "--"
             }
             
             scoreResults[index] = score
@@ -352,6 +362,11 @@ class DataModel : NSObject {
         return "0"
 
     }
+    
+    
+    /********************************************************************************************
+     * SCORE SETTER FUNCTIONS
+     ********************************************************************************************/
     
     func setBaselineForScore(id: String, baseline: String) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
@@ -548,6 +563,36 @@ class DataModel : NSObject {
       }
     }
   
+    func setScoreType(id: String, type: String) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].scoreType = type;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /********************************************************************************************
+     * PLAYER SETTER FUNCTIONS
+     ********************************************************************************************/
     
     func setIDNumber(id: String, studentID: String)
     {
