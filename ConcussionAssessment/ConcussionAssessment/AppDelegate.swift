@@ -154,6 +154,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attrBalance = NSAttributeDescription()
         attrBalance.name = "balance"
         attrBalance.attributeType = NSAttributeType.Integer64AttributeType;
+      
+        let attrDomFoot = NSAttributeDescription()
+        attrDomFoot.name = "domFoot"
+        attrDomFoot.attributeType = NSAttributeType.StringAttributeType;
         
         let attrScoreType = NSAttributeDescription()
         attrScoreType.name = "scoreType"
@@ -164,7 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         attrBLScore.attributeType = NSAttributeType.StringAttributeType;
       
         // This works because NSAttributeDescription is a subclass of NSPropertyDescription
-        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate, attrBalance, attrScoreType, attrBLScore]
+        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate, attrBalance, attrDomFoot, attrScoreType, attrBLScore]
         
         // Create an entity description for Player, based on the class <ProjectName>.<ClassName>
         let playerDescription = NSEntityDescription()
