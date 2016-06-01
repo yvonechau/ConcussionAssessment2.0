@@ -154,9 +154,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attrBalance = NSAttributeDescription()
         attrBalance.name = "balance"
         attrBalance.attributeType = NSAttributeType.Integer64AttributeType;
+        
+        let attrBLScore = NSAttributeDescription()
+        attrBLScore.name = "baselineScore"
+        attrBLScore.attributeType = NSAttributeType.StringAttributeType;
       
         // This works because NSAttributeDescription is a subclass of NSPropertyDescription
-        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate, attrBalance]
+        scoreDescription.properties = [attrPlayerID, attrScoreID, attrNumSymptoms, attrSeverity, attrOrientation, attrImmMemory, attrConcentration, attrDelayedRecall, attrSACTotal, attrMaddocks, attrGlasgow, attrDate, attrBalance, attrBLScore]
         
         // Create an entity description for Player, based on the class <ProjectName>.<ClassName>
         let playerDescription = NSEntityDescription()
@@ -195,8 +199,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attrIDNumber = NSAttributeDescription()
         attrIDNumber.name = "idNumber"
         attrIDNumber.attributeType = NSAttributeType.StringAttributeType;
+        
+        let attrBLPScore = NSAttributeDescription()
+        attrBLPScore.name = "baselineScore"
+        attrBLPScore.attributeType = NSAttributeType.StringAttributeType;
 
-        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated, attrIDNumber]
+        playerDescription.properties = [attrPlayerID1, attrFirstName, attrLastName, attrTeamName, attrBirthday, attrGender, attrDateCreated, attrIDNumber, attrBLPScore]
         
         // Create the model and set the entity description(s)
         var model = NSManagedObjectModel()

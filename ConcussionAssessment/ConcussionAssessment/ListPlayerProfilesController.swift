@@ -99,6 +99,7 @@ class ListPlayerProfileController: UITableViewController {
             } else if typeOfProfilePage == "Select" {
                 switch(indexPath.section) {
                 case 0:
+                    /*
                     currentScoreID = NSUUID().UUIDString
                     database.insertNewScore(playerID, scoreID: currentScoreID!)
                     
@@ -129,10 +130,16 @@ class ListPlayerProfileController: UITableViewController {
                     let SymptomView = TablePageViewController(pageTitles: sympEvalPageTitles, labelArray: sva, testName: sympEvalTestName, instructionPage: nil, instructions: sympEvalInstr, next: CognitiveOrientationView, original: self, numTrials: nil, singlePage: false) as TablePageViewController
                     
                     self.navigationController?.pushViewController(SymptomView, animated: true)
+                    */
+                    
+                    let TestType = TestTypeController(playerID: playerID, original: originalView + 1)
+                    self.navigationController?.pushViewController(TestType, animated: true)
+                    
+                    break;
                 default:
                     fatalError("Invalid section")
                 }
-            } else if typeOfProfilePage == "Cognative Assessment" {
+            } else if typeOfProfilePage == "Cognitive Assessment" {
                 currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(playerID, scoreID: currentScoreID!)
                 

@@ -91,7 +91,7 @@ class IndividualTableViewController: UITableViewController {
          * COGNITIVE ASSESSMENT
          *******************************************************************************************/
         case 3:
-            let takeCognitiveAssessment = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Cognative Assessment", original: 2)
+            let takeCognitiveAssessment = ListPlayerProfileController(style: UITableViewStyle.Grouped, type: "Cognitive Assessment", original: 2)
             self.navigationController?.pushViewController(takeCognitiveAssessment, animated: true)
         
         /******************************************************************************************
