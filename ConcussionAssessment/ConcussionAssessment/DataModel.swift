@@ -341,30 +341,29 @@ class DataModel : NSObject {
         }
         
         
-        neckExam[0][1] = (currentScore.flexion)?.stringValue
-        neckExam[1][1] = (currentScore.extension_)?.stringValue
-        neckExam[2][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[3][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[4][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[5][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[6][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[7][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[0][1] = (currentScore.flexion)
+        neckExam[1][1] = (currentScore.exten)
+        neckExam[2][1] = (currentScore.rRotation)
+        neckExam[3][1] = (currentScore.lRotation)
+        neckExam[4][1] = (currentScore.rLateralFlex)
+        neckExam[5][1] = (currentScore.lLateralFlex)
         
-        neckExam[8][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[9][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[10][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[6][1] = (currentScore.rParaspinalTenderness)
+        neckExam[7][1] = (currentScore.lParaspinalTenderness)
+        neckExam[8][1] = (currentScore.bonyTenderness)
+    
+        neckExam[9][1] = (currentScore.rUpSensation)
+        neckExam[10][1] = (currentScore.lUpSensation)
         
-        neckExam[11][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[12][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[11][1] = (currentScore.rUpStrength)
+        neckExam[12][1] = (currentScore.lUpStrength)
         
-        neckExam[13][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[14][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[13][1] = (currentScore.rLowSensation)
+        neckExam[14][1] = (currentScore.lLowSensation)
         
-        neckExam[15][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[16][1] = (currentScore.numSymptoms)?.stringValue
+        neckExam[15][1] = (currentScore.rLowStrength)
+        neckExam[16][1] = (currentScore.lLowStrength)
         
-        neckExam[17][1] = (currentScore.numSymptoms)?.stringValue
-        neckExam[18][1] = (currentScore.numSymptoms)?.stringValue
         
         return (scoreTitle, scoreResults, neckExam)
         
@@ -389,13 +388,22 @@ class DataModel : NSObject {
     func getPlayerBaseline(id: String) -> String
     {
         let fetchRequest = NSFetchRequest(entityName: "Player");
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
         
         do {
             let fetchedPlayers = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
             for e in fetchedPlayers {
                 NSLog(e.firstName! + " " + e.lastName!)
             }
-            return fetchedPlayers[0].baselineScore!
+            var m_bl: String?
+            if let m_bl = fetchedPlayers[0].baselineScore
+            {
+                return m_bl
+            }
+            else
+            {
+                return "N/A"
+            }
         } catch {
             fatalError("Failed to fetch players")
         }
@@ -624,7 +632,7 @@ class DataModel : NSObject {
     }
 
     
-    func setNeckExam(id: String, flex: String, exten: String, rRot: String, lRot: String, rLat: String, lLat: String) {
+    func setNeckExam(id: String, flexVal: [String]) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
         fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
         var fetchScore: [Score]
@@ -634,34 +642,20 @@ class DataModel : NSObject {
         } catch {
             fatalError("Failed to get Score")
         }
-        fetchScore[0].flexion = flex;
-        fetchScore[0].extension_ = exten;
-        fetchScore[0].rRotation = rRot;
-        fetchScore[0].lRotation = lRot;
-        fetchScore[0].rLateralFlex = rLat;
-        fetchScore[0].lLateralFlex = lLat;
-        
-        do {
-            try self.managedObjectContext.save()
-        } catch {
-            fatalError("Cannot create Score Object with playerID")
+      for i in 0..<flexVal.count
+      {
+        switch i{
+          case 0:   fetchScore[0].flexion = flexVal[i];
+          case 1:   fetchScore[0].exten = flexVal[i];
+          case 2:   fetchScore[0].rRotation = flexVal[i];
+          case 3:   fetchScore[0].lRotation = flexVal[i];
+          case 4:   fetchScore[0].rLateralFlex = flexVal[i];
+          case 5:   fetchScore[0].lLateralFlex = flexVal[i];
+          default: print("out of bounds")
         }
-    }
-    
-    func setNeckExam(id: String, rParaTenderness: String, lParaTenderness: String, bTenderness: String) {
-        let fetchRequest = NSFetchRequest(entityName: "Score");
-        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
-        var fetchScore: [Score]
-        
-        do {
-            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
-        } catch {
-            fatalError("Failed to get Score")
-        }
-        fetchScore[0].rParaspinalTenderness = rParaTenderness;
-        fetchScore[0].lParaspinalTenderness = lParaTenderness;
-        fetchScore[0].bonyTenderness = bTenderness;
 
+      }
+      
         do {
             try self.managedObjectContext.save()
         } catch {
@@ -669,7 +663,7 @@ class DataModel : NSObject {
         }
     }
     
-    func setNeckExamUpperSensation(id: String, r: String, l: String) {
+    func setNeckExam(id: String, tenderVal: [String]) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
         fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
         var fetchScore: [Score]
@@ -679,8 +673,16 @@ class DataModel : NSObject {
         } catch {
             fatalError("Failed to get Score")
         }
-        fetchScore[0].rUpSensation = r;
-        fetchScore[0].lUpSensation = l;
+      for i in 0..<tenderVal.count
+      {
+        switch i{
+        case 0:   fetchScore[0].rParaspinalTenderness = tenderVal[i];
+        case 1:   fetchScore[0].lParaspinalTenderness  = tenderVal[i];
+        case 2:   fetchScore[0].bonyTenderness  = tenderVal[i];
+        default: print("out of bounds")
+        }
+        
+      }
 
         do {
             try self.managedObjectContext.save()
@@ -689,7 +691,7 @@ class DataModel : NSObject {
         }
     }
     
-    func setNeckExamUpperStrength(id: String, r: String, l: String) {
+  func setNeckExamUpperSensation(id: String, upSenseVal: [String]) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
         fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
         var fetchScore: [Score]
@@ -699,56 +701,110 @@ class DataModel : NSObject {
         } catch {
             fatalError("Failed to get Score")
         }
-        fetchScore[0].rUpStrength = r;
-        fetchScore[0].lUpStrength = l;
-        
+    
+        for i in 0..<upSenseVal.count
+        {
+          switch i{
+          case 0:   fetchScore[0].rUpSensation = upSenseVal[i];
+          case 1:   fetchScore[0].lUpSensation  = upSenseVal[i];
+          default: print("out of bounds")
+          }
+          
+        }
+
+
         do {
             try self.managedObjectContext.save()
         } catch {
             fatalError("Cannot create Score Object with playerID")
         }
     }
-
-    func setNeckExamLowerSensation(id: String, r: String, l: String) {
-        let fetchRequest = NSFetchRequest(entityName: "Score");
-        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
-        var fetchScore: [Score]
-        
-        do {
-            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
-        } catch {
-            fatalError("Failed to get Score")
-        }
-        fetchScore[0].rLowSensation = r;
-        fetchScore[0].lLowSensation = l;
-        
-        do {
-            try self.managedObjectContext.save()
-        } catch {
-            fatalError("Cannot create Score Object with playerID")
-        }
+    
+  func setNeckExamUpperStrength(id: String, upStrengthVal: [String]) {
+    let fetchRequest = NSFetchRequest(entityName: "Score");
+    fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+    var fetchScore: [Score]
+    
+    do {
+      fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+    } catch {
+      fatalError("Failed to get Score")
     }
-
-    func setNeckExamLowerStrength(id: String, r: String, l: String) {
-        let fetchRequest = NSFetchRequest(entityName: "Score");
-        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
-        var fetchScore: [Score]
-        
-        do {
-            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
-        } catch {
-            fatalError("Failed to get Score")
-        }
-        fetchScore[0].rLowStrength = r;
-        fetchScore[0].lLowStrength = l;
-        
-        do {
-            try self.managedObjectContext.save()
-        } catch {
-            fatalError("Cannot create Score Object with playerID")
-        }
+    
+    for i in 0..<upStrengthVal.count
+    {
+      switch i{
+      case 0:   fetchScore[0].rUpStrength = upStrengthVal[i];
+      case 1:   fetchScore[0].lUpStrength  = upStrengthVal[i];
+      default: print("out of bounds")
+      }
+      
     }
-
+    
+    
+    do {
+      try self.managedObjectContext.save()
+    } catch {
+      fatalError("Cannot create Score Object with playerID")
+    }
+  }
+  
+  func setNeckExamLowerSensation(id: String, loSenseVal: [String]) {
+    let fetchRequest = NSFetchRequest(entityName: "Score");
+    fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+    var fetchScore: [Score]
+    
+    do {
+      fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+    } catch {
+      fatalError("Failed to get Score")
+    }
+    
+    for i in 0..<loSenseVal.count
+    {
+      switch i{
+      case 0:   fetchScore[0].rLowSensation = loSenseVal[i];
+      case 1:   fetchScore[0].lLowSensation  = loSenseVal[i];
+      default: print("out of bounds")
+      }
+      
+    }
+    
+    
+    do {
+      try self.managedObjectContext.save()
+    } catch {
+      fatalError("Cannot create Score Object with playerID")
+    }
+  }
+  func setNeckExamLowerStrength(id: String, loStrengthVal: [String]) {
+    let fetchRequest = NSFetchRequest(entityName: "Score");
+    fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+    var fetchScore: [Score]
+    
+    do {
+      fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+    } catch {
+      fatalError("Failed to get Score")
+    }
+    
+    for i in 0..<loStrengthVal.count
+    {
+      switch i{
+      case 0:   fetchScore[0].rLowStrength = loStrengthVal[i];
+      case 1:   fetchScore[0].lLowStrength  = loStrengthVal[i];
+      default: print("out of bounds")
+      }
+      
+    }
+    
+    
+    do {
+      try self.managedObjectContext.save()
+    } catch {
+      fatalError("Cannot create Score Object with playerID")
+    }
+  }
   
     func setDomFoot(id: String, score: NSString) {
       let fetchRequest = NSFetchRequest(entityName: "Score");
