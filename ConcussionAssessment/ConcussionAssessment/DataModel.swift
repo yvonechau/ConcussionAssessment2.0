@@ -482,6 +482,25 @@ class DataModel : NSObject {
       }
     }
   
+    func setDomFoot(id: String, score: NSString) {
+      let fetchRequest = NSFetchRequest(entityName: "Score");
+      fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+      var fetchScore: [Score]
+      
+      do {
+        fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+      } catch {
+        fatalError("Failed to get Score")
+      }
+      fetchScore[0].domFoot = score;
+      
+      do {
+        try self.managedObjectContext.save()
+      } catch {
+        fatalError("Cannot create Score Object with playerID")
+      }
+    }
+  
     func setFirstName(id: String, name: String)
     {
         let fetchRequest = NSFetchRequest(entityName: "Player")

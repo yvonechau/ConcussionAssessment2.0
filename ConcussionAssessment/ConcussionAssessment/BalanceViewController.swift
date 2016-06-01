@@ -28,6 +28,9 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
   var timerCount = 20.00 as Float
   var count = 0 as Int
   var doneButton: UIBarButtonItem!
+  var domFoot: String?
+  var domFootDefault: Int
+  var domFootSwitch: UISegmentedControl!
 
   
   init(pageTitles : Array<String>, testName : String, instructions: Array<String>, original: UIViewController?)
@@ -38,6 +41,8 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     self.original = original!
     self.numPages = 0
     self.currScore = 0
+    self.domFootDefault = 1
+    self.domFoot = "Right"
     super.init(nibName:nil, bundle:nil)
   }
   
@@ -96,6 +101,7 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     if self.currentIndex == self.numPages
     {
       database.setBalance(currentScoreID!, score: self.currScore)
+      database.setDomFoot(currentScoreID!, score: self.domFoot!)
     }
 
   }
@@ -232,6 +238,7 @@ class BalanceView : UITableViewController
   weak var bvc : BalanceViewController?
 //  var timer = 20.00 as Float
 //  var count = 0 as Int
+  let domFootChoice = ["Left", "Right"]
 
   init(bvc : BalanceViewController)
   {
@@ -272,7 +279,7 @@ class BalanceView : UITableViewController
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
     //return self.bvc!.pageTitles.count
-    return 6
+    return 9
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -285,6 +292,30 @@ class BalanceView : UITableViewController
     {
       //initializeTimer()
       self.bvc!.cellTimerLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 50))
+      self.bvc!.cellTimerLabel.text = "What is the athlete's dominant foot?"
+      self.bvc!.cellTimerLabel.textAlignment = NSTextAlignment.Center
+      self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 20.0)
+      self.bvc!.cellTimerLabel.userInteractionEnabled = false
+      
+      cell.contentView.addSubview(self.bvc!.cellTimerLabel)
+    }
+    
+    if(indexPath.row == 1)
+    {
+      //self.bvc!.domFootSwitch = UISegmentedControl(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 50))
+      self.bvc!.domFootSwitch = UISegmentedControl(items: domFootChoice)
+      self.bvc!.domFootSwitch.frame = CGRect(x: self.view.frame.midX-self.view.frame.width/6, y: self.view.frame.minY + 10, width: self.view.frame.width/3, height: 30)
+      self.bvc!.domFootSwitch.addTarget(self, action: #selector(BalanceView.domFootSelect(_:)), forControlEvents: .ValueChanged)
+      self.bvc!.domFootSwitch.selectedSegmentIndex = self.bvc!.domFootDefault
+      
+      
+      cell.contentView.addSubview(self.bvc!.domFootSwitch)
+    }
+    
+    if(indexPath.row == 3)
+    {
+      //initializeTimer()
+      self.bvc!.cellTimerLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 50))
       self.bvc!.cellTimerLabel.text = String(self.bvc!.timerCount)
       self.bvc!.cellTimerLabel.textAlignment = NSTextAlignment.Center
       self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 36.0)
@@ -293,7 +324,7 @@ class BalanceView : UITableViewController
       cell.contentView.addSubview(self.bvc!.cellTimerLabel)
     }
     
-    if(indexPath.row == 1)
+    if(indexPath.row == 4)
     {
       self.bvc!.cellTimerButton = UIButton()
       self.bvc!.cellTimerButton.addTarget(self, action: #selector(BalanceView.timerButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -309,7 +340,7 @@ class BalanceView : UITableViewController
       cell.contentView.addSubview(self.bvc!.cellTimerButton)
     }
     
-    if(indexPath.row == 4)
+    if(indexPath.row == 6)
     {
       self.bvc!.cellCounterLabel = UILabel(frame: CGRect(x: self.view.frame.minX, y: self.view.frame.minY, width: self.view.frame.width, height: 50))
       self.bvc!.cellCounterLabel.text = "Number of Errors: \(self.bvc!.count)"
@@ -320,7 +351,7 @@ class BalanceView : UITableViewController
       cell.contentView.addSubview(self.bvc!.cellCounterLabel)
     }
     
-    if(indexPath.row == 5)
+    if(indexPath.row == 7)
     {
       self.bvc!.cellIncrementButton = UIStepper()
       self.bvc!.cellIncrementButton.wraps = false
@@ -367,6 +398,23 @@ class BalanceView : UITableViewController
         self.bvc!.doneButton!.enabled = true
         
       }
+    }
+  }
+  
+  func domFootSelect(sender: UISegmentedControl)
+  {
+    switch sender.selectedSegmentIndex {
+    case 0:
+      self.bvc!.domFoot = "Left"
+      self.bvc!.domFootDefault = 0
+      print("Left")
+    case 1:
+      self.bvc!.domFoot = "Right"
+      self.bvc!.domFootDefault = 1
+      print("Right")
+    default:
+      print("Default")
+      
     }
   }
   

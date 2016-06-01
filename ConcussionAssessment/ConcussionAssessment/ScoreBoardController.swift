@@ -11,7 +11,7 @@ import UIKit
 
 class ScoreBoardController : UIViewController
 {
-    let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score", "Balance Examination Score"]
+    let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Maddocks Score", "Glasgow Score", "Balance Examination Score" ]
     var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
     var y_pos: CGFloat = 0;
     var original : UIViewController?
@@ -52,6 +52,7 @@ class ScoreBoardController : UIViewController
         scoreResults[7] = (currentScore.maddocks)?.stringValue
         scoreResults[8] = (currentScore.glasgow)?.stringValue
         scoreResults[9] = (currentScore.balance)?.stringValue
+        print(currentScore.domFoot)
         var total: Int = 0
         for i in 2...5
         {
