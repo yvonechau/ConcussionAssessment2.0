@@ -65,7 +65,7 @@ class NeckExamViewController: UIViewController, UIPageViewControllerDataSource
     
     let viewControllers = [self.startingViewController!]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
-    pageViewController!.view.frame = CGRectMake(0, (self.navigationController?.navigationBar.frame.size.height)! - self.tabBarController!.tabBar.frame.size.height, view.frame.size.width, view.frame.size.height-self.tabBarController!.tabBar.frame.size.height);
+    pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height - (self.tabBarController!.tabBar.frame.size.height));
     //
     //    let subviews = pageViewController!.view.subviews
     //
@@ -211,7 +211,9 @@ init(nvc : NeckExamViewController)
   {
     self.tableView.frame = CGRectMake(0, (self.nvc!.navigationController?.navigationBar.frame.size.height)! - self.nvc!.tabBarController!.tabBar.frame.size.height, self.nvc!.view.frame.size.width, self.tableView.frame.size.height-self.nvc!.tabBarController!.tabBar.frame.size.height);
 
-    self.tableView.contentInset = UIEdgeInsetsMake(80.0, 0, -(self.nvc!.tabBarController!.tabBar.frame.size.height - 50.0 ), 0)
+    self.tableView.contentInset = UIEdgeInsetsMake((self.nvc!.navigationController?.navigationBar.frame.size.height)! + 40, 0, -(self.nvc!.tabBarController!.tabBar.frame.size.height), 0)
+    self.tableView.scrollIndicatorInsets.bottom = -(self.nvc!.tabBarController!.tabBar.frame.size.height)
+    self.tableView.scrollIndicatorInsets.top = (self.nvc!.navigationController?.navigationBar.frame.size.height)! + 40
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     self.tableView.rowHeight = 70
     self.tableView.allowsSelection = false
@@ -239,6 +241,9 @@ init(nvc : NeckExamViewController)
     return pageContent[nvc!.currentIndex][pickerView.tag][row]
   }
   
+  func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    print(pickerView.tag)
+  }
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
     print("here")
