@@ -282,13 +282,13 @@ class BalanceView : UITableViewController
   
   func doneButtonPressed(sender: UIButton)
   {
+    print("huiyty5rft")
     self.bvc!.donePressed = true
     self.bvc!.currentIndex += 1
     self.bvc!.setScore()
     self.bvc!.count = 0
     self.bvc!.timerCount = 20
     self.bvc!.timer.invalidate()
-    self.doneButton.enabled = false
     if(self.bvc!.currentIndex == self.bvc!.numPages)
     {
       if(self.bvc!.next == nil) //end of test
@@ -325,10 +325,19 @@ class BalanceView : UITableViewController
       self.doneButton.addTarget(self, action: #selector(BalanceView.doneButtonPressed(_:)), forControlEvents: .TouchUpInside)
       
       self.doneButton.setTitle("Done", forState: .Normal)
-      self.doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-      self.doneButton.backgroundColor =  UIColor(rgb: 0x002855)
+      self.doneButton.backgroundColor = UIColor.whiteColor()
+      self.doneButton.setTitleColor(UIColor(rgb: 0x007AFF), forState: .Normal)
+      self.doneButton.layer.borderWidth = 1
+      self.doneButton.layer.borderColor = (UIColor(rgb: 0x007AFF)).CGColor
+      self.doneButton.layer.cornerRadius = 10
+      self.doneButton.clipsToBounds = true;
+      
+      self.doneButton.hidden = true
+    
       self.doneButton.enabled = false
       Cell.contentView.addSubview(self.doneButton)
+      Cell.backgroundColor = UIColor.clearColor()
+
     
       
       return Cell
@@ -423,8 +432,9 @@ class BalanceView : UITableViewController
         self.bvc!.timerCount = 0
         self.bvc!.cellTimerLabel.text = "Press Done When Ready"
         self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 20.0)
+        print("hi")
         self.doneButton.enabled = true
-        
+        self.doneButton.hidden = false
       }
     }
   }

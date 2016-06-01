@@ -517,9 +517,7 @@ class TablePageView: UITableViewController
     
       let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
       
-      
-      Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
-      
+            
       if(self.pvc!.singlePage)
       {
         if indexPath.section == 1
@@ -531,8 +529,16 @@ class TablePageView: UITableViewController
           
           doneButton.setTitle("Done", forState: .Normal)
           doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-          doneButton.backgroundColor =  UIColor(rgb: 0x002855)
+          
+          doneButton.backgroundColor = UIColor.whiteColor()
+          doneButton.setTitleColor(UIColor(rgb: 0x007AFF), forState: .Normal)
+          doneButton.layer.borderWidth = 1
+          doneButton.layer.borderColor = (UIColor(rgb: 0x007AFF)).CGColor
+          doneButton.layer.cornerRadius = 10
+          doneButton.clipsToBounds = true
           Cell.contentView.addSubview(doneButton)
+          Cell.backgroundColor = UIColor.clearColor()
+
           
           return Cell
           

@@ -212,7 +212,7 @@ init(nvc : NeckExamViewController)
     self.tableView.frame = CGRectMake(0, (self.nvc!.navigationController?.navigationBar.frame.size.height)! - self.nvc!.tabBarController!.tabBar.frame.size.height, self.nvc!.view.frame.size.width, self.tableView.frame.size.height-self.nvc!.tabBarController!.tabBar.frame.size.height);
 
     self.tableView.contentInset = UIEdgeInsetsMake(80.0, 0, -(self.nvc!.tabBarController!.tabBar.frame.size.height - 50.0 ), 0)
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     self.tableView.rowHeight = 50.0
 
     //let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
@@ -277,7 +277,7 @@ init(nvc : NeckExamViewController)
     if indexPath.section < self.pageContent[self.nvc!.currentIndex].count
     {
       let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
-      let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(10, -20, 200, 100))
+      let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(self.tableView.frame.width/2 - 100, -20, 200, 100))
       pickerView.tag = indexPath.section
       pickerView.dataSource = self
       pickerView.delegate = self
@@ -289,14 +289,22 @@ init(nvc : NeckExamViewController)
       print("hi")
       let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
       
-      let doneButton = UIButton(frame: CGRectMake(self.tableView.frame.size.width / 2 - 50, 0, 100, 60))
+      let doneButton = UIButton(frame: CGRectMake(self.tableView.frame.size.width / 2 - 50, 0, 100, 50))
       doneButton.addTarget(self, action: #selector(NeckExamView.buttonPressed(_:)), forControlEvents: .TouchUpInside)
+      
+
       
       doneButton.setTitle("Done", forState: .Normal)
       doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-      doneButton.backgroundColor =  UIColor(rgb: 0x002855)
-      Cell.contentView.addSubview(doneButton)
       
+      doneButton.backgroundColor = UIColor.whiteColor()
+      doneButton.setTitleColor(UIColor(rgb: 0x007AFF), forState: .Normal)
+      doneButton.layer.borderWidth = 1
+      doneButton.layer.borderColor = (UIColor(rgb: 0x007AFF)).CGColor
+      doneButton.layer.cornerRadius = 10
+      doneButton.clipsToBounds = true
+      Cell.contentView.addSubview(doneButton)
+      Cell.backgroundColor = UIColor.clearColor()
       return Cell
     }
   }

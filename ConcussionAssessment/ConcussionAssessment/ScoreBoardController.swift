@@ -34,6 +34,7 @@ class ScoreBoardController : UIViewController
     override func viewDidLoad() {
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TablePageView.doneButtonPressed(_:)))
+      
         self.navigationItem.rightBarButtonItems = [doneButton]
         
         self.view.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
