@@ -299,6 +299,8 @@ class DataModel : NSObject {
         
         var score = scoreWithID(id)
         let currentScore = score[0]
+      
+        print(currentScore.domFoot)
         
         scoreResults[0] = (currentScore.numSymptoms)?.stringValue
         scoreResults[1] = (currentScore.severity)?.stringValue
@@ -588,13 +590,32 @@ class DataModel : NSObject {
             fatalError("Cannot create Score Object with playerID")
         }
     }
-    
-    
-    
-    
-    
-    
-    
+  
+    func setDomFoot(id: String, score: NSString) {
+      let fetchRequest = NSFetchRequest(entityName: "Score");
+      fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+      var fetchScore: [Score]
+      
+      do {
+        fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+      } catch {
+        fatalError("Failed to get Score")
+      }
+      fetchScore[0].domFoot = score;
+      
+      do {
+        try self.managedObjectContext.save()
+      } catch {
+        fatalError("Cannot create Score Object with playerID")
+      }
+    }
+  
+  
+  
+  
+  
+  
+  
     
     
     /********************************************************************************************
