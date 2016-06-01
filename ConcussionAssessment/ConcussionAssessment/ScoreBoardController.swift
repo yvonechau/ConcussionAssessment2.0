@@ -62,6 +62,35 @@ class ScoreBoardController : UIViewController
             y_pos = y_pos + 30
         }
         
+        let title = UILabel(frame: CGRect(x: 20, y: y_pos, width: view.frame.width, height: 200))
+        title.textColor = UIColor.blackColor()
+        //label.center = CGPointMake(160, 284)
+        title.textAlignment = .Left
+        title.text = "Neck Examination Notes"
+        self.view.addSubview(title)
+        
+        y_pos = y_pos + 30
+        
+        
+        for index in 0 ... 16
+        {
+            let title = UILabel(frame: CGRect(x: 20, y: y_pos, width: view.frame.width, height: 200))
+            title.textColor = UIColor.blackColor()
+            //label.center = CGPointMake(160, 284)
+            title.textAlignment = .Left
+            title.text = neckExam[index][0]
+            self.view.addSubview(title)
+            
+            let score = UILabel(frame: CGRect(x: -20, y: y_pos, width: view.frame.width, height: 200))
+            score.textColor = UIColor.blackColor()
+            //label.center = CGPointMake(160, 284)
+            score.textAlignment = .Right
+            score.text = neckExam[index][1]
+            
+            self.view.addSubview(score)
+            
+            y_pos = y_pos + 30
+        }
         
     }
 }
