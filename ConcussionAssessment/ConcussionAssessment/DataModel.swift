@@ -252,9 +252,16 @@ class DataModel : NSObject {
         var scoreIDs: [String] = []
         do {
             let fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
-            for index in 0 ... (fetchScore.count)
+            if(fetchScore.count > 1)
             {
-                scoreIDs.append(fetchScore[index].scoreID!)
+                for index in 0 ... (fetchScore.count - 1)
+                {
+                    scoreIDs.append(fetchScore[index].scoreID!)
+                }
+            }
+            else if(fetchScore.count == 1)
+            {
+                scoreIDs.append(fetchScore[0].scoreID!)
             }
             return (scoreIDs, fetchScore.count)
         } catch {
