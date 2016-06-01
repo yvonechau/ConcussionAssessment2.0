@@ -394,8 +394,9 @@ class TablePageView: UITableViewController
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
+    self.tableView.frame = CGRectMake(0, (self.pvc!.navigationController?.navigationBar.frame.size.height)! - self.pvc!.tabBarController!.tabBar.frame.size.height, self.pvc!.view.frame.size.width, self.tableView.frame.size.height-self.pvc!.tabBarController!.tabBar.frame.size.height);
+
+    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, 0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
 
