@@ -430,6 +430,11 @@ class BalanceView : UITableViewController
       self.bvc!.cellTimerLabel.text = String(format: "%.1f", self.bvc!.timerCount)
       if(self.bvc!.timerCount < 0.1)
       {
+        self.bvc!.cellTimerButton.enabled = false
+        self.bvc!.cellTimerButton.alpha = 0.5
+
+
+
         self.bvc!.timerCount = 0
         self.bvc!.cellTimerLabel.text = "Press Done When Ready"
         self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 20.0)

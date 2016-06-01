@@ -231,7 +231,7 @@ func getNeckStrings() -> (Array<String>, String, [[[String]]], String)
   let upperLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Upper Limb"], ["Normal", "Abnormal", "Left Upper Limb"]]
 
   let lowerLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limb"]]
-  let lowerLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limb"]]
+  let lowerLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
   
   let pageTitle: [String] = ["Range of Motion", "Tenderness", "Upper Limb Sensation", "Upper Limb Strength", "Lower Limb Sensation", "Lower Limb Strength"]
   let pageContent: [[[String]]] = [rangeOfMotion, tenderness, upperLimbSensation, upperLimbStrength, lowerLimbSensation, lowerLimbStrength]
@@ -243,7 +243,7 @@ func getNeckStrings() -> (Array<String>, String, [[[String]]], String)
 
 func createRange(upperLimit: Int, name: String)->[String]
 {
-  var range = (0..<upperLimit + 5).filter{$0 % 5 == 0}.map({String($0)})
+  var range = (0..<upperLimit + 5).reverse().filter{$0 % 5 == 0}.map({String($0)})
   
   range.append(name)
   return range
