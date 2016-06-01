@@ -491,7 +491,14 @@ class TablePageView: UITableViewController
     }
     else
     {
-      return LabelArray[self.pvc!.currentIndex].count
+      if self.pvc!.currentIndex < self.pvc!.numPages
+      {
+        return LabelArray[self.pvc!.currentIndex].count
+      }
+      else
+      {
+        return 1
+      }
     }
     
    
@@ -585,7 +592,11 @@ class TablePageView: UITableViewController
         }
       }
       else{
-        Cell.textLabel?.text = LabelArray[self.pvc!.currentIndex][indexPath.row]
+        if(self.pvc!.currentIndex < self.pvc!.numPages)
+        {
+            Cell.textLabel?.text = LabelArray[self.pvc!.currentIndex][indexPath.row]
+        }
+        
         Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
       }
       return Cell
