@@ -90,6 +90,13 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
     pageViewController!.dataSource = self
     
+    for view in pageViewController!.view.subviews{
+      if let subView = view as? UIScrollView{
+        subView.scrollEnabled = false
+      }
+    }
+
+    
     if(self.startingViewController == nil) // not instantiated so it has no instruction page
     {
       self.startingViewController = viewControllerAtIndex(0)!
@@ -97,7 +104,7 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     
     let viewControllers = [self.startingViewController!]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
-    pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+    pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height - (self.tabBarController!.tabBar.frame.size.height));
     
     
     addChildViewController(pageViewController!)
@@ -237,9 +244,13 @@ class BalanceView : UITableViewController
     super.viewDidLoad()
     self.doneButton.enabled = false
 
-    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
+    self.tableView.frame = CGRectMake(0, (self.bvc!.navigationController?.navigationBar.frame.size.height)! - self.bvc!.tabBarController!.tabBar.frame.size.height, self.bvc!.view.frame.size.width, self.tableView.frame.size.height-self.bvc!.tabBarController!.tabBar.frame.size.height);
+    
+    self.tableView.contentInset = UIEdgeInsetsMake((self.bvc!.navigationController?.navigationBar.frame.size.height)! + 40, 0, -(self.bvc!.tabBarController!.tabBar.frame.size.height), 0)
+    self.tableView.scrollIndicatorInsets.bottom = -(self.bvc!.tabBarController!.tabBar.frame.size.height)
+    self.tableView.scrollIndicatorInsets.top = (self.bvc!.navigationController?.navigationBar.frame.size.height)! + 40
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-    self.tableView.rowHeight = 50.0
+    self.tableView.rowHeight = 40.0
   }
   
   override func didReceiveMemoryWarning()
@@ -250,6 +261,7 @@ class BalanceView : UITableViewController
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
+    print("here")
     return 2
   }
   
@@ -305,6 +317,10 @@ class BalanceView : UITableViewController
       }
       else if(self.bvc!.next != nil)
       {
+        self.pageViewController.view.userInteractionEnabled = false
+        self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+        self.pvc!.view.userInteractionEnabled = true
+
         self.navigationController?.pushViewController(self.bvc!.next!, animated: true)
       }
     }
@@ -328,6 +344,7 @@ class BalanceView : UITableViewController
     
     if indexPath.section == 1
     {
+      print("here")
       let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
       
       self.doneButton.addTarget(self, action: #selector(BalanceView.doneButtonPressed(_:)), forControlEvents: .TouchUpInside)
@@ -447,6 +464,8 @@ class BalanceView : UITableViewController
     sender.enabled = false
     self.bvc!.cellIncrementButton.enabled = true
     self.bvc!.cellIncrementButton.alpha = 1.0
+    self.bvc!.cellTimerButton.enabled = false
+    self.bvc!.cellTimerButton.alpha = 0.5
 
 
   }
@@ -468,15 +487,11 @@ class BalanceView : UITableViewController
       self.bvc!.cellTimerLabel.text = String(format: "%.1f", self.bvc!.timerCount)
       if(self.bvc!.timerCount < 0.1)
       {
-        self.bvc!.cellTimerButton.enabled = false
-        self.bvc!.cellTimerButton.alpha = 0.5
-
 
 
         self.bvc!.timerCount = 0
         self.bvc!.cellTimerLabel.text = "Press Done When Ready"
         self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 20.0)
-        print("hi")
         self.doneButton.enabled = true
         self.doneButton.hidden = false
       }
