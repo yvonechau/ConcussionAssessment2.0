@@ -522,13 +522,19 @@ class TablePageView: UITableViewController
         {
             //self.navigationController?.popToViewController(self.original!, animated: true)
             let scoreboard = ScoreBoardController(originalPage: self.pvc!.original!)
+            self.view.userInteractionEnabled = false
             self.navigationController?.pushViewController(scoreboard, animated: true)
-        }
+            self.view.userInteractionEnabled = true
+          
+
+                    }
       }
       else if(self.pvc!.next != nil)
       {
         print("next, normal controller")
+        self.view.userInteractionEnabled = false
         self.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+        self.view.userInteractionEnabled = true
       }
     }
   }
@@ -653,7 +659,11 @@ class TablePageView: UITableViewController
             //self.navigationController?.popToRootViewControllerAnimated(true);
             
             let scoreboard = ScoreBoardController(originalPage: self.pvc!.original!)
+            
+            self.pvc!.view.userInteractionEnabled = false
             self.pvc!.navigationController?.pushViewController(scoreboard, animated: true)
+            self.pvc!.view.userInteractionEnabled = true
+            
           }
           else // still pages left
           {
