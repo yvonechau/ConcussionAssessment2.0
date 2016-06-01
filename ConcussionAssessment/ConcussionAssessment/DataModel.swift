@@ -606,7 +606,7 @@ class DataModel : NSObject {
       {
         switch i{
           case 0:   fetchScore[0].flexion = flexVal[i];
-          case 1:   fetchScore[0].extension_ = flexVal[i];
+          case 1:   fetchScore[0].exten = flexVal[i];
           case 2:   fetchScore[0].rRotation = flexVal[i];
           case 3:   fetchScore[0].lRotation = flexVal[i];
           case 4:   fetchScore[0].rLateralFlex = flexVal[i];

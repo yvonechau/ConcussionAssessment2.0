@@ -317,6 +317,10 @@ class BalanceView : UITableViewController
       }
       else if(self.bvc!.next != nil)
       {
+        self.pageViewController.view.userInteractionEnabled = false
+        self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+        self.pvc!.view.userInteractionEnabled = true
+
         self.navigationController?.pushViewController(self.bvc!.next!, animated: true)
       }
     }

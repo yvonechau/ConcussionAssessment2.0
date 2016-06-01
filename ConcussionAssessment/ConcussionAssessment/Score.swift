@@ -36,7 +36,7 @@ class Score : NSManagedObject {
     @NSManaged var baselineScore: String?
     
     @NSManaged var flexion: String?
-    @NSManaged var extension_: String?
+    @NSManaged var exten: String?
     @NSManaged var rRotation: String?
     @NSManaged var lRotation: String?
     @NSManaged var rLateralFlex: String?

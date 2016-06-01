@@ -172,7 +172,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         attrFlex.attributeType = NSAttributeType.StringAttributeType;
         
         let attrExtend = NSAttributeDescription()
-        attrExtend.name = "extnesion_"
+        attrExtend.name = "exten"
         attrExtend.attributeType = NSAttributeType.StringAttributeType;
         
         let attrRROT = NSAttributeDescription()
