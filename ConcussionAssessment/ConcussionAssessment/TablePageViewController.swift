@@ -458,8 +458,6 @@ class TablePageView: UITableViewController
   }
   
   
-
-  
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
     if(self.pvc!.singlePage)
