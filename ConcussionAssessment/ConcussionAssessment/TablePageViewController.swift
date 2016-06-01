@@ -99,35 +99,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     presentViewController(alertView, animated: true, completion: nil)
 
   }
-  
-  func doneButtonPressed(sender: UIButton)
-  {
-    self.donePressed = true
-    self.setScore()
-    self.currentIndex += 1
-    if(self.numTrials != nil && self.numTrials![0] < self.numTrials![1] - 1) // increase the current trial it is on when done button is pressed if there are trials
-    {
-      self.numTrials![0] += 1
-      self.currentIndex = self.numTrials![0] //changes pagination dots to current trial
-      self.totalRows = 0 //resets trial score back to 0
-      let startingViewController: TablePageView = self.viewControllerAtIndex(self.currentIndex)!
-      let viewControllers = [startingViewController]
-      self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
-    }
-    else
-    {
-      if(self.next == nil) //end of test
-      {
-        //self.navigationController?.popToViewController(self.original!, animated: true)
-        let scoreboard = ScoreBoardController(originalPage: self.original!)
-        self.navigationController?.pushViewController(scoreboard, animated: true)
-      }
-      else if(self.next != nil)
-      {
-        self.navigationController?.pushViewController(self.next!, animated: true)
-      }
-    }
-  }
+
   
   func setScore()
   {
@@ -301,15 +273,9 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     let infoModalButton : UIBarButtonItem? = UIBarButtonItem(customView: infobutton)
     
     
-    if(self.singlePage)
-    {
-      let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(TablePageViewController.doneButtonPressed(_:)))
-      self.navigationItem.rightBarButtonItems = [doneButton, infoModalButton!]
-    }
-    else
-    {
-      self.navigationItem.rightBarButtonItems = [infoModalButton!]
-    }
+    
+    self.navigationItem.rightBarButtonItems = [infoModalButton!]
+    
 
   }
   
@@ -445,18 +411,28 @@ class TablePageView: UITableViewController
   {
     if(self.pvc!.singlePage)
     {
-      if(self.pvc!.numTrials != nil)
-      {
-        return "Trial \(self.pvc!.numTrials![0] + 1)/\(self.pvc!.numTrials![1]):"
-      }
-      else
-      {
-        return "Trial 1:"
+        if section == 1
+        {
+          return ""
+        }
+        else{
+
+        
+        if(self.pvc!.numTrials != nil)
+        {
+          return "Trial \(self.pvc!.numTrials![0] + 1)/\(self.pvc!.numTrials![1]):"
+        }
+        else
+        {
+          return "Trial 1:"
+        }
       }
     }
     else{
       return titleText
     }
+
+
   }
   
   override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
@@ -467,49 +443,135 @@ class TablePageView: UITableViewController
 
   }
   
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int
+  {
+    print("here")
+    
+    if self.pvc!.singlePage
+    {
+      return 2
+    }
+    else{
+      return 1
+    }
+    
+  }
+  
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
   {
     if(self.pvc!.singlePage)
     {
-     return self.pvc!.pageTitles.count
+      
+      if section == 1{
+        return 1
+      }
+      else
+      {
+        return self.pvc!.pageTitles.count
+      }
     }
     else
     {
-     return LabelArray[self.pvc!.currentIndex].count
+      return LabelArray[self.pvc!.currentIndex].count
+    }
+    
+   
+  }
+  
+  
+  
+  func doneButtonPressed(sender: UIButton)
+  {
+    print("meep")
+    self.pvc!.donePressed = true
+    self.pvc!.setScore()
+    self.pvc!.currentIndex += 1
+    if(self.pvc!.numTrials != nil && self.pvc!.numTrials![0] < self.pvc!.numTrials![1] - 1) // increase the current trial it is on when done button is pressed if there are trials
+    {
+      self.pvc!.numTrials![0] += 1
+      self.pvc!.currentIndex = self.pvc!.numTrials![0] //changes pagination dots to current trial
+      self.pvc!.totalRows = 0 //resets trial score back to 0
+      let startingViewController: TablePageView = self.pvc!.viewControllerAtIndex(self.pvc!.currentIndex)!
+      let viewControllers = [startingViewController]
+      self.pvc!.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: nil)
+    }
+    else
+    {
+      if(self.pvc!.next == nil) //end of test
+      {
+        //self.navigationController?.popToViewController(self.original!, animated: true)
+        let scoreboard = ScoreBoardController(originalPage: self.pvc!.original!)
+        self.navigationController?.pushViewController(scoreboard, animated: true)
+      }
+      else if(self.pvc!.next != nil)
+      {
+        self.navigationController?.pushViewController(self.pvc!.next!, animated: true)
+      }
     }
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
-    let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
     
-
-    Cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
     
-    if(self.pvc!.singlePage)
-    {
+      let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "MenuCell")
       
-      if(!checked[indexPath.row])
+            
+      if(self.pvc!.singlePage)
       {
-        Cell.accessoryType = .None
+        if indexPath.section == 1
+        {
+          let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
+          
+          let doneButton = UIButton(frame: CGRectMake(self.tableView.frame.size.width / 2 - 50, 0, 100, self.tableView.rowHeight))
+          doneButton.addTarget(self, action: #selector(TablePageView.doneButtonPressed(_:)), forControlEvents: .TouchUpInside)
+          
+          doneButton.setTitle("Done", forState: .Normal)
+          doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+          
+          doneButton.backgroundColor = UIColor.whiteColor()
+          doneButton.setTitleColor(UIColor(rgb: 0x007AFF), forState: .Normal)
+          doneButton.layer.borderWidth = 1
+          doneButton.layer.borderColor = (UIColor(rgb: 0x007AFF)).CGColor
+          doneButton.layer.cornerRadius = 10
+          doneButton.clipsToBounds = true
+          Cell.contentView.addSubview(doneButton)
+          Cell.backgroundColor = UIColor.clearColor()
+
+          
+          return Cell
+          
+        }
+        else
+        {
+          if(!checked[indexPath.row])
+          {
+            Cell.accessoryType = .None
+          }
+          else if(checked[indexPath.row])
+          {
+            Cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+          }
+          Cell.textLabel?.text = self.pvc!.pageTitles[indexPath.row]
+        
+        }
       }
-      else if(checked[indexPath.row])
-      {
-        Cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+      else{
+        Cell.textLabel?.text = LabelArray[self.pvc!.currentIndex][indexPath.row]
+        Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
       }
-      Cell.textLabel?.text = self.pvc!.pageTitles[indexPath.row]
+      return Cell
+
     }
-    else{
-      Cell.textLabel?.text = LabelArray[self.pvc!.currentIndex][indexPath.row]
-      Cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-    }
-    return Cell
-  }
+  
   
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
+    
+    
+    
     rowSel = indexPath.item
     self.pvc!.rowSelected = rowSel
     self.pvc!.currentIndex += 1 //updates dots
