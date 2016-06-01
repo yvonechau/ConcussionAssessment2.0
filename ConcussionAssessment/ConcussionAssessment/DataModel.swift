@@ -355,6 +355,7 @@ class DataModel : NSObject {
     func getPlayerBaseline(id: String) -> String
     {
         let fetchRequest = NSFetchRequest(entityName: "Player");
+        fetchRequest.predicate = NSPredicate(format: "playerID == %@", id);
         
         do {
             let fetchedPlayers = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Player]
