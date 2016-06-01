@@ -65,7 +65,13 @@ class NeckExamViewController: UIViewController, UIPageViewControllerDataSource
     
     let viewControllers = [self.startingViewController!]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
-    pageViewController!.view.frame = CGRectMake(0, (self.navigationController?.navigationBar.frame.size.height)! - self.tabBarController!.tabBar.frame.size.height, view.frame.size.width, view.frame.size.height-self.tabBarController!.tabBar.frame.size.height);
+    pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height - (self.tabBarController!.tabBar.frame.size.height));
+    
+    for view in pageViewController!.view.subviews{
+      if let subView = view as? UIScrollView{
+        subView.scrollEnabled = false
+      }
+    }
     //
     //    let subviews = pageViewController!.view.subviews
     //
@@ -172,14 +178,14 @@ class NeckExamView: UITableViewController, UIPickerViewDataSource, UIPickerViewD
   var titleText : String = ""
   
   var textField: UITextField
-  
+  var cellArray: [UITableViewCell]
   
 init(nvc : NeckExamViewController)
   {
     self.nvc = nvc
     self.pageContent = nvc.pageContent
     self.textField = UITextField()
-
+    self.cellArray = []
     super.init(style: UITableViewStyle.Grouped)
 
   }
@@ -190,6 +196,8 @@ init(nvc : NeckExamViewController)
   
   func buttonPressed(sender: UIButton)
   {
+    self.setScore()
+
     self.nvc!.currentIndex += 1
     if self.nvc!.currentIndex == self.pageContent.count
     {
@@ -203,7 +211,6 @@ init(nvc : NeckExamViewController)
       self.nvc!.navigationItem.title = self.nvc!.pageTitles[self.nvc!.currentIndex]
 
     }
-    
   }
   
   
@@ -211,13 +218,14 @@ init(nvc : NeckExamViewController)
   {
     self.tableView.frame = CGRectMake(0, (self.nvc!.navigationController?.navigationBar.frame.size.height)! - self.nvc!.tabBarController!.tabBar.frame.size.height, self.nvc!.view.frame.size.width, self.tableView.frame.size.height-self.nvc!.tabBarController!.tabBar.frame.size.height);
 
-    self.tableView.contentInset = UIEdgeInsetsMake(80.0, 0, -(self.nvc!.tabBarController!.tabBar.frame.size.height - 50.0 ), 0)
+    self.tableView.contentInset = UIEdgeInsetsMake((self.nvc!.navigationController?.navigationBar.frame.size.height)! + 40, 0, -(self.nvc!.tabBarController!.tabBar.frame.size.height), 0)
+    self.tableView.scrollIndicatorInsets.bottom = -(self.nvc!.tabBarController!.tabBar.frame.size.height)
+    self.tableView.scrollIndicatorInsets.top = (self.nvc!.navigationController?.navigationBar.frame.size.height)! + 40
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     self.tableView.rowHeight = 70
     self.tableView.allowsSelection = false
     //let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
     //doneButton.actionsForTarget(target: AnyObject?, forControlEvent: UIControlEvents)
-
     
     super.viewDidLoad()
   }
@@ -239,9 +247,39 @@ init(nvc : NeckExamViewController)
     return pageContent[nvc!.currentIndex][pickerView.tag][row]
   }
   
+  func setScore(){
+       var values: [String] = []
+
+    for Cell in cellArray
+    {
+      for s in (Cell.contentView.subviews)
+      {
+        if s.isKindOfClass(UIPickerView)
+        {
+          let pv = s as! UIPickerView
+          print(pageContent[nvc!.currentIndex][pv.tag][pv.selectedRowInComponent(0)])
+          values.append(pageContent[nvc!.currentIndex][pv.tag][pv.selectedRowInComponent(0)])
+        }
+        
+      }
+    
+    }
+    switch self.nvc!.currentIndex{
+      case 0: database.setNeckExam(currentScoreID!, flexVal: values)
+      case 1: database.setNeckExam(currentScoreID!, tenderVal: values)
+      case 2: database.setNeckExamUpperSensation(currentScoreID!, upSenseVal: values)
+      case 3: database.setNeckExamUpperStrength(currentScoreID!, upStrengthVal: values)
+      case 4: database.setNeckExamLowerSensation(currentScoreID!, loSenseVal: values)
+      case 5: database.setNeckExamLowerStrength(currentScoreID!, loStrengthVal: values)
+    default: print("out of bounds")
+
+    }
+
+
+  }
+
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
-    print("here")
     
     return self.pageContent[self.nvc!.currentIndex].count + 1
   }
@@ -270,12 +308,13 @@ init(nvc : NeckExamViewController)
   {
     return 60
   }
-
+  
+  
 
  //called for how many rows in a section
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
-    if indexPath.section < self.pageContent[self.nvc!.currentIndex].count
+    if indexPath.section == 0
     {
       let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
       let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(self.tableView.frame.width/2 - 100, -20, 200, 100))
@@ -283,12 +322,24 @@ init(nvc : NeckExamViewController)
       pickerView.dataSource = self
       pickerView.delegate = self
       Cell.contentView.addSubview(pickerView)
+      cellArray.append(Cell)
+      return Cell
+    }
+    else if indexPath.section < self.pageContent[self.nvc!.currentIndex].count
+    {
+      let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
+      let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(self.tableView.frame.width/2 - 100, -20, 200, 100))
+      pickerView.tag = indexPath.section
+      pickerView.dataSource = self
+      pickerView.delegate = self
+      Cell.contentView.addSubview(pickerView)
+      cellArray.append(Cell)
+
       return Cell
     }
     else
     {
-      print("hi")
-      let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
+      let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "ButtonCell")
       
       let doneButton = UIButton(frame: CGRectMake(self.tableView.frame.size.width / 2 - 50, 0, 100, 50))
       doneButton.addTarget(self, action: #selector(NeckExamView.buttonPressed(_:)), forControlEvents: .TouchUpInside)
