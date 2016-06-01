@@ -226,11 +226,11 @@ func getNeckStrings() -> (Array<String>, String, [[[String]]], String)
   
   let rangeOfMotion : [[String]] = [createRange(45, name: "Flexion"), createRange(45, name: "Extension"), createRange(80, name: "Right Rotation"), createRange(80, name: "Left Rotation"), createRange(45, name: "Right Lateral Flexion"), createRange(45, name: "Left Lateral Flexion")]
 
-  let tenderness : [[String]] = [["Yes", "No", "Right Paraspinal"], ["Yes", "No", "Left Paraspinal"], ["Yes", "No", "Bony"]]
-  let upperLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Upper Limb"], ["Normal", "Abnormal", "Left Upper Limit"]]
-  let upperLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
+  let tenderness : [[String]] = [["No", "Yes", "Right Paraspinal"], ["No", "Yes", "Left Paraspinal"], ["No", "Yes", "Bony"]]
+  let upperLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Upper Limb"], ["Normal", "Abnormal", "Left Upper Limb"]]
+  let upperLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Upper Limb"], ["Normal", "Abnormal", "Left Upper Limb"]]
 
-  let lowerLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
+  let lowerLimbSensation: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limb"]]
   let lowerLimbStrength: [[String]] = [["Normal", "Abnormal", "Right Lower Limb"], ["Normal", "Abnormal", "Left Lower Limit"]]
   
   let pageTitle: [String] = ["Range of Motion", "Tenderness", "Upper Limb Sensation", "Upper Limb Strength", "Lower Limb Sensation", "Lower Limb Strength"]
@@ -243,7 +243,7 @@ func getNeckStrings() -> (Array<String>, String, [[[String]]], String)
 
 func createRange(upperLimit: Int, name: String)->[String]
 {
-  var range = (0..<upperLimit + 5).filter{$0 % 5 == 0}.map({String($0)})
+  var range = (0..<upperLimit + 5).reverse().filter{$0 % 5 == 0}.map({String($0)})
   
   range.append(name)
   return range

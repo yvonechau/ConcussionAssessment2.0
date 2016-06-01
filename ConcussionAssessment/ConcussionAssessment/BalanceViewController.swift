@@ -316,6 +316,7 @@ class BalanceView : UITableViewController
     }
     
   }
+  
 
   
   
@@ -420,6 +421,9 @@ class BalanceView : UITableViewController
       if(indexPath.row == 7)
       {
         self.bvc!.cellIncrementButton = UIStepper()
+        self.bvc!.cellIncrementButton.enabled = false
+        self.bvc!.cellIncrementButton.alpha = 0.5
+
         self.bvc!.cellIncrementButton.wraps = false
         self.bvc!.cellIncrementButton.continuous = false
         self.bvc!.cellIncrementButton.autorepeat = false
@@ -441,6 +445,10 @@ class BalanceView : UITableViewController
     print("timer start")
     self.bvc!.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BalanceView.timerCountdown), userInfo: nil, repeats: true)
     sender.enabled = false
+    self.bvc!.cellIncrementButton.enabled = true
+    self.bvc!.cellIncrementButton.alpha = 1.0
+
+
   }
   
   func stepperPressed(sender: UIStepper)
@@ -460,6 +468,11 @@ class BalanceView : UITableViewController
       self.bvc!.cellTimerLabel.text = String(format: "%.1f", self.bvc!.timerCount)
       if(self.bvc!.timerCount < 0.1)
       {
+        self.bvc!.cellTimerButton.enabled = false
+        self.bvc!.cellTimerButton.alpha = 0.5
+
+
+
         self.bvc!.timerCount = 0
         self.bvc!.cellTimerLabel.text = "Press Done When Ready"
         self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 20.0)
