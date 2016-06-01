@@ -98,13 +98,16 @@ class TestTypeController: UITableViewController {
                 let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
                 let(monthPageTitle, monthTestName, monthCOA, monthInstr) = getCogAssMonthStrings()
                 let(sacPageTitle,sacTestName, sac, sacInstr) = getSACDelayRecallStrings(memPageTitle)
+                let (balancePageTitles, balanceTestName, balanceInstructions) = getBalanceStrings()
                 
                 //SAC DELAYED RECALL: IMMEDIATE MEMORY
                 let SacDelayedRecallView = TablePageViewController(pageTitles: sacPageTitle, labelArray: sac, testName: sacTestName, instructionPage: nil, instructions: sacInstr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: true) as TablePageViewController
                 
+                //BESS TEST
+                let BalanceView = BalanceViewController(pageTitles: balancePageTitles, testName: balanceTestName, instructions: balanceInstructions, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], next: SacDelayedRecallView) as BalanceViewController
                 
                 //COGNATIVE ASSESSMENT: MONTH
-                let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: SacDelayedRecallView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, nextBalance: BalanceView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
                 
                 //COGNATIVE ASSESSMENT: NUMBER
                 let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 1], singlePage: false) as TablePageViewController
@@ -162,13 +165,16 @@ class TestTypeController: UITableViewController {
                     let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
                     let(monthPageTitle, monthTestName, monthCOA, monthInstr) = getCogAssMonthStrings()
                     let(sacPageTitle,sacTestName, sac, sacInstr) = getSACDelayRecallStrings(memPageTitle)
-                    
+                    let (balancePageTitles, balanceTestName, balanceInstructions) = getBalanceStrings()
+                  
                     //SAC DELAYED RECALL: IMMEDIATE MEMORY
                     let SacDelayedRecallView = TablePageViewController(pageTitles: sacPageTitle, labelArray: sac, testName: sacTestName, instructionPage: nil, instructions: sacInstr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: true) as TablePageViewController
-                    
+                  
+                    //BESS TEST
+                    let BalanceView = BalanceViewController(pageTitles: balancePageTitles, testName: balanceTestName, instructions: balanceInstructions, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], next: SacDelayedRecallView) as BalanceViewController
                     
                     //COGNATIVE ASSESSMENT: MONTH
-                    let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: SacDelayedRecallView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                    let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, nextBalance: BalanceView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
                     
                     //COGNATIVE ASSESSMENT: NUMBER
                     let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 1], singlePage: false) as TablePageViewController
@@ -213,13 +219,16 @@ class TestTypeController: UITableViewController {
                     let(numPageTitle, numTestName, numCOA, numInstr) = getCogAssNumStrings()
                     let(monthPageTitle, monthTestName, monthCOA, monthInstr) = getCogAssMonthStrings()
                     let(sacPageTitle,sacTestName, sac, sacInstr) = getSACDelayRecallStrings(memPageTitle)
-                    
+                    let (balancePageTitles, balanceTestName, balanceInstructions) = getBalanceStrings()
+                  
                     //SAC DELAYED RECALL: IMMEDIATE MEMORY
                     let SacDelayedRecallView = TablePageViewController(pageTitles: sacPageTitle, labelArray: sac, testName: sacTestName, instructionPage: nil, instructions: sacInstr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: true) as TablePageViewController
-                    
-                    
+                  
+                    //BESS TEST
+                    let BalanceView = BalanceViewController(pageTitles: balancePageTitles, testName: balanceTestName, instructions: balanceInstructions, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], next: SacDelayedRecallView) as BalanceViewController
+                  
                     //COGNATIVE ASSESSMENT: MONTH
-                    let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, next: SacDelayedRecallView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
+                    let CognitiveMonthsBackwardsView = TablePageViewController(pageTitles: monthPageTitle, labelArray: monthCOA, testName: monthTestName, instructionPage: nil, instructions: monthInstr, nextBalance: BalanceView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: false) as TablePageViewController
                     
                     //COGNATIVE ASSESSMENT: NUMBER
                     let CognitiveNumBackwardsView = TablePageViewController(pageTitles: numPageTitle, labelArray: numCOA, testName: numTestName, instructionPage: nil, instructions: numInstr, next: CognitiveMonthsBackwardsView, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: [0, 1], singlePage: false) as TablePageViewController
