@@ -283,7 +283,12 @@ class DataModel : NSObject {
     func scoreStringArray(id: String) -> ([String], [String?])
     {
         let scoreTitle = ["Number of Symptoms", "Symptom Severity", "Orientation", "Immediate Memory", "Concentration", "Delayed Recall", "SAC Total", "Balance Examination Score"]
-        var scoreResults: [String?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
+        var scoreResults: [String?] = ["--", "--", "--", "--", "--", "--", "--", "--", "--", "--"]
+        
+        if(id == "N/A")
+        {
+            return (scoreTitle, scoreResults)
+        }
         
         var score = scoreWithID(id)
         let currentScore = score[0]
