@@ -88,6 +88,7 @@ class ListPlayerProfileController: UITableViewController {
         if doListPlayers == true {
             let fullPlayerName: String = listOfPlayers[indexPath.row].firstName! + " " + listOfPlayers[indexPath.row].lastName!
             let playerID: String = listOfPlayers[indexPath.row].playerID!
+            
             if typeOfProfilePage == "List" {
                 switch(indexPath.section) {
                 case 0:
