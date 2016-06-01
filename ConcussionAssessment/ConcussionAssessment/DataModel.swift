@@ -358,6 +358,11 @@ class DataModel : NSObject {
 
     }
     
+    
+    /********************************************************************************************
+     * SCORE SETTER FUNCTIONS
+     ********************************************************************************************/
+    
     func setBaselineForScore(id: String, baseline: String) {
         let fetchRequest = NSFetchRequest(entityName: "Score");
         fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
@@ -553,6 +558,36 @@ class DataModel : NSObject {
       }
     }
   
+    func setScoreType(id: String, type: String) {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
+        var fetchScore: [Score]
+        
+        do {
+            fetchScore = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+        } catch {
+            fatalError("Failed to get Score")
+        }
+        fetchScore[0].scoreType = type;
+        
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            fatalError("Cannot create Score Object with playerID")
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /********************************************************************************************
+     * PLAYER SETTER FUNCTIONS
+     ********************************************************************************************/
     
     func setIDNumber(id: String, studentID: String)
     {
