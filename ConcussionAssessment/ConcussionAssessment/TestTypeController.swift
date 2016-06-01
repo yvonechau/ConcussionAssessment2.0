@@ -90,7 +90,6 @@ class TestTypeController: UITableViewController {
                 /********************************************************************************************
                  * BASELINE INJURY TEST
                  ********************************************************************************************/
-                currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
                 database.setBaselineForScore(currentScoreID!, baseline: currentScoreID!)
                 database.setScoreType(currentScoreID!, type: "Baseline")
@@ -106,6 +105,7 @@ class TestTypeController: UITableViewController {
                 
                 //SAC DELAYED RECALL: IMMEDIATE MEMORY
                 let SacDelayedRecallView = TablePageViewController(pageTitles: sacPageTitle, labelArray: sac, testName: sacTestName, instructionPage: nil, instructions: sacInstr, next: nil, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], numTrials: nil, singlePage: true) as TablePageViewController
+              
                 
                 //BESS TEST
                 let BalanceView = BalanceViewController(pageTitles: balancePageTitles, testName: balanceTestName, instructions: balanceInstructions, original: self.navigationController!.viewControllers[self.navigationController!.viewControllers.count - originalView], next: SacDelayedRecallView) as BalanceViewController
@@ -160,7 +160,6 @@ class TestTypeController: UITableViewController {
                         }
                     }
 
-                    currentScoreID = NSUUID().UUIDString
                     database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
                     database.setBaselineForScore(currentScoreID!, baseline: latestScore)
                     database.setScoreType(currentScoreID!, type: "Injury")
@@ -217,8 +216,6 @@ class TestTypeController: UITableViewController {
                 }
                 else
                 {
-
-                    currentScoreID = NSUUID().UUIDString
                     database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
 
                     let baselineID = database.getPlayerBaseline(currentPlayerID)
