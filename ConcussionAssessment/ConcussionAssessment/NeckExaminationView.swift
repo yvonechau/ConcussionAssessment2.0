@@ -214,7 +214,7 @@ init(nvc : NeckExamViewController)
     self.tableView.contentInset = UIEdgeInsetsMake(80.0, 0, -(self.nvc!.tabBarController!.tabBar.frame.size.height - 50.0 ), 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     self.tableView.rowHeight = 50.0
-
+    self.tableView.allowsSelection = false
     //let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
     //doneButton.actionsForTarget(target: AnyObject?, forControlEvent: UIControlEvents)
 
@@ -304,9 +304,15 @@ init(nvc : NeckExamViewController)
       doneButton.layer.cornerRadius = 10
       doneButton.clipsToBounds = true
       Cell.contentView.addSubview(doneButton)
+      
       Cell.backgroundColor = UIColor.clearColor()
+      
       return Cell
     }
+  }
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    tableView.cellForRowAtIndexPath(indexPath)?.selected = false
+    tableView.cellForRowAtIndexPath(indexPath)?.focusStyle = .Custom
   }
 
 }
