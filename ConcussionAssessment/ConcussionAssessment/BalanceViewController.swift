@@ -104,7 +104,7 @@ class BalanceViewController: UIViewController, UIPageViewControllerDataSource {
     
     let viewControllers = [self.startingViewController!]
     pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: nil)
-    pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height);
+    pageViewController!.view.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height - (self.tabBarController!.tabBar.frame.size.height));
     
     
     addChildViewController(pageViewController!)
@@ -244,9 +244,13 @@ class BalanceView : UITableViewController
     super.viewDidLoad()
     self.doneButton.enabled = false
 
-    self.tableView.contentInset = UIEdgeInsetsMake(120.0, 0, -120.0, 0)
+    self.tableView.frame = CGRectMake(0, (self.bvc!.navigationController?.navigationBar.frame.size.height)! - self.bvc!.tabBarController!.tabBar.frame.size.height, self.bvc!.view.frame.size.width, self.tableView.frame.size.height-self.bvc!.tabBarController!.tabBar.frame.size.height);
+    
+    self.tableView.contentInset = UIEdgeInsetsMake((self.bvc!.navigationController?.navigationBar.frame.size.height)! + 40, 0, -(self.bvc!.tabBarController!.tabBar.frame.size.height), 0)
+    self.tableView.scrollIndicatorInsets.bottom = -(self.bvc!.tabBarController!.tabBar.frame.size.height)
+    self.tableView.scrollIndicatorInsets.top = (self.bvc!.navigationController?.navigationBar.frame.size.height)! + 40
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-    self.tableView.rowHeight = 50.0
+    self.tableView.rowHeight = 40.0
   }
   
   override func didReceiveMemoryWarning()
@@ -257,6 +261,7 @@ class BalanceView : UITableViewController
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
+    print("here")
     return 2
   }
   
@@ -335,6 +340,7 @@ class BalanceView : UITableViewController
     
     if indexPath.section == 1
     {
+      print("here")
       let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
       
       self.doneButton.addTarget(self, action: #selector(BalanceView.doneButtonPressed(_:)), forControlEvents: .TouchUpInside)
@@ -453,7 +459,7 @@ class BalanceView : UITableViewController
     self.bvc!.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BalanceView.timerCountdown), userInfo: nil, repeats: true)
     sender.enabled = false
     self.bvc!.cellIncrementButton.enabled = true
-    self.bvc!.cellIncrementButton.alpha = 1.0    
+    self.bvc!.cellIncrementButton.alpha = 1.0
     self.bvc!.cellTimerButton.enabled = false
     self.bvc!.cellTimerButton.alpha = 0.5
 
@@ -482,7 +488,6 @@ class BalanceView : UITableViewController
         self.bvc!.timerCount = 0
         self.bvc!.cellTimerLabel.text = "Press Done When Ready"
         self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 20.0)
-        print("hi")
         self.doneButton.enabled = true
         self.doneButton.hidden = false
       }
