@@ -38,7 +38,7 @@ class NeckExamViewController: UIViewController, UIPageViewControllerDataSource
     self.pageTitles = pageTitles
     self.testName = testName
     self.pageContent = pageContent
-    self.instructions = instructions
+    self.instructions = "Select the correct option for each neck section."
     self.next = next
     self.original = original!
     self.numPages = 0
@@ -209,6 +209,8 @@ init(nvc : NeckExamViewController)
   
   override func viewDidLoad()
   {
+    self.tableView.frame = CGRectMake(0, (self.nvc!.navigationController?.navigationBar.frame.size.height)! - self.nvc!.tabBarController!.tabBar.frame.size.height, self.nvc!.view.frame.size.width, self.nvc!.view.frame.size.height-self.nvc!.tabBarController!.tabBar.frame.size.height);
+
     self.tableView.contentInset = UIEdgeInsetsMake(80.0, 0, -120.0, 0)
     self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
     self.tableView.rowHeight = 50.0
@@ -216,14 +218,6 @@ init(nvc : NeckExamViewController)
     //let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 70))
     //doneButton.actionsForTarget(target: AnyObject?, forControlEvent: UIControlEvents)
 
-    let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 60))
-    doneButton.addTarget(self, action: #selector(NeckExamView.buttonPressed(_:)), forControlEvents: .TouchUpInside)
-
-    doneButton.setTitle("Done", forState: .Normal)
-    doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-    doneButton.backgroundColor =  UIColor(rgb: 0x002855)
-
-    self.tableView.addSubview(doneButton)
     
     super.viewDidLoad()
   }
@@ -247,9 +241,8 @@ init(nvc : NeckExamViewController)
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
     print("here")
-    print(self.nvc!.pageContent.count)
-    print(self.nvc!.currentIndex)
-    return self.pageContent[self.nvc!.currentIndex].count
+    
+    return self.pageContent[self.nvc!.currentIndex].count + 1
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -259,9 +252,17 @@ init(nvc : NeckExamViewController)
   
   override func tableView(tableView: UITableView, titleForHeaderInSection section: Int)->String?
   {
-    let sectionHeader = self.pageContent[self.nvc!.currentIndex][section]
+    if section < self.pageContent[self.nvc!.currentIndex].count
+    {
+      let sectionHeader = self.pageContent[self.nvc!.currentIndex][section]
+      
+      return sectionHeader[sectionHeader.count - 1]
 
-    return sectionHeader[sectionHeader.count - 1]
+    }
+    else
+    {
+      return ""
+    }
   }
   
   override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
@@ -273,13 +274,31 @@ init(nvc : NeckExamViewController)
  //called for how many rows in a section
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
   {
-    let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
-    let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(10, -20, 200, 100))
-    pickerView.tag = indexPath.section
-    pickerView.dataSource = self
-    pickerView.delegate = self
-    Cell.contentView.addSubview(pickerView)
-    return Cell
+    if indexPath.section < self.pageContent[self.nvc!.currentIndex].count
+    {
+      let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
+      let pickerView: UIPickerView = UIPickerView(frame: CGRectMake(10, -20, 200, 100))
+      pickerView.tag = indexPath.section
+      pickerView.dataSource = self
+      pickerView.delegate = self
+      Cell.contentView.addSubview(pickerView)
+      return Cell
+    }
+    else{
+      print(indexPath.section)
+      let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
+      
+      let doneButton = UIButton(frame: CGRectMake(view.frame.width/2 - 50, view.frame.height - 230, 100, 60))
+      doneButton.addTarget(self, action: #selector(NeckExamView.buttonPressed(_:)), forControlEvents: .TouchUpInside)
+      
+      doneButton.setTitle("Done", forState: .Normal)
+      doneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+      doneButton.backgroundColor =  UIColor(rgb: 0x002855)
+      
+      Cell.contentView.addSubview(doneButton)
+      
+      return Cell
+    }
   }
   
   
