@@ -95,16 +95,17 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             // if no scores exist for player
             self.numberOfScores = 0
             scoreIdsOfPlayer = ["N/A"]
+
         }
         
         // If more than one score related to the baseline
         if self.numberOfScores > 0 {
             for x in 0..<self.numberOfScores {
-                let (_, tempScoreResults) = database.scoreStringArray(scoreIdsOfPlayer[x])
+                let (_, tempScoreResults, neckExam) = database.scoreStringArray(scoreIdsOfPlayer[x])
                 scoreResults.append(tempScoreResults)
             }
         } else {
-            let (_, tempScoreResults) = database.scoreStringArray(scoreIdsOfPlayer[0])
+            let (_, tempScoreResults, neckExam) = database.scoreStringArray(scoreIdsOfPlayer[0])
             if self.numberOfScores > 3 {
                 
             }

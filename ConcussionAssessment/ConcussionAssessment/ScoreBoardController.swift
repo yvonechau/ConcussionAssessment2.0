@@ -39,7 +39,7 @@ class ScoreBoardController : UIViewController
         
         self.view.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
-        let (scoreTitle, scoreResults) = database.scoreStringArray(currentScoreID!)
+        let (scoreTitle, scoreResults, neckExam) = database.scoreStringArray(currentScoreID!)
 
         
         for index in 0...7

@@ -312,16 +312,20 @@ class BalanceView : UITableViewController
     {
       if(self.bvc!.next == nil) //end of test
       {
-        let scoreboard = ScoreBoardController(originalPage: self.bvc!.original!)
-        self.navigationController?.pushViewController(scoreboard, animated: true)
+        if (self.navigationController?.topViewController!.isKindOfClass(ScoreBoardController) != nil)
+        {
+            let scoreboard = ScoreBoardController(originalPage: self.bvc!.original!)
+            self.navigationController?.pushViewController(scoreboard, animated: true)
+        }
       }
       else if(self.bvc!.next != nil)
       {
-        self.pageViewController.view.userInteractionEnabled = false
-        self.pvc!.navigationController?.pushViewController(self.pvc!.next!, animated: true)
-        self.pvc!.view.userInteractionEnabled = true
+        print("next, bvc controller")
+        self.bvc!.pageViewController?.view.userInteractionEnabled = false
+        self.bvc!.navigationController?.pushViewController(self.bvc!.next!, animated: true)
+        self.bvc!.view.userInteractionEnabled = true
 
-        self.navigationController?.pushViewController(self.bvc!.next!, animated: true)
+        //self.navigationController?.pushViewController(self.bvc!.next!, animated: true)
       }
     }
     else

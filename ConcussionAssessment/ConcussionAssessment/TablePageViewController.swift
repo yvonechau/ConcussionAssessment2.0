@@ -518,12 +518,16 @@ class TablePageView: UITableViewController
     {
       if(self.pvc!.next == nil) //end of test
       {
-        //self.navigationController?.popToViewController(self.original!, animated: true)
-        let scoreboard = ScoreBoardController(originalPage: self.pvc!.original!)
-        self.navigationController?.pushViewController(scoreboard, animated: true)
+        if (self.navigationController?.topViewController!.isKindOfClass(ScoreBoardController) != nil)
+        {
+            //self.navigationController?.popToViewController(self.original!, animated: true)
+            let scoreboard = ScoreBoardController(originalPage: self.pvc!.original!)
+            self.navigationController?.pushViewController(scoreboard, animated: true)
+        }
       }
       else if(self.pvc!.next != nil)
       {
+        print("next, normal controller")
         self.navigationController?.pushViewController(self.pvc!.next!, animated: true)
       }
     }
