@@ -105,6 +105,9 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             }
         } else {
             let (_, tempScoreResults) = database.scoreStringArray(scoreIdsOfPlayer[0])
+            if self.numberOfScores > 3 {
+                
+            }
             scoreResults.append(tempScoreResults)
             print("IF no baseline")
             print(scoreResults)
@@ -182,14 +185,16 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             }
         }
         
-            setFrameForScoreDisplay(cell, isTopRow: false)
-        
         if numberOfScores > 0 {
             for x in 0..<numberOfScores {
                 switch categoryNumber {
                 case 0:
-                    cell.label.textColor = UIColor(rgb: 0xff5e3a)
                     if x == whichColumn {
+                        if Int(scoreResults[x][6]!) < 20 {
+                            cell.label.textColor = UIColor(rgb: 0x1ad6fd)
+                        } else {
+                            cell.label.textColor = UIColor(rgb: 0x007aff)
+                        }
                         switch whichColumn {
                         case 0:
                             setFrameForScoreDisplay(cell, isTopRow: true)
@@ -206,8 +211,12 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                         }
                     }
                 case 1:
-                    cell.label.textColor = UIColor(rgb: 0x007aff)
                     if x == whichColumn {
+                        if Int(scoreResults[x][0]!) > 0 {
+                            cell.label.textColor = UIColor(rgb: 0x5856d6)
+                        } else {
+                            cell.label.textColor = UIColor(rgb: 0x007aff)
+                        }
                         switch whichColumn {
                         case 0:
                             cell.setCellText(scoreResults[x][0]!, categoryLabelText: catText[1])
@@ -221,8 +230,12 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                         }
                     }
                 case 2:
-                    cell.label.textColor = UIColor(rgb: 0x5856d6)
                     if x == whichColumn {
+                        if Int(scoreResults[x][1]!) > 0 {
+                            cell.label.textColor = UIColor(rgb: 0x5856d6)
+                        } else {
+                            cell.label.textColor = UIColor(rgb: 0x007aff)
+                        }
                         switch whichColumn {
                         case 0:
                             cell.setCellText(scoreResults[x][1]!, categoryLabelText: catText[2])
@@ -236,8 +249,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                         }
                     }
                 case 3:
-                    cell.label.textColor = UIColor(rgb: 0xff5e3a)
                     if x == whichColumn {
+                        cell.label.textColor = UIColor(rgb: 0xff5e3a)
                         switch whichColumn {
                         case 0:
                             cell.setCellText(scoreResults[x][2]!, categoryLabelText: catText[3])
@@ -251,8 +264,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                         }
                     }
                 case 4:
-                    cell.label.textColor = UIColor(rgb: 0xff5e3a)
                     if x == whichColumn {
+                        cell.label.textColor = UIColor(rgb: 0xff5e3a)
                         switch whichColumn {
                         case 0:
                             cell.setCellText(scoreResults[x][3]!, categoryLabelText: catText[4])
@@ -266,8 +279,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                         }
                     }
                 case 5:
-                    cell.label.textColor = UIColor(rgb: 0xff5e3a)
                     if x == whichColumn {
+                        cell.label.textColor = UIColor(rgb: 0xff5e3a)
                         switch whichColumn {
                         case 0:
                             cell.setCellText(scoreResults[x][4]!, categoryLabelText: catText[5])
@@ -281,8 +294,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                         }
                     }
                 case 6:
-                    cell.label.textColor = UIColor(rgb: 0xff5e3a)
                     if x == whichColumn {
+                        cell.label.textColor = UIColor(rgb: 0xff5e3a)
                         switch whichColumn {
                         case 0:
                             cell.setCellText(scoreResults[x][5]!, categoryLabelText: catText[6])
@@ -296,8 +309,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                         }
                     }
                 case 7:
-                    cell.label.textColor = UIColor(rgb: 0xff5e3a)
                     if x == whichColumn {
+                        cell.label.textColor = UIColor(rgb: 0xff5e3a)
                         switch whichColumn {
                         case 0:
                             cell.setCellText(scoreResults[x][7]!, categoryLabelText: catText[7])
