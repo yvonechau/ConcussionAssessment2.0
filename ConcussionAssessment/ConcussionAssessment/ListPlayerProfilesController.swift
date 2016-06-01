@@ -99,6 +99,7 @@ class ListPlayerProfileController: UITableViewController {
             } else if typeOfProfilePage == "Select" {
                 switch(indexPath.section) {
                 case 0:
+                    currentScoreID = NSUUID().UUIDString
                     /*
                     currentScoreID = NSUUID().UUIDString
                     database.insertNewScore(playerID, scoreID: currentScoreID!)

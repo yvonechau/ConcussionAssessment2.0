@@ -90,7 +90,6 @@ class TestTypeController: UITableViewController {
                 /********************************************************************************************
                  * BASELINE INJURY TEST
                  ********************************************************************************************/
-                currentScoreID = NSUUID().UUIDString
                 database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
                 database.setBaselineForScore(currentScoreID!, baseline: currentScoreID!)
                 database.setScoreType(currentScoreID!, type: "Baseline")
@@ -160,7 +159,6 @@ class TestTypeController: UITableViewController {
                         }
                     }
                     
-                    currentScoreID = NSUUID().UUIDString
                     database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
                     database.setBaselineForScore(currentScoreID!, baseline: latestScore)
                     database.setScoreType(currentScoreID!, type: "Injury")
@@ -218,7 +216,6 @@ class TestTypeController: UITableViewController {
                 else
                 {
                     //database.scoreWithBaseLine
-                    currentScoreID = NSUUID().UUIDString
                     database.insertNewScore(currentPlayerID, scoreID: currentScoreID!)
                     database.setScoreType(currentScoreID!, type: "Post-Injury")
                     let baselineID = database.getPlayerBaseline(currentPlayerID)
