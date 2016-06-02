@@ -489,6 +489,11 @@ class BalanceView : UITableViewController
     else if(self.bvc!.timerCount > 0) {
       self.bvc!.timerCount -= 0.1
       self.bvc!.cellTimerLabel.text = String(format: "%.1f", self.bvc!.timerCount)
+      if(self.bvc!.timerCount<0.5)
+      {
+        self.doneButton.enabled = true
+
+      }
       if(self.bvc!.timerCount < 0.1)
       {
 
@@ -496,7 +501,6 @@ class BalanceView : UITableViewController
         self.bvc!.timerCount = 0
         self.bvc!.cellTimerLabel.text = "Press Done When Ready"
         self.bvc!.cellTimerLabel.font = UIFont(name: "Helvetica Neue", size: 20.0)
-        self.doneButton.enabled = true
         self.doneButton.hidden = false
       }
     }
