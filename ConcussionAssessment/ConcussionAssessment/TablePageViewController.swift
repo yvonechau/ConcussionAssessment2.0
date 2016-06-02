@@ -53,7 +53,7 @@ class TablePageViewController: UIViewController, UIPageViewControllerDataSource
     super.init(nibName:nil, bundle:nil)
   }
   
-  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, nextBalance: BalanceViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType)
+  init(pageTitles : Array<String>, labelArray: Array<Array<String>>, testName : String, instructionPage : TablePageView?, instructions: String, nextBalance: NeckExamViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType)
   {
     self.pageTitles = pageTitles
     self.labelArray = labelArray
