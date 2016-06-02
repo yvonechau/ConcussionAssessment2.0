@@ -44,6 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         navTakeTestPage.tabBarItem.title = "Take Test"
         navViewPlayerProfilePage.tabBarItem.title = "View Profiles"
+        
+        navTakeTestPage.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
+        navViewPlayerProfilePage.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Contacts, tag: 1)
+
+        
         //navCreatePlayerPage.tabBarItem.title = "CreateProfiles"
         
         tabBar.addChildViewController(navTakeTestPage)
