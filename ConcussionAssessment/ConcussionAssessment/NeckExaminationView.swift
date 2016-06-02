@@ -33,7 +33,7 @@ class NeckExamViewController: UIViewController, UIPageViewControllerDataSource
   var numSelected: NSNumber
   var currScore: NSNumber
   
-  init(pageTitles : Array<String>, pageContent: [[[String]]], testName : String, instructions: String, next: UIViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType)
+  init(pageTitles : Array<String>, pageContent: [[[String]]], testName : String, instructions: String, next: BalanceViewController?, original: UIViewController?, numTrials: [Int]?, singlePage: BooleanType)
   {
     self.pageTitles = pageTitles
     self.testName = testName
@@ -203,7 +203,23 @@ init(nvc : NeckExamViewController)
     self.nvc!.currentIndex += 1
     if self.nvc!.currentIndex == self.pageContent.count
     {
-      self.navigationController?.popToViewController(self.nvc!.original!, animated: true)
+      if(self.nvc!.next == nil) //end of test
+      {
+        if(self.navigationController?.topViewController!.isKindOfClass(ScoreBoardController) != nil)
+        {
+          let scoreboard = ScoreBoardController(originalPage: self.nvc!.original!)
+          self.navigationController?.pushViewController(scoreboard, animated: true)
+        }
+      }
+      else if(self.nvc!.next != nil)
+      {
+        print("next, bvc controller")
+        self.nvc!.pageViewController?.view.userInteractionEnabled = false
+        self.nvc!.navigationController?.pushViewController(self.nvc!.next!, animated: true)
+        self.nvc!.view.userInteractionEnabled = true
+        
+        //self.navigationController?.pushViewController(self.bvc!.next!, animated: true)
+      }
     }
     else{
       let startingViewController: NeckExamView = self.nvc!.viewControllerAtIndex(self.nvc!.currentIndex)!
