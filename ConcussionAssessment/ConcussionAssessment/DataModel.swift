@@ -415,7 +415,7 @@ class DataModel : NSObject {
     func getScoreDate(id: String) -> NSDate
     {
         let fetchRequest = NSFetchRequest(entityName: "Score");
-        fetchRequest.predicate = NSPredicate(format: "score == %@", id);
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
         
         do {
             let fetchedScores = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
@@ -434,7 +434,7 @@ class DataModel : NSObject {
     func getScoreType(id: String) -> String
     {
         let fetchRequest = NSFetchRequest(entityName: "Score");
-        fetchRequest.predicate = NSPredicate(format: "score == %@", id);
+        fetchRequest.predicate = NSPredicate(format: "scoreID == %@", id);
         
         do {
             let fetchedScores = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]

@@ -9,7 +9,7 @@
 import UIKit
 
 class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIPopoverPresentationControllerDelegate {
-    var catText: [String] = ["SAC Total", "Number of Symptoms", "Severity", "Orientation", "Immediate memory", "Concentration", "Delayed recall", "Balance Score", "Neck Exam"]
+    var catText: [String] = ["SAC Total", "Number of Symptoms", "Severity", "Orientation", "Immediate memory", "Concentration", "Delayed recall", "Balance Score"]
     var collectionView: UICollectionView!
     var numberScoresDisplayed: Int!
     var name: String!
@@ -17,6 +17,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     var playerBaselineID: String
     var scoreResults: [[String?]]
     var scoreIdsOfPlayer: [String]
+    var scoreDates: [String]
+    var scoreTypes: [String]
     var numberOfScores: Int
     var didGetScores: Bool = true
     var infoButton: UIButton
@@ -27,7 +29,6 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.setHidesBackButton(true, animated: true)
 
         numberScoresDisplayed = catText.count * numberOfColumns
         self.title = name
@@ -60,6 +61,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         infoButton = UIButton(type: .InfoLight)
         infoButton.addTarget(self, action: #selector(self.infoButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: infoButton)
+        
         self.view.addSubview(collectionView)
     }
     
@@ -74,6 +76,8 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         infoButton = UIButton(type: .InfoLight)
         self.scoreIdsOfPlayer = []
         self.scoreResults = []
+        self.scoreDates = []
+        self.scoreTypes = []
         self.name = name
         self.playerID = playerID
         
@@ -104,12 +108,17 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
             for x in 0..<self.numberOfScores {
                 let (_, tempScoreResults, neckExam) = database.scoreStringArray(scoreIdsOfPlayer[x])
                 scoreResults.append(tempScoreResults)
+                
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "MM / dd / yyyy"
+                let dateString = dateFormatter.stringFromDate(database.getScoreDate(scoreIdsOfPlayer[x]))
+                scoreDates.append(dateString)
+                
+                let tempScoreType = database.getScoreType(scoreIdsOfPlayer[x])
+                scoreTypes.append(tempScoreType)
             }
         } else {
             let (_, tempScoreResults, neckExam) = database.scoreStringArray(scoreIdsOfPlayer[0])
-            if self.numberOfScores > 3 {
-                
-            }
             scoreResults.append(tempScoreResults)
             print("IF no baseline")
             print(scoreResults)
@@ -204,13 +213,13 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                         switch whichColumn {
                         case 0:
                             setFrameForScoreDisplay(cell, isTopRow: true)
-                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: "Baseline")
+                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: scoreTypes[x] + " " + scoreDates[x])
                         case 1:
                             setFrameForScoreDisplay(cell, isTopRow: true)
-                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: "Post-injury 1")
+                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: scoreTypes[x] + " " + scoreDates[x])
                         case 2:
                             setFrameForScoreDisplay(cell, isTopRow: true)
-                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: "Post-injury 2")
+                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: scoreTypes[x] + " " + scoreDates[x])
                         default:
                             cell.label.textColor = UIColor(rgb: 0xff3b30)
                             cell.setCellText("--", categoryLabelText: "No tests/invalid test!")
@@ -409,6 +418,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         if isTopRow {
             Cell.label.frame = CGRect(x: Cell.contentView.frame.origin.x, y: Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width, height: Cell.contentView.frame.height/3)
             Cell.testInfoLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: Cell.contentView.frame.minY, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
+            Cell.testInfoLabel.numberOfLines = 0
             Cell.categoryLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: 2*Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
         } else {
             Cell.label.frame = CGRect(x: Cell.contentView.frame.origin.x, y: Cell.contentView.frame.origin.y, width: Cell.contentView.frame.width, height: 2*Cell.contentView.frame.height/3)
