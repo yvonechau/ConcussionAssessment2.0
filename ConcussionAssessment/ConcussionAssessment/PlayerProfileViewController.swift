@@ -9,7 +9,7 @@
 import UIKit
 
 class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UIPopoverPresentationControllerDelegate {
-    var catText: [String] = ["SAC Total", "Number of Symptoms", "Severity", "Orientation", "Immediate memory", "Concentration", "Delayed recall", "Balance Score", "Neck Exam"]
+    var catText: [String] = ["SAC Total", "Number of Symptoms", "Severity", "Orientation", "Immediate memory", "Concentration", "Delayed recall", "Balance Score"]
     var collectionView: UICollectionView!
     var numberScoresDisplayed: Int!
     var name: String!
@@ -213,13 +213,13 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
                         switch whichColumn {
                         case 0:
                             setFrameForScoreDisplay(cell, isTopRow: true)
-                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: scoreTypes[x] + scoreDates[x])
+                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: scoreTypes[x] + " " + scoreDates[x])
                         case 1:
                             setFrameForScoreDisplay(cell, isTopRow: true)
-                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: scoreTypes[x] + scoreDates[x])
+                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: scoreTypes[x] + " " + scoreDates[x])
                         case 2:
                             setFrameForScoreDisplay(cell, isTopRow: true)
-                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: scoreTypes[x] + scoreDates[x])
+                            cell.setCellText(scoreResults[x][6]!, categoryLabelText: catText[0], testInfoText: scoreTypes[x] + " " + scoreDates[x])
                         default:
                             cell.label.textColor = UIColor(rgb: 0xff3b30)
                             cell.setCellText("--", categoryLabelText: "No tests/invalid test!")
@@ -418,6 +418,7 @@ class PlayerProfileViewController: UIViewController, UICollectionViewDelegateFlo
         if isTopRow {
             Cell.label.frame = CGRect(x: Cell.contentView.frame.origin.x, y: Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width, height: Cell.contentView.frame.height/3)
             Cell.testInfoLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: Cell.contentView.frame.minY, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
+            Cell.testInfoLabel.numberOfLines = 0
             Cell.categoryLabel.frame = CGRect(x: Cell.contentView.frame.maxX/6, y: 2*Cell.contentView.frame.maxY/3, width: Cell.contentView.frame.width*2/3, height: Cell.contentView.frame.height/3)
         } else {
             Cell.label.frame = CGRect(x: Cell.contentView.frame.origin.x, y: Cell.contentView.frame.origin.y, width: Cell.contentView.frame.width, height: 2*Cell.contentView.frame.height/3)
