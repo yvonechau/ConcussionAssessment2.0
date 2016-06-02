@@ -263,7 +263,6 @@ class BalanceView : UITableViewController
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
-    print("here")
     return 2
   }
   
@@ -350,7 +349,6 @@ class BalanceView : UITableViewController
     
     if indexPath.section == 1
     {
-      print("here")
       let Cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "PickerCell")
       
       self.doneButton.addTarget(self, action: #selector(BalanceView.doneButtonPressed(_:)), forControlEvents: .TouchUpInside)

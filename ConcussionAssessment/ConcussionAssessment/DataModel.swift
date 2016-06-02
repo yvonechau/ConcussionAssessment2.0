@@ -412,6 +412,46 @@ class DataModel : NSObject {
 
     }
     
+    func getScoreDate(id: String) -> NSDate
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "score == %@", id);
+        
+        do {
+            let fetchedScores = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            
+            return fetchedScores[0].date!
+        } catch {
+            fatalError("Failed to fetch players")
+        }
+        
+        let myDate: NSDate
+        
+        return myDate
+        
+    }
+    
+    func getScoreType(id: String) -> String
+    {
+        let fetchRequest = NSFetchRequest(entityName: "Score");
+        fetchRequest.predicate = NSPredicate(format: "score == %@", id);
+        
+        do {
+            let fetchedScores = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [Score]
+            
+            return fetchedScores[0].scoreType!
+        } catch {
+            fatalError("Failed to fetch players")
+        }
+        
+        
+        return "N/A"
+        
+    }
+    
+    
+    
+    
     
     /********************************************************************************************
      * SCORE SETTER FUNCTIONS
