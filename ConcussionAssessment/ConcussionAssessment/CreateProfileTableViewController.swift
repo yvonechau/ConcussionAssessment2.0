@@ -25,15 +25,16 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      self.navigationItem.setHidesBackButton(true, animated: true)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         self.title = "Create Profile"
         
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(self.cancelCreateProfile))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(self.finishedEditingProfile))
         self.navigationItem.rightBarButtonItem?.enabled = false
+        self.navigationItem.setHidesBackButton(true, animated: true)
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CreateProfileTableViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -130,6 +131,10 @@ class CreateProfileTableViewController: UITableViewController, UITextFieldDelega
     
     func textFieldDidBeginEditing(textField: UITextField) {
         self.navigationItem.rightBarButtonItem?.enabled = false;
+    }
+    
+    func cancelCreateProfile() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
